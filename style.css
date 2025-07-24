@@ -1,0 +1,185 @@
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: #F3E6D3; /* Areia Dourada */
+  color: #4C352A;      /* Marrom Terra Firme */
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  padding: 1em 0;
+  background: #752A2A; /* Marsala Profundo */
+}
+
+.logo {
+  width: 100px;
+  max-width: 80vw;
+  border-radius: 1em;
+  background: transparent;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em 1em 1.2em 1em;
+  background: #F3E6D3;
+}
+
+.hero-text {
+  text-align: left;
+  max-width: 360px;
+}
+
+.hero h1 {
+  font-size: 1.7em;
+  margin-bottom: 0.5em;
+  color: #752A2A;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 1.1em;
+  margin-bottom: 1.3em;
+  color: #7A6A4F;
+}
+
+.btn-zap {
+  background: #C6654C; /* Terracota Queimado */
+  color: #fff;
+  padding: 1em 2em;
+  border-radius: 2em;
+  font-size: 1em;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 1em;
+  box-shadow: 0 2px 12px #0002;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+
+.btn-zap:hover {
+  background: #C9AE8F;
+  color: #752A2A;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.hero-img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 1em;
+  margin-top: 1.5em;
+  box-shadow: 0 2px 16px #752A2A33;
+}
+
+.sobre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 1em;
+  margin: 1.2em 1em;
+  padding: 2em 1em 1.5em 1em;
+  box-shadow: 0 2px 16px #0001;
+}
+
+.sobre-img img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 1em;
+  margin-bottom: 1.2em;
+}
+
+.sobre-text {
+  max-width: 400px;
+  text-align: left;
+}
+
+.sobre-text h2 {
+  color: #752A2A;
+  margin-bottom: 0.5em;
+}
+
+.sobre-text p {
+  font-size: 1.06em;
+  color: #4C352A;
+  margin-bottom: 1em;
+}
+
+.btn-mini {
+  padding: 0.6em 1.3em;
+  font-size: 0.97em;
+}
+
+.etapas {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+  margin: 2em 1em 1.3em 1em;
+}
+
+.etapa {
+  background: #fff;
+  border-radius: 1em;
+  padding: 1.2em;
+  box-shadow: 0 2px 12px #0001;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.etapa-numero {
+  font-size: 1.5em;
+  font-weight: bold;
+  background: #C6654C;
+  color: #fff;
+  border-radius: 50%;
+  width: 2.3em;
+  height: 2.3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+
+.etapa h3 {
+  color: #752A2A;
+  margin-bottom: 0.3em;
+}
+
+.etapa p {
+  font-size: 1em;
+  color: #7A6A4F;
+}
+
+.contato-final {
+  text-align: center;
+  padding: 2em 1em 2em 1em;
+  background: #F3E6D3;
+}
+
+.btn-grande {
+  font-size: 1.15em;
+  padding: 1.1em 2.5em;
+}
+
+footer {
+  text-align: center;
+  padding: 2em 0 1em 0;
+  background: #752A2A;
+  color: #fff;
+  font-size: 1em;
+  border-radius: 1.1em 1.1em 0 0;
+  margin-top: 1.5em;
+}
+
+@media (min-width: 800px) {
+  .hero { flex-direction: row; justify-content: center; }
+  .hero-text { text-align: left; margin-right: 2.5em; }
+  .hero-img { margin-top: 0; }
+  .sobre { flex-direction: row; }
+  .sobre-img { margin-right: 2em; }
+  .etapas { flex-direction: row; gap: 2em; }
+  .etapa { align-items: center; width: 32%; }
+}
