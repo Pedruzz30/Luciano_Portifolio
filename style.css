@@ -17,30 +17,74 @@ body {
   padding: 0;
 }
 
+/* HEADER COM MENU */
 header {
+  background: var(--marsala-profundo);
+  padding: 0;
+}
+
+.header-content {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* logo fica grudada à esquerda */
-  padding: 1em 2em;
-  background: #752A2A; /* Marsala Profundo */
-  min-height: 70px; /* opcional, só pra deixar mais alto */
+  justify-content: space-between;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0.7em 2em;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .logo {
-  width: 100px;
+  width: 95px;
   max-width: 80vw;
   border-radius: 1em;
   background: transparent;
 }
 
+/* MENU LINKS */
+.menu {
+  display: flex;
+  gap: 2em;
+}
+
+.menu a {
+  color: var(--areia-dourada);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.08em;
+  padding: 0.5em 0.6em;
+  border-radius: 0.5em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.menu a:hover, .menu a:focus {
+  background: var(--dourado-fosco);
+  color: var(--marsala-profundo);
+}
+
+/* RESPONSIVO MENU */
 @media (max-width: 700px) {
-  header {
-    padding: 0.7em 1em;
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.6em 1em;
   }
   .logo {
     width: 75px;
   }
+  .menu {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.6em;
+    margin-top: 0.7em;
+  }
+  .menu a {
+    width: 100%;
+    padding: 0.7em 0.6em;
+    font-size: 1.12em;
+  }
 }
+
 
 
 .hero {
