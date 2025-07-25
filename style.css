@@ -1,3 +1,14 @@
+:root {
+  --areia-dourada: #F3E6D3;
+  --marsala-profundo: #752A2A;
+  --dourado-fosco: #C9AE8F;
+  --terracota-queimado: #C6654C;
+  --marrom-terra-firme: #4C352A;
+  --oliva-sutil: #7A6A4F;
+  --cinza-quente-neutro: #A89D92;
+  --berinjela-noturna: #3E2731;
+}
+
 body {
   font-family: 'Montserrat', Arial, sans-serif;
   background: #F3E6D3; /* Areia Dourada */
@@ -7,9 +18,12 @@ body {
 }
 
 header {
-  text-align: center;
-  padding: 1em 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* logo fica grudada à esquerda */
+  padding: 1em 2em;
   background: #752A2A; /* Marsala Profundo */
+  min-height: 70px; /* opcional, só pra deixar mais alto */
 }
 
 .logo {
@@ -18,6 +32,16 @@ header {
   border-radius: 1em;
   background: transparent;
 }
+
+@media (max-width: 700px) {
+  header {
+    padding: 0.7em 1em;
+  }
+  .logo {
+    width: 75px;
+  }
+}
+
 
 .hero {
   display: flex;
@@ -76,23 +100,32 @@ header {
 .sobre {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Alinha tudo pra esquerda, mas... */
   background: #fff;
   border-radius: 1em;
   margin: 1.2em 1em;
   padding: 2em 1em 1.5em 1em;
   box-shadow: 0 2px 16px #0001;
+  max-width: 700px;
+  /* Centraliza o card na tela, mesmo alinhando conteúdo pra esquerda */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sobre-img img {
-  width: 100%;
-  max-width: 200px;
-  border-radius: 1em;
-  margin-bottom: 1.2em;
+  display: block;
+  width: 220px;      /* Aumenta a imagem! */
+  max-width: 90vw;   /* No mobile, limita pra não estourar */
+  height: auto;
+  border-radius: 1.2em;
+  margin-bottom: 1.3em;
+  margin-left: 2.5em;   /* Empurra pra direita no desktop */
+  box-shadow: 0 2px 14px #0002;
 }
 
 .sobre-text {
-  max-width: 400px;
+  max-width: 450px;
+  padding-left: 2.5em;   /* Empurra todo texto pra direita */
   text-align: left;
 }
 
@@ -102,10 +135,29 @@ header {
 }
 
 .sobre-text p {
-  font-size: 1.06em;
+  font-size: 1.08em;
   color: #4C352A;
-  margin-bottom: 1em;
+  margin-bottom: 1.1em;
 }
+
+@media (max-width: 700px) {
+  .sobre {
+    padding: 1em 0.3em;
+    border-radius: 0.8em;
+  }
+  .sobre-img img {
+    width: 95vw;
+    max-width: 270px;
+    margin-left: 0;
+    margin-bottom: 1.2em;
+  }
+  .sobre-text {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    max-width: 98vw;
+  }
+}
+
 
 .btn-mini {
   padding: 0.6em 1.3em;
