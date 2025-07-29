@@ -145,7 +145,8 @@ header {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Alinha tudo pra esquerda, mas... */
-  background: #fff;
+  background: var(--dourado-fosco);  /* Dourado aconchegante */
+  color: var(--marsala-profundo);
   border-radius: 1em;
   margin: 1.2em 1em;
   padding: 2em 1em 1.5em 1em;
@@ -156,20 +157,30 @@ header {
   margin-right: auto;
 }
 
-.sobre-img img {
+.sobre-img {
   display: block;
-  width: 220px;      /* Aumenta a imagem! */
-  max-width: 90vw;   /* No mobile, limita pra não estourar */
-  height: auto;
-  border-radius: 1.2em;
+  width: 228px;           /* largura = img + borda (ajuste se quiser maior) */
+  max-width: 95vw;
+  padding: 4px;           /* espessura da borda */
+  border-radius: 1.3em;
+  background: linear-gradient(120deg, var(--marsala-profundo), var(--dourado-fosco));
   margin-bottom: 1.3em;
-  margin-left: 2.5em;   /* Empurra pra direita no desktop */
-  box-shadow: 0 2px 14px #0002;
+  margin-left: 2.5em;     /* mantém alinhamento desktop */
+  box-sizing: border-box;
+}
+
+.sobre-img img {
+  width: 220px;
+  max-width: 90vw;
+  height: auto;
+  border-radius: 1em;
+  display: block;
+  background: #fff;
 }
 
 .sobre-text {
   max-width: 450px;
-  padding-left: 2.5em;   /* Empurra todo texto pra direita */
+  padding-left: 2.5em;   /* texto para o lado direita */
   text-align: left;
 }
 
@@ -186,22 +197,38 @@ header {
 
 @media (max-width: 700px) {
   .sobre {
+    flex-direction: column;
+    align-items: center; /* centralizae dentro da seção */
     padding: 1em 0.3em;
     border-radius: 0.8em;
   }
-  .sobre-img img {
-    width: 95vw;
+
+  .sobre-img {
+    width: 98vw;
     max-width: 270px;
     margin-left: 0;
     margin-bottom: 1.2em;
+    padding: 3px;            /* borda proporcional */
+    display: flex;           /* centralização da imagem*/
+    justify-content: center;
+    box-sizing: border-box;
   }
+
+  .sobre-img img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0.9em;    /* tentando garantir que não vai ter bugs nas bordas */
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+
   .sobre-text {
     padding-left: 0.5em;
     padding-right: 0.5em;
     max-width: 98vw;
+    text-align: left;
   }
 }
-
 
 .btn-mini {
   padding: 0.6em 1.3em;
@@ -216,7 +243,8 @@ header {
 }
 
 .etapa {
-  background: #fff;
+  background: var(--dourado-fosco);  /* Dourado aconchegante */
+  color: var(--marsala-profundo);
   border-radius: 1em;
   padding: 1.2em;
   box-shadow: 0 2px 12px #0001;
@@ -246,7 +274,7 @@ header {
 
 .etapa p {
   font-size: 1em;
-  color: #7A6A4F;
+   color: #4C352A;;
 }
 
 .contato-final {
