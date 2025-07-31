@@ -1,3 +1,5 @@
+/* ==================== CHECKPOINT 2: INÍCIO DO CSS ==================== */
+/* VARIÁVEIS */
 :root {
   --areia-dourada: #F3E6D3;
   --marsala-profundo: #752A2A;
@@ -22,7 +24,6 @@ header {
   background: var(--marsala-profundo);
   padding: 0;
 }
-
 .header-content {
   display: flex;
   align-items: center;
@@ -33,20 +34,16 @@ header {
   width: 100%;
   box-sizing: border-box;
 }
-
 .logo {
   width: 95px;
   max-width: 80vw;
   border-radius: 1em;
   background: transparent;
 }
-
-/* MENU LINKS */
 .menu {
   display: flex;
   gap: 2em;
 }
-
 .menu a {
   color: var(--areia-dourada);
   text-decoration: none;
@@ -56,13 +53,10 @@ header {
   border-radius: 0.5em;
   transition: background 0.2s, color 0.2s;
 }
-
 .menu a:hover, .menu a:focus {
   background: var(--dourado-fosco);
   color: var(--marsala-profundo);
 }
-
-/* RESPONSIVO MENU */
 @media (max-width: 700px) {
   .header-content {
     flex-direction: column;
@@ -85,35 +79,38 @@ header {
   }
 }
 
-
-
+/* ================= CHECKPOINT 3: HERO ATUALIZADA ================= */
+/* HERO SECTION CENTRALIZADA E DESTAQUE */
 .hero {
+  min-height: 60vh; /* Preenche a tela verticalmente */
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 2em 1em 1.2em 1em;
+  justify-content: center;
+  padding: 2.5em 1em;
   background: #F3E6D3;
 }
-
-.hero-text {
-  text-align: left;
-  max-width: 360px;
+.destaque-hero {
+  background: #fffbe7;
+  border-radius: 1.5em;
+  box-shadow: 0 4px 32px #C9AE8F55, 0 1.5px 8px #752A2A22;
+  padding: 2.5em 2em 2.2em 2em;
+  text-align: center;
+  max-width: 430px;
+  width: 100%;
 }
-
-.hero h1 {
-  font-size: 1.7em;
-  margin-bottom: 0.5em;
+.destaque-hero h1 {
+  font-size: 2.25em;
   color: #752A2A;
-  font-weight: 700;
+  font-weight: 800;
+  margin-bottom: 0.7em;
+  letter-spacing: -0.5px;
 }
-
-.hero p {
-  font-size: 1.1em;
-  margin-bottom: 1.3em;
+.destaque-hero p {
   color: #7A6A4F;
+  font-size: 1.2em;
+  margin-bottom: 1.8em;
 }
-
-.btn-zap {
+.btn-zap, .btn-zap-destaque {
   background: #C6654C; /* Terracota Queimado */
   color: #fff;
   padding: 1em 2em;
@@ -126,49 +123,64 @@ header {
   transition: background 0.2s, transform 0.15s;
   display: inline-block;
 }
-
-.btn-zap:hover {
+/* Botão com ainda mais destaque na hero */
+.btn-zap-destaque {
+  font-size: 1.18em;
+  padding: 1.15em 2.4em;
+  border-radius: 2.2em;
+  box-shadow: 0 4px 24px #C6654C33;
+  background: #C6654C;
+  color: #fff;
+  transition: background 0.2s, transform 0.16s;
+}
+.btn-zap-destaque:hover {
   background: #C9AE8F;
   color: #752A2A;
-  transform: translateY(-2px) scale(1.04);
+  transform: translateY(-3px) scale(1.06);
+}
+/* Responsivo: garantir centro em telas pequenas */
+@media (max-width: 700px) {
+  .hero {
+    min-height: 60vh;
+    padding: 2em 0.3em;
+  }
+  .destaque-hero {
+    padding: 1.6em 0.5em;
+    max-width: 97vw;
+  }
+  .destaque-hero h1 {
+    font-size: 1.3em;
+  }
 }
 
-.hero-img {
-  width: 100%;
-  max-width: 350px;
-  border-radius: 1em;
-  margin-top: 1.5em;
-  box-shadow: 0 2px 16px #752A2A33;
-}
+/* =============== FIM CHECKPOINT 3: HERO =============== */
 
+/* O RESTANTE DO CSS SEGUE NORMAL (pode manter igual) */
 .sobre {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinha tudo pra esquerda, mas... */
-  background: var(--dourado-fosco);  /* Dourado aconchegante */
+  align-items: flex-start;
+  background: var(--dourado-fosco);
   color: var(--marsala-profundo);
   border-radius: 1em;
   margin: 1.2em 1em;
   padding: 2em 1em 1.5em 1em;
   box-shadow: 0 2px 16px #0001;
   max-width: 700px;
-  /* Centraliza o card na tela, mesmo alinhando conteúdo pra esquerda */
   margin-left: auto;
   margin-right: auto;
 }
-
 .sobre-img {
   display: block;
-  width: 228px;           /* largura = img + borda (ajuste se quiser maior) */
+  width: 228px;
   max-width: 95vw;
-  padding: 4px;           /* espessura da borda */
+  padding: 4px;
   border-radius: 1.3em;
-  background: linear-gradient(120deg, var(--marsala-profundo), var(--dourado-fosco));
+  background: linear-gradient(120deg, var(--terracota-queimado), var(--marsala-profundo));
   margin-bottom: 1.3em;
-  margin-left: 2.5em;     /* mantém alinhamento desktop */
+  margin-left: 2.5em;
   box-sizing: border-box;
 }
-
 .sobre-img img {
   width: 220px;
   max-width: 90vw;
@@ -177,51 +189,48 @@ header {
   display: block;
   background: #fff;
 }
-
 .sobre-text {
   max-width: 450px;
-  padding-left: 2.5em;   /* texto para o lado direita */
+  padding-left: 2.5em;
   text-align: left;
 }
-
 .sobre-text h2 {
-  color: #752A2A;
-  margin-bottom: 0.5em;
+  color: var(--marsala-profundo);
+  margin-bottom: 0.2em;
+  font-size: 1.23em;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.2em;
 }
-
 .sobre-text p {
   font-size: 1.08em;
   color: #4C352A;
   margin-bottom: 1.1em;
 }
-
 @media (max-width: 700px) {
   .sobre {
     flex-direction: column;
-    align-items: center; /* centralizae dentro da seção */
+    align-items: center;
     padding: 1em 0.3em;
     border-radius: 0.8em;
   }
-
   .sobre-img {
     width: 98vw;
     max-width: 270px;
     margin-left: 0;
     margin-bottom: 1.2em;
-    padding: 3px;            /* borda proporcional */
-    display: flex;           /* centralização da imagem*/
+    padding: 3px;
+    display: flex;
     justify-content: center;
     box-sizing: border-box;
   }
-
   .sobre-img img {
     width: 100%;
     max-width: 100%;
-    border-radius: 0.9em;    /* tentando garantir que não vai ter bugs nas bordas */
+    border-radius: 0.9em;
     margin-left: 0;
     margin-bottom: 0;
   }
-
   .sobre-text {
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -241,9 +250,8 @@ header {
   gap: 1.1em;
   margin: 2em 1em 1.3em 1em;
 }
-
 .etapa {
-  background: var(--dourado-fosco);  /* Dourado aconchegante */
+  background: var(--dourado-fosco);
   color: var(--marsala-profundo);
   border-radius: 1em;
   padding: 1.2em;
@@ -252,7 +260,6 @@ header {
   flex-direction: column;
   align-items: flex-start;
 }
-
 .etapa-numero {
   font-size: 1.5em;
   font-weight: bold;
@@ -266,28 +273,23 @@ header {
   justify-content: center;
   margin-bottom: 0.5em;
 }
-
 .etapa h3 {
   color: #752A2A;
   margin-bottom: 0.3em;
 }
-
 .etapa p {
   font-size: 1em;
-   color: #4C352A;;
+  color: #4C352A;
 }
-
 .contato-final {
   text-align: center;
   padding: 2em 1em 2em 1em;
   background: #F3E6D3;
 }
-
 .btn-grande {
   font-size: 1.15em;
   padding: 1.1em 2.5em;
 }
-
 footer {
   text-align: center;
   padding: 2em 0 1em 0;
@@ -297,13 +299,37 @@ footer {
   border-radius: 1.1em 1.1em 0 0;
   margin-top: 1.5em;
 }
-
-@media (min-width: 800px) {
-  .hero { flex-direction: row; justify-content: center; }
-  .hero-text { text-align: left; margin-right: 2.5em; }
-  .hero-img { margin-top: 0; }
-  .sobre { flex-direction: row; }
-  .sobre-img { margin-right: 2em; }
-  .etapas { flex-direction: row; gap: 2em; }
-  .etapa { align-items: center; width: 32%; }
+.social-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.3em;
+  margin: 1.2em 0 0.6em 0;
+  padding: 0;
+}
+.social-footer a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--marsala-profundo);
+  color: var(--areia-dourada);
+  transition: background 0.22s, transform 0.18s, color 0.22s;
+  font-size: 24px;
+  box-shadow: 0 2px 12px #0002;
+  opacity: 0.92;
+  position: relative;
+  z-index: 1;
+}
+.social-footer a svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+  fill: none;
+  display: block;
+}
+.social-footer .social-link1:hover {
+  background: linear-gradient(45deg, #f09433 0%, #e668)
+  
 }
