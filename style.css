@@ -19,27 +19,63 @@ body {
   padding: 0;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
+main {
+  padding-top: 80px;
+}
+
 /* HEADER COM MENU */
 header {
-  background: var(--marsala-profundo);
-  padding: 0;
-}
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0.7em 2em;
+  position:fixed;
+  top: 0;
+  left:0;
   width: 100%;
-  box-sizing: border-box;
+  background: var(--marsala-profundo);
+  box-shadow: 0 2px 8px #0002;
+  z-index: 1000;
 }
+
+.header .container {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .logo {
-  width: 95px;
+  width: 100px;
   max-width: 80vw;
   border-radius: 1em;
   background: transparent;
 }
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5em;
+  margin: 0;
+  padding:0;
+}
+
+nav a {
+  color: var(--areia-dourada);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+na a:hover {
+  color: var(--dourado-fosco)
+}
+
 .menu {
   display: flex;
   gap: 2em;
@@ -58,13 +94,15 @@ header {
   color: var(--marsala-profundo);
 }
 @media (max-width: 700px) {
-  .header-content {
-    flex-direction: column;
-    align-items: flex-start;
+  .header .contair {
     padding: 0.6em 1em;
   }
   .logo {
     width: 75px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 0.5em;
   }
   .menu {
     flex-direction: column;
@@ -151,6 +189,45 @@ header {
   .destaque-hero h1 {
     font-size: 1.3em;
   }
+}
+
+.servisos {
+  max-width: 1000px;
+  margin: 2em auto;
+  padding: 0 1em;
+}
+
+.cards-servico {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  justify-content: center;
+}
+
+.card-servico {
+  background-color: #fff;
+  border-radius: 1em;
+  padding: 1.5em;
+  box-shadow:0 3px 12px #0001;
+  flex: 1 1 250px;
+  max-width: 280px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-servico:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4p 18px #0002;
+}
+
+.card-servico h3 {
+  color: var(--marsala-profundo);
+  margin-bottom: 0.5em;
+}
+
+.card-servico p {
+  color: var(--marrom-terra-firme);
+  font-size: 1em;
 }
 
 /* =============== FIM CHECKPOINT 3: HERO =============== */
