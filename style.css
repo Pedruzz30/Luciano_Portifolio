@@ -11,402 +11,243 @@
   --berinjela-noturna: #3E2731;
 }
 
+html { scroll-behavior: smooth; }
+* { box-sizing: border-box; }
 body {
   font-family: 'Montserrat', Arial, sans-serif;
-  background: #F3E6D3; /* Areia Dourada */
-  color: #4C352A;      /* Marrom Terra Firme */
+  background: var(--areia-dourada);
+  color: var(--marrom-terra-firme);
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
-html{
-  scroll-behavior: smooth;
-}
+/* ===== LAYOUT GENÉRICO / MULTIPÁGINA ===== */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 2vw; }
+.section { max-width: 1120px; margin: 0 auto 3em; padding: 1.5em 2vw; }
+.section h2 { font-size: 1.35em; color: var(--marsala-profundo); font-weight: 800; margin-bottom: 1em; }
+.page-title { max-width: 1120px; margin: 0 auto; padding: 2em 2vw 0; }
+.page-title h1 { margin: 0; color: var(--marsala-profundo); font-size: 1.9em; }
 
-main {
-  padding-top: 80px;
-}
-
-/* HEADER COM MENU */
-header {
-  position:fixed;
-  top: 0;
-  left:0;
-  width: 100%;
-  background: var(--marsala-profundo);
-  box-shadow: 0 2px 8px #0002;
-  z-index: 1000;
-}
-
-.header .container {
- display: flex;
- align-items: center;
- justify-content: space-between;
-}
-
-.container {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.logo {
-  width: 100px;
-  max-width: 80vw;
+/* Texto longo (ex.: SOBRE) */
+.article {
+  max-width: 800px;
+  margin: 1em auto 3em;
+  padding: 1.5em;
+  background: #fff;
   border-radius: 1em;
-  background: transparent;
+  box-shadow: 0 2px 14px #0001;
+}
+.article h2 { margin: 0.6em 0 0.25em; font-size: 1.12em; font-weight: 700; color: var(--marsala-profundo); }
+.article p { line-height: 1.65; font-size: 1.05em; color: #4C352A; }
+
+/* Grid/Cartões genéricos (ex.: SERVIÇOS) */
+.cards { display: flex; flex-wrap: wrap; gap: 2em; justify-content: flex-start; }
+.card {
+  flex: 1 1 230px; min-width: 210px; max-width: 260px;
+  background: #fff; border-radius: 1em; padding: 1.4em 1em;
+  box-shadow: 0 2px 14px #0001; text-align: left;
+  transition: transform 0.17s, box-shadow 0.15s;
+}
+.card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 4px 22px #c9ae8f33; }
+.card h3 { color: var(--marsala-profundo); margin-bottom: 0.4em; font-size: 1.11em; }
+.card p { color: var(--marrom-terra-firme); font-size: 1em; }
+
+/* Botão CTA genérico */
+.btn-cta {
+  background: var(--terracota-queimado);
+  color: #fff; font-weight: bold; border-radius: 1.8em;
+  font-size: 1.05em; padding: 1em 2em; text-decoration: none;
+  display: inline-block; margin-bottom: 1.1em; border: none;
+  transition: background 0.18s, color 0.17s, transform 0.12s;
+  box-shadow: 0 2px 12px #0001;
+}
+.btn-cta:hover {
+  background: var(--dourado-fosco);
+  color: var(--marsala-profundo);
+  transform: translateY(-2px) scale(1.04);
 }
 
-nav ul {
-  list-style: none;
+/* Formulário genérico (ex.: CONTATO) */
+.form { display: grid; gap: 1em; margin-top: 1em; }
+input, textarea {
+  width: 100%; padding: 0.9em 1em; border: 1px solid var(--cinza-quente-neutro);
+  border-radius: 0.7em; background: #fff; color: var(--marrom-terra-firme);
+}
+.box {
+  max-width: 720px; margin: 1em auto 3em; padding: 1.5em;
+  background: #fff; border-radius: 1.1em; box-shadow: 0 2px 14px #0001; text-align: center;
+}
+
+/* HEADER */
+header {
+  width: 100vw;
+  background: var(--marsala-profundo);
+  border-bottom: 1.5px solid var(--dourado-fosco);
+  position: fixed;
+  top: 0; left: 0; z-index: 1000;
+}
+.header-content {
+  max-width: 1320px;
+  height: 66px;
+  margin: 0 auto;
+  padding: 0 2vw;
   display: flex;
-  gap: 1.5em;
-  margin: 0;
-  padding:0;
+  align-items: center;
+  justify-content: space-between;
 }
-
-nav a {
-  color: var(--areia-dourada);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s;
+.logo-link { display: flex; align-items: center; height: 100%; }
+.logo {
+  height: 44px;
+  width: auto;
+  border-radius: 0.7em;
+  background: transparent;
+  transition: filter 0.13s;
 }
-
-na a:hover {
-  color: var(--dourado-fosco)
-}
-
+.logo-link:hover .logo { filter: brightness(1.07) drop-shadow(0 2px 12px #0002); }
 .menu {
   display: flex;
-  gap: 2em;
+  align-items: center;
+  gap: 2.6em;
 }
 .menu a {
   color: var(--areia-dourada);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.08em;
-  padding: 0.5em 0.6em;
-  border-radius: 0.5em;
-  transition: background 0.2s, color 0.2s;
+  padding: 0.3em 0.7em;
+  border-radius: 0.4em;
+  transition: background 0.15s, color 0.12s;
+  background: none;
+  position: relative;
 }
+/* Estado hover/focus */
 .menu a:hover, .menu a:focus {
   background: var(--dourado-fosco);
   color: var(--marsala-profundo);
 }
-@media (max-width: 700px) {
-  .header .contair {
-    padding: 0.6em 1em;
-  }
-  .logo {
-    width: 75px;
-  }
-  nav ul {
-    flex-direction: column;
-    gap: 0.5em;
-  }
-  .menu {
-    flex-direction: column;
-    width: 100%;
-    gap: 0.6em;
-    margin-top: 0.7em;
-  }
-  .menu a {
-    width: 100%;
-    padding: 0.7em 0.6em;
-    font-size: 1.12em;
-  }
+/* Link ativo (adicione .active no <a> da página atual) */
+.menu a.active {
+  background: var(--dourado-fosco);
+  color: var(--marsala-profundo);
 }
+.menu-toggle { display: none; }
 
-/* ================= CHECKPOINT 3: HERO ATUALIZADA ================= */
-/* HERO SECTION CENTRALIZADA E DESTAQUE */
+main { padding-top: 80px; }
+
+/* ===== HOME (mantida) ===== */
 .hero {
-  min-height: 60vh; /* Preenche a tela verticalmente */
+  max-width: 1120px;
+  margin: 0 auto 2.4em auto;
+  padding: 2.3em 2vw 2em 2vw;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 2.5em 1em;
-  background: #F3E6D3;
+  gap: 3.8em;
+  min-height: 340px;
 }
-.destaque-hero {
-  background: #fffbe7;
-  border-radius: 1.5em;
-  box-shadow: 0 4px 32px #C9AE8F55, 0 1.5px 8px #752A2A22;
-  padding: 2.5em 2em 2.2em 2em;
-  text-align: center;
-  max-width: 430px;
-  width: 100%;
+.hero-text { flex: 1 1 360px; max-width: 480px; }
+.hero-text h1 {
+  font-size: 2.15em; font-weight: 800; color: var(--marsala-profundo); margin-bottom: 0.6em;
 }
-.destaque-hero h1 {
-  font-size: 2.25em;
-  color: #752A2A;
-  font-weight: 800;
-  margin-bottom: 0.7em;
-  letter-spacing: -0.5px;
+.hero-text p {
+  font-size: 1.13em; color: var(--oliva-sutil); margin-bottom: 1.1em;
 }
-.destaque-hero p {
-  color: #7A6A4F;
-  font-size: 1.2em;
-  margin-bottom: 1.8em;
-}
-.btn-zap, .btn-zap-destaque {
-  background: #C6654C; /* Terracota Queimado */
-  color: #fff;
-  padding: 1em 2em;
-  border-radius: 2em;
-  font-size: 1em;
-  text-decoration: none;
-  font-weight: bold;
-  margin-bottom: 1em;
-  box-shadow: 0 2px 12px #0002;
-  transition: background 0.2s, transform 0.15s;
-  display: inline-block;
-}
-/* Botão com ainda mais destaque na hero */
-.btn-zap-destaque {
-  font-size: 1.18em;
-  padding: 1.15em 2.4em;
-  border-radius: 2.2em;
-  box-shadow: 0 4px 24px #C6654C33;
-  background: #C6654C;
-  color: #fff;
-  transition: background 0.2s, transform 0.16s;
-}
-.btn-zap-destaque:hover {
-  background: #C9AE8F;
-  color: #752A2A;
-  transform: translateY(-3px) scale(1.06);
-}
-/* Responsivo: garantir centro em telas pequenas */
-@media (max-width: 700px) {
-  .hero {
-    min-height: 60vh;
-    padding: 2em 0.3em;
-  }
-  .destaque-hero {
-    padding: 1.6em 0.5em;
-    max-width: 97vw;
-  }
-  .destaque-hero h1 {
-    font-size: 1.3em;
-  }
+.dados { color: var(--berinjela-noturna); font-size: 1em; margin-bottom: 2em; }
+
+/* FOTO NA HERO */
+.hero-img-wrap { flex: 0 1 320px; display: flex; align-items: center; justify-content: center; }
+.hero-img {
+  width: 320px; height: 390px; max-width: 95vw; object-fit: cover; border-radius: 1.2em;
+  background: #fffbe7; box-shadow: 0 4px 24px #0001; border: 4px solid var(--marsala-profundo);
 }
 
-.servisos {
-  max-width: 1000px;
-  margin: 2em auto;
-  padding: 0 1em;
-}
+/* ===== SERVIÇOS DA HOME (pode reaproveitar) ===== */
+.servicos { max-width: 1120px; margin: 0 auto 3em auto; padding: 1.5em 2vw; }
+.servicos h2 { font-size: 1.35em; color: var(--marsala-profundo); font-weight: 800; margin-bottom: 2em; text-align: left; }
+/* Troca .cards-servico/.card-servico por .cards/.card, mas mantive compatibilidade: */
+.cards-servico { display: flex; flex-wrap: wrap; gap: 2em; justify-content: flex-start; }
+.card-servico { composes: card; } /* (não é padrão CSS; se quiser, só use .card mesmo) */
 
-.cards-servico {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5em;
-  justify-content: center;
-}
-
-.card-servico {
-  background-color: #fff;
-  border-radius: 1em;
-  padding: 1.5em;
-  box-shadow:0 3px 12px #0001;
-  flex: 1 1 250px;
-  max-width: 280px;
-  text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card-servico:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4p 18px #0002;
-}
-
-.card-servico h3 {
-  color: var(--marsala-profundo);
-  margin-bottom: 0.5em;
-}
-
-.card-servico p {
-  color: var(--marrom-terra-firme);
-  font-size: 1em;
-}
-
-/* =============== FIM CHECKPOINT 3: HERO =============== */
-
-/* O RESTANTE DO CSS SEGUE NORMAL (pode manter igual) */
+/* SOBRE (caixa destacada da home) */
 .sobre {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background: var(--dourado-fosco);
-  color: var(--marsala-profundo);
-  border-radius: 1em;
-  margin: 1.2em 1em;
-  padding: 2em 1em 1.5em 1em;
-  box-shadow: 0 2px 16px #0001;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 650px; margin: 0 auto 3em auto; padding: 2em 1.3em;
+  background: var(--dourado-fosco); color: var(--marsala-profundo);
+  border-radius: 1em; box-shadow: 0 2px 12px #0001;
 }
-.sobre-img {
-  display: block;
-  width: 228px;
-  max-width: 95vw;
-  padding: 4px;
-  border-radius: 1.3em;
-  background: linear-gradient(120deg, var(--terracota-queimado), var(--marsala-profundo));
-  margin-bottom: 1.3em;
-  margin-left: 2.5em;
-  box-sizing: border-box;
-}
-.sobre-img img {
-  width: 220px;
-  max-width: 90vw;
-  height: auto;
-  border-radius: 1em;
-  display: block;
-  background: #fff;
-}
-.sobre-text {
-  max-width: 450px;
-  padding-left: 2.5em;
-  text-align: left;
-}
-.sobre-text h2 {
-  color: var(--marsala-profundo);
-  margin-bottom: 0.2em;
-  font-size: 1.23em;
-  font-weight: 700;
-  position: relative;
-  padding-bottom: 0.2em;
-}
-.sobre-text p {
-  font-size: 1.08em;
-  color: #4C352A;
-  margin-bottom: 1.1em;
-}
-@media (max-width: 700px) {
-  .sobre {
-    flex-direction: column;
-    align-items: center;
-    padding: 1em 0.3em;
-    border-radius: 0.8em;
-  }
-  .sobre-img {
-    width: 98vw;
-    max-width: 270px;
-    margin-left: 0;
-    margin-bottom: 1.2em;
-    padding: 3px;
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-  }
-  .sobre-img img {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 0.9em;
-    margin-left: 0;
-    margin-bottom: 0;
-  }
-  .sobre-text {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    max-width: 98vw;
-    text-align: left;
-  }
-}
+.sobre-text h2 { margin-top: 0.6em; margin-bottom: 0.25em; font-size: 1.12em; font-weight: 700; }
+.sobre-text p { font-size: 1.05em; color: #4C352A; margin-bottom: 1.1em; }
 
-.btn-mini {
-  padding: 0.6em 1.3em;
-  font-size: 0.97em;
-}
-
-.etapas {
-  display: flex;
-  flex-direction: column;
-  gap: 1.1em;
-  margin: 2em 1em 1.3em 1em;
-}
-.etapa {
-  background: var(--dourado-fosco);
-  color: var(--marsala-profundo);
-  border-radius: 1em;
-  padding: 1.2em;
-  box-shadow: 0 2px 12px #0001;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.etapa-numero {
-  font-size: 1.5em;
-  font-weight: bold;
-  background: #C6654C;
-  color: #fff;
-  border-radius: 50%;
-  width: 2.3em;
-  height: 2.3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.5em;
-}
-.etapa h3 {
-  color: #752A2A;
-  margin-bottom: 0.3em;
-}
-.etapa p {
-  font-size: 1em;
-  color: #4C352A;
-}
+/* CONTATO (CTA da home) */
 .contato-final {
-  text-align: center;
-  padding: 2em 1em 2em 1em;
-  background: #F3E6D3;
+  max-width: 680px; margin: 0 auto 2.5em auto; text-align: center;
+  padding: 2.1em 1.2em 2em 1.2em; background: #f9f6ed;
+  border-radius: 1.1em; box-shadow: 0 2px 16px #0001;
 }
-.btn-grande {
-  font-size: 1.15em;
-  padding: 1.1em 2.5em;
-}
+
+/* FOOTER */
 footer {
+  width: 100vw;
+  background: var(--marsala-profundo);
+  color: var(--areia-dourada);
   text-align: center;
-  padding: 2em 0 1em 0;
-  background: #752A2A;
-  color: #fff;
   font-size: 1em;
   border-radius: 1.1em 1.1em 0 0;
   margin-top: 1.5em;
+  padding: 1.8em 0 1em 0;
 }
-.social-footer {
+.footer-content {
+  max-width: 1300px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  gap: 1.3em;
-  margin: 1.2em 0 0.6em 0;
-  padding: 0;
-}
-.social-footer a {
-  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
   align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: var(--marsala-profundo);
-  color: var(--areia-dourada);
-  transition: background 0.22s, transform 0.18s, color 0.22s;
-  font-size: 24px;
-  box-shadow: 0 2px 12px #0002;
-  opacity: 0.92;
-  position: relative;
-  z-index: 1;
 }
-.social-footer a svg {
-  width: 28px;
-  height: 28px;
-  stroke: currentColor;
-  fill: none;
-  display: block;
+.footer-social { display: flex; gap: 1.4em; margin-top: 0.2em; }
+.footer-social a {
+  color: var(--areia-dourada); font-weight: bold; text-decoration: none; font-size: 1em;
+  border-radius: 2em; padding: 0.19em 1em; background: none; transition: background 0.17s, color 0.13s;
 }
-.social-footer .social-link1:hover {
-  background: linear-gradient(45deg, #f09433 0%, #e668)
-  
+.footer-social a:hover { background: var(--dourado-fosco); color: var(--marsala-profundo); }
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 1100px) {
+  .hero { flex-direction: column; gap: 1.6em; text-align: center; }
+  .hero-img-wrap { justify-content: center; }
+  .servicos { padding: 1.5em 2vw; }
+  .cards-servico, .cards { justify-content: center; }
+}
+
+@media (max-width: 800px) {
+  .header-content { height: 56px; padding: 0 3vw; }
+  .logo { height: 38px; }
+  .menu-toggle {
+    display: block; background: none; border: none; font-size: 2.2em;
+    color: var(--areia-dourada); cursor: pointer; margin-left: 1em; z-index: 1202;
+  }
+  .menu {
+    display: none; position: absolute; top: 56px; right: 0; width: 100vw; background: var(--marsala-profundo);
+    flex-direction: column; align-items: flex-end; border-bottom-left-radius: 1.1em; border-bottom-right-radius: 1.1em;
+    box-shadow: 0 8px 24px #0002; padding: 0.3em 0 0.6em 0; animation: fadeInMenu .22s; gap: 0;
+  }
+  .menu.open { display: flex; }
+  .menu a {
+    width: 97vw; padding: 1em 0 1em 1.3em; text-align: left; font-size: 1.08em;
+    background: none; border-radius: 0.5em; color: var(--areia-dourada); margin: 0;
+    border-bottom: 1px solid var(--dourado-fosco);
+  }
+  .menu a:last-child { border-bottom: none; }
+  @keyframes fadeInMenu { from { opacity: 0; transform: translateY(-14px);} to { opacity: 1; transform: translateY(0);} }
+  .hero { padding: 1.5em 2vw 1.5em 2vw; }
+  .hero-img { width: 92vw; height: 60vw; max-width: 330px; min-width: 150px; }
+  .servicos, .sobre, .contato-final, .section, .article, .box { padding: 1.2em 2vw; }
+  .cards-servico, .cards { gap: 1em; }
+}
+
+@media (max-width: 570px) {
+  .header-content { padding: 0 1vw; }
+  .hero { padding: 1em 0.2em 1.1em 0.2em; }
+  .hero-img { width: 98vw; min-width: 120px; height: 50vw; }
+  .cards-servico, .cards { gap: 0.7em; }
+  .servicos, .sobre, .contato-final, .section, .article, .box { padding: 0.5em 0.2em; }
 }
