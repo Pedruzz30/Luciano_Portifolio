@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contato | Luciano Pimenta Psicólogo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>… (mesmo do index) …</header>
+
+<header>
+  <div class="header-content">
+    <a href="index.html" class="logo-link"><img src="assets/PortifolioLucianoFotos/Logo2.jpg" alt="Logo" class="logo"></a>
+    <nav class="menu">
+      <a href="index.html">INÍCIO</a>
+      <a href="sobre.html">SOBRE</a>
+      <a href="servicos.html">SERVIÇOS</a>
+      <a href="contato.html" class="active">CONTATO</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
+  </div>
+</header>
 
 <main>
   <div class="page-title"><h1>Contato</h1></div>
   <section class="box">
     <p>Agende pelo WhatsApp ou envie uma mensagem:</p>
-    <a class="btn-cta" target="_blank"
-       href="https://wa.me/5521993034166?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta.">WhatsApp</a>
-
+    <a class="btn-cta" target="_blank" href="https://wa.me/5521993034166?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta.">WhatsApp</a>
     <form class="form" action="#" method="post">
       <input type="text" name="nome" placeholder="Seu nome" required>
       <input type="email" name="email" placeholder="Seu e-mail" required>
@@ -24,7 +36,17 @@
   </section>
 </main>
 
-<footer>… (mesmo do index) …</footer>
+<footer>
+  <div class="footer-content">
+    <span>&copy; 2025 Luciano Pimenta - Psicólogo</span>
+    <nav class="footer-social">
+      <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank">Instagram</a>
+      <a href="mailto:SEU_EMAIL">E-mail</a>
+      <a href="https://linkedin.com/in/SEU_LINKEDIN" target="_blank">LinkedIn</a>
+    </nav>
+  </div>
+</footer>
+
 <script src="script.js"></script>
 </body>
 </html>
