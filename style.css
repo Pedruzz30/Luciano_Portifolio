@@ -15,7 +15,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Montserrat', Arial, sans-serif;
-  background: var(--areia-dourada);
+background: var(--areia-dourada);
   color: var(--marrom-terra-firme);
   margin: 0;
   padding: 0;
@@ -40,7 +40,7 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid var(--terracota-queimado);
+  outline: 3px solid var(--dourado-fosco);
   outline-offset: 3px;
 }
 
@@ -70,16 +70,24 @@ textarea:focus-visible {
   box-shadow: 0 2px 14px #0001;
   text-align: left;
   transition: transform 0.17s, box-shadow 0.15s;
+  overflow: hidden;
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 1em 1em 0 0;
+  margin: -1.4em -1em 1em -1em;
 }
 .card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 4px 22px #c9ae8f33; }
-.card h3 { color: var(--marsala-profundo); margin-bottom: 0.4em; font-size: 1.11em; }
-.card p { color: var(--marrom-terra-firme); font-size: 1em; }
+.card h3 { color: var(--marsala-profundo); margin-bottom: 0.4em; font-size: 1.11em; text-align: center; }
+.card p { color: var(--marrom-terra-firme); font-size: 1em; text-align: center; }
 
 .btn-cta {
-  background: var(--terracota-queimado);
+  background: var(--marsala-profundo);
   color: #fff;
-  font-weight: bold;
-  border-radius: 1.8em;
+  font-weight: 700;
+  border-radius: 2em;
   font-size: 1.05em;
   padding: 1em 2em;
   text-decoration: none;
@@ -128,15 +136,14 @@ header {
   align-items: center;
   justify-content: space-between;
 }
-.logo-link { display: flex; align-items: center; height: 100%; }
-.logo {
-  height: 44px;
-  width: auto;
-  border-radius: 0.7em;
-  background: transparent;
-  transition: filter 0.13s;
+.home-link {
+  font-size: 1.9rem;
+  text-decoration: none;
+  color: var(--areia-dourada);
+  line-height: 1;
+  transition: color 0.15s;
 }
-.logo-link:hover .logo { filter: brightness(1.07) drop-shadow(0 2px 12px #0002); }
+.home-link:hover { color: var(--dourado-fosco); }
 .menu {
   display: flex;
   align-items: center;
@@ -161,55 +168,100 @@ header {
   background: var(--dourado-fosco);
   color: var(--marsala-profundo);
 }
-.menu-toggle { display: none; }
+.menu-toggle { display: none; background: none; border: none; font-size: 2.2em; color: var(--areia-dourada); cursor: pointer; }
+
+body.home header {
+  background: var(--areia-dourada);
+  border-bottom: 1.5px solid var(--marsala-profundo);
+}
+body.home header .menu a,
+body.home header .home-link {
+  color: var(--marsala-profundo);
+}
+body.home header .menu-toggle { color: var(--marsala-profundo); }
 
 main { padding-top: 80px; }
 
 .hero {
   max-width: 1120px;
   margin: 0 auto 2.4em;
-  padding: 2.3em 2vw 2em 2vw;
+  padding: 3rem 2vw;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  gap: 3.8em;
-  min-height: 340px;
+  gap: 3rem;
 }
 .hero-text { flex: 1 1 360px; max-width: 480px; }
 .hero-text h1 {
-  font-size: clamp(1.8rem, 1.2rem + 2.5vw, 3rem);
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 800;
   color: var(--marsala-profundo);
-  margin-bottom: 0.6em;
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin: 0 0 0.2em;
 }
-.hero-text p { font-size: 1.13em; color: var(--oliva-sutil); margin-bottom: 1.1em; }
-.dados { color: var(--berinjela-noturna); font-size: 1em; margin-bottom: 2em; }
+.hero-text h2 {
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2.3vw, 1.8rem);
+  margin: 0 0 0.8em;
+  color: var(--marrom-terra-firme);
+}
+.hero-text p {
+  font-size: 1.1em;
+  color: var(--oliva-sutil);
+  margin-bottom: 1.8em;
+  line-height: 1.6;
+}
 
 .hero-img-wrap { flex: 0 1 320px; display: flex; align-items: center; justify-content: center; }
 .hero-img {
-  width: 320px;
-  height: 390px;
-  max-width: 95vw;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
   object-fit: cover;
   border-radius: 1.2em;
-  background: #fffbe7;
   box-shadow: 0 4px 24px #0001;
-  border: 4px solid var(--marsala-profundo);
+  background: #fff;
 }
 
-.sobre {
-  max-width: 650px; margin: 0 auto 3em auto; padding: 2em 1.3em;
-  background: var(--dourado-fosco); color: var(--marsala-profundo);
-  border-radius: 1em; box-shadow: 0 2px 12px #0001;
-}
-.sobre-text h2 { margin-top: 0.6em; margin-bottom: 0.25em; font-size: 1.12em; font-weight: 700; }
-.sobre-text p { font-size: 1.05em; color: #4C352A; margin-bottom: 1.1em; }
 
-.contato-final {
-  max-width: 680px; margin: 0 auto 2.5em auto; text-align: center;
-  padding: 2.1em 1.2em 2em 1.2em; background: #f9f6ed;
-  border-radius: 1.1em; box-shadow: 0 2px 16px #0001;
+.sobre-mim { padding: 3rem 2vw; }
+.sobre-mim h2 { text-align: center; margin-bottom: 1.5rem; color: var(--marsala-profundo); font-size: clamp(1.6rem,3vw,2.2rem); }
+.sobre-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #EEDDC7;
+  border-radius: 1.5em;
+  box-shadow: 0 2px 14px #0001;
+  padding: 2rem;
 }
+.sobre-card h2 { margin-top: 0.6em; margin-bottom: 0.3em; color: var(--marsala-profundo); font-weight: 700; font-size: 1.2em; }
+.sobre-card p { line-height: 1.6; margin-bottom: 1em; }
+.sobre-card .card-btn { text-align: right; }
+
+
+
+.trabalho {
+  background: var(--marsala-profundo);
+  padding: 3rem 2vw;
+  color: #fff;
+  text-align: center;
+}
+.trabalho h2 { font-size: clamp(1.6rem,3vw,2.2rem); margin-bottom: 2rem; }
+.trabalho .cards { max-width: 1120px; margin: 0 auto; }
+.trabalho .card { text-align: center; }
+.trabalho .card h3 { font-size: 1em; font-weight: 700; margin: 0.8em 0 0.5em; color: var(--marsala-profundo); }
+.trabalho .card p { font-size: 0.95em; margin-bottom: 1.4em; }
+.trabalho .chevron { display: block; text-align: center; color: var(--marsala-profundo); font-size: 1.2rem; }
+
+.publico { padding: 3rem 2vw; text-align: center; }
+.publico h2 { color: var(--marrom-terra-firme); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); margin-bottom: 2rem; }
+.publico-card { background: #fff; max-width: 800px; margin: 0 auto; padding: 2rem; border-radius: 1.5em; box-shadow: 0 2px 14px #0001; }
+.publico-card ul { list-style: disc; text-align: left; max-width: 520px; margin: 0 auto 1.5rem; }
+.publico-card li { margin-bottom: 0.6rem; }
+.citacao { font-style: italic; color: var(--oliva-sutil); }
+
+.cta-final { text-align: center; padding: 3rem 2vw; }
+.cta-final h2 { color: var(--marsala-profundo); margin-bottom: 1.5rem; font-size: clamp(1.6rem,3vw,2.2rem); }
 
 footer {
   width: 100%;
@@ -244,10 +296,8 @@ footer {
 
 @media (max-width:800px) {
   .header-content { height: 56px; padding: 0 3vw; }
-  .logo { height: 38px; }
   .menu-toggle {
-    display: block; background: none; border: none; font-size: 2.2em;
-    color: var(--areia-dourada); cursor: pointer; margin-left: 1em; z-index: 1202;
+    display: block; margin-left: 1em; z-index: 1202;
   }
   .menu {
     display: none; position: absolute; top: 56px; right: 0; width: 100%; background: var(--marsala-profundo);
@@ -271,9 +321,9 @@ footer {
 @media (max-width:570px) {
   .header-content { padding: 0 1vw; }
   .hero { padding: 1em 0.2em 1.1em 0.2em; }
-  .hero-img { width: 98vw; min-width: 120px; height: 50vw; }
+  .hero-img { width: 98vw; min-width: 120px; height: auto; }
   .cards { gap: 0.7em; }
-  .contato-final, .section, .article, .box { padding: 0.5em 0.2em; }
+  .section, .article, .box { padding: 0.5em 0.2em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
