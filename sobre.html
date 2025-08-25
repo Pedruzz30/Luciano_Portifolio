@@ -4,43 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sobre | Luciano Pimenta Psicólogo</title>
-  <meta name="description" content="Conheça a trajetória, valores e forma de atendimento de Luciano Pimenta.">
+  <meta name="description" content="Conheça a trajetória e os valores do psicólogo Luciano Pimenta.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Sobre | Luciano Pimenta Psicólogo">
-  <meta property="og:description" content="Conheça a trajetória, valores e forma de atendimento de Luciano Pimenta.">
+  <meta property="og:description" content="Conheça a trajetória e os valores do psicólogo Luciano Pimenta.">
   <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg">
   <meta property="og:locale" content="pt_BR">
   <link rel="canonical" href="https://seu-dominio.com/sobre.html">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sobre.css">
 </head>
 <body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header>
-  <div class="header-content">
-    <a href="index.html" class="home-link" aria-label="Início">⌂</a>
+  <div class="container header-content">
+    <a href="index.html" class="logo"><img src="assets/PortifolioLucianoFotos/Logo1.jpg" alt="Luciano Pimenta" width="80" height="40"></a>
     <nav class="menu">
       <a href="index.html">INÍCIO</a>
       <a href="sobre.html">SOBRE</a>
       <a href="servicos.html">SERVIÇOS</a>
       <a href="contato.html">CONTATO</a>
     </nav>
-    <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
+    <button class="menu-toggle" aria-label="Abrir Menu" aria-expanded="false">&#9776;</button>
   </div>
 </header>
 <main id="conteudo">
-  <div class="page-title"><h1>Sobre mim</h1></div>
-  <article class="sobre-card">
-    <h2>Carreira</h2>
-    <p>Atuo na área clínica atendendo adultos em processo de autoconhecimento, ansiedade e desenvolvimento emocional. Tenho experiência em contextos individuais e de grupos.</p>
-    <h2>Valores</h2>
-    <p>Meu trabalho é guiado por ética, respeito e confidencialidade. Acredito em uma prática empática que acolhe cada história de forma única.</p>
-    <h2>Forma de Atendimento</h2>
-    <p>Ofereço sessões presenciais e on-line, sempre priorizando um ambiente seguro e acolhedor para que você possa falar livremente.</p>
-  </article>
+  <section class="page-title section">
+    <div class="container"><h1>Sobre mim</h1></div>
+  </section>
+  <section class="section">
+    <div class="about-card">
+      <h3>Carreira</h3>
+      <p>Formado em Psicologia pela Universidade XYZ, atuo em consultório particular desde 2014, com especialização em terapia cognitivo-comportamental.</p>
+      <h3>Valores</h3>
+      <p>Acredito em uma escuta acolhedora, ética e comprometida com o bem-estar de cada pessoa.</p>
+      <h3>Forma de Atendimento</h3>
+      <p>Ofereço sessões presenciais no Centro do Rio de Janeiro e atendimentos on-line, sempre respeitando o ritmo de cada paciente.</p>
+    </div>
+  </section>
 </main>
 <footer>
-  <div class="footer-content">
+  <div class="container footer-content">
     <span>&copy; 2025 Luciano Pimenta - Psicólogo</span>
     <nav class="footer-social">
       <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -49,6 +54,6 @@
     </nav>
   </div>
 </footer>
-<script src="script.js" defer></script>
+<script src="menu.js" defer></script>
 </body>
 </html>

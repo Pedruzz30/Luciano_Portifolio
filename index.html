@@ -13,41 +13,46 @@
   <link rel="canonical" href="https://seu-dominio.com/index.html">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
 </head>
-<body class="home">
+<body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header>
-  <div class="header-content">
-    <a href="index.html" class="home-link" aria-label="Início">⌂</a>
+  <div class="container header-content">
+    <a href="index.html" class="logo"><img src="assets/PortifolioLucianoFotos/Logo1.jpg" alt="Luciano Pimenta" width="80" height="40"></a>
     <nav class="menu">
       <a href="index.html">INÍCIO</a>
       <a href="sobre.html">SOBRE</a>
       <a href="servicos.html">SERVIÇOS</a>
       <a href="contato.html">CONTATO</a>
     </nav>
-    <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
+    <button class="menu-toggle" aria-label="Abrir Menu" aria-expanded="false">&#9776;</button>
   </div>
 </header>
 <main id="conteudo">
-  <section class="hero">
-    <div class="hero-text">
-      <h1>Luciano Pimenta</h1>
-      <h2>Psicólogo</h2>
-      <p>Um espaço seguro para você se escutar e construir novos caminhos.</p>
-      <a class="btn-cta" href="sobre.html">SAIBA MAIS</a>
-    </div>
-    <div class="hero-img-wrap">
-      <img src="assets/PortifolioLucianoFotos/foto2.jpg" alt="Foto de Luciano Pimenta" width="400" height="500" loading="lazy" class="hero-img">
+  <section class="hero section">
+    <div class="container grid">
+      <div class="hero-text">
+        <h1>Luciano Pimenta</h1>
+        <h2>Psicólogo</h2>
+        <p>Um espaço seguro para você se escutar e construir novos caminhos.</p>
+        <a class="btn-cta" href="sobre.html">SAIBA MAIS</a>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="assets/PortifolioLucianoFotos/foto2.jpg" alt="Foto de Luciano Pimenta" width="400" height="500" loading="lazy" class="hero-img">
+      </div>
     </div>
   </section>
 
-  <section class="cta-final">
-    <h2>Agende sua sessão</h2>
-    <a class="btn-cta" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta.">WhatsApp</a>
+  <section class="cta-final section">
+    <div class="container">
+      <h2>Agende sua sessão</h2>
+      <a class="btn-cta" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta.">WhatsApp</a>
+    </div>
   </section>
 </main>
 <footer>
-  <div class="footer-content">
+  <div class="container footer-content">
     <span>&copy; 2025 Luciano Pimenta - Psicólogo</span>
     <nav class="footer-social">
       <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -56,6 +61,6 @@
     </nav>
   </div>
 </footer>
-<script src="script.js" defer></script>
+<script src="menu.js" defer></script>
 </body>
 </html>

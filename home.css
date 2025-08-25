@@ -1,0 +1,17 @@
+.hero{display:grid;align-items:center;grid-template-columns:1fr 1fr;gap:2rem;}
+.hero-img{width:100%;height:auto;}
+.about .btn-cta{margin-top:1rem;}
+.work-banner{background:var(--marsala-profundo);color:#fff;}
+.work-banner .cards{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.work-banner .card{background:#fff;color:var(--marrom-terra-firme);position:relative;}
+.work-banner .card::after{content:'\203A';position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:1.5rem;color:var(--marsala-profundo);}
+.therapy-target .card{max-width:600px;margin:0 auto;}
+.therapy-target ul{margin:0;padding-left:1.2rem;}
+.therapy-target blockquote{font-style:italic;margin-top:1rem;}
+.cta-final{text-align:center;}
+
+@media(max-width:800px){
+  .hero{grid-template-columns:1fr;text-align:center;}
+  .hero-img-wrap{order:-1;}
+  .hero-img{margin:0 auto;}
+}

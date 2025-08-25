@@ -1,0 +1,5 @@
+.cards{grid-template-columns:repeat(3,1fr);}
+.card{transition:transform .3s,box-shadow .3s;}
+.card:hover{transform:translateY(-5px);box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.cards{grid-template-columns:1fr;}}
