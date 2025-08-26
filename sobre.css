@@ -1,3 +1,91 @@
-.about-card{background:#fff;padding:2rem;border-radius:0.5rem;max-width:800px;margin:0 auto;}
-.about-card h3{font-family:'Cormorant Garamond',serif;font-weight:700;margin-top:1.5rem;}
-.about-card h3:first-child{margin-top:0;}
+/* Hero do Sobre */
+.about-hero{
+  display:grid; gap:2rem; align-items:center;
+  grid-template-columns: 340px 1fr;
+}
+.about-photo{
+  width:100%; height:420px; object-fit:cover; border-radius:1rem;
+  border:4px solid var(--marsala-profundo);
+  box-shadow:0 6px 24px #00000014;
+}
+.about-intro h2{
+  margin:0 0 .25rem;
+  font-family:'Cormorant Garamond',serif; font-weight:800;
+  color:var(--marsala-profundo); font-size:clamp(1.8rem,3vw,2.4rem);
+}
+.subtitle{ margin:.1rem 0 .75rem; font-weight:600; color:var(--oliva-sutil); }
+.lead{ font-size:1.05rem; margin:0 0 1rem; color:var(--marrom-terra-firme); }
+.badges{ display:flex; flex-wrap:wrap; gap:.5rem; margin:0 0 1rem; }
+.badge{
+  background:var(--dourado-fosco); color:var(--marsala-profundo);
+  padding:.35rem .7rem; border-radius:999px; font-weight:700; font-size:.9rem;
+}
+
+/* Cards principais (Carreira/Valores/Como atendo) */
+.about-grid{
+  display:grid; gap:1.2rem;
+  grid-template-columns:repeat(3,1fr);
+}
+.about-card{
+  background:#fff; padding:1.5rem; border-radius:1rem;
+  box-shadow:0 2px 12px #00000014;
+}
+.about-card h3{
+  margin:.2rem 0 .4rem;
+  color:var(--marsala-profundo); font-weight:800;
+}
+
+/* Timeline */
+.section-title{
+  margin:0 0 .8rem;
+  font-family:'Cormorant Garamond',serif; font-weight:700;
+  color:var(--marsala-profundo);
+}
+.timeline{
+  position:relative; list-style:none; margin:0; padding:0 0 0 1.5rem;
+}
+.timeline::before{
+  content:""; position:absolute; left:.5rem; top:0; bottom:0;
+  width:2px; background:var(--dourado-fosco);
+}
+.timeline li{ position:relative; padding: .2rem 0 .8rem 0; }
+.timeline li::marker{ content:""; }
+.timeline li::after{
+  content:""; position:absolute; left:.36rem; top:.45rem;
+  width:.6rem; height:.6rem; border-radius:50%;
+  background:var(--marsala-profundo);
+}
+.tl-year{ font-weight:800; color:var(--marsala-profundo); margin-left:.8rem; }
+.tl-body{ margin-left:.8rem; color:var(--marrom-terra-firme); }
+
+/* Formação / checklist */
+.checklist{
+  margin:0; padding-left:1.2rem; color:var(--marrom-terra-firme);
+}
+.checklist li{ margin:.35rem 0; }
+
+/* FAQ */
+.faq{
+  background:#fff; border-radius:.8rem; padding:1rem 1.1rem;
+  box-shadow:0 2px 8px #0000000f; margin:.6rem 0;
+}
+.faq summary{
+  cursor:pointer; font-weight:700; color:var(--marsala-profundo);
+  list-style:none;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq[open]{ animation:faq .2s ease; }
+@keyframes faq{ from{opacity:.7; transform:translateY(-2px)} to{opacity:1; transform:none} }
+
+/* CTA final */
+.cta-box{
+  text-align:center; background:#fff; padding:2rem; border-radius:1rem;
+  box-shadow:0 2px 12px #00000014;
+}
+
+/* Responsivo */
+@media (max-width: 980px){
+  .about-hero{ grid-template-columns: 1fr; }
+  .about-photo{ height:320px; }
+  .about-grid{ grid-template-columns: 1fr; }
+}

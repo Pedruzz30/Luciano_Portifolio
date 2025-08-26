@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="sobre.css">
 </head>
+
 <body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header>
@@ -29,31 +30,137 @@
     <button class="menu-toggle" aria-label="Abrir Menu" aria-expanded="false">&#9776;</button>
   </div>
 </header>
+
 <main id="conteudo">
   <section class="page-title section">
     <div class="container"><h1>Sobre mim</h1></div>
   </section>
+
+  <!-- Introdução curta -->
   <section class="section">
-    <div class="about-card">
-      <h3>Carreira</h3>
-      <p>Formado em Psicologia pela Universidade XYZ, atuo em consultório particular desde 2014, com especialização em terapia cognitivo-comportamental.</p>
-      <h3>Valores</h3>
-      <p>Acredito em uma escuta acolhedora, ética e comprometida com o bem-estar de cada pessoa.</p>
-      <h3>Forma de Atendimento</h3>
-      <p>Ofereço sessões presenciais no Centro do Rio de Janeiro e atendimentos on-line, sempre respeitando o ritmo de cada paciente.</p>
+    <div class="container article">
+      <p>
+        Sou Luciano Pimenta (CRP 05/82816). Minha prática clínica é voltada a pessoas adultas que
+        buscam acolhimento, clareza e mudança possível. Trabalho com escuta ativa, metas combinadas
+        e respeito ao tempo de cada processo — presencial no Centro/RJ e online.
+      </p>
+    </div>
+  </section>
+
+  <!-- Índice navegável -->
+  <section class="section">
+    <div class="container">
+      <nav class="toc" aria-label="Índice desta página">
+        <strong>Navegue:</strong>
+        <a href="#formacao">Formação</a>
+        <a href="#metodo">Abordagem & Método</a>
+        <a href="#areas">Áreas de atuação</a>
+        <a href="#sessoes">Como funcionam as sessões</a>
+        <a href="#etica">Ética & Confidencialidade</a>
+        <a href="#faq">Perguntas frequentes</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Formação -->
+  <section class="section" id="formacao">
+    <div class="container about-section">
+      <h2>Formação & Certificações</h2>
+      <ul class="checklist">
+        <li>Psicologia — Universidade XYZ</li>
+        <li>Especialização em Terapia Cognitivo-Comportamental (TCC)</li>
+        <li>Atualizações em Regulação Emocional e Ansiedade</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Abordagem & Método -->
+  <section class="section" id="metodo">
+    <div class="container about-section">
+      <h2>Abordagem & Método de Trabalho</h2>
+      <p>
+        O foco é alinhar expectativas, construir objetivos alcançáveis e medir progresso
+        de forma honesta, sempre com acolhimento e ética.
+      </p>
+      <ol class="steps">
+        <li><strong>Primeira conversa:</strong> entendimento da demanda, história e necessidades.</li>
+        <li><strong>Alinhamento de metas:</strong> combinamos objetivos e frequência.</li>
+        <li><strong>Plano de cuidado:</strong> estratégias práticas para o dia a dia.</li>
+        <li><strong>Acompanhamento:</strong> revisões periódicas e ajustes de rota.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Áreas de atuação -->
+  <section class="section" id="areas">
+    <div class="container about-section">
+      <h2>Áreas de atuação</h2>
+      <ul class="checklist">
+        <li>Ansiedade e regulação emocional</li>
+        <li>Autoestima e autocompaixão</li>
+        <li>Relacionamentos e comunicação</li>
+        <li>Autoconhecimento e tomada de decisão</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Como funcionam as sessões -->
+  <section class="section" id="sessoes">
+    <div class="container about-section">
+      <h2>Como funcionam as sessões</h2>
+      <div class="kpis">
+        <div class="kpi"><span>50 min</span><small>Duração</small></div>
+        <div class="kpi"><span>Semanal</span><small>Frequência sugerida</small></div>
+        <div class="kpi"><span>Online/Presencial</span><small>Formato</small></div>
+      </div>
+      <p>
+        O atendimento pode ser online (vídeo) ou presencial no Centro do Rio.
+        Definimos metas e combinados no começo e vamos revisando conforme o processo evolui.
+      </p>
+    </div>
+  </section>
+
+  <!-- Ética -->
+  <section class="section" id="etica">
+    <div class="container about-section">
+      <h2>Ética & Confidencialidade</h2>
+      <p>
+        O sigilo é um pilar do atendimento psicológico. Todo o processo segue as diretrizes
+        éticas da profissão, com respeito e responsabilidade em cada etapa.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container about-section">
+      <h2>Perguntas frequentes</h2>
+
+      <details class="faq">
+        <summary>Como é a primeira sessão?</summary>
+        <p>É uma conversa inicial para entender sua demanda e traçar objetivos. Também alinhamos formato e frequência.</p>
+      </details>
+
+      <details class="faq">
+        <summary>Atende por convênio?</summary>
+        <p>Atendimento particular. Posso emitir recibo para reembolso conforme regras do seu plano.</p>
+      </details>
+
+      <details class="faq">
+        <summary>É possível atendimento 100% online?</summary>
+        <p>Sim. O formato online mantém a qualidade do cuidado, com sigilo e combinados claros.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="section">
+    <div class="container cta-box">
+      <p>Se fez sentido, vamos conversar.</p>
+      <a class="btn-cta" target="_blank" rel="noopener noreferrer"
+         href="https://wa.me/5521993034166?text=Olá%2C%20gostaria%20de%20agendar%20uma%20sessão.">
+        Agendar sessão
+      </a>
     </div>
   </section>
 </main>
-<footer>
-  <div class="container footer-content">
-    <span>&copy; 2025 Luciano Pimenta - Psicólogo</span>
-    <nav class="footer-social">
-      <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="mailto:SEU_EMAIL" target="_blank" rel="noopener noreferrer">E-mail</a>
-      <a href="https://linkedin.com/in/SEU_LINKEDIN" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    </nav>
-  </div>
-</footer>
-<script src="menu.js" defer></script>
-</body>
-</html>
