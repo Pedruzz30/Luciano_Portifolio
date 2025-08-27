@@ -4,15 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Início | Luciano Pimenta Psicólogo</title>
+
   <meta name="description" content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão." />
+  <link rel="canonical" href="https://seu-dominio.com/index.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Início | Luciano Pimenta Psicólogo" />
   <meta property="og:description" content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão." />
   <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg" />
   <meta property="og:locale" content="pt_BR" />
-  <link rel="canonical" href="https://seu-dominio.com/index.html" />
+
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
-  <!-- CSS base + CSS específico da home -->
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="home.css" />
 </head>
@@ -21,12 +22,14 @@
 
   <header>
     <div class="container header-content">
-      <a href="index.html" class="logo">
+      <a href="index.html" class="logo" aria-label="Início">
         <img src="assets/PortifolioLucianoFotos/Logo2.jpg" alt="Luciano Pimenta" width="80" height="40" />
       </a>
-      <button class="menu-toggle" aria-label="Abrir Menu" aria-expanded="false">☰</button>
-      <nav class="menu" aria-label="Principal">
-        <a href="index.html">INÍCIO</a>
+
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">☰</button>
+
+      <nav id="nav-principal" class="menu" aria-label="Principal">
+        <a href="index.html" aria-current="page">INÍCIO</a>
         <a href="sobre.html">SOBRE</a>
         <a href="servicos.html">SERVIÇOS</a>
         <a href="contato.html">CONTATO</a>
@@ -35,16 +38,16 @@
   </header>
 
   <main id="conteudo">
-    <!-- HERO minimalista: 1 CTA só -->
+    <!-- HERO minimalista -->
     <section class="section hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <h1>Luciano Pimenta</h1>
+          <h1>Luciano Pimenta Dias</h1>
           <h2 class="hero-sub">Psicólogo • CRP 05/82816</h2>
           <p class="hero-lead">
-            Sou psicólogoe ofereço um espaço de escuta e acolhemento para quem deseja compreender melhor suas emoçoes, relações e escolhas.
+            Sou psicólogo e ofereço um espaço de escuta e acolhimento para quem deseja compreender melhor suas emoções, relações e escolhas.
           </p>
-          <a class="btn-cta" href="sobre.html">Conheça meu trabalho</a>
+          <a class="btn-reveal" href="sobre.html">Conheça meu trabalho</a>
         </div>
 
         <div class="hero-img-wrap">
@@ -57,48 +60,50 @@
       </div>
     </section>
 
-    <!-- SOBRE (resumo curto, sem CTA extra) -->
+    <!-- SOBRE (resumo curto) -->
     <section class="section sobre-mini">
       <div class="container">
         <div class="sobre-mini-content">
           <h2>Sobre mim</h2>
           <p>
-            Atendo adultos no formato online. Cada processo é construído em conjunto:
-            objetivos claros, acolhimento e ética — no seu ritmo.
+            Atendo adultos no formato online. Cada processo é construído em conjunto: objetivos claros, acolhimento e ética — no seu ritmo.
           </p>
           <ul class="sobre-bullets">
             <li>Ansiedade • Autoestima • Relacionamentos</li>
             <li>Escuta ativa e metas combinadas</li>
             <li>Ritmo respeitado, sem pressa</li>
           </ul>
-          <p class="link-inline"><a href="sobre.html" aria-label="Ir para a página Sobre">Ver detalhes</a></p>
+          <p class="link-inline"><a href="sobre.html">Ver detalhes</a></p>
         </div>
       </div>
     </section>
 
-    <!-- Teasers discretos das abas -->
+    <!-- Teasers discretos -->
     <section class="section teasers">
       <div class="container cards">
         <article class="card teaser">
           <h3>Serviços</h3>
           <p>O que trabalhamos e como cada acompanhamento funciona.</p>
-          <p class="link-inline"><a href="servicos.html" aria-label="Ir para a página de serviços">Explorar serviços →</a></p>
+          <p class="link-inline"><a href="servicos.html">Explorar serviços →</a></p>
         </article>
 
         <article class="card teaser">
           <h3>Como marcamos</h3>
           <p>Formatos, disponibilidade e primeiros combinados.</p>
-          <p class="link-inline"><a href="contato.html" aria-label="Ir para a página de contato">Ver opções de contato →</a></p>
+          <p class="link-inline"><a href="contato.html">Ver opções de contato →</a></p>
         </article>
       </div>
     </section>
 
-    <!-- CTA final único (WhatsApp) -->
+    <!-- CTA final -->
     <section class="section cta-final">
       <div class="container cta-box">
         <p>Se fez sentido, damos o primeiro passo juntos.</p>
-        <a class="btn-cta" target="_blank" rel="noopener noreferrer"
-           href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Quero%20entender%20como%20funciona%20o%20atendimento.">Falar no WhatsApp</a>
+        <a class="btn-reveal"
+           target="_blank" rel="noopener noreferrer"
+           href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Quero%20entender%20como%20funciona%20o%20atendimento.">
+          Falar no WhatsApp
+        </a>
       </div>
     </section>
   </main>
@@ -113,7 +118,5 @@
       </nav>
     </div>
   </footer>
-
-  <script src="menu.js" defer></script>
 </body>
 </html>
