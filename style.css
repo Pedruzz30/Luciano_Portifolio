@@ -87,10 +87,25 @@ header{
 
 .menu{ display:flex; gap:1rem; }
 .menu a{
+  position:relative; display:inline-block;
   text-decoration:none; color:var(--marrom-terra-firme);
   padding:.5rem 1rem; border-radius:.25rem;
+  transition:color .3s, background-color .3s;
 }
+.menu a::after{
+  content:""; position:absolute; inset-inline-start:0; inset-block-end:0;
+  block-size:2px; inline-size:0;
+  background:var(--marsala-profundo);
+  transition:inline-size .3s;
+}
+.menu a:hover,
+.menu a:focus-visible{
+  background:var(--dourado-fosco); color:var(--marsala-profundo);
+}
+.menu a:hover::after,
+.menu a:focus-visible::after{ inline-size:100%; }
 .menu a.active{ background:var(--dourado-fosco); color:var(--marsala-profundo); }
+.menu a.active::after{ inline-size:100%; }
 
 .menu-toggle{
   display:none; background:none; border:0; font-size:1.5rem; line-height:1;
@@ -105,15 +120,27 @@ footer{ background:var(--marsala-profundo); color:#fff; padding-block:2rem; marg
 
 /* ===== Mobile nav ===== */
 @media (max-width:800px){
-  .menu-toggle{ display:block; }
-  .menu{
-    position:absolute; inset-block-start:100%; inset-inline-end:0;
-    background:var(--areia-dourada);
-    flex-direction:column; gap:0;
-    transform-origin:top; transform:scaleY(0); transition:transform .2s;
-    border:1px solid color-mix(in srgb, var(--cinza-quente-neutro) 40%, transparent);
-    border-top:none; min-width:220px;
+  .menu-toggle { display:block; }
+
+  .menu {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-end: 0;
+    background: var(--areia-dourada);
+    flex-direction: column;
+    gap: 0;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform .2s;
+    border: 1px solid var(--cinza-quente-neutro); /* substitui color-mix */
+    border-top: none;
+    min-width: 220px;
   }
-  .menu.open{ transform:scaleY(1); }
-  .menu a{ padding:1rem; border-top:1px solid var(--cinza-quente-neutro); }
+
+  .menu.open { transform: scaleY(1); }
+
+  .menu a {
+    padding: 1rem;
+    border-top: 1px solid var(--cinza-quente-neutro);
+  }
 }
