@@ -1,34 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contato | Luciano Pimenta Psicólogo</title>
-  <meta name="description" content="Entre em contato com o psicólogo Luciano Pimenta.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Contato | Luciano Pimenta Psicólogo">
-  <meta property="og:description" content="Entre em contato com o psicólogo Luciano Pimenta.">
-  <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg">
-  <meta property="og:locale" content="pt_BR">
-  <link rel="canonical" href="https://seu-dominio.com/contato.html">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="contato.css">
-</head>
-<body>
-<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
-<header>
-  <div class="container header-content">
-    <a href="index.html" class="logo"><img src="assets/PortifolioLucianoFotos/Logo2.jpg" alt="Luciano Pimenta" width="80" height="40"></a>
-    <nav class="menu">
-      <a href="index.html">INÍCIO</a>
-      <a href="sobre.html">SOBRE</a>
-      <a href="servicos.html">SERVIÇOS</a>
-      <a href="contato.html">CONTATO</a>
-    </nav>
-    <button class="menu-toggle" aria-label="Abrir Menu" aria-expanded="false">&#9776;</button>
-  </div>
-</header>
-<main id="conteudo">
-  <section class="page-title section">
-    <div class="container"><h1>Contato</h1></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contato | Luciano Pimenta Psicólogo</title>
+    <meta
+      name="description"
+      content="Entre em contato com o psicólogo Luciano Pimenta."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contato | Luciano Pimenta Psicólogo" />
+    <meta
+      property="og:description"
+      content="Entre em contato com o psicólogo Luciano Pimenta."
+    />
+    <meta
+      property="og:image"
+      content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <link rel="canonical" href="https://seu-dominio.com/contato.html" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <header>
+      <div class="container header-content">
+        <a href="index.html" class="logo" aria-label="Início"
+          ><img
+            src="assets/PortifolioLucianoFotos/Logo2.jpg"
+            alt="Luciano Pimenta"
+            width="80"
+            height="40"
+        /></a>
+        <button
+          class="menu-toggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="nav-principal"
+        >
+          ☰
+        </button>
+        <nav id="nav-principal" class="menu" aria-label="Principal">
+          <a href="index.html">INÍCIO</a>
+          <a href="sobre.html">SOBRE</a>
+          <a href="servicos.html">SERVIÇOS</a>
+          <a href="contato.html" aria-current="page">CONTATO</a>
+        </nav>
+      </div>
+    </header>
+    <main id="conteudo">
+      <section class="page-title section">
+        <div class="container"><h1>Contato</h1></div>
+      </section>
+      <section class="section">
+        <div class="container article">
+          <p>
+            Para agendar sessões ou tirar dúvidas, utilize os canais abaixo:
+          </p>
+          <ul class="sobre-bullets">
+            <li>
+              <a
+                href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais"
+                target="_blank"
+                rel="noopener noreferrer"
+                >WhatsApp</a
+              >
+            </li>
+            <li>
+              <a
+                href="mailto:SEU_EMAIL"
+                target="_blank"
+                rel="noopener noreferrer"
+                >E-mail</a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container footer-content">
+        <span>&copy; 2025 Luciano Pimenta - Psicólogo</span>
+        <nav class="footer-social" aria-label="Redes sociais">
+          <a
+            href="https://instagram.com/SEU_INSTAGRAM"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Instagram</a
+          >
+          <a href="mailto:SEU_EMAIL" target="_blank" rel="noopener noreferrer"
+            >E-mail</a
+          >
+          <a
+            href="https://linkedin.com/in/SEU_LINKEDIN"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </nav>
+      </div>
+    </footer>
+    <script src="menu.js" defer></script>
+  </body>
+</html>

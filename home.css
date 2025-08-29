@@ -1,26 +1,28 @@
 /* ===================== HOME (index) ===================== */
 
 /* ---------- HERO ---------- */
-.hero { padding-block: clamp(2rem, 6vw, 5rem); }
+.hero {
+  padding-block: clamp(2rem, 6vw, 5rem);
+}
 
 .hero-grid {
   display: grid;
   gap: clamp(1.25rem, 3vw, 2.5rem);
-  grid-template-columns: 1.1fr .9fr;   /* texto levemente maior */
+  grid-template-columns: 1.1fr 0.9fr; /* texto levemente maior */
   align-items: center;
 }
 
 .hero-text h1 {
-  margin: 0 0 .25rem;
-  font-family: 'Cormorant Garamond', serif;
+  margin: 0 0 0.25rem;
+  font-family: "Cormorant Garamond", serif;
   font-weight: 800;
   color: var(--marsala-profundo);
   font-size: clamp(2.2rem, 5vw, 3.5rem);
-  letter-spacing: .3px;
+  letter-spacing: 0.3px;
 }
 
 .hero-sub {
-  margin: 0 0 .75rem;
+  margin: 0 0 0.75rem;
   font-weight: 600;
   color: var(--oliva-sutil);
   font-size: clamp(1rem, 1.6vw, 1.15rem);
@@ -33,7 +35,8 @@
   max-width: 48ch;
 }
 
-.hero-actions .btn-cta { /* só 1 CTA na hero, mas deixo gancho */
+.hero-actions .btn-cta {
+  /* só 1 CTA na hero, mas deixo gancho */
   display: inline-block;
 }
 
@@ -59,21 +62,17 @@
 }
 
 .sobre-mini h2 {
-  margin: 0 0 .5rem;
-  font-family: 'Cormorant Garamond', serif;
+  margin: 0 0 0.5rem;
+  font-family: "Cormorant Garamond", serif;
   font-weight: 700;
   color: var(--marsala-profundo);
   font-size: clamp(1.4rem, 3vw, 1.9rem);
 }
 
-.sobre-bullets {
-  margin: .5rem 0 0;
-  padding-left: 1.2rem;
-}
-.sobre-bullets li { margin: .25rem 0; }
-
 /* link discreto em linha */
-.link-inline { margin: .8rem 0 0; }
+.link-inline {
+  margin: 0.8rem 0 0;
+}
 .link-inline a {
   text-decoration: none;
   font-weight: 700;
@@ -81,7 +80,9 @@
   border-bottom: 2px solid var(--dourado-fosco);
   padding-bottom: 2px;
 }
-.link-inline a:hover { border-color: var(--marsala-profundo); }
+.link-inline a:hover {
+  border-color: var(--marsala-profundo);
+}
 
 /* ---------- TEASERS (cartões leves) ---------- */
 .teasers .cards {
@@ -94,13 +95,17 @@
   border-radius: 1rem;
   background: #fff;
   box-shadow: 0 2px 12px #0001;
-  transition: transform .18s, box-shadow .18s;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
 }
 .card.teaser h3 {
-  margin: 0 0 .35rem;
+  margin: 0 0 0.35rem;
   color: var(--marsala-profundo);
 }
-.card.teaser p { margin: 0 0 .5rem; }
+.card.teaser p {
+  margin: 0 0 0.5rem;
+}
 .card.teaser:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 22px #c9ae8f33;
@@ -117,10 +122,17 @@
 
 /* ---------- RESPONSIVO ---------- */
 @media (max-width: 980px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-img { width: min(100%, 360px); }
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-img {
+    width: min(100%, 360px);
+  }
 }
 
 @media (max-width: 720px) {
-  .teasers .cards { grid-template-columns: 1fr; }
-}
+  .teasers .cards {
+    grid-template-columns: 1fr;
+  }
+}rs .cards { grid-template-columns: 1fr; }
+
