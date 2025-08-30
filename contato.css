@@ -4,8 +4,9 @@
 .contact-card,
 .channel-group,
 .faq-list details {
-  background: #fff;
-  border: 1px solid var(--cinza-quente-neutro);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
   border-radius: 1rem;
   box-shadow: 0 8px 24px #0001;
   padding: clamp(1.5rem, 5vw, 2rem);
@@ -30,67 +31,6 @@
 .contact-list {
   margin: 0;
   padding-left: 1.25rem;
-  display: grid;
-  gap: 0.5rem;
-}
-
-.contact-cta {
-  margin-top: 0.5rem;
-  display: flex;
-  justify-content: center;
-}
-
-/* canais e redes */
-.channels-grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-@media (min-width: 720px) {
-  .channels-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.channel-group {
-  display: grid;
-  gap: 1rem;
-}
-
-.channels-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.75rem;
-}
-
-.channel-ig {
-  --btn-fill: #b2433f;
-}
-
-.channel-tt {
-  --btn-fill: var(--dourado-fosco);
-}
-
-/* FAQ */
-.faq-list {
-  display: grid;
-  gap: 1rem;
-}
-
-.faq-list summary {
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.faq-list p {
-  margin-top: 0.5rem;
-}
-
-/* fechamento */
-.contact-closing {
-  text-align: center;
   display: grid;
   gap: 1rem;
   max-width: 60ch;

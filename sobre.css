@@ -65,10 +65,12 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 .about-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
   padding: clamp(1.2rem, 2.5vw, 1.6rem);
   border-radius: 1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
   transition:
     transform 0.22s ease,
     box-shadow 0.22s ease;
@@ -99,10 +101,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem 1.2rem;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
   padding: 1rem 1.25rem;
   border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
 }
 .toc strong {
   color: var(--berinjela-noturna);
@@ -128,61 +132,6 @@
 .toc a:focus-visible::after {
   right: 0;
 }
-.toc a:focus-visible {
-  outline: 2px solid var(--dourado-fosco);
-  outline-offset: 2px;
-}
-
-/* sticky no desktop */
-@media (min-width: 1100px) {
-  .toc {
-    position: sticky;
-    top: 92px;
-    z-index: 2;
-  }
-}
-
-/* ---------- Timeline ---------- */
-.timeline {
-  position: relative;
-  list-style: none;
-  margin: 0;
-  padding: 0 0 0 1.8rem;
-}
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 0.6rem;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--dourado-fosco);
-}
-.timeline li {
-  position: relative;
-  padding: 0.3rem 0 1rem 0;
-}
-.timeline li::after {
-  content: "";
-  position: absolute;
-  left: 0.25rem;
-  top: 0.6rem;
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 50%;
-  background: var(--marsala-profundo);
-  box-shadow: 0 0 0 3px #fff;
-}
-.tl-year {
-  font-weight: 800;
-  color: var(--marsala-profundo);
-  margin-left: 1rem;
-}
-.tl-body {
-  margin-left: 1rem;
-  color: var(--marrom-terra-firme);
-  line-height: 1.55;
-}
 
 /* ---------- Checklist ---------- */
 .checklist {
@@ -205,10 +154,10 @@
   background: var(--dourado-fosco);
   color: var(--marsala-profundo);
   padding: 1rem;
-  border-radius: 0.9rem;
+  border-radius: 1rem;
   min-width: 150px;
   text-align: center;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .kpi span {
   display: block;
@@ -223,10 +172,12 @@
 
 /* ---------- FAQ ---------- */
 .faq {
-  background: #fff;
-  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  border-radius: 1rem;
   padding: 1rem 1.1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
   margin: 0.8rem 0;
 }
 .faq summary {
@@ -265,10 +216,12 @@
 /* ---------- CTA final ---------- */
 .cta-box {
   text-align: center;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
   padding: clamp(1.3rem, 3vw, 2rem);
   border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 /* ---------- Textos dentro de .article ---------- */
@@ -294,15 +247,3 @@
     height: 320px;
   }
 }
-@media (max-width: 720px) {
-  .timeline {
-    padding-left: 1.2rem;
-  }
-  .timeline::before {
-    left: 0.4rem;
-  }
-  .timeline li::after {
-    left: 0.05rem;
-  }
-}
-

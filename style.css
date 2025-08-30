@@ -117,9 +117,16 @@ header {
   inset-block-start: 0;
   inset-inline: 0;
   width: 100%;
-  background: var(--areia-dourada);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--areia-dourada) 90%, white 10%),
+    color-mix(in srgb, var(--areia-dourada) 70%, white 30%)
+  );
+  backdrop-filter: saturate(180%) blur(10px);
+  box-shadow: 0 2px 8px #0002;
   z-index: 10;
 }
+
 .header-content {
   display: flex;
   align-items: center;
@@ -233,11 +240,16 @@ main {
 
 /* ===== Footer ===== */
 footer {
-  background: var(--marsala-profundo);
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--marsala-profundo) 90%, black 10%),
+    var(--marsala-profundo)
+  );
   color: #fff;
   padding-block: 2rem;
   margin-top: 4rem;
 }
+
 .footer-content {
   display: flex;
   gap: 1rem;
@@ -265,7 +277,7 @@ footer {
   padding: 0.9rem 1.6rem;
   min-height: 44px;
   border: 0;
-  border-radius: 0.9rem;
+  border-radius: 1rem;
   background: var(--btn-base);
   color: var(--btn-text);
   font:
@@ -281,7 +293,7 @@ footer {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 0 8px 20px -3px rgba(0, 0, 0, 0.27);
   transition:
     color 0.25s ease,
     transform 0.25s ease,
