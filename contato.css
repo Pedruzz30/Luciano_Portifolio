@@ -1,0 +1,181 @@
+/* ====================== CONTATO ====================== */
+
+/* layout do bloco */
+.contact-cards{
+  display:flex; justify-content:center; align-items:flex-start;
+}
+
+/* ===== Social Card • Ultra ===== */
+.social-card.ultra{
+  --radius: 1.1rem;
+  --cut: 16px;
+
+  inline-size: min(440px, 92vw);
+  padding: 1px; /* borda gradiente externa */
+  border-radius: var(--radius);
+
+  /* borda com fallback se color-mix não existir */
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    conic-gradient(
+      from 160deg,
+      #c9ae8f 0 25%,
+      #752a2a 25% 50%,
+      #c9ae8f 50% 75%,
+      #752a2a 75% 100%
+    ) border-box;
+
+  /* canto recortado */
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+
+  box-shadow: 0 10px 28px #0000001a;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+@supports (color: color-mix(in srgb, black, white)) {
+  .social-card.ultra{
+    background:
+      linear-gradient(#fff, #fff) padding-box,
+      conic-gradient(
+        from 160deg,
+        color-mix(in srgb, var(--dourado-fosco) 70%, #fff) 0 25%,
+        color-mix(in srgb, var(--marsala-profundo) 70%, #000) 25% 50%,
+        color-mix(in srgb, var(--dourado-fosco) 70%, #fff) 50% 75%,
+        color-mix(in srgb, var(--marsala-profundo) 70%, #000) 75% 100%
+      ) border-box;
+  }
+}
+.social-card.ultra:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px #0000002b;
+}
+
+/* moldura interna */
+.sc-frame{
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 2px);
+  background:
+    radial-gradient(1000px 600px at -20% -10%, #fff 0%, #fff7 55%, transparent 70%),
+    #fff;
+  padding: clamp(1.1rem, 3.5vw, 1.45rem);
+  display: grid;
+  justify-items: center;
+  gap: .9rem;
+}
+
+/* aura */
+.sc-aurora{
+  position: absolute;
+  inset: -40% -10% auto -10%;
+  height: 70%;
+  background:
+    radial-gradient(80% 60% at 10% 10%, color-mix(in srgb, var(--dourado-fosco) 45%, transparent), transparent 70%),
+    radial-gradient(65% 50% at 90% 20%, color-mix(in srgb, var(--marsala-profundo) 40%, transparent), transparent 70%);
+  filter: blur(24px) saturate(1.1);
+  transform: translateX(-30%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .6s ease, opacity .6s ease;
+}
+.social-card.ultra:hover .sc-aurora{
+  transform: translateX(18%);
+  opacity: .9;
+}
+
+/* avatar com aro gradiente */
+.sc-media{
+  inline-size: 128px; block-size: 128px;
+  border-radius: 1rem;
+  padding: 3px; /* aro */
+  background: linear-gradient(135deg, var(--dourado-fosco), var(--marsala-profundo));
+  box-shadow: 0 8px 22px #0000001a;
+}
+.sc-media img{
+  inline-size: 100%; block-size: 100%;
+  object-fit: cover; border-radius: .9rem; display: block;
+}
+
+/* cabeçalho */
+.sc-head{ text-align: center; }
+.sc-title{
+  margin: .1rem 0 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 800;
+  color: var(--marsala-profundo);
+  font-size: clamp(1.3rem, 2.9vw, 1.6rem);
+  letter-spacing: .2px;
+}
+.sc-sub{
+  margin: .18rem 0 0;
+  color: var(--oliva-sutil);
+  font-weight: 600;
+  font-size: .98rem;
+}
+
+/* texto */
+.sc-text{
+  margin: .05rem auto 0;
+  text-align: center;
+  color: var(--marrom-terra-firme);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 50ch;
+}
+
+/* chips */
+.sc-chips{
+  margin: .15rem 0 .2rem; padding: 0; list-style: none;
+  display: flex; gap: .45rem; flex-wrap: wrap; justify-content: center;
+}
+.sc-chips li{
+  font-weight: 700; font-size: .85rem;
+  color: var(--marsala-profundo);
+  background: #efe2cf; /* fallback */
+  border: 1px solid #e2cfae; /* fallback */
+  padding: .38rem .72rem; border-radius: 999px;
+}
+@supports (color: color-mix(in srgb, black, white)) {
+  .sc-chips li{
+    background: color-mix(in srgb, var(--dourado-fosco) 35%, #fff);
+    border: 1px solid color-mix(in srgb, var(--dourado-fosco) 55%, transparent);
+  }
+}
+
+/* ações */
+.sc-actions{
+  display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center;
+  margin-top: .15rem;
+}
+
+/* cues de marca nos botões (usam .btn-reveal do style.css) */
+.sc-ig{ --btn-fill: #b2433f; }               /* combina com tua paleta */
+.sc-tt{ --btn-fill: var(--dourado-fosco); }  /* invert já deixa texto escuro */
+
+/* foco claro e previsível */
+.social-card.ultra :is(a.btn-reveal):focus-visible{
+  outline: 3px solid var(--dourado-fosco);
+  outline-offset: 3px;
+}
+
+/* reforça foco visual do card quando algo dentro recebe foco */
+.social-card.ultra:has(:focus-visible){
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--dourado-fosco) 60%, #fff),
+              0 18px 44px #0000002b;
+}
+
+/* responsivo */
+@media (max-width: 520px){
+  .sc-media{ inline-size: 112px; block-size: 112px; }
+}
+
+/* acessibilidade: respeita redução de movimento */
+@media (prefers-reduced-motion: reduce){
+  .social-card.ultra, .sc-aurora{ transition: none !important; }
+}
