@@ -227,6 +227,20 @@
   box-shadow: 0 12px 28px #0002;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .contact-card,
+  .channel-group,
+  .faq-list details {
+    transition: none !important;
+  }
+
+  .contact-card:hover,
+  .channel-group:hover,
+  .faq-list details:hover {
+    transform: none;
+  }
+}
+
 /* ===== CTA final ===== */
 .cta-box {
   text-align: center;
