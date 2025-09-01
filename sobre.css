@@ -171,46 +171,25 @@
 }
 
 /* ---------- FAQ ---------- */
-.faq {
+.contact-card,
+.channel-group,
+.faq-list details {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(4px);
   border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
   border-radius: 1rem;
-  padding: 1rem 1.1rem;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-  margin: 0.8rem 0;
+  box-shadow: 0 8px 24px #0001;
+  padding: clamp(1.5rem, 5vw, 2rem);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
-.faq summary {
-  cursor: pointer;
-  font-weight: 700;
-  color: var(--marsala-profundo);
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.faq summary::-webkit-details-marker {
-  display: none;
-}
-.faq summary::after {
-  content: "▾";
-  font-size: 0.9rem;
-  transition: transform 0.25s ease;
-}
-.faq[open] summary::after {
-  transform: rotate(-180deg);
-}
-.faq p {
-  margin: 0.6rem 0 0;
-  color: var(--marrom-terra-firme);
-  line-height: 1.55;
-}
-.faq:focus-within {
-  box-shadow: 0 0 0 3px rgba(201, 174, 143, 0.5);
-}
-.faq summary:focus-visible {
-  outline: 2px solid var(--dourado-fosco);
-  outline-offset: 3px;
+
+.contact-card:hover,
+.channel-group:hover,
+.faq-list details:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px #0002;
 }
 
 /* ---------- CTA final ---------- */

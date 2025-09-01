@@ -6,7 +6,7 @@
     <title>Serviços | Luciano Pimenta Psicólogo</title>
     <meta
       name="description"
-      content="Conheça os serviços oferecidos por Luciano Pimenta: terapia individual, ansiedade, autoestima e relacionamentos."
+      content="Atendimento psicológico on-line e presencial sob consulta para adultos, adolescentes e idosos. Processos personalizados com ética e acolhimento."
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Serviços | Luciano Pimenta Psicólogo" />
@@ -24,9 +24,22 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- ajuste os paths se seus CSS estiverem em /css/pages -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="servicos.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Atendimento Psicológico Online",
+        "provider": {
+          "@type": "Person",
+          "name": "Luciano Pimenta Dias"
+        },
+        "areaServed": "Brasil",
+        "availableLanguage": "Portuguese",
+        "hoursAvailable": "Mo-Fr"
+      }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -59,17 +72,28 @@
     </header>
 
     <main id="conteudo">
-      <div class="page-title container"><h1>Serviços</h1></div>
+      <!-- Intro -->
+      <section class="intro section">
+        <div class="container page-title">
+          <h1>Serviços &amp; Acompanhamentos</h1>
+          <p>
+            Atendimento psicológico on-line e presencial sob consulta,
+            direcionado a adultos, adolescentes e idosos. Processos
+            personalizados, sempre com ética e acolhimento.
+          </p>
+        </div>
+      </section>
 
-      <section class="section">
+      <!-- Serviços -->
+      <section class="section" id="servicos">
         <div class="container">
-          <div class="cards">
+          <div class="cards services-grid">
             <!-- Terapia Individual -->
             <article class="card service-card">
               <img
                 class="card-img"
                 src="assets/PortifolioLucianoFotos/terapia-individual.jpg"
-                alt="Atendimento individual"
+                alt="Pessoa em sessão de terapia individual on-line"
                 loading="lazy"
                 width="800"
                 height="450"
@@ -84,20 +108,19 @@
                 </ul>
                 <div class="tags">
                   <span class="tag">Online</span>
+                  <span class="tag">Adultos</span>
+                  <span class="tag">Adolescentes</span>
                 </div>
                 <details class="more">
                   <summary>Saiba mais</summary>
-                  <p>
-                    Processo personalizado com metas combinadas. Frequência
-                    semanal recomendada.
-                  </p>
+                  <p>Processo personalizado com metas combinadas. Frequência semanal recomendada.</p>
                 </details>
                 <div class="card-actions">
                   <a
                     class="btn-reveal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://wa.me/5521993034166?text=Olá%2C%20gostaria%20de%20agendar%20Terapia%20Individual."
+                    href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20Terapia%20Individual."
                     >Agendar</a
                   >
                 </div>
@@ -109,7 +132,7 @@
               <img
                 class="card-img"
                 src="assets/PortifolioLucianoFotos/ansiedade.jpg"
-                alt="Apoio para ansiedade"
+                alt="Mãos entrelaçadas simbolizando ansiedade"
                 loading="lazy"
                 width="800"
                 height="450"
@@ -142,7 +165,7 @@
                     class="btn-reveal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://wa.me/5521993034166?text=Olá%2C%20quero%20saber%20sobre%20atendimento%20para%20ansiedade."
+                    href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20quero%20saber%20sobre%20atendimento%20para%20ansiedade."
                     >Agendar</a
                   >
                 </div>
@@ -154,7 +177,7 @@
               <img
                 class="card-img"
                 src="assets/PortifolioLucianoFotos/relacionamentos.jpg"
-                alt="Apoio em relacionamentos"
+                alt="Duas pessoas conversando cordialmente"
                 loading="lazy"
                 width="800"
                 height="450"
@@ -168,8 +191,9 @@
                   <li>Plano de cuidado conjunto</li>
                 </ul>
                 <div class="tags">
-                  <span class="tag">Online</span
-                  ><span class="tag">Casais/Famílias</span>
+                  <span class="tag">Online</span>
+                  <span class="tag">Casais</span>
+                  <span class="tag">Famílias</span>
                 </div>
                 <details class="more">
                   <summary>Saiba mais</summary>
@@ -183,12 +207,321 @@
                     class="btn-reveal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://wa.me/5521993034166?text=Olá%2C%20quero%20informações%20sobre%20atendimento%20para%20relacionamentos."
+                    href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20quero%20informa%C3%A7%C3%B5es%20sobre%20atendimento%20para%20relacionamentos."
                     >Agendar</a
                   >
                 </div>
               </div>
             </article>
+
+            <!-- Autoestima -->
+            <article class="card service-card">
+              <img
+                class="card-img"
+                src="assets/PortifolioLucianoFotos/foto2.jpg"
+                alt="Pessoa com a mão no coração simbolizando autoestima"
+                loading="lazy"
+                width="800"
+                height="450"
+              />
+              <div class="card-body">
+                <h3>Autoestima</h3>
+                <p>Autoconhecimento, novas narrativas e limites saudáveis.</p>
+                <ul class="features">
+                  <li>Exploração de crenças</li>
+                  <li>Fortalecimento de limites</li>
+                  <li>Práticas de autocompaixão</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">Online</span>
+                  <span class="tag">Adultos</span>
+                  <span class="tag">Adolescentes</span>
+                </div>
+                <details class="more">
+                  <summary>Saiba mais</summary>
+                  <p>
+                    Processos que ajudam a construir uma relação mais
+                    compassiva consigo mesmo.
+                  </p>
+                </details>
+                <div class="card-actions">
+                  <a
+                    class="btn-reveal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20atendimento%20para%20autoestima."
+                    >Agendar</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Fases de transição -->
+            <article class="card service-card">
+              <img
+                class="card-img"
+                src="assets/PortifolioLucianoFotos/foto2.jpg"
+                alt="Mala e estrada representando mudanças de vida"
+                loading="lazy"
+                width="800"
+                height="450"
+              />
+              <div class="card-body">
+                <h3>Fases de transição</h3>
+                <p>Suporte em mudanças de cidade, carreira ou separações.</p>
+                <ul class="features">
+                  <li>Avaliação de recursos</li>
+                  <li>Planejamento de passos</li>
+                  <li>Cuidado emocional</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">Online</span>
+                  <span class="tag">Adultos</span>
+                  <span class="tag">Idosos</span>
+                </div>
+                <details class="more">
+                  <summary>Saiba mais</summary>
+                  <p>
+                    Espaço para ressignificar etapas e lidar com incertezas.
+                  </p>
+                </details>
+                <div class="card-actions">
+                  <a
+                    class="btn-reveal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20busco%20apoio%20para%20fases%20de%20transi%C3%A7%C3%A3o."
+                    >Agendar</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Apoio para idosos/famílias -->
+            <article class="card service-card">
+              <img
+                class="card-img"
+                src="assets/PortifolioLucianoFotos/foto2.jpg"
+                alt="Idoso segurando a mão de um familiar"
+                loading="lazy"
+                width="800"
+                height="450"
+              />
+              <div class="card-body">
+                <h3>Apoio para idosos/famílias</h3>
+                <p>Comunicação, rotina e promoção de autonomia.</p>
+                <ul class="features">
+                  <li>Escuta à família</li>
+                  <li>Estratégias de rotina</li>
+                  <li>Orientações para autonomia</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">Online</span>
+                  <span class="tag">Idosos</span>
+                  <span class="tag">Famílias</span>
+                </div>
+                <details class="more">
+                  <summary>Saiba mais</summary>
+                  <p>
+                    Orientações personalizadas para quem cuida e para quem é
+                    cuidado.
+                  </p>
+                </details>
+                <div class="card-actions">
+                  <a
+                    class="btn-reveal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20quero%20informações%20sobre%20apoio%20para%20idosos%20e%20fam%C3%ADlias."
+                    >Agendar</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Psicoeducação -->
+            <article class="card service-card">
+              <img
+                class="card-img"
+                src="assets/PortifolioLucianoFotos/foto2.jpg"
+                alt="Caderno e caneta representando psicoeducação"
+                loading="lazy"
+                width="800"
+                height="450"
+              />
+              <div class="card-body">
+                <h3>Psicoeducação</h3>
+                <p>Conteúdos e ferramentas práticas para o dia a dia.</p>
+                <ul class="features">
+                  <li>Material personalizado</li>
+                  <li>Exercícios entre sessões</li>
+                  <li>Aplicação prática</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">Online</span>
+                  <span class="tag">Adultos</span>
+                  <span class="tag">Adolescentes</span>
+                </div>
+                <details class="more">
+                  <summary>Saiba mais</summary>
+                  <p>
+                    Compartilhamento de recursos que facilitam o entendimento e
+                    manejo das emoções.
+                  </p>
+                </details>
+                <div class="card-actions">
+                  <a
+                    class="btn-reveal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20gostaria%20de%20informações%20sobre%20psicoeduca%C3%A7%C3%A3o."
+                    >Agendar</a
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Como funciona -->
+      <section class="section como-funciona">
+        <div class="container">
+          <h2>Como funciona o atendimento</h2>
+          <ul class="info-cards">
+            <li class="card info-card">
+              <h3>Formato</h3>
+              <p>Online (principal) e presencial sob consulta.</p>
+            </li>
+            <li class="card info-card">
+              <h3>Duração</h3>
+              <p>50 minutos por sessão.</p>
+            </li>
+            <li class="card info-card">
+              <h3>Frequência</h3>
+              <p>Em geral semanal, ajustável conforme necessidade.</p>
+            </li>
+            <li class="card info-card">
+              <h3>Públicos</h3>
+              <p>Adultos, adolescentes e idosos.</p>
+            </li>
+            <li class="card info-card">
+              <h3>Agendamento</h3>
+              <p>Exclusivo via WhatsApp e e-mail de suporte.</p>
+            </li>
+            <li class="card info-card">
+              <h3>Imprevistos</h3>
+              <p>Avisar com 48h de antecedência.</p>
+            </li>
+            <li class="card info-card">
+              <h3>Horários</h3>
+              <p>Segunda à sexta — consulte disponibilidade.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Para quem é / não é -->
+      <section class="section para-quem">
+        <div class="container">
+          <h2>Para quem é / Para quem não é</h2>
+          <div class="columns">
+            <div>
+              <h3>Para quem é</h3>
+              <ul class="bullets">
+                <li>Quem busca regulação emocional</li>
+                <li>Quem deseja fortalecer a autoestima</li>
+                <li>Quem quer relações mais saudáveis</li>
+                <li>Quem precisa de suporte em mudanças</li>
+                <li>Quem busca clareza para decisões</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Para quem não é</h3>
+              <ul class="bullets">
+                <li>Urgência psiquiátrica</li>
+                <li>Questões forenses</li>
+                <li>Demandas que exijam recursos não oferecidos</li>
+                <li>Situações que peçam atendimento específico</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Jornada -->
+      <section class="section jornada">
+        <div class="container">
+          <h2>Jornada do atendimento</h2>
+          <ol class="steps">
+            <li class="card step">
+              <h3>Primeiro contato</h3>
+              <p>Entender a demanda e combinar o formato.</p>
+            </li>
+            <li class="card step">
+              <h3>Alinhamento</h3>
+              <p>Objetivos, frequência e combinados.</p>
+            </li>
+            <li class="card step">
+              <h3>Cuidado contínuo</h3>
+              <p>Construção de ferramentas e acompanhamento.</p>
+            </li>
+            <li class="card step">
+              <h3>Revisões</h3>
+              <p>Ajustes e avaliação de progresso.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section faq">
+        <div class="container">
+          <h2>Perguntas frequentes</h2>
+          <div class="faq-list">
+            <details>
+              <summary>Atendimento pode ser 100% on-line?</summary>
+              <p>Sim. As sessões são realizadas preferencialmente on-line, garantindo sigilo e praticidade.</p>
+            </details>
+            <details>
+              <summary>Qual a duração das sessões?</summary>
+              <p>Cada sessão tem 50 minutos.</p>
+            </details>
+            <details>
+              <summary>Atende por convênio?</summary>
+              <p>O atendimento é particular. Quando possível, forneço recibo para reembolso.</p>
+            </details>
+            <details>
+              <summary>Como funcionam pagamentos e remarcações?</summary>
+              <p>Pagamentos combinados no agendamento. Para remarcações, avise com 48h.</p>
+            </details>
+            <details>
+              <summary>Atende adolescentes/idosos?</summary>
+              <p>Sim, o cuidado abrange adultos, adolescentes e idosos.</p>
+            </details>
+            <details>
+              <summary>Como escolher entre os serviços?</summary>
+              <p>No primeiro contato conversamos sobre suas necessidades para indicar o melhor caminho.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA final -->
+      <section class="section cta-final">
+        <div class="container">
+          <div class="cta-box card">
+            <p>
+              Pronto para iniciar? Fale comigo e vamos construir esse caminho
+              com sigilo e ética profissional garantidos.
+            </p>
+            <a
+              class="btn-reveal"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento."
+              >Falar no WhatsApp</a
+            >
           </div>
         </div>
       </section>
@@ -220,5 +553,4 @@
     <script src="menu.js" defer></script>
   </body>
 </html>
-servisos.css
-Excluído
+

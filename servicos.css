@@ -1,82 +1,101 @@
-/* ===== GRID DE CARDS ===== */
-.cards {
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;
+/* ===== Grid dos serviços ===== */
+.services-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
 }
-@media (max-width: 900px) {
-  .cards {
+
+@media (min-width: 720px) {
+  .services-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 600px) {
-  .cards {
-    grid-template-columns: 1fr;
+
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* ===== CARD BASE ===== */
+/* ===== Base dos cards ===== */
 .card {
-  transition:
-    transform 0.25s,
-    box-shadow 0.25s;
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
-/* ===== CARD DE SERVIÇO (com imagem/infos) ===== */
-.service-card {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 1rem;
-  padding: 1rem; /* imagem já ocupa espaço visual; padding menor */
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(4px);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
-.card-img {
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  .card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ===== Cards de serviço ===== */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--dourado-fosco);
+  border-radius: 1rem;
+  min-height: 100%;
+}
+
+@supports (color: color-mix(in srgb, var(--dourado-fosco) 40%, white)) {
+  .service-card {
+    border-color: color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  }
+}
+
+.service-card .card-img {
   width: 100%;
-  height: 180px; /* ajuste 200/220 se quiser a foto maior */
+  height: 200px;
   object-fit: cover;
   border-radius: 1rem;
 }
+
 .card-body {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.8rem;
-  padding: 0.5rem 1rem 1rem; /* respiro interno */
+  padding: 1rem;
+  flex: 1;
 }
 
-/* Título/descrição */
 .service-card h3 {
   margin: 0;
-  font-weight: 800;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
   color: var(--marsala-profundo);
 }
+
 .service-card p {
   margin: 0;
   color: var(--marrom-terra-firme);
 }
 
-/* Lista de pontos */
 .features {
   margin: 0;
   padding-left: 1.2rem;
   list-style: disc;
-  color: var(--marrom-terra-firme);
 }
+
 .features li {
   margin: 0.2rem 0;
 }
 
-/* Tags (chips) */
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
 .tag {
   background: var(--dourado-fosco);
   color: var(--marsala-profundo);
@@ -86,20 +105,21 @@
   font-weight: 600;
 }
 
-/* “Saiba mais” sem JS */
 .more summary {
   cursor: pointer;
-  user-select: none;
   list-style: none;
   color: var(--marsala-profundo);
   font-weight: 700;
 }
+
 .more summary::-webkit-details-marker {
   display: none;
 }
+
 .more[open] {
   animation: reveal 0.2s ease;
 }
+
 @keyframes reveal {
   from {
     opacity: 0.7;
@@ -111,12 +131,105 @@
   }
 }
 
-/* CTA do card */
 .card-actions {
-  margin-top: 0.3rem;
+  margin-top: auto;
 }
 
-.service-card {
-  height: 100%;
+/* ===== Bloco "Como funciona" ===== */
+.info-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .info-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .info-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.info-card {
+  padding: 1rem;
+  text-align: center;
+}
+
+/* ===== Para quem é / não é ===== */
+.columns {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 720px) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.bullets {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+/* ===== Jornada ===== */
+.steps {
+  display: grid;
+  gap: 1rem;
+  counter-reset: step;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.steps li {
+  list-style: none;
+  position: relative;
+  padding: 1rem 1rem 1rem 3rem;
+}
+
+.steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--dourado-fosco);
+  color: var(--marsala-profundo);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* ===== FAQ ===== */
+.faq-list details {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px #0001;
+  padding: clamp(1.5rem, 5vw, 2rem);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.contact-card:hover,
+.channel-group:hover,
+.faq-list details:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px #0002;
+}
+
+/* ===== CTA final ===== */
+.cta-box {
+  text-align: center;
+  padding: 2rem;
 }
 

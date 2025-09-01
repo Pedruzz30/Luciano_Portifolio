@@ -1,171 +1,122 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Início | Luciano Pimenta Psicólogo</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Início | Luciano Pimenta Psicólogo</title>
 
-    <meta
-      name="description"
-      content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão."
-    />
-    <link rel="canonical" href="https://seu-dominio.com/index.html" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Início | Luciano Pimenta Psicólogo" />
-    <meta
-      property="og:description"
-      content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão."
-    />
-    <meta
-      property="og:image"
-      content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg"
-    />
-    <meta property="og:locale" content="pt_BR" />
+  <meta name="description" content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão." />
+  <link rel="canonical" href="https://seu-dominio.com/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Início | Luciano Pimenta Psicólogo" />
+  <meta property="og:description" content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão." />
+  <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg" />
+  <meta property="og:locale" content="pt_BR" />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="home.css" />
-  </head>
-  <body>
-    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
-    <header>
-      <div class="container header-content">
-        <a href="index.html" class="logo" aria-label="Início">
+  <header>
+    <div class="container header-content">
+      <a href="index.html" class="logo" aria-label="Início">
+        <img src="assets/PortifolioLucianoFotos/Logo2.jpg" alt="Luciano Pimenta" width="80" height="40" />
+      </a>
+
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">☰</button>
+
+      <nav id="nav-principal" class="menu" aria-label="Principal">
+        <a href="index.html" aria-current="page">INÍCIO</a>
+        <a href="sobre.html">SOBRE</a>
+        <a href="servicos.html">SERVIÇOS</a>
+        <a href="contato.html">CONTATO</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- HERO minimalista -->
+    <section class="section hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1>Luciano Pimenta Dias</h1>
+          <h2 class="hero-sub">Psicólogo • CRP 05/82816</h2>
+          <p class="hero-lead">
+            Sou psicólogo e ofereço um espaço de escuta e acolhimento para quem deseja compreender melhor suas emoções, relações e escolhas.
+          </p>
+          <a class="btn-reveal" href="sobre.html">Conheça meu trabalho</a>
+        </div>
+
+        <div class="hero-img-wrap">
           <img
-            src="assets/PortifolioLucianoFotos/Logo2.jpg"
-            alt="Luciano Pimenta"
-            width="80"
-            height="40"
-          />
+            src="assets/PortifolioLucianoFotos/foto2.jpg"
+            alt="Foto de Luciano Pimenta"
+            class="hero-img"
+            width="420" height="520" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE (resumo curto) -->
+    <section class="section sobre-mini">
+      <div class="container">
+        <div class="sobre-mini-content">
+          <h2>Sobre mim</h2>
+          <p>
+            Atendo adultos no formato online. Cada processo é construído em conjunto: objetivos claros, acolhimento e ética — no seu ritmo.
+          </p>
+          <ul class="sobre-bullets">
+            <li>Ansiedade • Autoestima • Relacionamentos</li>
+            <li>Escuta ativa e metas combinadas</li>
+            <li>Ritmo respeitado, sem pressa</li>
+          </ul>
+          <p class="link-inline"><a href="sobre.html">Ver detalhes</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teasers discretos -->
+    <section class="section teasers">
+      <div class="container cards">
+        <article class="card teaser">
+          <h3>Serviços</h3>
+          <p>O que trabalhamos e como cada acompanhamento funciona.</p>
+          <p class="link-inline"><a href="servicos.html">Explorar serviços →</a></p>
+        </article>
+
+        <article class="card teaser">
+          <h3>Como marcamos</h3>
+          <p>Formatos, disponibilidade e primeiros combinados.</p>
+          <p class="link-inline"><a href="contato.html">Ver opções de contato →</a></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="section cta-final">
+      <div class="container cta-box">
+        <p>Se fez sentido, damos o primeiro passo juntos.</p>
+        <a class="btn-reveal"
+           target="_blank" rel="noopener noreferrer"
+           href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Quero%20entender%20como%20funciona%20o%20atendimento.">
+          Falar no WhatsApp
         </a>
-
-        <button
-          class="menu-toggle"
-          aria-label="Abrir menu"
-          aria-expanded="false"
-          aria-controls="nav-principal"
-        >
-          ☰
-        </button>
-
-        <nav id="nav-principal" class="menu" aria-label="Principal">
-          <a href="index.html" aria-current="page">INÍCIO</a>
-          <a href="sobre.html">SOBRE</a>
-          <a href="servicos.html">SERVIÇOS</a>
-          <a href="contato.html">CONTATO</a>
-        </nav>
       </div>
-    </header>
+    </section>
+  </main>
 
-    <main id="conteudo">
-      <!-- HERO minimalista -->
-      <section class="section hero">
-        <div class="container hero-grid">
-          <div class="hero-text">
-            <h1>Luciano Pimenta Dias</h1>
-            <h2 class="hero-sub">Psicólogo • CRP 05/82816</h2>
-            <p class="hero-lead">
-              Sou psicólogo e ofereço um espaço de escuta e acolhimento para
-              quem deseja compreender melhor suas emoções, relações e escolhas.
-            </p>
-            <a class="btn-reveal" href="sobre.html">Conheça meu trabalho</a>
-          </div>
-
-          <div class="hero-img-wrap">
-            <img
-              src="assets/PortifolioLucianoFotos/foto2.jpg"
-              alt="Foto de Luciano Pimenta"
-              class="hero-img"
-              width="420"
-              height="520"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
-      <!-- SOBRE (resumo curto) -->
-      <section class="section sobre-mini">
-        <div class="container">
-          <div class="sobre-mini-content">
-            <h2>Sobre mim</h2>
-            <p>
-              Atendo adultos no formato online. Cada processo é construído em
-              conjunto: objetivos claros, acolhimento e ética — no seu ritmo.
-            </p>
-            <ul class="sobre-bullets">
-              <li>Ansiedade • Autoestima • Relacionamentos</li>
-              <li>Escuta ativa e metas combinadas</li>
-              <li>Ritmo respeitado, sem pressa</li>
-            </ul>
-            <p class="link-inline"><a href="sobre.html">Ver detalhes</a></p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Teasers discretos -->
-      <section class="section teasers">
-        <div class="container cards">
-          <article class="card teaser">
-            <h3>Serviços</h3>
-            <p>O que trabalhamos e como cada acompanhamento funciona.</p>
-            <p class="link-inline">
-              <a href="servicos.html">Explorar serviços →</a>
-            </p>
-          </article>
-
-          <article class="card teaser">
-            <h3>Como marcamos</h3>
-            <p>Formatos, disponibilidade e primeiros combinados.</p>
-            <p class="link-inline">
-              <a href="contato.html">Ver opções de contato →</a>
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- CTA final -->
-      <section class="section cta-final">
-        <div class="container cta-box">
-          <p>Se fez sentido, damos o primeiro passo juntos.</p>
-          <a
-            class="btn-reveal"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Quero%20entender%20como%20funciona%20o%20atendimento."
-          >
-            Falar no WhatsApp
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container footer-content">
-        <span>&copy; 2025 Luciano Pimenta - Psicólogo</span>
-        <nav class="footer-social" aria-label="Redes sociais">
-          <a
-            href="https://instagram.com/SEU_INSTAGRAM"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Instagram</a
-          >
-          <a href="mailto:SEU_EMAIL" target="_blank" rel="noopener noreferrer"
-            >E-mail</a
-          >
-          <a
-            href="https://linkedin.com/in/SEU_LINKEDIN"
-            target="_blank"
-            rel="noopener noreferrer"
-            >LinkedIn</a
-          >
-        </nav>
-      </div>
-    </footer>
-    <script src="menu.js" defer></script>
-  </body>
+  <footer>
+    <div class="container footer-content">
+      <span>&copy; 2025 Luciano Pimenta - Psicólogo</span>
+      <nav class="footer-social" aria-label="Redes sociais">
+        <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="mailto:SEU_EMAIL" target="_blank" rel="noopener noreferrer">E-mail</a>
+        <a href="https://linkedin.com/in/SEU_LINKEDIN" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
 </html>
