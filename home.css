@@ -45,16 +45,168 @@
   display: inline-block;
 }
 
-.hero-img-wrap {
+/* ================= HERO • CINEMA MODE ================= */
+/* knobs pra brincar no sabor do efeito */
+:root{
+  --hero-radius: 1.25rem;
+  --hero-tilt-x: 5deg;
+  --hero-tilt-y: -4deg;
+  --hero-scale: 1.06;
+  --hero-sheen-speed: 5.5s;
+  --hero-noise: radial-gradient(transparent 60%, rgba(0,0,0,.06) 100%);
+}
+
+/* container da foto */
+.hero-img-wrap{
+  position: relative;
   display: grid;
   place-items: center;
+
+  /* aro minimalista */
+  padding: 4px;
+  border-radius: var(--hero-radius);
+  border: 1px solid rgba(0,0,0,.06);
+  overflow: clip;
+  isolation: isolate;
+
+  /* luz e profundidade */
+  background: #fff0;
+  box-shadow:
+    0 12px 34px rgba(0,0,0,.14),
+    0 2px 8px rgba(0,0,0,.08);
+  transition:
+    transform .7s cubic-bezier(.2,.8,.2,1),
+    box-shadow .7s cubic-bezier(.2,.8,.2,1),
+    border-color .7s ease;
+  will-change: transform, box-shadow;
 }
-.hero-img {
-  width: min(100%, 420px);
-  height: auto;
-  border-radius: 1.5rem;
-  border: 4px solid var(--marsala-profundo);
-  box-shadow: 0 10px 28px #00000014;
+
+/* a foto */
+.hero-img{
+  width: min(100%, 520px);
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+  border-radius: calc(var(--hero-radius) - .25rem);
+
+  transform: translateZ(0) scale(1.01);
+  filter: saturate(1.08) contrast(1.04);
+  transition: transform .7s ease, filter .35s ease, border-radius .35s ease;
+  will-change: transform, filter;
+}
+
+/* ===== LAYERS ===== */
+
+/* 1) Glow de fundo (atrás de tudo) */
+.hero-img-wrap::before{
+  content:"";
+  position:absolute; inset:-10% -8% auto -8%;
+  height: 78%;
+  z-index: 0; pointer-events:none;
+  filter: blur(28px) saturate(1.08);
+  transform: rotate(-3deg);
+  opacity:.9;
+  background:
+    radial-gradient(60% 50% at 30% 20%, color-mix(in srgb, var(--dourado-fosco) 65%, transparent) 0 45%, transparent 70%),
+    radial-gradient(70% 60% at 80% 35%, color-mix(in srgb, var(--marsala-profundo) 55%, transparent) 0 40%, transparent 70%);
+}
+@supports not (color: color-mix(in srgb, white, black)){
+  .hero-img-wrap::before{
+    background:
+      radial-gradient(60% 50% at 30% 20%, rgba(201,174,143,.65) 0 45%, transparent 70%),
+      radial-gradient(70% 60% at 80% 35%, rgba(117,42,42,.55) 0 40%, transparent 70%);
+  }
+}
+
+/* 2) Overlay cinematográfico (em cima da foto) */
+.hero-img-wrap::after{
+  content:"";
+  position:absolute; inset:4px; /* respeita o padding do aro */
+  border-radius: calc(var(--hero-radius) - .25rem);
+  z-index: 1; pointer-events:none;
+
+  /* brilho diagonal + tom da paleta + vinheta */
+  background:
+    linear-gradient(100deg, rgba(255,255,255,.28) 0%, transparent 36%, transparent 100%),
+    linear-gradient(
+      114deg,
+      color-mix(in srgb, var(--marsala-profundo) 18%, transparent) 0%,
+      color-mix(in srgb, var(--dourado-fosco) 16%, transparent) 30%,
+      transparent 62%
+    ),
+    radial-gradient(120% 85% at 50% 60%, transparent 56%, rgba(0,0,0,.18) 100%);
+  mix-blend-mode: multiply;
+  opacity:.9;
+}
+@supports not (color: color-mix(in srgb, white, black)){
+  .hero-img-wrap::after{
+    background:
+      linear-gradient(100deg, rgba(255,255,255,.26) 0%, transparent 36%, transparent 100%),
+      linear-gradient(114deg, rgba(117,42,42,.22) 0%, rgba(201,174,143,.16) 30%, transparent 62%),
+      radial-gradient(120% 85% at 50% 60%, transparent 56%, rgba(0,0,0,.18) 100%);
+  }
+}
+
+/* 3) Borda-luz animada (sheen) — só quando há hover/teclado */
+.hero-img-wrap .sheen{ display:none; } /* placeholder se quiser HTML */
+.hero-img-wrap{
+  --_sheen: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+  -webkit-mask:
+      var(--_sheen) 0/0% 100% no-repeat, /* barra corre por cima */
+      linear-gradient(#000,#000);        /* base */
+  mask:
+      var(--_sheen) 0/0% 100% no-repeat,
+      linear-gradient(#000,#000);
+  animation: heroSheen var(--hero-sheen-speed) ease-in-out infinite;
+}
+@keyframes heroSheen{
+  0%, 15%   { -webkit-mask-size: 0% 100%, cover; mask-size: 0% 100%, cover; -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0; }
+  45%       { -webkit-mask-size: 120% 100%, cover; mask-size: 120% 100%, cover; -webkit-mask-position: 120% 0, 0 0; mask-position: 120% 0, 0 0; }
+  100%      { -webkit-mask-size: 0% 100%, cover; mask-size: 0% 100%, cover; -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0; }
+}
+
+/* 4) Grãozinho sutil (mood cinema) */
+.hero-img-wrap > i.hero-grain{
+  position:absolute; inset:4px;
+  border-radius: calc(var(--hero-radius) - .25rem);
+  pointer-events:none; z-index: 2;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.015) 0 1px, transparent 1px 2px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.015) 0 1px, transparent 1px 2px);
+  mix-blend-mode: multiply;
+  opacity:.55;
+  content:"";
+  display:block;
+}
+
+/* ===== Interações ===== */
+.hero-img-wrap:hover{
+  transform: translateY(-10px) rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y));
+  border-color: color-mix(in srgb, var(--marsala-profundo) 22%, transparent);
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.16),
+    0 26px 64px rgba(0,0,0,.22);
+}
+.hero-img-wrap:hover .hero-img{
+  transform: scale(var(--hero-scale));
+  filter: saturate(1.12) contrast(1.07);
+  border-radius: calc(var(--hero-radius) - .05rem);
+}
+
+/* pausa a animação no hover pra realçar o brilho */
+@media (hover:hover){
+  .hero-img-wrap:hover{ animation-play-state: paused; }
+}
+
+/* ===== A11y: reduz movimento ===== */
+@media (prefers-reduced-motion: reduce){
+  .hero-img-wrap{ animation:none !important; }
+  .hero-img-wrap, .hero-img{ transition: none !important; }
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 980px){
+  .hero-img{ width:min(100%, 380px); }
 }
 
 /* ---------- SOBRE MINI (resumo) ---------- */
@@ -104,9 +256,7 @@
   backdrop-filter: blur(4px);
   border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
   box-shadow: 0 4px 20px #0001;
-  transition:
-    transform 0.18s,
-    box-shadow 0.18s;
+  transition: transform 0.18s, box-shadow 0.18s;
 }
 .card.teaser h3 {
   margin: 0 0 0.35rem;
@@ -146,4 +296,3 @@
     grid-template-columns: 1fr;
   }
 }
-

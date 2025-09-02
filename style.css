@@ -412,3 +412,35 @@ footer {
   }
 }
 
+/* ===== Melhorias leves e acessibilidade ===== */
+
+/* Fallback quando não houver suporte ao blur do header */
+@supports not (backdrop-filter: blur(10px)){
+  header{
+    background: var(--areia-dourada);
+    box-shadow: 0 2px 8px #0002;
+  }
+}
+
+/* Alvos maiores na navegação */
+.menu a{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+}
+
+/* Foco claro nos links do rodapé (iOS/Safari) */
+.footer-social a:focus-visible{
+  outline:3px solid var(--dourado-fosco);
+  outline-offset:3px;
+  border-radius:.25rem;
+}
+
+/* Lift suave nos cards globais */
+.card{
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px #0002;
+}
