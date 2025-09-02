@@ -4,14 +4,30 @@
 .hero {
   padding-block: clamp(2rem, 6vw, 5rem);
   background:
-    radial-gradient(80% 60% at 20% 20%, color-mix(in srgb, var(--dourado-fosco) 25%, transparent) 0%, transparent 70%),
-    radial-gradient(65% 55% at 80% 15%, color-mix(in srgb, var(--marsala-profundo) 18%, transparent) 0%, transparent 75%);
+    radial-gradient(
+      80% 60% at 20% 20%,
+      color-mix(in srgb, var(--dourado-fosco) 25%, transparent) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      65% 55% at 80% 15%,
+      color-mix(in srgb, var(--marsala-profundo) 18%, transparent) 0%,
+      transparent 75%
+    );
 }
 @supports not (color: color-mix(in srgb, white, black)) {
   .hero {
     background:
-      radial-gradient(80% 60% at 20% 20%, rgba(201,174,143,.25) 0%, transparent 70%),
-      radial-gradient(65% 55% at 80% 15%, rgba(117,42,42,.18) 0%, transparent 75%);
+      radial-gradient(
+        80% 60% at 20% 20%,
+        rgba(201, 174, 143, 0.25) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        65% 55% at 80% 15%,
+        rgba(117, 42, 42, 0.18) 0%,
+        transparent 75%
+      );
   }
 }
 
@@ -35,14 +51,20 @@
   position: relative;
   display: inline-block;
   font-weight: 800;
-  color: inherit;
+  /* color:inherit; */
+  color: var(--marsala-profundo);
   overflow: hidden;
 }
 .title-highlight::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.6) 50%, transparent 100%);
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
   transform: translateX(-100%);
   animation: titleSheen 3s ease-in-out infinite;
 }
@@ -51,7 +73,8 @@
   0% {
     transform: translateX(-100%);
   }
-  60%,100% {
+  60%,
+  100% {
     transform: translateX(100%);
   }
 }
@@ -75,110 +98,220 @@
 }
 
 @keyframes swapFade {
-  0%,100% { opacity: 0; transform: translateY(0.35em); }
-  10%,90% { opacity: 1; transform: translateY(0); }
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+  10%,
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-
-.scroll-cue {
+/* ===== Scroll Cue – Mouse ===== */
+.scroll-cue--mouse{
+  --cue-color: color-mix(in srgb, var(--marrom-terra-firme) 85%, black 10%);
+  display: grid;
+  justify-items: center;
+  gap: .6rem;
   margin-top: clamp(2rem, 6vh, 3rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  color: var(--marrom-terra-firme);
-  animation: cueMove 3s ease-in-out infinite;
+  color: var(--cue-color);
+  user-select: none;
+  pointer-events: none;
 }
-.scroll-cue svg {
-  width: 1em;
-  height: 1em;
+.scroll-cue--mouse .mouse{
+  width: 30px; height: 48px;
+  border-radius: 16px;
+  border: 2px solid currentColor;
+  position: relative;
+  opacity: .9;
+}
+.scroll-cue--mouse .mouse::after{
+  /* glow externo bem leve */
+  content:"";
+  position:absolute; inset:-6px;
+  border-radius: 20px;
+  background: radial-gradient(closest-side, rgba(0,0,0,.06), transparent 70%);
+  filter: blur(2px);
+}
+.scroll-cue--mouse .wheel{
+  position: absolute;
+  left: 50%; top: 9px;
+  width: 4px; height: 8px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: .85;
+  animation: wheelSlide 1.6s ease-in-out infinite;
 }
 
-@keyframes cueMove {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
+.scroll-cue--mouse .cue-text{
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .75;
+}
+
+/* animação da rodinha */
+@keyframes wheelSlide{
+  0%   { transform: translateY(0); opacity: .9; }
+  60%  { transform: translateY(14px); opacity: 1; }
+  100% { transform: translateY(0); opacity: .9; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .scroll-cue--mouse .wheel{ animation: none !important; }
 }
 
 /* ================= HERO • CINEMA MODE ================= */
 /* knobs pra brincar no sabor do efeito */
-:root{
+:root {
   --hero-radius: 1.25rem;
   --hero-tilt-x: 5deg;
   --hero-tilt-y: -4deg;
   --hero-scale: 1.06;
-  --hero-sheen-speed: 5.5s;
-  --hero-noise: radial-gradient(transparent 60%, rgba(0,0,0,.06) 100%);
 }
 
-/* container da foto */
+/* ================= HERO SIMPLES E ROBUSTA ================= */
+
+:root{
+  --hero-radius: 1rem;
+  --hero-tilt-x: 3deg;
+  --hero-tilt-y: -2deg;
+  --hero-scale: 1.04;
+}
+
+/* fundo calmo com a paleta; se color-mix faltar, fica só o degrade */
+.hero{
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--dourado-fosco) 16%, transparent) 0 40%, transparent 60%),
+    radial-gradient(130% 90% at 90% 20%, color-mix(in srgb, var(--marsala-profundo) 10%, transparent) 0 30%, transparent 60%),
+    linear-gradient(135deg, var(--areia-dourada), var(--areia-dourada));
+}
+@supports not (color: color-mix(in srgb, white, black)){
+  .hero{ background: linear-gradient(135deg, #f7efe2, var(--areia-dourada)); }
+}
+
+.hero-grid{
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+}
+
+/* ---- IMAGEM DA HERO (versão robusta) ---- */
 .hero-img-wrap{
   position: relative;
-  display: grid;
-  place-items: center;
-
-  /* aro minimalista */
-  padding: 4px;
+  width: 100%;
+  max-width: 540px;            /* alinhe com o srcset/sizes do HTML */
+  margin-inline: auto;
+  padding: 6px;                /* aro */
   border-radius: var(--hero-radius);
-  border: 1px solid rgba(0,0,0,.06);
-  overflow: clip;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff0;
+  box-shadow: 0 12px 34px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.08);
+  overflow: hidden;            /* <= use hidden, não clip */
   isolation: isolate;
+  /* não precisamos mais de transitions aqui */
 }
 
-/* ===== Interações ===== */
-.hero-img-wrap:hover{
-  transform: translateY(-10px) rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y));
-  border-color: color-mix(in srgb, var(--marsala-profundo) 22%, transparent);
-  box-shadow:
-    0 10px 24px rgba(0,0,0,.16),
-    0 26px 64px rgba(0,0,0,.22);
-}
-.hero-img-wrap:hover .hero-img{
-  transform: scale(var(--hero-scale));
-  filter: saturate(1.12) contrast(1.07);
-  border-radius: calc(var(--hero-radius) - .05rem);
-}
-
-/* pausa a animação no hover pra realçar o brilho */
-@media (hover:hover){
-  .hero-img-wrap:hover{ animation-play-state: paused; }
+/* glow discreto atrás */
+.hero-img-wrap::before{
+  content:"";
+  position:absolute; inset:-12% -10% auto -10%;
+  height: 78%;
+  z-index: 0;
+  filter: blur(28px) saturate(1.05);
+  opacity:.9;
+  background:
+    radial-gradient(60% 50% at 30% 20%, rgba(201,174,143,.45) 0 45%, transparent 70%),
+    radial-gradient(70% 60% at 80% 35%, rgba(117,42,42,.35) 0 40%, transparent 70%);
+  pointer-events: none;
 }
 
-/* ===== A11y: reduz movimento ===== */
+.hero-img{
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;         /* layout estável */
+  object-fit: cover;
+  border-radius: calc(var(--hero-radius) - .25rem);
+  transform: translateZ(0);
+  transition: none;            /* sem hover = sem transição */
+}
+
+/* Redução de movimento */
 @media (prefers-reduced-motion: reduce){
-  .hero-img-wrap{ animation:none !important; }
-  .hero-img-wrap, .hero-img{ transition: none !important; }
-  .title-highlight::before,
-  .hero-swap .swap-item,
-  .scroll-cue{ animation: none !important; }
+  .hero-img-wrap, .hero-img{ transition:none !important; }
 }
 
-/* ===== Responsivo ===== */
+/* Responsivo */
 @media (max-width: 980px){
-  .hero-img{ width:min(100%, 380px); }
+  .hero-grid{ grid-template-columns: 1fr; }
+  .hero-img-wrap{ max-width: 420px; }
 }
 
-@media (max-width: 600px){
-  :root{
-    --hero-tilt-x: 2deg;
-    --hero-tilt-y: -1deg;
-  }
-  .hero-img-wrap{
-    box-shadow:
-      0 8px 20px rgba(0,0,0,.12),
-      0 2px 6px rgba(0,0,0,.06);
-  }
+/* título/sub (mantém seu estilo, só reforço tamanhos) */
+.hero-title{
+  margin: 0 0 .4rem;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  line-height: 1.05;
+  color: var(--marrom-terra-firme);
 }
+.hero-sub{
+  margin: 0 0 .85rem;
+  font-weight: 600;
+  color: var(--oliva-sutil);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+}
+
+/* título/sub (mantém seu estilo, só reforço tamanhos) */
+.hero-title{
+  margin: 0 0 .4rem;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  line-height: 1.05;
+  color: var(--marrom-terra-firme);
+}
+.hero-sub{
+  margin: 0 0 .85rem;
+  font-weight: 600;
+  color: var(--oliva-sutil);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+}
+
 
 /* ---------- SOBRE MINI (resumo) ---------- */
 .sobre-mini .sobre-mini-content {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(6px);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e9dfd2;
   border-radius: 1rem;
   padding: clamp(1rem, 3vw, 1.5rem);
   box-shadow: 0 4px 20px #0001;
   max-width: 800px;
+}
+
+@supports (backdrop-filter: blur(6px)) {
+  .sobre-mini .sobre-mini-content {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(6px);
+  }
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+  .sobre-mini .sobre-mini-content {
+    border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  }
 }
 
 .sobre-mini h2 {
@@ -194,5 +327,5 @@
   margin: 0.8rem 0 0;
 }
 .link-inline a {
-  text-decoration: none;
+  text-decoration: underline;
 }

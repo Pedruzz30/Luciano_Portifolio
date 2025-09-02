@@ -31,6 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const onKeydown = (e) => {
+    if (e.key === "Escape") setOpen(false);
+  };
+
+  const onPointerDown = (e) => {
+    const target = e.target;
+    if (!menu.contains(target) && !toggle.contains(target)) setOpen(false);
+  };
+
+  const onResize = () => lockScrollIfMobile(isOpen());
+
   const setOpen = (open) => {
     menu.classList.toggle("open", open);
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
@@ -38,9 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
     setInert(open);
 
     if (open) {
+      document.addEventListener("keydown", onKeydown);
+      document.addEventListener("pointerdown", onPointerDown);
+      window.addEventListener("resize", onResize);
       // foca no primeiro item do menu
       firstLink?.focus();
     } else {
+      document.removeEventListener("keydown", onKeydown);
+      document.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("resize", onResize);
       // retorna foco ao botão
       toggle.focus();
     }
@@ -58,20 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", () => setOpen(false));
   });
 
-  // fecha com ESC (somente se estiver aberto)
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isOpen()) setOpen(false);
-  });
-
-  // fecha ao clicar fora (usa pointerdown e considera filhos do botão)
-  document.addEventListener("pointerdown", (e) => {
-    if (!isOpen()) return;
-    const target = e.target;
-    const clickedOutside =
-      !menu.contains(target) && !toggle.contains(target);
-    if (clickedOutside) setOpen(false);
-  });
-
   // se a tela passar de 800px, garante o menu fechado e destrava o scroll
   const mql = window.matchMedia("(min-width: 801px)");
   const onChange = () => setOpen(false);
@@ -80,8 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== HERO: troca de palavras =====
   (function () {
-    const prefersReduced =
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced) return;
 
     // Modo A: vários spans .swap-item (usa classes)
@@ -98,8 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Modo B: um único span.swap-item (troca texto)
-    const single = document.querySelector(".hero-swap .swap-item") ||
-                   document.querySelector(".swap-item");
+    const single =
+      document.querySelector(".hero-swap .swap-item") ||
+      document.querySelector(".swap-item");
     if (!single) return;
 
     const words = ["escuta", "acolhimento", "clareza"];

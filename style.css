@@ -104,6 +104,9 @@ button:focus-visible {
 
 /* Respeitar redução de movimento */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   * {
     animation: none !important;
     transition: none !important;
@@ -116,14 +119,25 @@ header {
   inset-block-start: 0;
   inset-inline: 0;
   width: 100%;
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--areia-dourada) 90%, white 10%),
-    color-mix(in srgb, var(--areia-dourada) 70%, white 30%)
-  );
-  backdrop-filter: saturate(180%) blur(10px);
+  background: var(--areia-dourada);
   box-shadow: 0 2px 8px #0002;
   z-index: 10;
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+  header {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--areia-dourada) 90%, white 10%),
+      color-mix(in srgb, var(--areia-dourada) 70%, white 30%)
+    );
+  }
+}
+
+@supports (backdrop-filter: blur(10px)) {
+  header {
+    backdrop-filter: saturate(180%) blur(10px);
+  }
 }
 
 .header-content {
@@ -445,3 +459,39 @@ footer {
   transform: translateY(-3px);
   box-shadow: 0 8px 22px #0002;
 }
+
+
+/* ===== Transição de Page (View Transition API) ===== */
+::view-transition-old(root),
+::view-transition-new(root){
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(.2,.8,.2,1);
+}
+
+/*opcional: wipe diagonal mais chamativo*/
+::view-transition-old(root){
+  clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+  animation-name: vt-old;
+}
+::view-transition-new(root){
+  clip-path: polygon(0 0,0 0,0 100%,0 100%);
+  animation-name: vt-new;
+}
+@keyframes vt-old{
+  to { clip-path: polygon(0 6%,100% 0,100% 94%,0 100%); opacity:.2; }
+}
+@keyframes vt-new{
+  to { clip-path: polygon(0 0,100% 6%,100% 100%,0 94%); }
+}
+
+
+@media (prefers-reduced-motion: reduce){
+  ::view-transition-old(root),
+  ::view-transition-new(root){
+    animation-duration: 0ms !important;
+  }
+}
+
+/* se quiser "morph" entre páginas, dê o mesmo nome */
+.hero-img{ view-transition-name: hero-foto; }
+.hero-title{ view-transition-name: hero-titulo; }
