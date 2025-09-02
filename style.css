@@ -104,12 +104,12 @@ button:focus-visible {
 
 /* Respeitar redução de movimento */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   * {
     animation: none !important;
     transition: none !important;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
 
@@ -120,23 +120,18 @@ header {
   inset-inline: 0;
   width: 100%;
   background: var(--areia-dourada);
+  backdrop-filter: saturate(180%) blur(10px);
   box-shadow: 0 2px 8px #0002;
   z-index: 10;
 }
 
-@supports (color: color-mix(in srgb, white, black)) {
+@supports (color: color-mix(in srgb, black, white)) {
   header {
     background: linear-gradient(
       to bottom,
       color-mix(in srgb, var(--areia-dourada) 90%, white 10%),
       color-mix(in srgb, var(--areia-dourada) 70%, white 30%)
     );
-  }
-}
-
-@supports (backdrop-filter: blur(10px)) {
-  header {
-    backdrop-filter: saturate(180%) blur(10px);
   }
 }
 
