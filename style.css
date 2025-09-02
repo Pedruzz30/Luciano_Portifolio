@@ -319,6 +319,7 @@ footer {
 .btn-reveal:hover {
   color: var(--btn-text-hover);
   transform: translateY(-2px);
+  box-shadow: 0 12px 28px -3px rgba(0, 0, 0, 0.35);
 }
 .btn-reveal:hover::before {
   transform: scaleX(1);

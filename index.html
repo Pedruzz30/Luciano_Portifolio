@@ -13,6 +13,9 @@
   <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg" />
   <meta property="og:locale" content="pt_BR" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="home.css" />
@@ -42,21 +45,31 @@
     <section class="section hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <h1>Luciano Pimenta Dias</h1>
+          <h1 class="hero-title">
+            Luciano <span class="title-highlight">Pimenta</span> Dias
+          </h1>
           <h2 class="hero-sub">Psicólogo • CRP 05/82816</h2>
-          <p class="hero-lead">
-            Sou psicólogo e ofereço um espaço de escuta e acolhimento para quem deseja compreender melhor suas emoções, relações e escolhas.
+          <p class="hero-swap" aria-live="polite">
+            Um espaço de <span class="swap-item">escuta</span>
           </p>
-          <a class="btn-reveal" href="sobre.html">Conheça meu trabalho</a>
+          <a class="btn-reveal btn-reveal--lg" href="sobre.html">Conheça meu trabalho</a>
         </div>
 
         <div class="hero-img-wrap">
           <img
             src="assets/PortifolioLucianoFotos/foto2.jpg"
+            srcset="assets/PortifolioLucianoFotos/foto2.jpg 1x, assets/PortifolioLucianoFotos/foto2.jpg 2x"
+            sizes="(max-width: 980px) 80vw, 420px"
             alt="Foto de Luciano Pimenta"
             class="hero-img"
-            width="420" height="520" loading="lazy" />
+            width="420" height="520" loading="eager" fetchpriority="high" />
         </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>descer</span>
+        <svg class="cue-icon" viewBox="0 0 10 6">
+          <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
       </div>
     </section>
 
@@ -83,16 +96,7 @@
       <div class="container cards">
         <article class="card teaser">
           <h3>Serviços</h3>
-          <p>O que trabalhamos e como cada acompanhamento funciona.</p>
-          <p class="link-inline"><a href="servicos.html">Explorar serviços →</a></p>
-        </article>
-
-        <article class="card teaser">
-          <h3>Como marcamos</h3>
-          <p>Formatos, disponibilidade e primeiros combinados.</p>
-          <p class="link-inline"><a href="contato.html">Ver opções de contato →</a></p>
-        </article>
-      </div>
+@@ -96,27 +109,51 @@
     </section>
 
     <!-- CTA final -->
@@ -118,5 +122,3 @@
       </nav>
     </div>
   </footer>
-</body>
-</html>
