@@ -487,6 +487,5 @@ footer {
   }
 }
 
-/* se quiser "morph" entre páginas, dê o mesmo nome */
 .hero-img{ view-transition-name: hero-foto; }
-.hero-title{ view-transition-name: hero-titulo; }
+ .hero-title, .page-title h1{ view-transition-name: hero-titulo; }

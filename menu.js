@@ -65,6 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const isOpen = () => menu.classList.contains("open");
 
+  // expõe mini-API global
+  window.Menu = { setOpen, isOpen };
+
   // abre/fecha no clique do botão
   toggle.addEventListener("click", () => {
     setOpen(!isOpen());
