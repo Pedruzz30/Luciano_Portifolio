@@ -123,6 +123,7 @@ header {
   backdrop-filter: saturate(180%) blur(10px);
   box-shadow: 0 2px 8px #0002;
   z-index: 10;
+  view-transition-name: site-header;
 }
 
 @supports (color: color-mix(in srgb, black, white)) {
@@ -244,6 +245,7 @@ header {
 /* compensar header fixo */
 main {
   padding-top: 80px;
+  view-transition-name: page;
 }
 
 /* ===== Footer ===== */
@@ -489,12 +491,13 @@ footer {
 
 /* ===== Transição de Page (View Transition API) ===== */
 ::view-transition-old(root),
-::view-transition-new(root){
-  animation-duration: 0ms !important;
+::view-transition-new(root),
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
 }
 
-main{ view-transition-name: page; }
-header, footer{ view-transition-name: none; }
+footer { view-transition-name: none; }
 
 ::view-transition-old(page),
 ::view-transition-new(page){
