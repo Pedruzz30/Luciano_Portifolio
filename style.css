@@ -487,5 +487,30 @@ footer {
   }
 }
 
-.hero-img{ view-transition-name: hero-foto; }
- .hero-title, .page-title h1{ view-transition-name: hero-titulo; }
+/* ===== Transição de Page (View Transition API) ===== */
+::view-transition-old(root),
+::view-transition-new(root){
+  animation-duration: 0ms !important;
+}
+
+main{ view-transition-name: page; }
+header, footer{ view-transition-name: none; }
+
+::view-transition-old(page),
+::view-transition-new(page){
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(.2,.8,.2,1);
+}
+::view-transition-old(page){ animation-name: fade-out; }
+::view-transition-new(page){ animation-name: fade-in; }
+@keyframes fade-out{ to{ opacity:0; } }
+@keyframes fade-in{ from{ opacity:0; } }
+
+@media (prefers-reduced-motion: reduce){
+  ::view-transition-old(page),
+  ::view-transition-new(page){
+    animation-duration: 0ms !important;
+  }
+}
+
+.hero-title, .page-title h1{ view-transition-name: hero-titulo; }

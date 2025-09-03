@@ -84,38 +84,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mql.addEventListener) mql.addEventListener("change", onChange);
   else mql.addListener(onChange); // fallback
 
-  // ===== HERO: troca de palavras =====
-  (function () {
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReduced) return;
-
-    // Modo A: vários spans .swap-item (usa classes)
-    const multi = document.querySelectorAll(".hero-swap .swap-item");
-    if (multi.length > 1) {
-      let i = 0;
-      multi[0].classList.add("is-active");
-      setInterval(() => {
-        multi[i].classList.remove("is-active");
-        i = (i + 1) % multi.length;
-        multi[i].classList.add("is-active");
-      }, 2600);
-      return;
-    }
-
-    // Modo B: um único span.swap-item (troca texto)
-    const single =
-      document.querySelector(".hero-swap .swap-item") ||
-      document.querySelector(".swap-item");
-    if (!single) return;
-
-    const words = ["escuta", "acolhimento", "clareza"];
-    let i = words.indexOf(single.textContent?.trim());
-    if (i < 0) i = 0;
-    setInterval(() => {
-      i = (i + 1) % words.length;
-      single.textContent = words[i];
-    }, 2600);
-  })();
-});
+  });

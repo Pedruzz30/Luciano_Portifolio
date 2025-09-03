@@ -50,11 +50,11 @@
   }
 
   // ===== Troca de página =====
-  async function fetchDoc(url){
+  async function fetchDoc(url, signal){
     try {
       // usa prefetch se existir
       const pre = prefetchCache.get(url);
-      const res = pre ? await pre : await fetch(url, { headers:{ 'X-Requested-With':'view-transition' }});
+      const res = pre ? await pre : await fetch(url, { headers:{ 'X-Requested-With':'view-transition' }, signal });
       if (!res || !res.ok) return null;
       const html = await res.text();
       return new DOMParser().parseFromString(html, 'text/html');
@@ -70,7 +70,7 @@
     if (navAbort) try { navAbort.abort(); } catch {}
     navAbort = new AbortController();
 
-    const doc = await fetchDoc(url);
+   const doc = await fetchDoc(url, navAbort.signal);
     if (!doc) { location.href = url; return; }
 
     const newMain = doc.querySelector('main');
