@@ -39,6 +39,13 @@ img {
   border-radius: 0.25rem;
 }
 
+.no-anim *,
+.no-anim *::before,
+.no-anim *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
 a:focus-visible,
 button:focus-visible {
   outline: 3px solid var(--dourado-fosco);
@@ -80,7 +87,7 @@ button:focus-visible {
 .cards {
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 .card {
   background: #fff;

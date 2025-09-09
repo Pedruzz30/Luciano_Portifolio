@@ -1,24 +1,5 @@
 /* ===================== servicos.css ===================== */
 
-/* ===== Grid dos serviços ===== */
-.services-grid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 720px) {
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .services-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 /* ===== Base dos cards ===== */
 .card {
   transition: transform 0.22s ease, box-shadow 0.22s ease;

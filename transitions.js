@@ -11,6 +11,61 @@
   const isModified = (e) =>
     e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0;
 
+  function hrefKey(href) {
+    try { return new URL(href, location.href).href; } catch { return href; }
+  }
+
+  function syncHead(fromDoc, toDoc) {
+    const currLinks = Array.from(document.head.querySelectorAll('link[rel="stylesheet"]'));
+    const nextLinks = Array.from(toDoc.head.querySelectorAll('link[rel="stylesheet"]'));
+
+    const currHrefs = new Set(currLinks.map(l => hrefKey(l.getAttribute('href'))));
+    const nextHrefs = new Set(nextLinks.map(l => hrefKey(l.getAttribute('href'))));
+
+    // add faltantes
+    for (const link of nextLinks) {
+      const href = hrefKey(link.getAttribute('href'));
+      if (!currHrefs.has(href)) {
+        const l = document.createElement('link');
+        l.rel = 'stylesheet';
+        l.href = href;
+        l.media = link.media || 'all';
+        document.head.appendChild(l);
+      }
+    }
+
+    // remover CSS não usados (exceto globais)
+    for (const link of currLinks) {
+      const href = hrefKey(link.getAttribute('href'));
+      const keepGlobal = /(?:^|\/)(style\.css|fonts\.googleapis\.com)/.test(href);
+      if (!keepGlobal && !nextHrefs.has(href)) link.remove();
+    }
+
+    // meta description
+    const nextDesc = toDoc.head.querySelector('meta[name="description"]');
+    if (nextDesc) {
+      let currDesc = document.head.querySelector('meta[name="description"]');
+      if (!currDesc) {
+        currDesc = document.createElement('meta');
+        currDesc.setAttribute('name', 'description');
+        document.head.appendChild(currDesc);
+      }
+      currDesc.setAttribute('content', nextDesc.getAttribute('content') || '');
+    }
+
+    // canonical
+    const nextCanon = toDoc.head.querySelector('link[rel="canonical"]');
+    if (nextCanon) {
+      let currCanon = document.head.querySelector('link[rel="canonical"]');
+      if (!currCanon) {
+        currCanon = document.createElement('link');
+        currCanon.rel = 'canonical';
+        document.head.appendChild(currCanon);
+      }
+      currCanon.href = nextCanon.href;
+    }
+  }
+
   // normaliza path (tira /index.html)
   const normPath = (url) =>
     new URL(url, location.href).pathname.replace(/index\.html?$/,'') || '/';
@@ -40,13 +95,35 @@
 
   // ===== Prefetch leve =====
   const prefetchCache = new Map(); // url -> Promise<Response>
-  function prefetch(url){
+  async function prefetch(url){
     if (!sameOrigin(url)) return;
     if (prefetchCache.has(url)) return;
-    prefetchCache.set(url,
-      fetch(url, { headers:{ 'X-Requested-With':'view-transition' }})
-        .catch(()=>null)
-    );
+
+    const p = fetch(url, { headers:{ 'X-Requested-With':'view-transition' }})
+      .then(async res => {
+        if (!res.ok) return null;
+        const html = await res.text();
+        try {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const nextLinks = Array.from(doc.head.querySelectorAll('link[rel="stylesheet"]'));
+          for (const link of nextLinks) {
+            const href = hrefKey(link.getAttribute('href'));
+            if (!href) continue;
+            const exists = document.head.querySelector(`link[rel="preload"][as="style"][href="${href}"], link[rel="stylesheet"][href="${href}"]`);
+            if (!exists) {
+              const preload = document.createElement('link');
+              preload.rel = 'preload';
+              preload.as = 'style';
+              preload.href = href;
+              document.head.appendChild(preload);
+            }
+          }
+        } catch {}
+        return res;
+      })
+      .catch(()=>null);
+
+    prefetchCache.set(url, p);
   }
 
   // ===== Troca de página =====
@@ -77,8 +154,13 @@
     const newTitle = doc.querySelector('title')?.textContent || document.title;
     if (!newMain) { location.href = url; return; }
 
+    document.documentElement.classList.add('no-anim');
+
     // fecha menu se estiver aberto
     try { if (window.Menu?.isOpen?.()) window.Menu.setOpen(false); } catch {}
+
+    // 🔑 Sincroniza CSS/meta antes de trocar o main
+    syncHead(document, doc);
 
     // execução da transição + troca do DOM
     const vt = document.startViewTransition(() => {
@@ -114,6 +196,7 @@
 
     // libera lock quando terminar
     Promise.resolve(vt?.finished).catch(()=>{}).finally(()=>{
+      document.documentElement.classList.remove('no-anim');
       navLock = false;
     });
   }
@@ -170,7 +253,7 @@
     const href = a.getAttribute('href');
     if (!href) return;
 
-    // Âncoras locais: rola suave e sai
+    // Âncoras locais
     if (href.startsWith('#')) {
       const target = document.querySelector(href);
       if (target) {
@@ -185,11 +268,12 @@
 
     const abs = new URL(href, location.href).href;
 
-    // mesmo path? se só mudar hash, deixa o comportamento padrão (já tratamos acima)
-    if (normPath(abs) === normPath(location.href) && new URL(abs).hash) return;
+    // mesmo path + só hash? deixa padrão
+    if (new URL(abs).pathname.replace(/index\.html?$/,'') === new URL(location.href).pathname.replace(/index\.html?$/,'')
+        && new URL(abs).hash) return;
 
     e.preventDefault();
-    swapTo(abs, true, a);
+    swapTo(abs, true);
   });
 
   // Back/forward
@@ -197,9 +281,7 @@
     swapTo(location.href, false);
   });
 
-  // Marca nav ativa na carga
+  // Marca nav ativa e inicia scripts na carga
   setActiveNav(location.href);
-
-  // Inicializa scripts da página atual
   reinitPageBits();
 })();
