@@ -121,17 +121,43 @@ button:focus-visible {
   }
 }
 
+:root{
+  /* controla altura do header em 1 lugar só */
+  --header-h: 72px;
+}
+
+/* reserva o espaço no fluxo p/ não “empurrar” o conteúdo */
+body {
+  padding-top: var(--header-h);
+}
+
+:root{
+  /* controla altura do header em 1 lugar só */
+  --header-h: 72px;
+}
+
+/* reserva o espaço no fluxo p/ não “empurrar” o conteúdo */
+body {
+  padding-top: var(--header-h);
+}
+
 /* ===== Header / Nav ===== */
 header {
   position: fixed;
   inset-block-start: 0;
   inset-inline: 0;
-  width: 100%;
+  inline-size: 100%;
+  block-size: var(--header-h);             
   background: var(--areia-dourada);
+  /* Safari + Chrome */
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
   backdrop-filter: saturate(180%) blur(10px);
   box-shadow: 0 2px 8px #0002;
   z-index: 10;
+  isolation: isolate;                      
+  transition: background .3s ease, box-shadow .3s ease, transform .2s ease;
   view-transition-name: site-header;
+  will-change: background, box-shadow;      
 }
 
 @supports (color: color-mix(in srgb, black, white)) {
@@ -144,15 +170,43 @@ header {
   }
 }
 
+/* fallback elegante quando NÃO há blur/transparência */
+@supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  header {
+    background: linear-gradient(
+      to bottom,
+      rgba(243,230,211,.96),
+      rgba(243,230,211,.90)
+    );
+  }
+}
+
 .header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-block: 1rem;
+  min-block-size: 100%;       
+  padding-block: 0 0;         
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1rem;
 }
+
 .logo img {
   height: 40px;
-  width: auto;
+  inline-size: auto;
+  transition: transform .2s ease, filter .2s ease;
+}
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* acessibilidade: reduz transparência se o usuário preferir menos movimento/efeitos */
+@media (prefers-reduced-transparency: reduce) {
+  header {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 
 /* ===== Navegação ===== */
