@@ -1,4 +1,4 @@
-// transitions.js (v2 turbo)
+// transitions.js 
 (() => {
   // Progressive Enhancement: sem suporte, vida que segue
   if (!document.startViewTransition) return;
@@ -63,7 +63,7 @@
     }
   }
 
-  async function swapTo(url, pushState = true, sourceEl = null){
+  async function swapTo(url, pushState = true){
     // evita corrida
     if (navLock) return;
     navLock = true;
@@ -96,11 +96,11 @@
         // tenta rolar até o id da hash
         requestAnimationFrame(() => {
           const target = document.querySelector(u.hash);
-          if (target) target.scrollIntoView({ behavior:'instant', block:'start' });
-          else window.scrollTo({ top: 0, behavior: 'instant' });
+          if (target) target.scrollIntoView({ behavior:'auto', block:'start' });
+          else window.scrollTo({ top: 0, behavior: 'auto' });
         });
       } else {
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        window.scrollTo({ top: 0, behavior: 'auto' });
       }
 
       // foco de a11y

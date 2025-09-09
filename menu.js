@@ -1,3 +1,5 @@
+// menu.js 
+
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("header");
   const toggle = header?.querySelector(".menu-toggle");
@@ -45,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const setOpen = (open) => {
     menu.classList.toggle("open", open);
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     lockScrollIfMobile(open);
     setInert(open);
 
