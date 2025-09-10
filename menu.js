@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.getElementById("nav-principal") || menu;
   const main = document.querySelector("main");
 
+   const onScroll = () =>
+    header.classList.toggle("is-scrolled", scrollY > 8);
+  onScroll();
+  addEventListener("scroll", onScroll);
+
   if (!toggle || !menu) return;
 
   // garante aria-controls

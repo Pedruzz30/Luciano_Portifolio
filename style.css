@@ -519,38 +519,6 @@ footer {
   box-shadow: 0 8px 22px #0002;
 }
 
-
-/* ===== Transição de Page (View Transition API) ===== */
-::view-transition-old(root),
-::view-transition-new(root){
-  animation-duration: 280ms;
-  animation-timing-function: cubic-bezier(.2,.8,.2,1);
-}
-
-/*opcional: wipe diagonal mais chamativo*/
-::view-transition-old(root){
-  clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
-  animation-name: vt-old;
-}
-::view-transition-new(root){
-  clip-path: polygon(0 0,0 0,0 100%,0 100%);
-  animation-name: vt-new;
-}
-@keyframes vt-old{
-  to { clip-path: polygon(0 6%,100% 0,100% 94%,0 100%); opacity:.2; }
-}
-@keyframes vt-new{
-  to { clip-path: polygon(0 0,100% 6%,100% 100%,0 94%); }
-}
-
-
-@media (prefers-reduced-motion: reduce){
-  ::view-transition-old(root),
-  ::view-transition-new(root){
-    animation-duration: 0ms !important;
-  }
-}
-
 /* ===== Transição de Page (View Transition API) ===== */
 ::view-transition-old(root),
 ::view-transition-new(root),
