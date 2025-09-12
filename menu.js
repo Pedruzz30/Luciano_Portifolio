@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const main = document.querySelector("main");
 
    const onScroll = () =>
-    header.classList.toggle("is-scrolled", scrollY > 8);
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
   onScroll();
   addEventListener("scroll", onScroll);
 

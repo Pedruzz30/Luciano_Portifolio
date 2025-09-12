@@ -1,137 +1,10 @@
 /* ===================== home.css ===================== */
 
-.title-highlight {
-  position: relative;
-  display: inline-block;
-  font-weight: 800;
-  /* color:inherit; */
-  color: var(--marsala-profundo);
-  overflow: hidden;
-}
-.title-highlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.6) 50%,
-    transparent 100%
-  );
-  transform: translateX(-100%);
-  animation: titleSheen 3s ease-in-out infinite;
-}
-
-@keyframes titleSheen {
-  0% {
-    transform: translateX(-100%);
-  }
-  60%,
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.hero-swap {
-  margin: 0 0 1.5rem;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  color: var(--marrom-terra-firme);
-}
-.hero-swap .swap-item {
-  display: inline-block;
-  min-width: 6ch;
-  animation: swapFade 2.6s ease-in-out infinite;
-}
-
-@keyframes swapFade {
-  0%,
-  100% {
-    opacity: 0;
-    transform: translateY(0.35em);
-  }
-  10%,
-  90% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===== Scroll Cue – Mouse ===== */
-.scroll-cue--mouse{
-  --cue-color: color-mix(in srgb, var(--marrom-terra-firme) 85%, black 10%);
-  display: grid;
-  justify-items: center;
-  gap: .6rem;
-  margin-top: clamp(2rem, 6vh, 3rem);
-  color: var(--cue-color);
-  user-select: none;
-  pointer-events: none;
-}
-.scroll-cue--mouse .mouse{
-  width: 30px; height: 48px;
-  border-radius: 16px;
-  border: 2px solid currentColor;
-  position: relative;
-  opacity: .9;
-}
-.scroll-cue--mouse .mouse::after{
-  /* glow externo bem leve */
-  content:"";
-  position:absolute; inset:-6px;
-  border-radius: 20px;
-  background: radial-gradient(closest-side, rgba(0,0,0,.06), transparent 70%);
-  filter: blur(2px);
-}
-.scroll-cue--mouse .wheel{
-  position: absolute;
-  left: 50%; top: 9px;
-  width: 4px; height: 8px;
-  margin-left: -2px;
-  border-radius: 2px;
-  background: currentColor;
-  opacity: .85;
-  animation: wheelSlide 1.6s ease-in-out infinite;
-}
-
-.scroll-cue--mouse .cue-text{
-  font-size: .8rem;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  opacity: .75;
-}
-
-/* animação da rodinha */
-@keyframes wheelSlide{
-  0%   { transform: translateY(0); opacity: .9; }
-  60%  { transform: translateY(14px); opacity: 1; }
-  100% { transform: translateY(0); opacity: .9; }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .scroll-cue--mouse .wheel{ animation: none !important; }
-}
-
-/* ================= HERO SIMPLES E ROBUSTA ================= */
-
-:root{
-  --hero-radius: 1rem;
-  --hero-tilt-x: 3deg;
-  --hero-tilt-y: -2deg;
-  --hero-scale: 1.04;
-}
-
-/* fundo calmo com a paleta; se color-mix faltar, fica só o degrade */
-.hero{
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--dourado-fosco) 16%, transparent) 0 40%, transparent 60%),
-    radial-gradient(130% 90% at 90% 20%, color-mix(in srgb, var(--marsala-profundo) 10%, transparent) 0 30%, transparent 60%),
-    linear-gradient(135deg, var(--areia-dourada), var(--areia-dourada));
-}
-@supports not (color: color-mix(in srgb, white, black)){
-  .hero{ background: linear-gradient(135deg, #f7efe2, var(--areia-dourada)); }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.25rem;
 }
 
 .hero-grid{
@@ -141,23 +14,19 @@
   align-items: center;
 }
 
-/* ---- IMAGEM DA HERO (versão robusta) ---- */
 .hero-img-wrap{
   position: relative;
   width: 100%;
-  max-width: 540px;            /* alinhe com o srcset/sizes do HTML */
+  max-width: 540px;
   margin-inline: auto;
-  padding: 6px;                /* aro */
+  padding: 6px;
   border-radius: var(--hero-radius);
   border: 1px solid rgba(0,0,0,.08);
   background: #fff0;
   box-shadow: 0 12px 34px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.08);
-  overflow: hidden;            /* <= use hidden, não clip */
+  overflow: hidden;
   isolation: isolate;
-  /* não precisamos mais de transitions aqui */
 }
-
-/* glow discreto atrás */
 .hero-img-wrap::before{
   content:"";
   position:absolute; inset:-12% -10% auto -10%;
@@ -176,41 +45,19 @@
   z-index: 1;
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;         /* layout estável */
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: calc(var(--hero-radius) - .25rem);
   transform: translateZ(0);
-  transition: none;            /* sem hover = sem transição */
 }
 
-/* Redução de movimento */
 @media (prefers-reduced-motion: reduce){
   .hero-img-wrap, .hero-img{ transition:none !important; }
 }
-
-/* Responsivo */
 @media (max-width: 980px){
   .hero-grid{ grid-template-columns: 1fr; }
   .hero-img-wrap{ max-width: 420px; }
 }
-
-/* título/sub (mantém seu estilo, só reforço tamanhos) */
-.hero-title{
-  margin: 0 0 .4rem;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 800;
-  font-size: clamp(2.4rem, 7vw, 4rem);
-  line-height: 1.05;
-  color: var(--marrom-terra-firme);
-}
-.hero-sub{
-  margin: 0 0 .85rem;
-  font-weight: 600;
-  color: var(--oliva-sutil);
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-}
-
 
 /* ---------- SOBRE MINI (resumo) ---------- */
 .sobre-mini .sobre-mini-content {
