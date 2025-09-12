@@ -1,11 +1,11 @@
 /* =========================
-   style.css (refinado)
-   - Mantida a identidade visual
-   - Removido vazios/redundâncias
-   - Corrigido “lacuna” header ↔ hero (apenas body reserva espaço)
+   style.css (refinado + root enxuto)
+   - Root só com tokens globais
+   - Vars da hero no escopo da .hero
+   - Gap corrigido: body reserva header; hero sem respiro
    ========================= */
 
-/* ---------- Tokens / Vars ---------- */
+/* ---------- Tokens / Vars (globais) ---------- */
 :root {
   --areia-dourada: #f3e6d3;
   --marsala-profundo: #752a2a;
@@ -16,12 +16,7 @@
   --cinza-quente-neutro: #a89d92;
   --berinjela-noturna: #3e2731;
 
-  --hero-radius: 1rem;
-  --hero-tilt-x: 3deg;
-  --hero-tilt-y: -2deg;
-  --hero-scale: 1.04;
-
-  /* controla altura do header em 1 lugar só */
+  /* layout global */
   --header-h: 80px;
 }
 
@@ -50,15 +45,12 @@ img {
   border-radius: 0.25rem;
 }
 
-.no-anim *,
-.no-anim *::before,
-.no-anim *::after {
+.no-anim *,.no-anim *::before,.no-anim *::after {
   transition: none !important;
   animation: none !important;
 }
 
-a:focus-visible,
-button:focus-visible {
+a:focus-visible,button:focus-visible {
   outline: 3px solid var(--dourado-fosco);
   outline-offset: 3px;
 }
@@ -68,7 +60,7 @@ button:focus-visible {
 
 .section { padding-block: clamp(2rem, 5vw, 4rem); }
 
-/* Remover o padding superior da primeira seção (para colar na borda reservada do header) */
+/* primeira seção sem respiro extra (cola no espaço reservado do header) */
 main > .section:first-child { padding-block-start: 0; }
 
 .page-title h1 {
@@ -103,10 +95,7 @@ main > .section:first-child { padding-block-start: 0; }
   box-shadow: 0 2px 10px #0001;
   transition: transform .2s ease, box-shadow .2s ease;
 }
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 22px #0002;
-}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px #0002; }
 
 /* Skip to content */
 .skip-link {
@@ -219,7 +208,6 @@ header {
   transition: width 0.35s ease;
   z-index: 1;
 }
-
 .menu a::after {
   content: "";
   position: absolute;
@@ -236,13 +224,8 @@ header {
   color: var(--marsala-profundo);
   transition-delay: 0.18s;
 }
-.menu a:hover::before,
-.menu a:focus-visible::before { width: 100%; }
-.menu a:hover::after,
-.menu a:focus-visible::after {
-  height: 100%;
-  transition-delay: 0.12s;
-}
+.menu a:hover::before,.menu a:focus-visible::before { width: 100%; }
+.menu a:hover::after,.menu a:focus-visible::after { height: 100%; transition-delay: 0.12s; }
 
 /* estado ativo */
 .menu a[aria-current="page"],
@@ -250,10 +233,8 @@ header {
   color: var(--marsala-profundo);
   background: var(--dourado-fosco);
 }
-.menu a[aria-current="page"]::before,
-.menu a.active::before { width: 100%; }
-.menu a[aria-current="page"]::after,
-.menu a.active::after { height: 100%; }
+.menu a[aria-current="page"]::before,.menu a.active::before { width: 100%; }
+.menu a[aria-current="page"]::after,.menu a.active::after { height: 100%; }
 
 /* foco claro */
 .menu a:focus-visible {
@@ -262,10 +243,7 @@ header {
 }
 
 /* compensação duplicada REMOVIDA (mantemos só no body) */
-main {
-  padding-top: 0;
-  view-transition-name: page;
-}
+main { padding-top: 0; view-transition-name: page; }
 
 /* ---------- Footer ---------- */
 footer {
@@ -338,16 +316,11 @@ footer {
   transition: transform .25s ease;
 }
 .btn-reveal > * { position: relative; z-index: 1; }
-.btn-reveal:hover {
-  color: var(--btn-text-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px -3px rgba(0, 0, 0, 0.35);
-}
+.btn-reveal:hover { color: var(--btn-text-hover); transform: translateY(-2px); box-shadow: 0 12px 28px -3px rgba(0,0,0,.35); }
 .btn-reveal:hover::before { transform: scaleX(1); }
 .btn-reveal:focus-visible { outline: 3px solid var(--dourado-fosco); outline-offset: 3px; }
 .btn-reveal:active { transform: translateY(-1px) scale(0.98); }
-.btn-reveal:disabled,
-.btn-reveal[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+.btn-reveal:disabled,.btn-reveal[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 .btn-reveal[aria-disabled="true"] { pointer-events: none; }
 
 .btn-reveal--ghost {
@@ -364,7 +337,7 @@ footer {
   --btn-fill: var(--dourado-fosco);
   --btn-text: #f3f3f3;
   --btn-text-hover: #212121;
-  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.35);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.35);
 }
 .btn-reveal--sm { padding: 0.6rem 1.1rem; border-radius: 0.7rem; font-size: 0.95rem; min-height: 38px; }
 .btn-reveal--lg { padding: 1.05rem 1.9rem; border-radius: 1rem; font-size: 1.06rem; min-height: 48px; }
@@ -383,17 +356,10 @@ footer {
   .menu.open { display: flex; }
   .menu-toggle { display: block; }
 
-  .menu a {
-    overflow: visible;
-    border-radius: 0;
-  }
+  .menu a { overflow: visible; border-radius: 0; }
   .menu a::before { display: none; }
   .menu a::after { height: 0 !important; }
-  .menu a:hover,
-  .menu a:focus-visible {
-    background: var(--dourado-fosco);
-    color: var(--marsala-profundo);
-  }
+  .menu a:hover,.menu a:focus-visible { background: var(--dourado-fosco); color: var(--marsala-profundo); }
 }
 
 /* ---------- Fallbacks ---------- */
@@ -439,59 +405,25 @@ footer {
   10%, 90% { opacity: 1; transform: translateY(0); }
 }
 
-/* sinal de scroll */
-.scroll-cue--mouse{
-  --cue-color: color-mix(in srgb, var(--marrom-terra-firme) 85%, black 10%);
-  display: grid;
-  justify-items: center;
-  gap: .6rem;
-  margin-top: clamp(2rem, 6vh, 3rem);
-  color: var(--cue-color);
-  user-select: none;
-  pointer-events: none;
-}
-.scroll-cue--mouse .mouse{
-  width: 30px; height: 48px;
-  border-radius: 16px;
-  border: 2px solid currentColor;
-  position: relative;
-  opacity: .9;
-}
-.scroll-cue--mouse .mouse::after{
-  content:"";
-  position:absolute; inset:-6px;
-  border-radius: 20px;
-  background: radial-gradient(closest-side, rgba(0,0,0,.06), transparent 70%);
-  filter: blur(2px);
-}
-.scroll-cue--mouse .wheel{
-  position: absolute; left: 50%; top: 9px;
-  width: 4px; height: 8px; margin-left: -2px;
-  border-radius: 2px;
-  background: currentColor; opacity: .85;
-  animation: wheelSlide 1.6s ease-in-out infinite;
-}
-.scroll-cue--mouse .cue-text{
-  font-size: .8rem; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; opacity: .75;
-}
-@keyframes wheelSlide{
-  0% { transform: translateY(0); opacity: .9; }
-  60% { transform: translateY(14px); opacity: 1; }
-  100% { transform: translateY(0); opacity: .9; }
-}
-@media (prefers-reduced-motion: reduce){
-  .scroll-cue--mouse .wheel{ animation: none !important; }
-}
-
+/* ----- HERO (vars locais + colada no header) ----- */
 .hero{
+  /* variáveis específicas da hero (saíram do :root) */
+  --hero-radius: 1rem;
+  --hero-tilt-x: 3deg;
+  --hero-tilt-y: -2deg;
+  --hero-scale: 1.04;
+
   position: relative;
   overflow: hidden;
+  /* sem padding-top: cola no header */
   background:
     radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--dourado-fosco) 16%, transparent) 0 40%, transparent 60%),
     radial-gradient(130% 90% at 90% 20%, color-mix(in srgb, var(--marsala-profundo) 10%, transparent) 0 30%, transparent 60%),
     linear-gradient(135deg, var(--areia-dourada), var(--areia-dourada));
 }
+/* evita “margin collapse” do primeiro conteúdo da hero */
+.hero > :first-child { margin-top: 0; }
+
 @supports not (color: color-mix(in srgb, white, black)){
   .hero{ background: linear-gradient(135deg, #f7efe2, var(--areia-dourada)); }
 }
@@ -504,7 +436,6 @@ footer {
   line-height: 1.05;
   color: var(--marrom-terra-firme);
 }
-
 .hero-sub{
   margin: 0 0 .85rem;
   font-weight: 600;

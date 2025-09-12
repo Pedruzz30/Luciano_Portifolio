@@ -10,14 +10,18 @@ img {
 .hero-grid{
   display: grid;
   gap: clamp(1.25rem, 3vw, 2.5rem);
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr;
   align-items: center;
+}
+
+@media (min-width: 980px){
+  .hero-grid{ grid-template-columns: 1.1fr 0.9fr; }
 }
 
 .hero-img-wrap{
   position: relative;
   width: 100%;
-  max-width: 540px;
+   max-width: 420px;
   margin-inline: auto;
   padding: 6px;
   border-radius: var(--hero-radius);
@@ -54,9 +58,8 @@ img {
 @media (prefers-reduced-motion: reduce){
   .hero-img-wrap, .hero-img{ transition:none !important; }
 }
-@media (max-width: 980px){
-  .hero-grid{ grid-template-columns: 1fr; }
-  .hero-img-wrap{ max-width: 420px; }
+@media (min-width: 980px){
+  .hero-img-wrap{ max-width: 540px; }
 }
 
 /* ---------- SOBRE MINI (resumo) ---------- */
