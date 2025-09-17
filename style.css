@@ -1,11 +1,12 @@
 /* =========================
-   style.css (refinado + root enxuto)
-   - Root só com tokens globais
-   - Vars da hero no escopo da .hero
-   - Gap corrigido: body reserva header; hero sem respiro
+   style.css (organizado)
+   - :root só com tokens de cor
+   - Header fixo com altura direta
+   - Body reserva espaço do header
+   - Primeiro bloco do main tem respiro sem usar var
    ========================= */
 
-/* ---------- Tokens / Vars (globais) ---------- */
+/* ---------- Tokens / Vars (globais: CORES APENAS) ---------- */
 :root {
   --areia-dourada: #f3e6d3;
   --marsala-profundo: #752a2a;
@@ -15,9 +16,6 @@
   --oliva-sutil: #7a6a4f;
   --cinza-quente-neutro: #a89d92;
   --berinjela-noturna: #3e2731;
-
-  /* layout global */
-  --header-h: 80px;
 }
 
 /* ---------- Base ---------- */
@@ -25,7 +23,11 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* âncoras não ficam escondidas sob o header */
+  scroll-padding-top: 88px; /* 80px do header + 8px de folga */
+}
 
 body {
   margin: 0;
@@ -34,8 +36,8 @@ body {
   color: var(--marrom-terra-firme);
   background: var(--areia-dourada);
 
-  /* reserva o espaço do header fixo (APENAS aqui) */
-  padding-top: var(--header-h);
+  /* reserva do header fixo (sem var) */
+  padding-top: 80px;
 }
 
 img {
@@ -50,7 +52,8 @@ img {
   animation: none !important;
 }
 
-a:focus-visible,button:focus-visible {
+a:focus-visible,
+button:focus-visible {
   outline: 3px solid var(--dourado-fosco);
   outline-offset: 3px;
 }
@@ -60,8 +63,8 @@ a:focus-visible,button:focus-visible {
 
 .section { padding-block: clamp(2rem, 5vw, 4rem); }
 
-/* primeira seção sem respiro extra (cola no espaço reservado do header) */
-main > .section:first-child { padding-block-start: 0; }
+/* 1ª seção com respiro controlado (sem var no :root) */
+main > .section:first-child { padding-block-start: clamp(12px, 2.2vw, 28px); }
 
 .page-title h1 {
   margin: 0 0 1rem;
@@ -121,7 +124,7 @@ header {
   inset-block-start: 0;
   inset-inline: 0;
   inline-size: 100%;
-  block-size: var(--header-h);
+  block-size: 80px;                    /* altura direta, sem var */
   background: var(--areia-dourada);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
   backdrop-filter: saturate(180%) blur(10px);
@@ -171,79 +174,196 @@ header {
 }
 .logo img:hover { transform: scale(1.05); }
 
-/* ---------- Navegação ---------- */
-.menu { display: flex; gap: 1rem; }
+ /* ---------- Navegação (Modern 2025: highlight deslizante + glass) ---------- */
+.menu{
+  position: relative;
+  display: flex;
+  gap: clamp(.6rem, 2.4vw, 1.1rem);
+  align-items: center;
+  isolation: isolate; /* indicador fica atrás dos links */
+}
 
-.menu-toggle {
+.menu-toggle{
   display: none;
   background: none;
   border: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   cursor: pointer;
   color: var(--marrom-terra-firme);
 }
 
-/* linha → preenchimento */
-.menu a {
+/* Links minimalistas (sem pseudo-elementos) */
+.menu a{
   position: relative;
+  z-index: 1;                 /* acima do indicador */
   display: inline-flex;
   align-items: center;
-  min-height: 44px;               /* alvo de toque maior */
-  padding: 0.8rem 1.1rem;
-  text-decoration: none;
-  color: var(--marrom-terra-firme);
-  border-radius: 0.35rem;
-  cursor: pointer;
-  isolation: isolate;
-  overflow: hidden;
-  transition: color 0.35s ease;
-}
+  justify-content: center;
 
-.menu a::before {
-  content: "";
-  position: absolute;
-  left: 0; bottom: 0;
-  height: 2px; width: 0;
-  background: var(--dourado-fosco);
-  transition: width 0.35s ease;
-  z-index: 1;
-}
-.menu a::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 100%; height: 0;
-  background: var(--dourado-fosco);
-  border-radius: 0.35rem;
-  transition: height 0.3s ease;
-  z-index: -1;
+  min-height: 44px;           /* alvo de toque confortável */
+  padding: .85rem 1.1rem;
+  border-radius: .7rem;
+
+  color: var(--marrom-terra-firme);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: .01em;
+
+  transition: color .2s ease, transform .18s ease, filter .25s ease;
+  will-change: transform, color;
+  cursor: pointer;
 }
 
 .menu a:hover,
-.menu a:focus-visible {
+.menu a:focus-visible{
   color: var(--marsala-profundo);
-  transition-delay: 0.18s;
+  transform: translateY(-1px);
 }
-.menu a:hover::before,.menu a:focus-visible::before { width: 100%; }
-.menu a:hover::after,.menu a:focus-visible::after { height: 100%; transition-delay: 0.12s; }
 
-/* estado ativo */
+.menu a:focus-visible{
+  outline: 0;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--dourado-fosco) 65%, white 35%);
+}
+
+/* Texto do ativo realçado (o “pill” vem do indicador) */
 .menu a[aria-current="page"],
-.menu a.active {
+.menu a.active{
   color: var(--marsala-profundo);
-  background: var(--dourado-fosco);
-}
-.menu a[aria-current="page"]::before,.menu a.active::before { width: 100%; }
-.menu a[aria-current="page"]::after,.menu a.active::after { height: 100%; }
-
-/* foco claro */
-.menu a:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 70%, white 30%);
-  outline-offset: 3px;
+  font-weight: 700;
 }
 
-/* compensação duplicada REMOVIDA (mantemos só no body) */
-main { padding-top: 0; view-transition-name: page; }
+/* Indicador deslizante (pill com glass) */
+.menu .menu-indicator{
+  position: absolute;
+  top: 0; left: 0;
+  width: var(--w, 0px);
+  height: var(--h, 0px);
+  transform: translate(var(--x, 0px), var(--y, 0px)) translateZ(0);
+  border-radius: .7rem;
+
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--dourado-fosco) 22%, transparent) 0%,
+      color-mix(in srgb, var(--dourado-fosco) 32%, white 8%) 100%);
+  backdrop-filter: saturate(150%) blur(6px);
+  -webkit-backdrop-filter: saturate(150%) blur(6px);
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.12),
+    inset 0 1px 0 rgba(255,255,255,.18);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 42%, white 20%);
+
+  opacity: 0;
+  transition:
+    transform .26s cubic-bezier(.2,.8,.2,1),
+    width .26s cubic-bezier(.2,.8,.2,1),
+    height .26s cubic-bezier(.2,.8,.2,1),
+    opacity .18s ease;
+  will-change: transform, width, height, opacity;
+  z-index: 0;
+}
+
+/* Fallback quando não há blur/transparência: vira um sólido suave */
+@supports not ((-webkit-backdrop-filter: blur(6px)) or (backdrop-filter: blur(6px))) {
+  .menu .menu-indicator{
+    background: color-mix(in srgb, var(--dourado-fosco) 25%, white 10%);
+    border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white 20%);
+  }
+}
+
+/* Mostra o indicador quando anexado a algum item */
+.menu.has-indicator .menu-indicator{ opacity: 1; }
+
+/* ---------- Mobile Nav (sem animação; tudo visível) ---------- */
+@media (max-width: 800px){
+  .menu{
+    /* painel ocupando a tela abaixo do header */
+    position: fixed;
+    top: 80px;                  /* ajuste se seu header mudar */
+    left: 0; right: 0;
+
+    /* usa a altura “segura” que considera barras do mobile */
+    height: calc(100svh - 80px);
+
+    /* centraliza os itens e evita precisar rolar */
+    display: none;              /* abre só com .open */
+    background: var(--areia-dourada);
+    padding: 16px 20px calc(20px + env(safe-area-inset-bottom));
+    box-shadow: 0 8px 24px #0002;
+
+    /* grid “auto-fit” empacotado no centro */
+    display: grid;
+    grid-auto-rows: minmax(48px, auto);
+    align-content: center;      /* empacota vertical no centro */
+    justify-items: stretch;     /* botões ocupam a largura */
+    gap: 12px;
+
+    /* sem scroll por padrão (mais clean) */
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .menu.open{ display: grid; }
+
+  .menu-toggle{
+    display: block;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* sem indicador/pill no mobile (leve e direto) */
+  .menu .menu-indicator{ display: none !important; }
+
+  /* botões grandes e claros */
+  .menu a{
+    width: 100%;
+    border-radius: 12px;
+    padding: 14px 18px;
+    min-height: 48px;
+    font-size: clamp(1rem, 3.5vw, 1.08rem);
+    font-weight: 700;
+    letter-spacing: .01em;
+
+    color: var(--marrom-terra-firme);
+    background: color-mix(in srgb, var(--dourado-fosco) 18%, white 82%);
+    border: 1px solid color-mix(in srgb, var(--dourado-fosco) 35%, white 65%);
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    transform: none !important;
+  }
+  .menu a:hover,
+  .menu a:focus-visible{
+    background: color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
+    color: var(--marsala-profundo);
+    outline: 0;
+  }
+
+  /* estado ativo: destaque um pouco mais forte */
+  .menu a[aria-current="page"],
+  .menu a.active{
+    background: color-mix(in srgb, var(--dourado-fosco) 38%, white 62%);
+    color: var(--marsala-profundo);
+    border-color: color-mix(in srgb, var(--dourado-fosco) 55%, white 45%);
+  }
+
+  /* se ficar apertado em landscape, libera scroll suave */
+  @media (orientation: landscape){
+    .menu{ overflow: auto; }
+  }
+}
+
+/* ---------- Backdrop do menu (mobile) ---------- */
+.menu-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.18);
+  display: none;
+  z-index: 9;  /* abaixo do header (10) e acima do conteúdo */
+}
+.menu-backdrop.is-visible{ display: block; }
+
+@media (min-width: 801px){
+  .menu-backdrop{ display: none !important; }
+}
 
 /* ---------- Footer ---------- */
 footer {
@@ -276,7 +396,7 @@ footer {
   border-radius: .25rem;
 }
 
-/* ---------- Botão Reveal (variações mantidas) ---------- */
+/* ---------- Botão Reveal ---------- */
 .btn-reveal {
   --btn-base: #e8e8e8;
   --btn-fill: var(--marsala-profundo);
@@ -405,9 +525,8 @@ footer {
   10%, 90% { opacity: 1; transform: translateY(0); }
 }
 
-/* ----- HERO (vars locais + colada no header) ----- */
+/* ----- HERO (vars locais, sem respiro extra aqui) ----- */
 .hero{
-  /* variáveis específicas da hero (saíram do :root) */
   --hero-radius: 1rem;
   --hero-tilt-x: 3deg;
   --hero-tilt-y: -2deg;
@@ -415,7 +534,6 @@ footer {
 
   position: relative;
   overflow: hidden;
-  /* sem padding-top: cola no header */
   background:
     radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--dourado-fosco) 16%, transparent) 0 40%, transparent 60%),
     radial-gradient(130% 90% at 90% 20%, color-mix(in srgb, var(--marsala-profundo) 10%, transparent) 0 30%, transparent 60%),
@@ -443,7 +561,7 @@ footer {
   font-size: clamp(1rem, 1.6vw, 1.15rem);
 }
 
-/* ---------- Transição de Page (View Transition API) ---------- */
+/* ---------- View Transitions ---------- */
 ::view-transition-old(root),
 ::view-transition-new(root),
 ::view-transition-old(site-header),

@@ -1,11 +1,13 @@
 /* ===================== home.css ===================== */
 
+/* (REMOVIDO) regra global de img para evitar duplicidade com style.css
 img {
   max-width: 100%;
   height: auto;
   display: block;
   border-radius: 0.25rem;
 }
+*/
 
 .hero-grid{
   display: grid;
@@ -21,7 +23,7 @@ img {
 .hero-img-wrap{
   position: relative;
   width: 100%;
-   max-width: 420px;
+  max-width: 420px;
   margin-inline: auto;
   padding: 6px;
   border-radius: var(--hero-radius);
