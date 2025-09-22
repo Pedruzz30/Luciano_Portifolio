@@ -1,232 +1,188 @@
-/* ===================== servicos.css ===================== */
+/* ===================== servicos.css (v2.2 arrumado) ===================== */
+/* Usa tokens do :root em style.css */
 
-/* ===== Base dos cards ===== */
-.card {
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+/* Layout base */
+[id] { scroll-margin-top: 96px; }
+.section + .section { scroll-margin-top: 96px; }
+
+/* Tipografia harmonizada */
+h1, h2 { font-family: "Cormorant Garamond", serif; color: var(--marsala-profundo); }
+h1 { font-weight: 800; font-size: clamp(2rem, 3.2vw, 2.8rem); line-height: 1.1; margin: 0 0 .6rem; }
+h2 { font-weight: 700; font-size: clamp(1.6rem, 2.6vw, 2rem); line-height: 1.2; margin: 0 0 .8rem; position: relative; }
+h2::after { content: none !important; } /* sem sublinhado */
+
+/* Intro */
+.page-title { max-width: 72ch; margin-inline: auto; }
+.page-title .eyebrow { font-size:.9rem; letter-spacing:.3px; color:var(--oliva-sutil); margin:0 0 .4rem; }
+.page-title .lead { font-size:1.1rem; line-height:1.75; color:var(--marrom-terra-firme); }
+
+/* Grid fluido, alturas iguais */
+.services-grid{
+  display:grid;
+  gap:clamp(1rem,2.4vw,1.4rem);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: stretch;
 }
 
-.card:hover {
+/* ===== Cards (from scratch, refinado) ===== */
+.svc-card{
+  display:flex; flex-direction:column; min-height:100%;
+  background: rgba(255,255,255,.86);
+  border:1px solid var(--dourado-fosco); /* fallback */
+  border-radius:1rem; overflow:hidden;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  will-change: transform, box-shadow;
+}
+@supports (color: color-mix(in srgb, white, black)) {
+  .svc-card{ border-color: color-mix(in srgb, var(--dourado-fosco) 42%, white); }
+}
+.svc-card:hover{
   transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+@supports (color: color-mix(in srgb, white, black)) {
+  .svc-card:hover{ border-color: color-mix(in srgb, var(--dourado-fosco) 55%, white); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .card {
-    transition: none;
-  }
-  .card:hover {
-    transform: none;
-    box-shadow: none;
-  }
+/* Mídia */
+.svc-media{ position:relative; overflow:hidden; aspect-ratio: 16/9; background:#0001; }
+.svc-media img{
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  transform: scale(1.015);
+  transition: transform .55s ease;
+}
+.svc-card:hover .svc-media img{ transform: scale(1.06); }
+
+/* Corpo em grid */
+.svc-body{
+  display:grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap:.8rem;
+  padding: clamp(0.9rem, 2.2vw, 1.1rem);
 }
 
-/* ===== Cards de serviço ===== */
-.service-card {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid var(--dourado-fosco);
-  border-radius: 1rem;
-  min-height: 100%;
-}
-
-@supports (color: color-mix(in srgb, var(--dourado-fosco) 40%, white)) {
-  .service-card {
-    border-color: color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  }
-}
-
-.service-card .card-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 1rem;
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  padding: 1rem;
-  flex: 1;
-}
-
-.service-card h3 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 700;
+.svc-head h3{
+  margin:0;
+  font-family:"Cormorant Garamond", serif;
+  font-weight:700;
   color: var(--marsala-profundo);
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
+}
+/* Multi-line clamp robusto para .svc-sub */
+.svc-sub {
+  line-height: 1.6;
 }
 
-.service-card p {
-  margin: 0;
-  color: var(--marrom-terra-firme);
+/* WebKit/Chromium e Safari — caminho oficial do hack */
+@supports (-webkit-line-clamp: 2) {
+  .svc-sub {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* mude p/ 3, 4... se quiser */
+    overflow: hidden;
+  }
 }
 
-.features {
-  margin: 0;
-  padding-left: 1.2rem;
-  list-style: disc;
+/* Fallback (Firefox antigo, engines sem -webkit-line-clamp) */
+@supports not (-webkit-line-clamp: 2) {
+  .svc-sub {
+    max-height: calc(1.6em * 2); /* 2 linhas x line-height */
+    overflow: hidden;
+    text-overflow: ellipsis; /* inofensivo aqui */
+    /* opcional: fade no final pra não cortar seco */
+    -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent);
+            mask-image: linear-gradient(180deg, #000 80%, transparent);
+  }
 }
 
-.features li {
-  margin: 0.2rem 0;
-}
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/* Chips (tempo, formato, público) */
+.svc-meta{
+  display:flex; flex-wrap:wrap; gap:.4rem;
+  margin:.1rem 0 0; padding:0; list-style:none;
 }
-
-.tag {
-  background: var(--dourado-fosco);
+.chip{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.28rem .62rem; border-radius:999px;
+  background: var(--dourado-fosco); /* fallback */
   color: var(--marsala-profundo);
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size:.86rem; font-weight:700;
+  border:1px solid var(--dourado-fosco); /* fallback */
+}
+@supports (color: color-mix(in srgb, white, black)) {
+  .chip{
+    background: color-mix(in srgb, var(--dourado-fosco) 82%, white);
+    border-color: color-mix(in srgb, var(--dourado-fosco) 60%, white);
+  }
 }
 
-.more summary {
-  cursor: pointer;
-  list-style: none;
+/* Lista com check */
+.svc-list{
+  margin:0; padding:0; list-style:none; display:grid; gap:.42rem;
+}
+.svc-list li{
+  position:relative; padding-left:1.35rem; line-height:1.6; color: var(--marrom-terra-firme);
+}
+.svc-list li::before{
+  content:"✓";
+  position:absolute; left:0; top:0.05rem;
+  font-weight:800; color: var(--terracota-queimado);
+}
+
+/* Ações */
+.svc-actions{ margin-top:auto; }
+.btn-reveal{
+  display:inline-block; margin-top:.2rem;
+  border-radius:999px; padding:.75rem 1.1rem;
+  font-weight:800; text-decoration:none;
   color: var(--marsala-profundo);
-  font-weight: 700;
+  border: 2px solid var(--dourado-fosco);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.btn-reveal:hover, .btn-reveal:focus-visible{
+  background: color-mix(in srgb, var(--dourado-fosco) 85%, white);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.10);
+  outline:none;
+}
+/* focus ring visível no card quando o CTA recebe foco */
+.svc-card:focus-within{
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--dourado-fosco) 50%, white);
 }
 
-.more summary::-webkit-details-marker {
-  display: none;
+/* ===== Animações Combo A (mesmas da Sobre) ===== */
+:root{ --enter-y:12px; --dur:.50s; --ease: cubic-bezier(.22,.61,.36,1); }
+
+.reveal{
+  opacity:0; transform: translateY(var(--enter-y));
+  transition: opacity var(--dur) var(--ease) var(--delay,0ms),
+             transform var(--dur) var(--ease) var(--delay,0ms);
+  will-change: opacity, transform;
+}
+.reveal.in-view{ opacity:1; transform:none; }
+
+.card-approach{
+  opacity:0; transform: translateY(10px) scale(.995); filter: saturate(.98);
+  transition: opacity .55s var(--ease), transform .55s var(--ease), box-shadow .35s ease, filter .35s ease;
+}
+.card-approach.in-view{ opacity:1; transform:none; filter:none; box-shadow:0 12px 28px rgba(0,0,0,.07); }
+
+/* Glow breve para h2 */
+.h2-glow{ position:relative; }
+.h2-glow.in-view::before{
+  content:""; position:absolute; inset:-4px -6px; border-radius:10px;
+  box-shadow:0 0 0 0 rgba(201,174,143,.0);
+  animation: glowFade .8s ease-out 0s 1 both;
+}
+@keyframes glowFade{ 0%{ box-shadow:0 0 0 0 rgba(201,174,143,.45);} 100%{ box-shadow:0 0 0 0 rgba(201,174,143,0);} }
+
+/* Acessibilidade — single source of truth */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+  .svc-card:hover{ transform:none; box-shadow:none; }
 }
 
-.more[open] {
-  animation: reveal 0.2s ease;
-}
+/* Mobile padding */
+@media (max-width:980px){ .page-title{ padding-inline:1rem; } }
 
-@keyframes reveal {
-  from {
-    opacity: 0.7;
-    transform: translateY(-2px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.card-actions {
-  margin-top: auto;
-}
-
-/* ===== Bloco "Como funciona" ===== */
-.info-cards {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 720px) {
-  .info-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .info-cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.info-card {
-  padding: 1rem;
-  text-align: center;
-}
-
-/* ===== Para quem é / não é ===== */
-.columns {
-  display: grid;
-  gap: 2rem;
-}
-
-@media (min-width: 720px) {
-  .columns {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.bullets {
-  margin: 0;
-  padding-left: 1.2rem;
-}
-
-/* ===== Jornada ===== */
-.steps {
-  display: grid;
-  gap: 1rem;
-  counter-reset: step;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.steps li {
-  list-style: none;
-  position: relative;
-  padding: 1rem 1rem 1rem 3rem;
-}
-
-.steps li::before {
-  counter-increment: step;
-  content: counter(step);
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  background: var(--dourado-fosco);
-  color: var(--marsala-profundo);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-}
-
-/* ===== FAQ ===== */
-.faq-list details {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(4px);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px #0001;
-  padding: clamp(1.5rem, 5vw, 2rem);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.contact-card:hover,
-.channel-group:hover,
-.faq-list details:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px #0002;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-card,
-  .channel-group,
-  .faq-list details {
-    transition: none !important;
-  }
-
-  .contact-card:hover,
-  .channel-group:hover,
-  .faq-list details:hover {
-    transform: none;
-  }
-}
-
-/* ===== CTA final ===== */
-.cta-box {
-  text-align: center;
-  padding: 2rem;
-}
 

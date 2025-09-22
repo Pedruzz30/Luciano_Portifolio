@@ -1,243 +1,377 @@
-/* ===================== sobre.css ===================== */
-[id] {
-  scroll-margin-top: 90px;
-}
+/*  sobre.css   */
+/* Mantém as variáveis já definidas no :root de style.css */
 
-/* ---------- Hero ---------- */
-.about-hero {
-  display: grid;
-  gap: clamp(1.2rem, 4vw, 2rem);
-  align-items: center;
-  grid-template-columns: minmax(260px, 340px) 1fr;
+/* --------- Layout base --------- */
+[id] { scroll-margin-top: 96px; }
+.prose {
+  max-width: 72ch;
+  margin-inline: auto;
 }
-.about-photo {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  border-radius: 1rem;
-  border: 3px solid var(--marsala-profundo);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-.about-photo:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-}
+.section + .section { scroll-margin-top: 96px; }
 
-.about-intro h2 {
-  margin: 0 0 0.4rem;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 800;
-  color: var(--marsala-profundo);
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
-}
-.subtitle {
-  margin: 0.2rem 0 0.9rem;
-  font-weight: 600;
+/* --------- Tipografia --------- */
+.eyebrow {
+  font-size: .9rem;
+  letter-spacing: .3px;
   color: var(--oliva-sutil);
+  margin: 0 0 .4rem;
 }
-.lead {
-  font-size: 1.08rem;
-  margin: 0 0 1rem;
-  color: var(--marrom-terra-firme);
-  line-height: 1.65;
-}
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0 0 1rem;
-}
-.badge {
-  background: var(--dourado-fosco);
-  color: var(--marsala-profundo);
-  padding: 0.4rem 0.8rem;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.88rem;
-}
-
-/* ---------- Cards principais ---------- */
-.about-grid {
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.4rem);
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-.about-card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(6px);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  padding: clamp(1.2rem, 2.5vw, 1.6rem);
-  border-radius: 1rem;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
-}
-.about-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-.about-card h3 {
-  margin: 0.3rem 0 0.6rem;
-  color: var(--marsala-profundo);
-  font-weight: 800;
-  font-size: 1.15rem;
-}
-
-/* ---------- Títulos de seção ---------- */
-.section-title,
-.about-section h2 {
-  margin: 0 0 0.9rem;
+h1, h2 {
   font-family: "Cormorant Garamond", serif;
-  font-weight: 700;
   color: var(--marsala-profundo);
-  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
 }
-
-/* ---------- Índice (TOC) ---------- */
-.toc {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem 1.2rem;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(4px);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  padding: 1rem 1.25rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+h1 {
+  font-weight: 800;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  line-height: 1.1;
+  margin: 0 0 .6rem;
 }
-.toc strong {
-  color: var(--berinjela-noturna);
-}
-.toc a {
-  text-decoration: none;
+h2 {
   font-weight: 700;
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  line-height: 1.2;
+  margin: 0 0 .8rem;
   position: relative;
-  color: var(--marsala-profundo);
-  padding-bottom: 2px;
 }
-.toc a::after {
+h2::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 100%;
-  bottom: -2px;
-  height: 2px;
-  background: var(--dourado-fosco);
-  transition: right 0.3s ease;
-}
-.toc a:hover::after,
-.toc a:focus-visible::after {
-  right: 0;
+  left: 0; bottom: -8px;
+  width: 64px; height: 3px; border-radius: 2px;
+  background: color-mix(in srgb, var(--dourado-fosco) 80%, white);
 }
 
-/* ---------- Checklist ---------- */
-.checklist {
-  margin: 0;
-  padding-left: 1.3rem;
+.h2-quiet {
+  margin-bottom: .25rem;
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+}
+
+.lead {
+  font-size: 1.1rem;
+  line-height: 1.75;
   color: var(--marrom-terra-firme);
+  margin: 0 0 1rem;
 }
-.checklist li {
-  margin: 0.4rem 0;
+.article p, .prose p {
+  color: var(--marrom-terra-firme);
+  line-height: 1.75;
+  margin: .6rem 0 0;
 }
+.em { color: var(--terracota-queimado); font-weight: 700; }
 
-/* ---------- KPIs (sessões) ---------- */
-.kpis {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin: 0.8rem 0 1.2rem;
-}
-.kpi {
-  background: var(--dourado-fosco);
-  color: var(--marsala-profundo);
-  padding: 1rem;
-  border-radius: 1rem;
-  min-width: 150px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-.kpi span {
-  display: block;
-  font-weight: 800;
-  font-size: 1.05rem;
-}
-.kpi small {
-  display: block;
-  font-size: 0.85rem;
-  opacity: 0.85;
-}
-
-/* ---------- FAQ ---------- */
-.contact-card,
-.channel-group,
-.faq-list details {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(4px);
+/* --------- Callout (confiança) --------- */
+.callout {
+  margin: 1.2rem 0 0;
+  padding: 1.1rem 1rem;
+  border-radius: .9rem;
+  background: rgba(255,255,255,.8);
   border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px #0001;
-  padding: clamp(1.5rem, 5vw, 2rem);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,.06);
+}
+.callout.soft { border-left: 4px solid var(--dourado-fosco); }
+.callout .label {
+  font-weight: 800;
+  color: var(--terracota-queimado);
+  margin-bottom: .25rem;
+  letter-spacing: .2px;
 }
 
-.contact-card:hover,
-.channel-group:hover,
-.faq-list details:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px #0002;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-card,
-  .channel-group,
-  .faq-list details {
-    transition: none !important;
-  }
-
-  .contact-card:hover,
-  .channel-group:hover,
-  .faq-list details:hover {
-    transform: none;
-  }
-}
-
-/* ---------- CTA final ---------- */
+/* --------- CTA --------- */
 .cta-box {
   text-align: center;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(6px);
+  margin-top: .6rem;
+  background: rgba(255,255,255,.78);
   border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  padding: clamp(1.3rem, 3vw, 2rem);
   border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  box-shadow: 0 8px 24px rgba(0,0,0,.05);
+}
+.btn-reveal {
+  display: inline-block;
+  margin-top: .6rem;
+  border-radius: 999px;
+  padding: .75rem 1.1rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--marsala-profundo);
+  border: 2px solid var(--dourado-fosco);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.btn-reveal:hover, .btn-reveal:focus-visible {
+  background: color-mix(in srgb, var(--dourado-fosco) 85%, white);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.10);
 }
 
-/* ---------- Textos dentro de .article ---------- */
-.article p {
-  color: var(--marrom-terra-firme);
-  line-height: 1.65;
-}
-
-/* ---------- Redução de movimento ---------- */
+/* --------- Acessibilidade / movimento --------- */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
+  * { animation: none !important; transition: none !important; }
 }
 
-/* ---------- Responsivo ---------- */
+/* --------- Responsivo --------- */
 @media (max-width: 980px) {
-  .about-hero {
-    grid-template-columns: 1fr;
-  }
-  .about-photo {
-    height: 320px;
-  }
+  .prose { padding-inline: 1rem; }
 }
+
+/* ===================== sobre.css (v3 clean) ===================== */
+/* Mantém as variáveis já definidas no :root de style.css */
+
+/* --------- Layout base --------- */
+[id] { scroll-margin-top: 96px; }
+.prose {
+  max-width: 72ch;
+  margin-inline: auto;
+}
+.section + .section { scroll-margin-top: 96px; }
+
+/* --------- Tipografia --------- */
+.eyebrow {
+  font-size: .9rem;
+  letter-spacing: .3px;
+  color: var(--oliva-sutil);
+  margin: 0 0 .4rem;
+}
+h1, h2 {
+  font-family: "Cormorant Garamond", serif;
+  color: var(--marsala-profundo);
+}
+h1 {
+  font-weight: 800;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  line-height: 1.1;
+  margin: 0 0 .6rem;
+}
+h2 {
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  line-height: 1.2;
+  margin: 0 0 .8rem;
+  position: relative;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -8px;
+  width: 64px; height: 3px; border-radius: 2px;
+  background: color-mix(in srgb, var(--dourado-fosco) 80%, white);
+}
+
+.h2-quiet {
+  margin-bottom: .25rem;
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+}
+
+.lead {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--marrom-terra-firme);
+  margin: 0 0 1rem;
+}
+.article p, .prose p {
+  color: var(--marrom-terra-firme);
+  line-height: 1.75;
+  margin: .6rem 0 0;
+}
+.em { color: var(--terracota-queimado); font-weight: 700; }
+
+/* --------- Callout (confiança) --------- */
+.callout {
+  margin: 1.2rem 0 0;
+  padding: 1.1rem 1rem;
+  border-radius: .9rem;
+  background: rgba(255,255,255,.8);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  box-shadow: 0 6px 20px rgba(0,0,0,.06);
+}
+.callout.soft { border-left: 4px solid var(--dourado-fosco); }
+.callout .label {
+  font-weight: 800;
+  color: var(--terracota-queimado);
+  margin-bottom: .25rem;
+  letter-spacing: .2px;
+}
+
+/* --------- CTA --------- */
+.cta-box {
+  text-align: center;
+  margin-top: .6rem;
+  background: rgba(255,255,255,.78);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  border-radius: 1rem;
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  box-shadow: 0 8px 24px rgba(0,0,0,.05);
+}
+.btn-reveal {
+  display: inline-block;
+  margin-top: .6rem;
+  border-radius: 999px;
+  padding: .75rem 1.1rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--marsala-profundo);
+  border: 2px solid var(--dourado-fosco);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.btn-reveal:hover, .btn-reveal:focus-visible {
+  background: color-mix(in srgb, var(--dourado-fosco) 85%, white);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.10);
+}
+
+/* --------- Acessibilidade / movimento --------- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* --------- Responsivo --------- */
+@media (max-width: 980px) {
+  .prose { padding-inline: 1rem; }
+}
+
+
+/* ====== REVEAL SUAVE (já entra com fade/slide) ====== */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity .5s ease var(--delay, 0ms),
+    transform .5s ease var(--delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.in-view { opacity: 1; transform: none; }
+
+/* Sublinhado dos h2 aparece quando a seção entra na viewport */
+.section h2::after {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform .6s ease .1s;
+}
+.section.in-view h2::after { transform: scaleX(1); }
+
+/* ====== BARRA DE LEITURA ====== */
+.read-progress {
+  position: fixed;
+  left: 0;
+  top: calc(var(--header-h, 72px));
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--dourado-fosco), var(--terracota-queimado));
+  z-index: 9;
+  transition: width .1s linear;
+}
+
+/* ====== DETAILS/ACCORDION suave ====== */
+details.prep, details.policy {
+  overflow: clip; /* impede “pulo” de conteúdo no fechamento */
+}
+details.prep[open], details.policy[open] 
+  
+details.prep[open] > *:not(summary),
+details.policy[open] > *:not(summary) {
+  animation: fadeIn .35s ease both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Remove qualquer destaque de <mark> nesta página */
+.lead mark,
+.article mark,
+.about-section mark,
+mark,
+mark.em {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ===== Reset do que você NÃO quer ===== */
+h2::after { content: none !important; }
+.read-progress { display: none !important; }
+
+/* Se havia estilos para <mark>, zera geral */
+mark, .spot { all: unset; }
+
+/* ===== Primitives de animação ===== */
+:root{
+  --enter-y: 12px;
+  --dur: .50s;
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-elastic: cubic-bezier(.2,.8,.2,1.2);
+}
+
+/* Entrada com respiro */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--enter-y));
+  transition:
+    opacity var(--dur) var(--ease) var(--delay, 0ms),
+    transform var(--dur) var(--ease) var(--delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.in-view { opacity: 1; transform: none; }
+
+/* Aproximação de cartões (callout/cta) */
+.card-approach {
+  opacity: 0;
+  transform: translateY(10px) scale(.995);
+  filter: saturate(.98);
+  transition:
+    opacity .55s var(--ease),
+    transform .55s var(--ease),
+    box-shadow .35s ease,
+    filter .35s ease;
+}
+.card-approach.in-view {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  box-shadow: 0 12px 28px rgba(0,0,0,.07);
+}
+
+/* Pulse discreto no CTA (1x) */
+@keyframes ctaPulse {
+  0% { transform: translateY(-2px) scale(1); }
+  40%{ transform: translateY(-2px) scale(1.02); }
+  100%{ transform: none; }
+}
+.btn-reveal.cta-pulse { animation: ctaPulse .6s var(--ease) .15s 1 both; }
+
+/* Glow breve no h2 ao entrar (sem underline) */
+.h2-glow { position: relative; }
+.h2-glow.in-view {
+  text-shadow: 0 0 0 rgba(0,0,0,0); /* garante repaint */
+}
+.h2-glow.in-view::before{
+  content:"";
+  position:absolute; inset:-4px -6px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 0 rgba(201,174,143,.0);
+  animation: glowFade .8s ease-out 0s 1 both;
+}
+@keyframes glowFade {
+  0%  { box-shadow: 0 0 0 0 rgba(201,174,143,.45); }
+  100%{ box-shadow: 0 0 0 0 rgba(201,174,143,0); }
+}
+
+/* Micro-parallax: aplica em um container (transform leve) */
+.hero-parallax {
+  will-change: transform;
+  transition: transform .2s linear;
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .card-approach, .btn-reveal,
+  .h2-glow::before, .hero-parallax { transition: none !important; animation: none !important; }
+}
+
+/* Toques responsivos (mantém seu layout) */
+@media (max-width: 980px) {
+  .prose { padding-inline: 1rem; }
+}
+
+
