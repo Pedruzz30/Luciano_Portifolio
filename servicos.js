@@ -18,8 +18,10 @@ function inViewObserver(selectors, onEnter, options = { rootMargin: '0px 0px -10
 
 /* Reveal com stagger — intro, cards e blocos */
 const revealTargets = [
-  ...document.querySelectorAll('.page-title .lead'),
+  ...document.querySelectorAll('.intro-hero'),
+  ...document.querySelectorAll('#servicos .section-head'),
   ...document.querySelectorAll('.svc-card'),
+  ...document.querySelectorAll('.section-description'),
   ...document.querySelectorAll('.steps .step'),
   ...document.querySelectorAll('.info-card'),
   ...document.querySelectorAll('.cta-final .cta-box')
