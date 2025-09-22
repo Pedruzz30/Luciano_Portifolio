@@ -6,8 +6,9 @@
    - Primeiro bloco do main tem respiro sem usar var
    ========================= */
 
-/* ---------- Tokens / Vars (globais: CORES APENAS) ---------- */
+/* ---------- Tokens / Vars (globais) ---------- */
 :root {
+  --header-h: 80px;
   --areia-dourada: #f3e6d3;
   --marsala-profundo: #752a2a;
   --dourado-fosco: #c9ae8f;
@@ -26,7 +27,7 @@
 html {
   scroll-behavior: smooth;
   /* âncoras não ficam escondidas sob o header */
-  scroll-padding-top: 88px; /* 80px do header + 8px de folga */
+  scroll-padding-top: calc(var(--header-h) + 8px);
 }
 
 body {
@@ -124,7 +125,7 @@ header {
   inset-block-start: 0;
   inset-inline: 0;
   inline-size: 100%;
-  block-size: 80px;                    /* altura direta, sem var */
+  block-size: var(--header-h);
   background: var(--areia-dourada);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
   backdrop-filter: saturate(180%) blur(10px);

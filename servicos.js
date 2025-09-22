@@ -23,6 +23,7 @@ const revealTargets = [
   ...document.querySelectorAll('.svc-card'),
   ...document.querySelectorAll('.section-description'),
   ...document.querySelectorAll('.steps .step'),
+  ...document.querySelectorAll('.steps-grid .step-card'),
   ...document.querySelectorAll('.info-card'),
   ...document.querySelectorAll('.cta-final .cta-box')
 ];
@@ -34,7 +35,7 @@ inViewObserver('.reveal', el => el.classList.add('in-view'));
 
 /* Aproximação de cartões */
 const approachTargets = [
-  ...document.querySelectorAll('.svc-card, .step, .info-card, .cta-final .cta-box')
+  ...document.querySelectorAll('.svc-card, .step-card, .info-card, .cta-final .cta-box')
 ];
 approachTargets.forEach(el => el.classList.add('card-approach'));
 inViewObserver('.card-approach', el => el.classList.add('in-view'));
