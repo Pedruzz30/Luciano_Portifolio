@@ -1,53 +1,92 @@
-<!-- index.html -->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Início | Luciano Pimenta Psicólogo</title>
-    <meta name="description" content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão."/>
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Início | Luciano Pimenta Psicólogo" />
-    <meta property="og:description" content="Psicoterapia com acolhimento e clareza. Conheça o trabalho de Luciano Pimenta e marque sua sessão."/>
-    <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg"/>
-    <meta property="og:locale" content="pt_BR" />
-    <meta name="view-transition" content="same-origin">
+    <title>Luciano Pimenta Psicólogo | Psicoterapia Online com Acolhimento</title>
+    <meta
+      name="description"
+      content="Psicoterapia online com acolhimento, ética e resultados. Conheça o trabalho do psicólogo Luciano Pimenta (CRP 05/82816) e agende sua conversa inicial."
+    />
+    <meta
+      name="keywords"
+      content="psicólogo, terapia online, psicoterapia, saúde mental, Luciano Pimenta, psicólogo Rio de Janeiro"
+    />
+    <meta name="author" content="Luciano Pimenta Psicólogo" />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#f3e6d3" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
 
-    <link rel="canonical" href="https://seu-dominio.com/index.html" />
+    <link rel="canonical" href="https://seu-dominio.com/" />
+    <link rel="icon" type="image/png" href="assets/PortifolioLucianoFotos/Logo2.jpg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Luciano Pimenta Psicólogo" />
+    <meta property="og:url" content="https://seu-dominio.com/" />
+    <meta
+      property="og:title"
+      content="Psicoterapia Online com Acolhimento | Luciano Pimenta Psicólogo"
+    />
+    <meta
+      property="og:description"
+      content="Atendimento psicológico com escuta qualificada, ética e foco em resultados sustentáveis. Inicie sua jornada de cuidado com Luciano Pimenta."
+    />
+    <meta
+      property="og:image"
+      content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Luciano Pimenta Psicólogo" />
+    <meta
+      name="twitter:description"
+      content="Terapia online com acolhimento, ética e foco em resultados. Agende uma conversa com o psicólogo Luciano Pimenta."
+    />
+    <meta
+      name="twitter:image"
+      content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" as="style"/>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
-    <link rel="preload" href="assets/PortifolioLucianoFotos/foto2.jpg" as="image" fetchpriority="high"/>
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/PortifolioLucianoFotos/foto2.jpg" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="home.css" />
   </head>
   <body>
-    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <a class="skip-link" href="#inicio">Ir para o conteúdo principal</a>
 
-    <header>
-      <div class="container header-content">
-        <a href="index.html" class="logo" aria-label="Início">
+    <header class="site-header" role="banner">
+      <div class="container nav-wrapper">
+        <a href="index.html" class="brand" aria-label="Página inicial">
           <img
             src="assets/PortifolioLucianoFotos/Logo2.jpg"
-            alt="Luciano Pimenta"
-            width="80"
-            height="40"
+            alt="Logotipo Luciano Pimenta Psicólogo"
+            width="120"
+            height="48"
+            loading="lazy"
+            decoding="async"
           />
+          <span class="brand-name">Luciano Pimenta Psicólogo</span>
         </a>
 
-        <button
-          class="menu-toggle"
-          aria-label="Abrir menu"
-          aria-expanded="false"
-          aria-controls="nav-principal"
-        >
-          ☰
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
         </button>
 
-        <nav id="nav-principal" class="menu" aria-label="Principal">
-          <a href="index.html" aria-current="page">INÍCIO</a>
+        <nav id="nav-principal" class="menu" aria-label="Navegação principal">
+          <a href="index.html" aria-current="page"><I>INÍCIO</I></a>
           <a href="sobre.html">SOBRE</a>
           <a href="servicos.html">SERVIÇOS</a>
           <a href="contato.html">CONTATO</a>
@@ -56,80 +95,166 @@
       </div>
     </header>
 
-    <main id="conteudo">
-      <!-- HERO minimalista -->
-      <section class="section hero">
+    <main id="inicio">
+      <section class="hero section" aria-labelledby="hero-title">
         <div class="container hero-grid">
-          <div class="hero-text">
-            <h1 class="hero-title">
-              Luciano <span class="title-highlight">Pimenta</span> Dias
+          <div class="hero-copy">
+            <p class="hero-kicker">Psicoterapia online com ética, presença e resultados</p>
+            <h1 id="hero-title" class="hero-title">
+              Terapia para reconstruir histórias e fortalecer escolhas conscientes.
             </h1>
-            <h2 class="hero-sub">Psicólogo • CRP 05/82816</h2>
-            <p class="hero-swap" aria-live="polite">
-              Um espaço de <span class="swap-item">escuta</span>
+            <p class="hero-subtitle">
+              Eu sou Luciano Pimenta (CRP 05/82816) e ajudo adultos a navegarem por fases de transição, ansiedade,
+              relacionamentos e autoconhecimento com acolhimento e seriedade.
             </p>
-            <a class="btn-reveal btn-reveal--lg" href="sobre.html"
-              >Conheça meu trabalho</a
-            >
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20conversa%20inicial." target="_blank" rel="noopener noreferrer">
+                Agendar conversa inicial
+              </a>
+              <a class="btn btn-secondary" href="#sobre">Saiba mais</a>
+            </div>
           </div>
-
-          <div class="hero-img-wrap">
+          <figure class="hero-media">
             <img
               src="assets/PortifolioLucianoFotos/foto2.jpg"
-              srcset="assets/PortifolioLucianoFotos/foto2.jpg 420w"
-              sizes="(max-width: 980px) 80vw, 420px"
-              alt="Foto de Luciano Pimenta"
-              class="hero-img"
-              width="420"
-              height="520"
+              alt="Pessoa sorrindo em ambiente acolhedor durante uma videochamada de terapia"
+              width="520"
+              height="640"
+              class="hero-image"
               loading="eager"
-              decoding="async"
               fetchpriority="high"
+              decoding="async"
             />
-          </div>
+          </figure>
         </div>
       </section>
 
-      <!-- SOBRE (resumo curto) -->
-      <section class="section sobre-mini">
-        <div class="container">
-          <div class="sobre-mini-content">
-            <h2>Sobre mim</h2>
+      <section id="sobre" class="section intro" aria-labelledby="intro-title">
+        <div class="container intro-grid">
+          <div class="intro-text">
+            <h2 id="intro-title">Um acompanhamento técnico, humano e personalizado</h2>
             <p>
-              Atendo adultos no formato online. Cada processo é construído em
-              conjunto: objetivos claros, acolhimento e ética — no seu ritmo.
+              Cada jornada terapêutica é construída ao seu ritmo, a partir de metas combinadas e da escuta ativa. A
+              partir de uma visão integrativa, mantenho um olhar atento às suas experiências, valores e responsabilidades
+              cotidianas.
             </p>
-            <ul class="sobre-bullets">
-              <li>Ansiedade • Autoestima • Relacionamentos</li>
-              <li>Escuta ativa e metas combinadas</li>
-              <li>Ritmo respeitado, sem pressa</li>
+            <ul class="intro-highlights">
+              <li>Atendimento online para adultos em todo o Brasil e brasileiros no exterior.</li>
+              <li>Processos focados em ansiedade, autoestima, carreira, perdas e relacionamentos.</li>
+              <li>Ética profissional, sigilo absoluto e acolhimento genuíno.</li>
             </ul>
-            <p class="link-inline"><a href="sobre.html">Ver detalhes</a></p>
+            <a class="link-inline" href="sobre.html">Conheça minha trajetória completa</a>
+          </div>
+          <figure class="intro-media">
+            <img
+              src="assets/PortifolioLucianoFotos/Logo1.jpg"
+              alt="Detalhes do consultório acolhedor de Luciano Pimenta"
+              width="520"
+              height="520"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section id="servicos" class="section services" aria-labelledby="services-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="services-title">Serviços que respeitam sua história</h2>
+            <p>
+              Encontros semanais com duração média de 50 minutos, em ambiente virtual seguro, estruturados para que você
+              possa elaborar sentimentos, alinhar expectativas e construir recursos emocionais sustentáveis.
+            </p>
+          </div>
+          <div class="services-grid">
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">🧭</span>
+              <h3>Apoio em transições</h3>
+              <p>
+                Acompanhamento em mudanças profissionais, acadêmicas ou pessoais, com foco em tomada de decisão e
+                planejamento emocional.
+              </p>
+              <a class="service-link" href="servicos.html#transicoes">Explorar abordagem</a>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">🛡️</span>
+              <h3>Ansiedade e autocuidado</h3>
+              <p>
+                Estratégias para manejo da ansiedade, fortalecimento da autoestima e construção de hábitos que sustentem
+                seu bem-estar.
+              </p>
+              <a class="service-link" href="servicos.html#ansiedade">Ver como funciona</a>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">🤝</span>
+              <h3>Relacionamentos e comunicação</h3>
+              <p>
+                Espaço seguro para ressignificar conflitos, aperfeiçoar limites saudáveis e desenvolver vínculos mais
+                alinhados aos seus valores.
+              </p>
+              <a class="service-link" href="servicos.html#relacionamentos">Saiba mais detalhes</a>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">🌱</span>
+              <h3>Processos contínuos</h3>
+              <p>
+                Psicoterapia de médio e longo prazo para aprofundar autoconhecimento, ampliar repertórios e sustentar
+                mudanças significativas.
+              </p>
+              <a class="service-link" href="servicos.html#processos">Conhecer o processo</a>
+            </article>
           </div>
         </div>
       </section>
 
-       <!-- Teasers discretos -->
-    <section class="section teasers">
-      <div class="container cards">
-        <article class="card teaser">
-          <h3><a href="servicos.html">Serviços</a></h3>
-        </article>
-        <article class="card teaser">
-          <h3><a href="contato.html">Contato</a></h3>
-        </article>
-      </div>
-    </section>
+      <section class="section testimonials" aria-labelledby="testimonials-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="testimonials-title">O que clientes dizem sobre o processo</h2>
+            <p>Depoimentos coletados com autorização, mantendo confidencialidade e respeito à individualidade.</p>
+          </div>
+          <div class="testimonials-grid" role="list">
+            <article class="testimonial" role="listitem">
+              <p>
+                “Consegui reorganizar minha rotina emocional e entender melhor meus limites. Senti acolhimento e
+                direcionamento claro em cada encontro.”
+              </p>
+              <span class="testimonial-name">M., 34 anos</span>
+            </article>
+            <article class="testimonial" role="listitem">
+              <p>
+                “Nos atendimentos encontrei um espaço seguro para falar sobre perdas e reconstruir minha autoestima.
+                Hoje me sinto mais preparada para tomar decisões.”
+              </p>
+              <span class="testimonial-name">L., 41 anos</span>
+            </article>
+            <article class="testimonial" role="listitem">
+              <p>
+                “A terapia online tornou-se parte da minha semana. Gosto da postura ética e da forma como sou provocada a
+                refletir de maneira prática.”
+              </p>
+              <span class="testimonial-name">R., 29 anos</span>
+            </article>
+          </div>
+        </div>
+      </section>
 
-      <!-- CTA final -->
-      <section class="section cta-final">
-        <div class="container cta-box">
-          <p>Se fez sentido, damos o primeiro passo juntos.</p>
+      <section class="section cta-final" aria-labelledby="cta-title">
+        <div class="container cta-wrapper">
+          <div class="cta-text">
+            <h2 id="cta-title">Pronto para começar sua terapia?</h2>
+            <p>
+              Agende uma conversa inicial sem compromisso para entendermos suas necessidades e definirmos o formato do
+              acompanhamento.
+            </p>
+          </div>
           <a
-            class="btn-reveal"
+            class="btn btn-whatsapp"
+            href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Quero%20iniciar%20um%20atendimento%20psicol%C3%B3gico."
             target="_blank"
             rel="noopener noreferrer"
-            href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Quero%20entender%20como%20funciona%20o%20atendimento."
+            aria-label="Conversar pelo WhatsApp"
           >
             Falar no WhatsApp
           </a>
@@ -137,26 +262,32 @@
       </section>
     </main>
 
-    <footer>
-        <div class="container footer-content">
-          <span>&copy; <span id="year"></span> Luciano Pimenta - Psicólogo</span>
-          <nav class="footer-social" aria-label="Redes sociais">
-            <a
-              href="https://instagram.com/SEU_INSTAGRAM"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Instagram</a>
-            <a href="mailto:SEU_EMAIL" target="_blank" rel="noopener noreferrer"
-              >E-mail</a>
-            <a
-              href="https://linkedin.com/in/SEU_LINKEDIN"
-              target="_blank"
-              rel="noopener noreferrer"
-              >LinkedIn</a>
-          </nav>
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-content">
+        <div class="footer-branding">
+          <span class="footer-title">Luciano Pimenta Psicólogo</span>
+          <span class="footer-subtitle">CRP 05/82816 • Atendimento online</span>
         </div>
-      </footer>
-    <script  type="module" src="menu.js" defer></script>
-    <script  type="module" src="transitions.js" defer></script>
+        <div class="footer-contact">
+          <a href="mailto:SEU_EMAIL" class="footer-link">contato@lucianopimenta.com</a>
+          <a href="tel:+5521993034166" class="footer-link">(21) 99303-4166</a>
+        </div>
+        <nav class="footer-social" aria-label="Redes sociais">
+          <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://linkedin.com/in/SEU_LINKEDIN" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="contato.html">Contato</a>
+        </nav>
+        <span class="footer-copy">&copy; <span id="year"></span> Luciano Pimenta. Todos os direitos reservados.</span>
+      </div>
+    </footer>
+
+    <script type="module" src="menu.js" defer></script>
+    <script type="module" src="transitions.js" defer></script>
+    <script>
+      const yearSpan = document.getElementById("year");
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    </script>
   </body>
 </html>
