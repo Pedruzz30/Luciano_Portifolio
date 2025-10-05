@@ -24,7 +24,7 @@
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
     <header class="site-header" role="banner">
-      <div class="container nav-wrapper">
+      <div class="container header-inner">
         <a href="index.html" class="brand" aria-label="Página inicial">
           <img
             src="assets/PortifolioLucianoFotos/Logo2.jpg"
@@ -34,19 +34,29 @@
             loading="lazy"
             decoding="async"
           />
-          <span class="brand-name">Luciano Pimenta Psicólogo</span>
         </a>
-        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-          <span aria-hidden="true"></span>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Abrir menu principal"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+        >
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Abrir menu</span>
         </button>
-        <nav id="nav-principal" class="menu" aria-label="Navegação principal">
-          <a href="index.html">INÍCIO</a>
-          <a href="sobre.html" aria-current="page">SOBRE</a>
-          <a href="servicos.html">SERVIÇOS</a>
-          <a href="contato.html">CONTATO</a>
-          <span class="menu-indicator" aria-hidden="true"></span>
+
+        <nav id="primary-navigation" class="site-nav" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="index.html">INÍCIO</a></li>
+            <li><a class="nav-link" href="sobre.html">SOBRE</a></li>
+            <li><a class="nav-link" href="servicos.html">SERVIÇOS</a></li>
+            <li><a class="nav-link" href="contato.html">CONTATO</a></li>
+          </ul>
         </nav>
       </div>
+      <div class="nav-backdrop" hidden></div>
     </header>
 
     <main id="conteudo">

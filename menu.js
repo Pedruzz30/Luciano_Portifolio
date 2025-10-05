@@ -1,82 +1,231 @@
-// menu.js — navegação responsiva com backdrop mobile e destaque simples do link ativo
+(() => {
+  if (window.Menu?.__initialized) return;
 
-if (!window.__MENU_BOOTSTRAPPED__) {
-  window.__MENU_BOOTSTRAPPED__ = true;
+  document.documentElement.classList.add('js');
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const header = document.querySelector(".site-header");
-    const toggle = header?.querySelector(".menu-toggle");
-    const menu   = header?.querySelector(".menu");
-    const nav    = document.getElementById("nav-principal") || menu;
-    const main   = document.querySelector("main");
+  const state = {
+    header: null,
+    toggle: null,
+    toggleLabel: null,
+    nav: null,
+    backdrop: null,
+    focusableSelectors:
+      'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex="0"]',
+    mq: window.matchMedia('(min-width: 768px)')
+  };
 
-    // Sombra do header ao rolar
-    function onScroll() {
-      header?.classList.toggle("is-scrolled", window.scrollY > 8);
+  const Menu = {
+    __initialized: true,
+    isOpen,
+    setOpen(value) {
+      if (!state.header || !state.toggle || !state.nav) return;
+      value ? openMenu() : closeMenu();
+    },
+    refreshActive() {
+      ensureCurrentLink(state.nav);
     }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+  };
 
-    if (!toggle || !menu) return;
+  window.Menu = Menu;
 
-    // aria-controls/id
-    if (nav && !toggle.getAttribute("aria-controls")) {
-      toggle.setAttribute("aria-controls", nav.id || "nav-principal");
-      if (!nav.id) nav.id = "nav-principal";
-    }
+  document.addEventListener('DOMContentLoaded', init);
 
-    const firstLink = menu.querySelector("a");
+  function init() {
+    state.header = document.querySelector('.site-header');
+    if (!state.header) return;
 
-    // Backdrop (mobile)
-    let backdrop = document.querySelector(".menu-backdrop");
-    if (!backdrop) {
-    if (!window.__MENU_BOOTSTRAPPED__) {
-      } else {
-        document.removeEventListener("keydown", onKeydown);
-        document.removeEventListener("pointerdown", onPointerDown);
-        window.removeEventListener("resize", handleResize);
-        toggle.focus();
-      }
-    }
+    state.toggle = state.header.querySelector('.menu-toggle');
+    state.nav = state.header.querySelector('.site-nav');
+    state.backdrop = state.header.querySelector('.nav-backdrop') || createBackdrop(state.header);
+    state.toggleLabel = state.toggle?.querySelector('.visually-hidden') || null;
 
-    // Toggle mobile
-    toggle.addEventListener("click", () => setOpen(!isOpen()));
+    ensureCurrentLink(state.nav);
 
-    // Fecha ao clicar em link (mobile)
-    menu.querySelectorAll("a").forEach(a => {
-      a.addEventListener("click", () => setOpen(false));
+    if (!state.toggle || !state.nav) return;
+
+    if (!state.nav.id) state.nav.id = 'primary-navigation';
+    state.toggle.setAttribute('aria-controls', state.nav.id);
+    state.toggle.setAttribute('aria-expanded', 'false');
+    state.toggle.setAttribute('aria-label', 'Abrir menu principal');
+
+    updateHiddenState();
+
+    state.backdrop?.addEventListener('click', () => closeMenu());
+
+    state.toggle.addEventListener('click', () => {
+      isOpen() ? closeMenu() : openMenu();
     });
 
-    // Fecha ao tocar no backdrop
-    backdrop.addEventListener("click", () => setOpen(false));
+    state.nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeMenu({ restoreFocus: false }));
+    });
 
-    // Fecha quando virar desktop
-    const mql = window.matchMedia("(min-width: 801px)");
-    const onChange = () => setOpen(false);
-    if (mql.addEventListener) mql.addEventListener("change", onChange);
-    else mql.addListener(onChange);
+    if (state.mq.addEventListener) state.mq.addEventListener('change', syncLayout);
+    else state.mq.addListener(syncLayout);
 
-    ensureCurrentLink(menu);
-  });
-}
+    syncLayout();
 
-function cleanPath(url) {
-  try {
-    const p = new URL(url, location.href).pathname;
-    return p.replace(/index\.html?$/,'').replace(/\/+$/,'') || '/';
-  } catch { return '/'; }
-}
+    Menu.refreshActive = () => ensureCurrentLink(state.nav);
+  }
 
-function ensureCurrentLink(menu) {
-  if (!menu) return;
-  const links = [...menu.querySelectorAll("a[href]")];
-  if (!links.length) return;
-  if (links.some(a => a.hasAttribute("aria-current"))) return;
+  function createBackdrop(header) {
+    const div = document.createElement('div');
+    div.className = 'nav-backdrop';
+    div.hidden = true;
+    header.appendChild(div);
+    return div;
+  }
 
-  const here = cleanPath(location.href);
-  const current = links.find(a => cleanPath(a.href) === here);
-  if (current) current.setAttribute("aria-current", "page");
-}
+  function isOpen() {
+    return !!state.header?.classList.contains('is-menu-open');
+  }
 
+  function openMenu() {
+    if (!state.header || !state.toggle || !state.nav) return;
+    if (state.mq.matches || isOpen()) return;
+
+    state.header.classList.add('is-menu-open');
+    state.nav.classList.add('is-open');
+    state.nav.setAttribute('aria-hidden', 'false');
+    state.toggle.setAttribute('aria-expanded', 'true');
+    state.toggle.setAttribute('aria-label', 'Fechar menu principal');
+    if (state.toggleLabel) state.toggleLabel.textContent = 'Fechar menu';
+    if (state.backdrop) state.backdrop.hidden = false;
+    document.body.classList.add('has-open-nav');
+
+    const focusables = getFocusable();
+    if (focusables.length) focusables[0].focus({ preventScroll: true });
+
+    document.addEventListener('keydown', handleKeydown);
+    document.addEventListener('pointerdown', handlePointerDown, true);
+  }
+
+  function closeMenu(options = {}) {
+    const { restoreFocus = true } = options;
+    if (!state.header || !state.toggle || !state.nav) return;
+
+    if (!isOpen()) {
+      updateHiddenState();
+      return;
+    }
+
+    state.header.classList.remove('is-menu-open');
+    state.nav.classList.remove('is-open');
+    state.toggle.setAttribute('aria-expanded', 'false');
+    state.toggle.setAttribute('aria-label', 'Abrir menu principal');
+    if (state.toggleLabel) state.toggleLabel.textContent = 'Abrir menu';
+    if (state.backdrop) state.backdrop.hidden = true;
+    document.body.classList.remove('has-open-nav');
+
+    document.removeEventListener('keydown', handleKeydown);
+    document.removeEventListener('pointerdown', handlePointerDown, true);
+
+    updateHiddenState();
+
+    if (restoreFocus && isFocusable(state.toggle)) {
+      state.toggle.focus({ preventScroll: true });
+    }
+  }
+
+  function syncLayout() {
+    if (!state.header || !state.nav || !state.toggle) return;
+
+    if (state.mq.matches) {
+      closeMenu({ restoreFocus: false });
+      state.nav.classList.remove('is-open');
+      if (state.backdrop) state.backdrop.hidden = true;
+      document.body.classList.remove('has-open-nav');
+    } else {
+      updateHiddenState();
+    }
+  }
+
+  function handleKeydown(event) {
+    if (!isOpen()) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeMenu();
+      return;
+    }
+
+    if (event.key === 'Tab') {
+      const focusables = getFocusable();
+      if (!focusables.length) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const current = document.activeElement;
+
+      if (event.shiftKey) {
+        if (current === first || !state.nav.contains(current)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (current === last || !state.nav.contains(current)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function handlePointerDown(event) {
+    if (!isOpen()) return;
+    if (!(event.target instanceof Node)) return;
+
+    if (state.nav.contains(event.target) || state.toggle.contains(event.target)) {
+      return;
+    }
+
+    closeMenu();
+  }
+
+  function getFocusable() {
+    if (!state.nav) return [];
+    return Array.from(state.nav.querySelectorAll(state.focusableSelectors)).filter(isFocusable);
+  }
+
+  function isFocusable(el) {
+    return el instanceof HTMLElement && !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true';
+  }
+
+  function updateHiddenState() {
+    if (!state.nav) return;
+    if (state.mq.matches) {
+      state.nav.removeAttribute('aria-hidden');
+    } else {
+      state.nav.setAttribute('aria-hidden', isOpen() ? 'false' : 'true');
+    }
+  }
+
+  function ensureCurrentLink(nav) {
+    if (!nav) return;
+    const links = Array.from(nav.querySelectorAll('a[href]'));
+    if (!links.length) return;
+
+    const currentPath = normalizePath(location.href);
+
+    links.forEach((link) => {
+      const linkPath = normalizePath(link.href);
+      if (linkPath === currentPath) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function normalizePath(url) {
+    try {
+      const pathname = new URL(url, location.href).pathname;
+      return pathname.replace(/index\.html?$/, '').replace(/\/+$/, '') || '/';
+    } catch {
+      return '/';
+    }
+  }
+})();
 
 

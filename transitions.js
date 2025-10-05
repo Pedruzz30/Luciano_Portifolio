@@ -72,7 +72,7 @@
 
   function setActiveNav(url){
     const path = normPath(url);
-    document.querySelectorAll('nav.menu a').forEach(a=>{
+    document.querySelectorAll('.site-nav .nav-link').forEach(a=>{
       const aPath = normPath(a.href);
       a.classList.toggle('active', aPath === path);
       if (aPath === path) a.setAttribute('aria-current','page');

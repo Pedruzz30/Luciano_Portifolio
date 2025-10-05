@@ -26,32 +26,40 @@
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
-    <header>
-      <div class="container header-content">
-        <a href="index.html" class="logo" aria-label="Início">
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <a href="index.html" class="brand" aria-label="Página inicial">
           <img
             src="assets/PortifolioLucianoFotos/Logo2.jpg"
-            alt="Luciano Pimenta"
-            width="80"
-            height="40"
+            alt="Logotipo Luciano Pimenta Psicólogo"
+            width="120"
+            height="48"
+            loading="lazy"
+            decoding="async"
           />
         </a>
+
         <button
           class="menu-toggle"
-          aria-label="Abrir menu"
+          type="button"
+          aria-label="Abrir menu principal"
           aria-expanded="false"
-          aria-controls="nav-principal"
+          aria-controls="primary-navigation"
         >
-          ☰
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Abrir menu</span>
         </button>
-        <nav id="nav-principal" class="menu" aria-label="Principal">
-          <a href="index.html">INÍCIO</a>
-          <a href="sobre.html">SOBRE</a>
-          <a href="servicos.html">SERVIÇOS</a>
-          <a href="contato.html" aria-current="page">CONTATO</a>
-          <span class="menu-indicator" aria-hidden="true"></span>
+
+        <nav id="primary-navigation" class="site-nav" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="index.html">INÍCIO</a></li>
+            <li><a class="nav-link" href="sobre.html">SOBRE</a></li>
+            <li><a class="nav-link" href="servicos.html">SERVIÇOS</a></li>
+            <li><a class="nav-link" href="contato.html">CONTATO</a></li>
+          </ul>
         </nav>
       </div>
+      <div class="nav-backdrop" hidden></div>
     </header>
 
     <main id="conteudo">
