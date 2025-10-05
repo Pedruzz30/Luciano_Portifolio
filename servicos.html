@@ -1,35 +1,40 @@
-<!-- servicos.html (v2 harmonizado com Sobre) -->
 <!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Serviços | Luciano Pimenta Psicólogo</title>
-
-    <!-- Atualizado: somente atendimento on-line -->
-    <meta name="description" content="Atendimento psicológico 100% on-line para adultos, adolescentes, casais, famílias e idosos. Processos claros, objetivos alcançáveis e sigilo profissional."/>
+    <meta name="description" content="Conheça os formatos de atendimento psicológico on-line oferecidos pelo psicólogo Luciano Pimenta para adultos, adolescentes, casais e famílias." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Serviços | Luciano Pimenta Psicólogo" />
-    <meta property="og:description" content="Atendimento psicológico on-line com ética, acolhimento e objetivos alcançáveis."/>
-    <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg"/>
+    <meta property="og:description" content="Processos terapêuticos on-line com objetivos claros, combinados transparentes e acolhimento ético." />
+    <meta property="og:image" content="assets/PortifolioLucianoFotos/foto2.jpg" />
     <meta property="og:locale" content="pt_BR" />
-    <meta name="view-transition" content="same-origin">
+    <meta name="view-transition" content="same-origin" />
     <link rel="canonical" href="https://seu-dominio.com/servicos.html" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="servicos.css" />
-  </head>
 
+    <!-- JS -->
+    <script defer src="menu.js"></script>
+    <script defer src="servicos.js"></script>
+  </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
     <header>
       <div class="container header-content">
-        <a class="logo" href="index.html" aria-label="Início">
-          <img src="assets/PortifolioLucianoFotos/Logo2.jpg" alt="Luciano Pimenta" width="80" height="40" />
+        <a class="logo" href="index.html" aria-label="Página inicial">
+          <img src="assets/PortifolioLucianoFotos/Logo2.jpg" alt="Luciano Pimenta" width="96" height="48" />
         </a>
+
         <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">☰</button>
+
         <nav id="nav-principal" class="menu" aria-label="Principal">
           <a href="index.html">INÍCIO</a>
           <a href="sobre.html">SOBRE</a>
@@ -41,119 +46,176 @@
     </header>
 
     <main id="conteudo">
-      <!-- Intro -->
-        <section class="intro section hero-servicos">
-          <div class="container page-title intro-hero">
-          <p class="eyebrow">CRP 05/82816 • Atendimento 100% on-line</p>
-          <h1>Serviços & Acompanhamentos</h1>
-          <p class="lead">
-            Processos de terapia on-line para <strong>adultos, adolescentes, casais, famílias e idosos</strong>.
-            Comunicação simples, acordos claros e metas de curto prazo que viram mudanças consistentes.
-          </p>
+      <!-- HERO -->
+      <section class="section hero-servicos" aria-labelledby="titulo-hero">
+        <div class="container hero-grid" data-animate="fade-up">
+          <div class="hero-copy">
+            <p class="hero-eyebrow">CRP 05/82816 • Atendimento 100% on-line</p>
+            <h1 id="titulo-hero">Serviços psicológicos focados em objetivos reais</h1>
+            <p class="hero-lead">
+              Espaço terapêutico acolhedor para adultos, adolescentes, casais e famílias. Metas claras, combinados transparentes e acompanhamento consistente em todas as etapas.
+            </p>
+            <ul class="hero-highlights" aria-label="Principais diferenciais do atendimento">
+              <li>Escuta ativa com planos de ação possíveis</li>
+              <li>Sessões de 50 minutos via chamada de vídeo segura</li>
+              <li>Relatórios quando necessários, mediante acordo prévio</li>
+            </ul>
+            <div class="hero-cta">
+              <a class="btn-primary" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166">
+                Agendar conversa inicial
+              </a>
+              <a class="btn-link" href="#planos">Ver formatos de atendimento</a>
+            </div>
+          </div>
+
+          <figure class="hero-media" data-animate="fade-up" data-delay="120">
+            <img src="assets/PortifolioLucianoFotos/foto2.jpg" alt="Pessoa em atendimento psicológico on-line" loading="lazy" />
+          </figure>
         </div>
       </section>
 
-      <!-- Cards de serviços -->
-        <section class="section" id="servicos">
-          <div class="container">
-            <header class="section-head">
-              <p class="kicker">Principais frentes de trabalho</p>
-              <h2>Atendimentos personalizados</h2>
-              <p>Formatos de acompanhamento pensados para diferentes fases e necessidades, sempre on-line e com acordos transparentes.</p>
-            </header>
-            <div class="services-grid">
+      <!-- PLANOS / SERVIÇOS -->
+      <section class="section section-servicos" id="planos" aria-labelledby="titulo-planos">
+        <div class="container">
+          <header class="section-heading">
+            <p class="kicker">Principais frentes de trabalho</p>
+            <h2 id="titulo-planos">Atendimentos personalizados</h2>
+            <p class="section-text">Formatos pensados para diferentes fases e necessidades, sempre on-line e com combinados transparentes.</p>
+          </header>
 
-            <!-- Exemplo 1: Terapia Individual On-line -->
-            <article class="svc-card">
-              <figure class="svc-media">
-                <img src="assets/PortifolioLucianoFotos/foto2.jpg"
-                     alt="Sessão de terapia individual on-line"
-@@ -197,74 +197,78 @@
-                  <h3>Transições de vida</h3>
-                  <p class="svc-sub">Suporte em mudanças de cidade, carreira ou separações.</p>
-                </header>
-                <ul class="svc-meta">
-                  <li class="chip">50 min</li>
-                  <li class="chip">On-line</li>
-                  <li class="chip">Adultos</li>
-                </ul>
-                <ul class="svc-list">
-                  <li>Mapeamento de recursos e riscos</li>
-                  <li>Planejamento de próximos passos</li>
-                  <li>Estratégias para lidar com incertezas</li>
-                </ul>
-                <div class="svc-actions">
-                  <a class="btn-reveal" target="_blank" rel="noopener noreferrer"
-                     href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20busco%20apoio%20para%20fases%20de%20transi%C3%A7%C3%A3o%20on-line.">Agendar</a>
-                </div>
-              </div>
+          <div class="service-cards">
+            <article class="service-card" data-animate="fade-up">
+              <header>
+                <h3>Terapia individual</h3>
+                <p class="service-sub">Adultos e adolescentes</p>
+              </header>
+              <p>Ansiedade, autoestima, carreira, relações e transições. Estratégias práticas e desenvolvimento de recursos internos.</p>
+              <ul class="service-list">
+                <li>Encontros semanais ou quinzenais</li>
+                <li>Planos de ação entre sessões</li>
+                <li>Feedback contínuo</li>
+              </ul>
+              <a class="btn-secondary" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Quero+agendar+uma+sess%C3%A3o+individual">Quero iniciar</a>
             </article>
 
+            <article class="service-card" data-animate="fade-up" data-delay="80">
+              <header>
+                <h3>Acompanhamento de casais</h3>
+                <p class="service-sub">Comunicação, acordos e reconexão</p>
+              </header>
+              <p>Mediação para lidar com conflitos, fortalecer acordos e construir novos modos de convivência.</p>
+              <ul class="service-list">
+                <li>Sessões conjuntas e individuais quando necessário</li>
+                <li>Ferramentas de comunicação assertiva</li>
+                <li>Metas monitoradas</li>
+              </ul>
+              <a class="btn-secondary" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal">Conversar sobre o casal</a>
+            </article>
+
+            <article class="service-card" data-animate="fade-up" data-delay="160">
+              <header>
+                <h3>Famílias &amp; rede de cuidado</h3>
+                <p class="service-sub">Apoio em contextos complexos</p>
+              </header>
+              <p>Alinhamento de rotinas de cuidado, papéis e expectativas entre pessoas envolvidas.</p>
+              <ul class="service-list">
+                <li>Reuniões com membros-chave</li>
+                <li>Mapeamento de necessidades</li>
+                <li>Combinados sustentáveis</li>
+              </ul>
+              <a class="btn-secondary" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Preciso+de+apoio+para+minha+fam%C3%ADlia">Agendar reunião</a>
+            </article>
+
+            <article class="service-card" data-animate="fade-up" data-delay="240">
+              <header>
+                <h3>Supervisão clínica</h3>
+                <p class="service-sub">Para psicólogos e equipes</p>
+              </header>
+              <p>Discussão de casos, tomada de decisão responsável e suporte ético a contextos clínicos/institucionais.</p>
+              <ul class="service-list">
+                <li>Planos personalizados para equipes</li>
+                <li>Ênfase no Código de Ética</li>
+                <li>Documentação adequada</li>
+              </ul>
+              <a class="btn-secondary" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Tenho+interesse+em+supervis%C3%A3o+cl%C3%ADnica">Solicitar proposta</a>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- Como funciona -->
-        <section class="section como-funciona flow-steps" aria-labelledby="titulo-fluxo">
-          <div class="container">
-            <h2 id="titulo-fluxo">Como funciona o atendimento</h2>
-            <p class="section-description">Do primeiro contato às revisões, você sabe o que esperar em cada etapa do processo terapêutico.</p>
-            <ol class="steps-grid">
-              <li class="step-card" aria-labelledby="step1-title">
-                <span class="step-badge" role="img" aria-label="Etapa 1">1</span>
-                <h3 id="step1-title">Primeiro contato</h3>
-                <p>Entendemos sua demanda e combinamos o formato on-line.</p>
-              </li>
-              <li class="step-card" aria-labelledby="step2-title">
-                <span class="step-badge" role="img" aria-label="Etapa 2">2</span>
-                <h3 id="step2-title">Alinhamento</h3>
-                <p>Objetivos, frequência e combinados práticos.</p>
-              </li>
-              <li class="step-card" aria-labelledby="step3-title">
-                <span class="step-badge" role="img" aria-label="Etapa 3">3</span>
-                <h3 id="step3-title">Cuidado contínuo</h3>
-                <p>Ferramentas, experimentos e acompanhamento.</p>
-              </li>
-              <li class="step-card" aria-labelledby="step4-title">
-                <span class="step-badge" role="img" aria-label="Etapa 4">4</span>
-                <h3 id="step4-title">Revisões</h3>
-                <p>Ajustes de rota e avaliação do que está funcionando.</p>
-              </li>
-            </ol>
-          </div>
-        </section>
-
-      <!-- Combinados & Ética -->
-      <section class="section combinados">
+      <!-- DIFERENCIAIS -->
+      <section class="section section-diferenciais" aria-labelledby="titulo-diferenciais">
         <div class="container">
-          <h2>Combinados & Ética</h2>
-          <p class="section-description">Orientações essenciais que sustentam um espaço técnico, previsível e respeitoso.</p>
-          <div class="info-cards">
-            <div class="card info-card">
-              <h3>Sigilo e limites</h3>
-              <p>Respeito integral ao código de ética. Espaço técnico e seguro.</p>
+          <div class="diferenciais-grid">
+            <div class="diferenciais-copy" data-animate="fade-up">
+              <p class="kicker">Como conduzimos</p>
+              <h2 id="titulo-diferenciais">Combinações que sustentam mudanças consistentes</h2>
+              <p>Atendimento on-line com estrutura para garantir confidencialidade, previsibilidade e sensação de progresso.</p>
+              <ul class="diferenciais-list">
+                <li>Ferramentas baseadas em evidências</li>
+                <li>Documentação somente com consentimento</li>
+                <li>Flexibilidade para ajustes</li>
+              </ul>
             </div>
-            <div class="card info-card">
-              <h3>Duração & frequência</h3>
-              <p>Sessões de <strong>50 min</strong>, em geral semanais (ajustável).</p>
-            </div>
-            <div class="card info-card">
-              <h3>Remarcações</h3>
-              <p>Para remarcar, avise com <strong>48h</strong> de antecedência.</p>
+
+            <div class="diferenciais-cards">
+              <article class="mini-card" data-animate="fade-up"><h3>Onboarding cuidadoso</h3><p>Primeira conversa para entender contextos, limites e expectativas.</p></article>
+              <article class="mini-card" data-animate="fade-up" data-delay="80"><h3>Planos de ação</h3><p>Metas negociadas, experimentos entre sessões e revisão dos resultados.</p></article>
+              <article class="mini-card" data-animate="fade-up" data-delay="160"><h3>Acompanhamento ético</h3><p>Sigilo, prontuário seguro e alinhamento contínuo ao Código de Ética.</p></article>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CTA final -->
-      <section class="section cta-final">
+      <!-- PROCESSO -->
+      <section class="section section-processo" id="processo" aria-labelledby="titulo-processo">
         <div class="container">
-          <div class="cta-box card">
-            <p>Pronto para começar? Vamos conversar e definir o melhor caminho on-line para você.</p>
-            <a class="btn-reveal" target="_blank" rel="noopener noreferrer"
-               href="https://wa.me/5521993034166?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento%20on-line.">
-              Falar no WhatsApp
-            </a>
+          <header class="section-heading" data-animate="fade-up">
+            <p class="kicker">Etapas do cuidado</p>
+            <h2 id="titulo-processo">Passo a passo do atendimento</h2>
+            <p class="section-text">Você acompanha cada etapa, com orientações claras antes, durante e depois das sessões.</p>
+          </header>
+
+          <ol class="process-steps">
+            <li class="process-step" data-animate="fade-up"><span class="step-number">1</span><h3>Contato inicial</h3><p>Demanda, dúvidas e formato adequado.</p></li>
+            <li class="process-step" data-animate="fade-up" data-delay="80"><span class="step-number">2</span><h3>Contrato terapêutico</h3><p>Frequência, duração, valores e remarcações.</p></li>
+            <li class="process-step" data-animate="fade-up" data-delay="160"><span class="step-number">3</span><h3>Acompanhamento contínuo</h3><p>Ferramentas, revisão de metas e ajustes.</p></li>
+            <li class="process-step" data-animate="fade-up" data-delay="240"><span class="step-number">4</span><h3>Fechamento ou transição</h3><p>Conquistas, próximos passos e encaminhamentos.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section section-faq" id="faq" aria-labelledby="titulo-faq">
+        <div class="container">
+          <div class="faq-grid">
+            <details class="faq-item" data-animate="fade-up" open>
+              <summary>Como funcionam os atendimentos on-line?</summary>
+              <p>Uso plataformas seguras. Você recebe um link privativo e orientações. Recomendo local tranquilo e boa conexão.</p>
+            </details>
+            <details class="faq-item" data-animate="fade-up" data-delay="60">
+              <summary>É possível remarcar ou cancelar?</summary>
+              <p>Sim. Política de remarcação com aviso mínimo de 48 horas. Imprevistos são avaliados caso a caso.</p>
+            </details>
+            <details class="faq-item" data-animate="fade-up" data-delay="120">
+              <summary>Você emite recibos ou relatórios?</summary>
+              <p>Recibos sob solicitação. Relatórios combinados previamente quanto a objetivos, conteúdo e prazos.</p>
+            </details>
+            <details class="faq-item" data-animate="fade-up" data-delay="180">
+              <summary>Atende convênio?</summary>
+              <p>Atendimento particular. Algumas operadoras reembolsam — forneço recibo com dados conforme necessidade.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section section-cta" aria-labelledby="titulo-cta">
+        <div class="container">
+          <div class="cta-card" data-animate="fade-up">
+            <h2 id="titulo-cta">Pronto para dar o próximo passo?</h2>
+            <p>Agende uma conversa inicial para alinharmos expectativas, combinados e o caminho terapêutico mais adequado.</p>
+            <a class="btn-primary" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Quero+agendar+uma+conversa+inicial">Falar no WhatsApp</a>
           </div>
         </div>
       </section>
@@ -169,10 +231,7 @@
         </nav>
       </div>
     </footer>
-
-    <script type="module" src="menu.js" defer></script>
-    <script type="module" src="transitions.js" defer></script>
-    <script type="module" src="servicos.js" defer></script>
   </body>
 </html>
+
 
