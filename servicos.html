@@ -27,21 +27,25 @@
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
-    <header>
-      <div class="container header-content">
-        <a class="logo" href="index.html" aria-label="Página inicial">
-          <img src="assets/PortifolioLucianoFotos/Logo2.jpg" alt="Luciano Pimenta" width="96" height="48" />
+    <header class="site-header" role="banner">
+      <div class="container nav-wrapper">
+        <a href="index.html" class="brand" aria-label="Página inicial">
+          <img
+            src="assets/PortifolioLucianoFotos/Logo2.jpg"
+            alt="Logotipo Luciano Pimenta Psicólogo"
+            width="120"
+            height="48"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="brand-name">Luciano Pimenta Psicólogo</span>
         </a>
 
-        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">☰</button>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+        </button>
 
-        <nav id="nav-principal" class="menu" aria-label="Principal">
-          <a href="index.html">INÍCIO</a>
-          <a href="sobre.html">SOBRE</a>
-          <a href="servicos.html" aria-current="page">SERVIÇOS</a>
-          <a href="contato.html">CONTATO</a>
-          <span class="menu-indicator" aria-hidden="true"></span>
-        </nav>
+        <nav id="nav-principal" class="menu" aria-label="Navegação principal">
       </div>
     </header>
 
