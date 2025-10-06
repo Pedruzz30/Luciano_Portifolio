@@ -359,11 +359,6 @@ section {
   .hero--inicio .hero-grid {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   }
-
-  .footer-content {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    align-items: start;
-  }
 }
 
 @media (min-width: 1024px) {

@@ -673,176 +673,216 @@ body.has-open-nav { overflow: hidden; }
 .btn-reveal svg { width: 1.05em; height: 1.05em; flex: 0 0 auto; }
 
 /* ---------- 11) Footer (refinado) ---------- */
-footer {
-  /* Fallback sólido (quando color-mix faltar) */
-  background: #5e2326;
-
-  /* Gradiente com as tuas cores (mais profundo e com melhor contraste) */
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--marsala-profundo) 94%, black 6%) 0%,
-    color-mix(in srgb, var(--marsala-profundo) 78%, var(--berinjela-noturna) 22%) 100%
-  );
-
-  color: #fdf8f2;
-  padding-block: clamp(2rem, 4vw, 3rem);
-  margin-block-start: clamp(2.5rem, 5vw, 4rem);
+.site-footer {
+  --footer-bg-top: color-mix(in srgb, var(--marsala-profundo) 92%, black 8%);
+  --footer-bg-bottom: color-mix(in srgb, var(--berinjela-noturna) 72%, black 28%);
+  --footer-text-strong: #fdf8f2;
+  --footer-text-soft: color-mix(in srgb, #fdf8f2 78%, transparent 22%);
+  --footer-border: color-mix(in srgb, #fdf8f2 22%, transparent 78%);
+  background: linear-gradient(180deg, var(--footer-bg-top) 0%, var(--footer-bg-bottom) 100%);
+  color: var(--footer-text-strong);
+  margin-block-start: clamp(3rem, 6vw, 4.75rem);
+  padding-block: clamp(2.75rem, 6vw, 4.25rem);
   view-transition-name: none;
 }
 
-/* Container do conteúdo */
-.footer-content {
-  max-inline-size: min(1100px, 92vw);
-  margin-inline: auto;
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.6rem);
-  align-items: start;
-  justify-items: start;
-
-  /* Colunas fluidas, mas com largura mínima mais realista pra não “espremer” */
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+.site-footer a {
+  color: inherit;
 }
 
-/* Branding / título */
+.site-footer .footer-content {
+  margin-inline: auto;
+  max-inline-size: min(1120px, 92vw);
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.6rem);
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-auto-rows: min-content;
+}
+
 .footer-branding {
   display: grid;
-  gap: .5rem;
+  gap: clamp(.45rem, 1.5vw, .75rem);
 }
 
 .footer-title {
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: .2px;
+  line-height: 1.18;
+  letter-spacing: .24px;
+  text-wrap: balance;
 }
 
 .footer-subtitle {
-  font-size: .95rem;
+  font-size: clamp(.9rem, 1.6vw, 1.05rem);
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: color-mix(in srgb, #fdf8f2 85%, transparent 15%);
+  color: color-mix(in srgb, var(--footer-text-soft) 85%, transparent 15%);
 }
 
-/* Blocos de contato / listas */
 .footer-contact,
 .footer-links {
   display: grid;
-  gap: .55rem;
-}
-
-.footer-links,
-.footer-contact {
-  list-style: none;
-  margin: 0;
+  gap: clamp(.6rem, 1.2vw, .9rem);
   padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-/* Links: sublinhado discreto com melhor foco */
+.footer-links {
+  align-content: start;
+}
+
 .footer-link {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: .18em;
-  text-decoration-thickness: .08em;
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  min-block-size: clamp(2.75rem, 5vw, 3.1rem); /* garante 44px */
+  padding-inline: clamp(.7rem, 1.6vw, 1rem);
+  border-radius: .85rem;
   font-weight: 500;
-  line-height: 1.35;
-  padding-block: .12rem;          /* alvo de toque */
-  border-radius: .375rem;         /* ajuda no focus */
+  letter-spacing: .01em;
+  text-decoration: none;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid transparent;
+  box-shadow: inset 0 0 0 1px var(--footer-border);
+  transition:
+    transform var(--transition-base, 180ms ease),
+    background-color var(--transition-base, 180ms ease),
+    border-color var(--transition-base, 180ms ease),
+    box-shadow var(--transition-base, 180ms ease),
+    color var(--transition-base, 180ms ease);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .footer-link:hover {
-    text-decoration-thickness: .12em;
+    background: rgba(255, 255, 255, .16);
+    border-color: rgba(255, 255, 255, .55);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .22);
   }
 }
 
 .footer-link:focus-visible {
-  outline: 2px solid color-mix(in srgb, #fdf8f2 74%, transparent 26%);
+  outline: 3px solid color-mix(in srgb, #fdf8f2 70%, transparent 30%);
   outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(253, 248, 242, .25);
 }
 
-/* Social */
 .footer-social {
   display: flex;
-  align-items: center;
-  gap: .75rem;
   flex-wrap: wrap;
+  gap: clamp(.75rem, 2vw, 1.15rem);
+  align-items: center;
 }
 
 .footer-social a {
-  inline-size: 2.75rem;           /* um tico maior p/ mobile */
-  block-size: 2.75rem;
+  inline-size: clamp(2.9rem, 6vw, 3.2rem);
+  block-size: clamp(2.9rem, 6vw, 3.2rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: .45rem;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.35);     /* + contraste */
-  color: inherit;
-  text-decoration: none;
-  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255, 255, 255, .38);
+  background: rgba(255, 255, 255, .14);
   font-size: 1.1rem;
+  text-decoration: none;
   transition:
-    transform var(--transition-base, 180ms ease),
-    background var(--transition-base, 180ms ease),
-    border-color var(--transition-base, 180ms ease),
-    box-shadow var(--transition-base, 180ms ease);
+    transform var(--transition-base, 200ms ease),
+    background-color var(--transition-base, 200ms ease),
+    border-color var(--transition-base, 200ms ease),
+    box-shadow var(--transition-base, 200ms ease);
+}
+
+.footer-social__label {
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: .01em;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .footer-social a:hover {
-    transform: translateY(-2px);
-    background: rgba(255,255,255,.18);
-    border-color: rgba(255,255,255,.5);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, .18);
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(255, 255, 255, .22);
+    border-color: rgba(255, 255, 255, .55);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .28);
   }
 }
 
-/* Menos movimento pra quem pediu */
-@media (prefers-reduced-motion: reduce) {
-  .footer-social a { transition: none; }
-  .footer-social a:hover { transform: none; box-shadow: none; }
-}
-
 .footer-social a:focus-visible {
-  outline: 2px solid #fdf8f2;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(253, 248, 242, .25);
+  outline: 3px solid color-mix(in srgb, #fdf8f2 80%, transparent 20%);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(253, 248, 242, .25);
 }
 
-/* Copyright / observações finais */
-.footer-copy {
-  font-size: .92rem;
-  line-height: 1.55;
-  color: color-mix(in srgb, #fdf8f2 82%, transparent 18%);
-  margin-block-start: clamp(1rem, 2vw, 1.25rem);
-  grid-column: 1 / -1; /* pega a largura toda */
-}
-
-/* Divisória mais suave (sem “borda dura”) */
-footer hr {
+.footer-divider {
+  grid-column: 1 / -1;
   inline-size: 100%;
   block-size: 1px;
   border: 0;
+  border-radius: 2px;
   background: linear-gradient(
     90deg,
-    rgba(255,255,255,.05) 0%,
-    rgba(255,255,255,.22) 50%,
-    rgba(255,255,255,.05) 100%
+    rgba(255, 255, 255, .06) 0%,
+    rgba(255, 255, 255, .28) 45%,
+    rgba(255, 255, 255, .06) 100%
   );
-  margin-block: clamp(1rem, 2.5vw, 1.6rem);
-  border-radius: 2px;
+  margin: 0;
 }
 
-/* Alto contraste do sistema */
+.footer-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: clamp(.75rem, 2vw, 1.25rem);
+  font-size: .94rem;
+  color: var(--footer-text-soft);
+  letter-spacing: .01em;
+}
+
+.footer-copy {
+  line-height: 1.6;
+}
+
+@media (max-width: 48rem) {
+  .site-footer .footer-content {
+    text-align: center;
+  }
+
+  .site-footer .footer-content > * {
+    justify-self: center;
+  }
+
+  .footer-meta {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-link,
+  .footer-social a {
+    transition: none;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
 @media (forced-colors: active) {
-  footer,
+  .site-footer,
   .footer-link,
   .footer-social a {
     forced-color-adjust: auto;
     color: ButtonText;
     background: Canvas;
-    border-color: CanvasText;
+    border-color: ButtonText;
+    box-shadow: none;
   }
+
   .footer-link:focus-visible,
   .footer-social a:focus-visible {
     outline: 2px solid Highlight;
