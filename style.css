@@ -8,8 +8,20 @@
 
 /* ---------- Tokens / Vars (globais) ---------- */
 :root {
-  --header-h: clamp(4rem, 5vw, 4.5rem);
+  --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --header-h: clamp(4.5rem, 6vw, 5.25rem);
   --header-offset: calc(var(--header-h) + 1px);
+  --space-2xs: clamp(0.45rem, 1vw, 0.65rem);
+  --space-xs: clamp(0.65rem, 1vw, 0.85rem);
+  --space-sm: clamp(0.9rem, 1.6vw, 1.3rem);
+  --space-md: clamp(1.5rem, 3vw, 2.5rem);
+  --space-lg: clamp(2.3rem, 4.5vw, 3.6rem);
+  --space-xl: clamp(3.5rem, 6vw, 5rem);
+  --radius-md: 1rem;
+  --radius-lg: 1.75rem;
+  --shadow-soft: 0 16px 40px rgba(76, 53, 42, 0.12);
+  --shadow-strong: 0 28px 60px rgba(76, 53, 42, 0.22);
   --areia-dourada: #f3e6d3;
   --marsala-profundo: #752a2a;
   --dourado-fosco: #c9ae8f;
@@ -35,13 +47,14 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font: 16px/1.5 "Montserrat", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
   color: var(--marrom-terra-firme);
   background: var(--areia-dourada);
   padding-block-start: var(--header-offset);
-  /* reserva do header fixo (sem var) */
-  padding-top: 80px;
 }
+
 main {
   padding-block-start: 0;
 }
@@ -86,7 +99,144 @@ button:focus-visible {
 
 /* 1ª seção com respiro controlado (sem var no :root) */
 main > *:first-child { margin-block-start: 0; }
-main > .section:first-child { padding-block-start: clamp(2.25rem, 5vw, 3.5rem); }
+main > .section:first-child:not(.hero) { padding-block-start: clamp(2.25rem, 5vw, 3.5rem); }
+
+/* ---------- Hero base ---------- */
+.hero {
+  position: relative;
+  padding-block: clamp(3rem, 6vw, 4.75rem);
+  background: var(--hero-bg, color-mix(in srgb, var(--areia-dourada) 96%, white 4%));
+  color: var(--hero-color, var(--marrom-terra-firme));
+  overflow: hidden;
+  border-radius: 0;
+  isolation: isolate;
+}
+
+.hero-grid {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.hero-copy {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+  max-inline-size: 62ch;
+}
+
+.hero-eyebrow {
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--marsala-profundo) 62%, black 38%);
+  margin: 0;
+}
+
+.hero-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.35rem, 6.5vw, 3.8rem);
+  line-height: 1.1;
+}
+
+.hero-lead {
+  margin: 0;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hero-cta-gap, clamp(0.75rem, 2vw, 1.05rem));
+  align-items: center;
+}
+
+.hero-cta .btn,
+.hero-cta .btn-primary,
+.hero-cta .btn-secondary,
+.hero-cta .btn-link {
+  min-inline-size: fit-content;
+}
+
+.hero-highlights {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(0.6rem, 2vw, 1rem);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
+}
+
+.hero-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.35rem 0.85rem;
+  background: var(--hero-highlight-bg, transparent);
+  border-radius: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.hero-highlights li::before {
+  content: var(--hero-highlight-icon, "•");
+  color: var(--hero-highlight-icon-color, var(--terracota-queimado));
+  font-weight: 700;
+}
+
+.hero-media {
+  margin: 0;
+  justify-self: center;
+  background: var(--hero-media-bg, transparent);
+  padding: var(--hero-media-padding, 0);
+  border-radius: var(--hero-media-radius, 1.5rem);
+  box-shadow: var(--hero-media-shadow, none);
+}
+
+.hero-media img {
+  display: block;
+  inline-size: min(100%, 520px);
+  block-size: auto;
+  border-radius: clamp(1rem, 3vw, 1.8rem);
+}
+
+.hero--has-media .hero-grid {
+  gap: clamp(2rem, 5vw, 3.25rem);
+}
+
+@media (min-width: 900px) {
+  .hero--has-media .hero-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    text-align: center;
+  }
+
+  .hero-copy {
+    justify-items: center;
+    margin-inline: auto;
+  }
+
+  .hero-cta {
+    justify-content: center;
+  }
+
+  .hero-highlights li {
+    justify-content: center;
+    text-align: center;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: var(--hero-highlight-mobile-bg, transparent);
+  }
+
+  .hero-highlights li::before {
+    display: none;
+  }
+}
 
 .page-title h1 {
   margin: 0 0 1rem;

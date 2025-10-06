@@ -8,6 +8,22 @@
 .section + .section {
   scroll-margin-top: calc(var(--header-offset) + 24px);
 }
+
+.hero--sobre {
+  --hero-bg: linear-gradient(135deg, rgba(201, 174, 143, 0.28), transparent 70%);
+  --hero-cta-gap: var(--space-xs);
+}
+
+.hero--sobre .hero-copy {
+  margin-inline: auto;
+  text-align: center;
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+}
+
+.hero--sobre .hero-lead {
+  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
+}
+
 .prose {
   max-width: 72ch;
   margin-inline: auto;

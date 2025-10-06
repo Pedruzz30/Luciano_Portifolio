@@ -2,24 +2,27 @@
    contato.css — Página de contato alinhada ao novo visual
    ========================================================== */
 
-.page-title {
-  background: linear-gradient(135deg, rgba(117, 42, 42, 0.12), transparent 70%);
-  border-radius: 0;
-  margin-block: 0;
-  padding-block: clamp(1.8rem, 4vw, 2.6rem);
-  box-shadow: var(--shadow-soft);
+.hero--contato {
+  --hero-bg: linear-gradient(135deg, rgba(117, 42, 42, 0.12), transparent 70%);
+  --hero-highlight-icon: "•";
+  --hero-highlight-icon-color: var(--marsala-profundo);
+  --hero-highlight-mobile-bg: rgba(255, 255, 255, 0.65);
+  --hero-cta-gap: var(--space-xs);
 }
 
-.page-title h1 {
-  color: var(--color-wine);
-  text-align: center;
+.hero--contato .hero-copy {
+  max-inline-size: 56ch;
+}
+
+.hero--contato .hero-lead {
+  color: color-mix(in srgb, var(--marrom-terra-firme) 82%, black 18%);
 }
 
 .contact-card,
 .channel-group,
 .faq-list details {
-  background: color-mix(in srgb, var(--color-sand) 88%, white 12%);
-  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, white 55%);
+  background: color-mix(in srgb, var(--areia-dourada) 88%, white 12%);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 45%, white 55%);
   border-radius: 0;
   box-shadow: var(--shadow-soft);
   padding: clamp(1.6rem, 4vw, 2.2rem);
@@ -32,7 +35,7 @@
 .channel-group:hover,
 .faq-list details:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--color-gold) 60%, white 40%);
+  border-color: color-mix(in srgb, var(--dourado-fosco) 60%, white 40%);
   box-shadow: var(--shadow-strong);
 }
 
@@ -46,7 +49,7 @@
   padding-inline-start: 1.25rem;
   display: grid;
   gap: 0.8rem;
-  color: color-mix(in srgb, var(--color-earth) 82%, black 18%);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 82%, black 18%);
 }
 
 .contact-cta {
@@ -69,7 +72,7 @@
 .channel-group h3 {
   margin: 0;
   font-family: var(--font-display);
-  color: var(--color-wine);
+  color: var(--marsala-profundo);
   font-size: clamp(1.3rem, 3vw, 1.6rem);
 }
 
@@ -98,7 +101,7 @@
 .contact-whatsapp {
   --btn-bg: color-mix(in srgb, #25d366 70%, white 30%);
   --btn-bg-hover: color-mix(in srgb, #25d366 85%, white 15%);
-  --btn-text-hover: color-mix(in srgb, var(--color-earth) 45%, black 55%);
+  --btn-text-hover: color-mix(in srgb, var(--marrom-terra-firme) 45%, black 55%);
   --btn-fill: linear-gradient(135deg, #25d366, color-mix(in srgb, #25d366 80%, white 20%));
 }
 
@@ -127,7 +130,7 @@
   position: absolute;
   inset-inline-end: 0;
   transition: transform 0.25s ease;
-  color: var(--color-wine);
+  color: var(--marsala-profundo);
 }
 
 .faq-list details[open] summary::after {
@@ -136,8 +139,9 @@
 
 .faq-list p {
   margin-block: var(--space-2xs) 0;
-  color: color-mix(in srgb, var(--color-earth) 78%, black 22%);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
 }
+
 
 .contact-closing {
   display: grid;
@@ -150,15 +154,11 @@
 
 .contact-closing p {
   margin: 0;
-  color: color-mix(in srgb, var(--color-earth) 80%, black 20%);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
 }
 
 /* --------- Responsividade --------- */
 @media (max-width: 720px) {
-  .page-title {
-    border-radius:0;
-  }
-
   .channel-group,
   .contact-card,
   .faq-list details {

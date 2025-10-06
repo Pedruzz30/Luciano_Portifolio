@@ -50,7 +50,7 @@
         <nav id="primary-navigation" class="site-nav" aria-label="Navegação principal">
           <ul class="nav-list">
             <li><a class="nav-link" href="index.html">INÍCIO</a></li>
-            <li><a class="nav-link" href="sobre.html">SOBRE</a></li>
+            <li><a class="nav-link" href="sobre.html" aria-current="page">SOBRE</a></li>
             <li><a class="nav-link" href="servicos.html">SERVIÇOS</a></li>
             <li><a class="nav-link" href="contato.html">CONTATO</a></li>
           </ul>
@@ -61,15 +61,17 @@
 
     <main id="conteudo">
       <!-- HERO minimalista -->
-      <section class="section hero-about">
-        <div class="container prose">
-          <p class="eyebrow">CRP 05/82816 • Atendimento online</p>
-          <h1>Sobre mim</h1>
-          <p class="lead">
-            Psicólogo comprometido com um cuidado ético, direto e humano. Aqui, você encontra um espaço
-            seguro para organizar pensamentos, nomear sentimentos e construir <strong class="em">mudanças possíveis</strong>
-            no ritmo da sua vida.
-          </p>
+      <section class="section hero hero--sobre" aria-labelledby="hero-sobre">
+        <div class="container hero-grid">
+          <div class="hero-copy prose">
+            <p class="hero-eyebrow eyebrow">CRP 05/82816 • Atendimento online</p>
+            <h1 id="hero-sobre" class="hero-title">Sobre mim</h1>
+            <p class="hero-lead lead">
+              Psicólogo comprometido com um cuidado ético, direto e humano. Aqui, você encontra um espaço
+              seguro para organizar pensamentos, nomear sentimentos e construir <strong class="em">mudanças possíveis</strong>
+              no ritmo da sua vida.
+            </p>
+          </div>
         </div>
       </section>
 
