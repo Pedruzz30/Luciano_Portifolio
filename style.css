@@ -41,9 +41,8 @@ body {
   /* reserva do header fixo (sem var) */
   padding-top: 80px;
 }
-
-main { 
-  padding-block-start: var(--header-h); 
+main {
+  padding-block-start: 0;
 }
 
 img {
@@ -79,7 +78,10 @@ button:focus-visible {
 /* ---------- Utilitários ---------- */
 .container { inline-size: min(1200px, 90%); margin-inline: auto; }
 
-.section { padding-block: clamp(2rem, 5vw, 4rem); }
+.section {
+  padding-block: clamp(2rem, 5vw, 4rem);
+  border-radius: 0;
+}
 
 /* 1ª seção com respiro controlado (sem var no :root) */
 main > .section:first-child { padding-block-start: clamp(12px, 2.2vw, 28px); }
