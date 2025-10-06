@@ -1,13 +1,17 @@
-/*  sobre.css   */
-/* Mantém as variáveis já definidas no :root de style.css */
+/* ================================
+   sobre.css  —  versão enxuta
+   Mantém tokens do :root em style.css
+   ================================ */
 
 /* --------- Layout base --------- */
-[id] { scroll-margin-top: 96px; }
+[id],
+.section + .section {
+  scroll-margin-top: calc(var(--header-offset) + 24px);
+}
 .prose {
   max-width: 72ch;
   margin-inline: auto;
 }
-.section + .section { scroll-margin-top: 96px; }
 
 /* --------- Tipografia --------- */
 .eyebrow {
@@ -31,35 +35,26 @@ h2 {
   font-size: clamp(1.6rem, 2.6vw, 2rem);
   line-height: 1.2;
   margin: 0 0 .8rem;
-  position: relative;
 }
-h2::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: -8px;
-  width: 64px; height: 3px; border-radius: 2px;
-  background: color-mix(in srgb, var(--dourado-fosco) 80%, white);
-}
-
 .h2-quiet {
   margin-bottom: .25rem;
   font-size: clamp(1.5rem, 2.2vw, 1.9rem);
 }
-
 .lead {
   font-size: 1.1rem;
   line-height: 1.75;
   color: var(--marrom-terra-firme);
   margin: 0 0 1rem;
 }
-.article p, .prose p {
+.article p,
+.prose p {
   color: var(--marrom-terra-firme);
   line-height: 1.75;
   margin: .6rem 0 0;
 }
 .em { color: var(--terracota-queimado); font-weight: 700; }
 
-/* --------- Callout (confiança) --------- */
+/* --------- Callout --------- */
 .callout {
   margin: 1.2rem 0 0;
   padding: 1.1rem 1rem;
@@ -97,213 +92,22 @@ h2::after {
   border: 2px solid var(--dourado-fosco);
   transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
-.btn-reveal:hover, .btn-reveal:focus-visible {
+.btn-reveal:hover,
+.btn-reveal:focus-visible {
   background: color-mix(in srgb, var(--dourado-fosco) 85%, white);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0,0,0,.10);
 }
 
-/* --------- Acessibilidade / movimento --------- */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-
-/* --------- Responsivo --------- */
-@media (max-width: 980px) {
-  .prose { padding-inline: 1rem; }
-}
-
-/* ===================== sobre.css (v3 clean) ===================== */
-/* Mantém as variáveis já definidas no :root de style.css */
-
-/* --------- Layout base --------- */
-[id] { scroll-margin-top: 96px; }
-.prose {
-  max-width: 72ch;
-  margin-inline: auto;
-}
-.section + .section { scroll-margin-top: 96px; }
-
-/* --------- Tipografia --------- */
-.eyebrow {
-  font-size: .9rem;
-  letter-spacing: .3px;
-  color: var(--oliva-sutil);
-  margin: 0 0 .4rem;
-}
-h1, h2 {
-  font-family: "Cormorant Garamond", serif;
-  color: var(--marsala-profundo);
-}
-h1 {
-  font-weight: 800;
-  font-size: clamp(2rem, 3.2vw, 2.8rem);
-  line-height: 1.1;
-  margin: 0 0 .6rem;
-}
-h2 {
-  font-weight: 700;
-  font-size: clamp(1.6rem, 2.6vw, 2rem);
-  line-height: 1.2;
-  margin: 0 0 .8rem;
-  position: relative;
-}
-h2::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: -8px;
-  width: 64px; height: 3px; border-radius: 2px;
-  background: color-mix(in srgb, var(--dourado-fosco) 80%, white);
-}
-
-.h2-quiet {
-  margin-bottom: .25rem;
-  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
-}
-
-.lead {
-  font-size: 1.1rem;
-  line-height: 1.75;
-  color: var(--marrom-terra-firme);
-  margin: 0 0 1rem;
-}
-.article p, .prose p {
-  color: var(--marrom-terra-firme);
-  line-height: 1.75;
-  margin: .6rem 0 0;
-}
-.em { color: var(--terracota-queimado); font-weight: 700; }
-
-/* --------- Callout (confiança) --------- */
-.callout {
-  margin: 1.2rem 0 0;
-  padding: 1.1rem 1rem;
-  border-radius: .9rem;
-  background: rgba(255,255,255,.8);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  box-shadow: 0 6px 20px rgba(0,0,0,.06);
-}
-.callout.soft { border-left: 4px solid var(--dourado-fosco); }
-.callout .label {
-  font-weight: 800;
-  color: var(--terracota-queimado);
-  margin-bottom: .25rem;
-  letter-spacing: .2px;
-}
-
-/* --------- CTA --------- */
-.cta-box {
-  text-align: center;
-  margin-top: .6rem;
-  background: rgba(255,255,255,.78);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  border-radius: 1rem;
-  padding: clamp(1.2rem, 3vw, 1.8rem);
-  box-shadow: 0 8px 24px rgba(0,0,0,.05);
-}
-.btn-reveal {
-  display: inline-block;
-  margin-top: .6rem;
-  border-radius: 999px;
-  padding: .75rem 1.1rem;
-  font-weight: 800;
-  text-decoration: none;
-  color: var(--marsala-profundo);
-  border: 2px solid var(--dourado-fosco);
-  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
-}
-.btn-reveal:hover, .btn-reveal:focus-visible {
-  background: color-mix(in srgb, var(--dourado-fosco) 85%, white);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,.10);
-}
-
-/* --------- Acessibilidade / movimento --------- */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-
-/* --------- Responsivo --------- */
-@media (max-width: 980px) {
-  .prose { padding-inline: 1rem; }
-}
-
-
-/* ====== REVEAL SUAVE (já entra com fade/slide) ====== */
-.reveal {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity .5s ease var(--delay, 0ms),
-    transform .5s ease var(--delay, 0ms);
-  will-change: opacity, transform;
-}
-.reveal.in-view { opacity: 1; transform: none; }
-
-/* Sublinhado dos h2 aparece quando a seção entra na viewport */
-.section h2::after {
-  transform-origin: left center;
-  transform: scaleX(0);
-  transition: transform .6s ease .1s;
-}
-.section.in-view h2::after { transform: scaleX(1); }
-
-/* ====== BARRA DE LEITURA ====== */
-.read-progress {
-  position: fixed;
-  left: 0;
-  top: calc(var(--header-h, 72px));
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--dourado-fosco), var(--terracota-queimado));
-  z-index: 9;
-  transition: width .1s linear;
-}
-
-/* ====== DETAILS/ACCORDION suave ====== */
-details.prep, details.policy {
-  overflow: clip; /* impede “pulo” de conteúdo no fechamento */
-}
-details.prep[open], details.policy[open] 
-  
-details.prep[open] > *:not(summary),
-details.policy[open] > *:not(summary) {
-  animation: fadeIn .35s ease both;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: none; }
-}
-
-/* Remove qualquer destaque de <mark> nesta página */
-.lead mark,
-.article mark,
-.about-section mark,
-mark,
-mark.em {
-  background: transparent !important;
-  color: inherit !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-/* ===== Reset do que você NÃO quer ===== */
-h2::after { content: none !important; }
-.read-progress { display: none !important; }
-
-/* Se havia estilos para <mark>, zera geral */
-mark, .spot { all: unset; }
-
-/* ===== Primitives de animação ===== */
-:root{
+/* --------- Primitives de animação --------- */
+:root {
   --enter-y: 12px;
   --dur: .50s;
   --ease: cubic-bezier(.22,.61,.36,1);
   --ease-elastic: cubic-bezier(.2,.8,.2,1.2);
 }
 
-/* Entrada com respiro */
+/* Reveal suave */
 .reveal {
   opacity: 0;
   transform: translateY(var(--enter-y));
@@ -314,7 +118,7 @@ mark, .spot { all: unset; }
 }
 .reveal.in-view { opacity: 1; transform: none; }
 
-/* Aproximação de cartões (callout/cta) */
+/* Aproximação de cartões */
 .card-approach {
   opacity: 0;
   transform: translateY(10px) scale(.995);
@@ -340,11 +144,8 @@ mark, .spot { all: unset; }
 }
 .btn-reveal.cta-pulse { animation: ctaPulse .6s var(--ease) .15s 1 both; }
 
-/* Glow breve no h2 ao entrar (sem underline) */
+/* Glow breve no h2 (sem underline) */
 .h2-glow { position: relative; }
-.h2-glow.in-view {
-  text-shadow: 0 0 0 rgba(0,0,0,0); /* garante repaint */
-}
 .h2-glow.in-view::before{
   content:"";
   position:absolute; inset:-4px -6px;
@@ -357,19 +158,62 @@ mark, .spot { all: unset; }
   100%{ box-shadow: 0 0 0 0 rgba(201,174,143,0); }
 }
 
-/* Micro-parallax: aplica em um container (transform leve) */
+/* Micro-parallax (opcional) */
 .hero-parallax {
   will-change: transform;
   transition: transform .2s linear;
 }
 
-/* Acessibilidade */
-@media (prefers-reduced-motion: reduce) {
-  .reveal, .card-approach, .btn-reveal,
-  .h2-glow::before, .hero-parallax { transition: none !important; animation: none !important; }
+/* --------- Barra de leitura (desativada) --------- */
+.read-progress {
+  position: fixed;
+  left: 0;
+  top: calc(var(--header-h, 72px));
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--dourado-fosco), var(--terracota-queimado));
+  z-index: 9;
+  transition: width .1s linear;
+  display: none !important;
 }
 
-/* Toques responsivos (mantém seu layout) */
+/* --------- Accordion (details) --------- */
+details.prep,
+details.policy { overflow: clip; }
+details.prep[open] > *:not(summary),
+details.policy[open] > *:not(summary) {
+  animation: fadeIn .35s ease both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --------- Resets locais --------- */
+/* Desliga qualquer sublinhado decorativo padrão dos h2 nesta página */
+h2::after { content: none !important; }
+
+/* Remove destaque de <mark> nesta página */
+.lead mark,
+.article mark,
+.about-section mark,
+mark,
+mark.em {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+/* Se havia classes utilitárias de mark */
+mark, .spot { all: unset; }
+
+/* --------- Acessibilidade / movimento --------- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* --------- Responsivo --------- */
 @media (max-width: 980px) {
   .prose { padding-inline: 1rem; }
 }
