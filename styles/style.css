@@ -688,9 +688,7 @@ body.has-open-nav { overflow: hidden; }
   view-transition-name: none;
 }
 
-.site-footer a {
-  color: inherit;
-}
+.site-footer a { color: inherit; }
 
 .site-footer .footer-content {
   margin-inline: auto;
@@ -726,19 +724,12 @@ body.has-open-nav { overflow: hidden; }
   display: grid;
   gap: clamp(.85rem, 2vw, 1.2rem);
   backdrop-filter: blur(18px);
+  overflow: hidden; /* evita hover/sombra “vazar” */
 }
 
-.footer-branding {
-  grid-area: branding;
-}
-
-.footer-contact {
-  grid-area: contato;
-}
-
-.footer-links {
-  grid-area: links;
-}
+.footer-branding { grid-area: branding; }
+.footer-contact  { grid-area: contato; }
+.footer-links    { grid-area: links; }
 
 .footer-heading {
   font-size: clamp(.92rem, 1.4vw, 1.05rem);
@@ -806,10 +797,7 @@ body.has-open-nav { overflow: hidden; }
   font-weight: 500;
 }
 
-.footer-action svg {
-  inline-size: 1.1rem;
-  block-size: 1.1rem;
-}
+.footer-action svg { inline-size: 1.1rem; block-size: 1.1rem; }
 
 .footer-action:focus-visible {
   outline: 3px solid color-mix(in srgb, #fdf8f2 72%, transparent 28%);
@@ -824,6 +812,46 @@ body.has-open-nav { overflow: hidden; }
     box-shadow: 0 12px 28px rgba(10, 8, 14, .45);
     border-color: rgba(255, 255, 255, .32);
     background-color: rgba(255, 255, 255, .14);
+  }
+}
+
+/* ====== AJUSTES PEDIDOS ====== */
+/* 1) E-mail não vazar do card: permite quebra e ocupa largura do card */
+.footer-contact .footer-action {
+  justify-content: flex-start;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  flex-wrap: wrap;
+  text-align: left;
+}
+.footer-contact .footer-action .footer-icon { flex: 0 0 auto; }
+.footer-contact .footer-action span:last-child {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow-wrap: anywhere; /* quebra em qualquer ponto se necessário */
+}
+@media (max-width: 56.24rem) {
+  .footer-contact .footer-action { justify-content: center; text-align: center; }
+}
+
+/* 2) Painel de navegação: compactar + 2 colunas no desktop */
+.footer-links.footer-panel {
+  padding: clamp(1.1rem, 2vw, 1.6rem);
+}
+.footer-links .footer-list {
+  gap: clamp(.45rem, 1.1vw, .65rem);
+}
+@media (min-width: 56.25rem) {
+  .footer-links .footer-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(.5rem, 1vw, .75rem) clamp(.75rem, 1.2vw, 1rem);
+  }
+  .footer-links .footer-action {
+    inline-size: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(.45rem, .9vw, .6rem) clamp(.65rem, 1.4vw, .95rem);
+    min-block-size: 2.4rem;
   }
 }
 
@@ -853,23 +881,8 @@ body.has-open-nav { overflow: hidden; }
           mask-size: contain;
 }
 
-.footer-icon .ico {
-  inline-size: 1.05rem;
-  block-size: 1.05rem;
-}
-
-.footer-icon svg {
-  inline-size: 1.05rem;
-  block-size: 1.05rem;
-}
-
-.footer-contact .footer-action {
-  justify-content: flex-start;
-}
-
-.footer-contact .footer-action .footer-icon {
-  flex: 0 0 auto;
-}
+.footer-icon .ico,
+.footer-icon svg { inline-size: 1.05rem; block-size: 1.05rem; }
 
 .footer-social {
   display: flex;
@@ -894,35 +907,13 @@ body.has-open-nav { overflow: hidden; }
     background-color var(--transition-base, 200ms ease);
 }
 
-.social-btn.is-ig .ico {
-  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-instagram.png");
-          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-instagram.png");
-}
+.social-btn.is-ig .ico { -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-instagram.png"); mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-instagram.png"); }
+.social-btn.is-li .ico { -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-linkedIn.png");  mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-linkedIn.png"); }
+.social-btn.is-fb .ico { -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-facebook.png");  mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-facebook.png"); }
+.social-btn.is-tt .ico { -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-tiktok.png");    mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-tiktok.png"); }
+.social-btn.is-wa .ico { -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-whatsApp.png");  mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-whatsApp.png"); }
 
-.social-btn.is-li .ico {
-  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-linkedIn.png");
-          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-linkedIn.png");
-}
-
-.social-btn.is-fb .ico {
-  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-facebook.png");
-          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-facebook.png");
-}
-
-.social-btn.is-tt .ico {
-  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-tiktok.png");
-          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-tiktok.png");
-}
-
-.social-btn.is-wa .ico {
-  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-whatsApp.png");
-          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-whatsApp.png");
-}
-
-.ico.ico--mail {
-  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-email.png");
-          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-email.png");
-}
+.ico.ico--mail { -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-email.png"); mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-email.png"); }
 
 .footer-social .social-btn:focus-visible {
   outline: 3px solid color-mix(in srgb, #fdf8f2 72%, transparent 28%);
@@ -962,23 +953,12 @@ body.has-open-nav { overflow: hidden; }
   letter-spacing: .02em;
   line-height: 1.6;
 }
-
-.footer-meta p {
-  margin: 0;
-}
+.footer-meta p { margin: 0; }
 
 @media (max-width: 56.24rem) {
-  .footer-panel {
-    text-align: center;
-  }
-
-  .footer-contact .footer-action {
-    justify-content: center;
-  }
-
-  .footer-social {
-    justify-content: center;
-  }
+  .footer-panel { text-align: center; }
+  .footer-contact .footer-action { justify-content: center; }
+  .footer-social { justify-content: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1001,11 +981,8 @@ body.has-open-nav { overflow: hidden; }
     border-color: ButtonText;
     box-shadow: none;
   }
-
   .footer-action:focus-visible,
-  .footer-social .social-btn:focus-visible {
-    outline: 2px solid Highlight;
-  }
+  .footer-social .social-btn:focus-visible { outline: 2px solid Highlight; }
 }
 
 /* ---------- 12) Efeitos Globais de Hero/Título ---------- */
@@ -1063,3 +1040,4 @@ body.has-open-nav { overflow: hidden; }
   ::view-transition-old(page),
   ::view-transition-new(page) { animation-duration: 0ms !important; }
 }
+
