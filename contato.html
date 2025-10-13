@@ -15,7 +15,7 @@
       property="og:description"
       content="Entre em contato para agendar terapia on-line com acolhimento, ética e combinados claros."
     />
-    <meta property="og:image" content="https://seu-dominio.com/assets/PortifolioLucianoFotos/foto2.jpg" />
+    <meta property="og:image" content="assets/PortifolioLucianoFotos/foto2.jpg" />
     <meta property="og:locale" content="pt_BR" />
 
     <link rel="canonical" href="https://seu-dominio.com/contato.html" />
@@ -23,8 +23,8 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="contato.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/contato.css" />
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -221,17 +221,24 @@
             <li>
               <a class="footer-action" href="mailto:contato@lucianopimenta.com">
                 <span class="footer-icon" aria-hidden="true">
-                  <!-- ícone via máscara (arquivo em assets/icons/mail.svg) -->
+                 
                   <span class="ico ico--mail" aria-hidden="true"></span>
                 </span>
-                <span>contato@lucianopimenta.com</span>
+                <span>lucianopimenta.psi@gmail.com</span>
               </a>
             </li>
             <li>
               <a class="footer-action" href="tel:+5521993034166">
-                <span class="footer-icon" aria-hidden="true">
-                  <!-- ícone via máscara (arquivo em assets/icons/phone.svg) -->
-                  <span class="ico ico--phone" aria-hidden="true"></span>
+                <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
+                    <path
+                      d="M8.6 5.6c-.4-.8-1.4-1.1-2.1-.6l-1.6 1.1c-.8.6-1.1 1.7-.6 2.6 2.3 4.5 6 8.2 10.5 10.5.9.5 2 .2 2.6-.6l1.1-1.6c.5-.7.2-1.7-.6-2.1l-2.5-1.3c-.7-.4-1.6-.2-2.1.4l-.6.8a12.6 12.6 0 0 1-4.9-4.9l.8-.6c.6-.5.8-1.4.4-2.1Z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                 </span>
                 <span>(21) 99303-4166</span>
               </a>
@@ -269,7 +276,8 @@
       </div>
     </footer>
 
-    <script type="module" src="menu.js" defer></script>
-    <script type="module" src="transitions.js" defer></script>
+    <script type="module" src="assets/js/menu.js" defer></script>
+    <script type="module" src="assets/js/transitions.js" defer></script>
+    <script defer src="assets/js/contato.js"></script>
   </body>
 </html>

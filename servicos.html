@@ -17,12 +17,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="servicos.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/servicos.css" />
 
     <!-- JS -->
-    <script type="module" src="menu.js" defer></script>
-    <script defer src="servicos.js"></script>
+    <script type="module" src="assets/js/menu.js" defer></script>
+    <script defer src="assets/js/servicos.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -254,10 +254,7 @@
             <li>
               <a class="footer-action" href="mailto:contato@lucianopimenta.com">
                 <span class="footer-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
-                    <rect x="3" y="5" width="18" height="14" rx="2.2" ry="2.2" fill="none" stroke="currentColor" stroke-width="1.5" />
-                    <polyline points="4.5 6.8 12 12.4 19.5 6.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
+                  <span class="ico ico--mail" aria-hidden="true"></span>
                 </span>
                 <span>contato@lucianopimenta.com</span>
               </a>
@@ -281,28 +278,14 @@
             </li>
           </ul>
           <div class="footer-social" role="group" aria-label="Redes sociais">
-            <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Luciano Pimenta">
-              <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
-                <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="1.5" />
-                <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5" />
-                <circle cx="17" cy="7" r="1.2" fill="currentColor" />
-              </svg>
+            <a class="social-btn is-ig" href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Luciano Pimenta">
+              <span class="ico" aria-hidden="true"></span>
             </a>
-            <a href="https://linkedin.com/in/SEU_LINKEDIN" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Luciano Pimenta">
-              <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
-                <rect x="3.5" y="3.5" width="17" height="17" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="1.5" />
-                <rect x="7" y="10" width="2.8" height="8" fill="currentColor" rx="1.2" />
-                <circle cx="8.4" cy="7.5" r="1.4" fill="currentColor" />
-                <path d="M13 10h1.8a3 3 0 0 1 3 3v5H15v-4.4c0-.8-.5-1.4-1.3-1.4-.6 0-1.2.4-1.2 1.5V18h-2.8v-8H13Z" fill="currentColor" />
-              </svg>
+            <a class="social-btn is-li" href="https://linkedin.com/in/SEU_LINKEDIN" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Luciano Pimenta">
+              <span class="ico" aria-hidden="true"></span>
             </a>
-            <a href="https://wa.me/5521993034166" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de Luciano Pimenta">
-              <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
-                <path
-                  d="M12 4a8 8 0 0 0-6.8 12.3L4 20l3.8-1.1A8 8 0 1 0 12 4Zm0 1.6a6.4 6.4 0 0 1 5.4 9.8c-.3.6-1 1.4-1.7 1.7a.6.6 0 0 1-.5 0l-1.2-.3c-.6-.2-.9 0-1.6.3-.8.4-1.5.1-2.4-.4-1.3-.7-2.4-2-2.8-2.8-.4-.9-.2-1.6.2-2.2.4-.5.6-.6 1-.4l1.4.7c.3.2.5.1.7-.2l.5-.8c.2-.3.2-.5 0-.8l-.6-1.3c-.2-.4 0-.7.2-.9.4-.4 1-.8 1.4-.8Z"
-                  fill="currentColor"
-                />
-              </svg>
+            <a class="social-btn is-wa" href="https://wa.me/5521993034166" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de Luciano Pimenta">
+              <span class="ico" aria-hidden="true"></span>
             </a>
           </div>
         </section>

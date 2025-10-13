@@ -839,6 +839,25 @@ body.has-open-nav { overflow: hidden; }
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
 }
 
+.footer-social .ico,
+.footer-icon .ico {
+  display: inline-block;
+  inline-size: 1.2rem;
+  block-size: 1.2rem;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          mask-size: contain;
+}
+
+.footer-icon .ico {
+  inline-size: 1.05rem;
+  block-size: 1.05rem;
+}
+
 .footer-icon svg {
   inline-size: 1.05rem;
   block-size: 1.05rem;
@@ -858,7 +877,7 @@ body.has-open-nav { overflow: hidden; }
   gap: clamp(.75rem, 1.8vw, 1.2rem);
 }
 
-.footer-social a {
+.footer-social .social-btn {
   inline-size: clamp(2.8rem, 4.6vw, 3.1rem);
   block-size: clamp(2.8rem, 4.6vw, 3.1rem);
   border-radius: 50%;
@@ -875,12 +894,37 @@ body.has-open-nav { overflow: hidden; }
     background-color var(--transition-base, 200ms ease);
 }
 
-.footer-social svg {
-  inline-size: 1.05rem;
-  block-size: 1.05rem;
+.social-btn.is-ig .ico {
+  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-instagram.png");
+          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-instagram.png");
 }
 
-.footer-social a:focus-visible {
+.social-btn.is-li .ico {
+  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-linkedIn.png");
+          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-linkedIn.png");
+}
+
+.social-btn.is-fb .ico {
+  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-facebook.png");
+          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-facebook.png");
+}
+
+.social-btn.is-tt .ico {
+  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-tiktok.png");
+          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-tiktok.png");
+}
+
+.social-btn.is-wa .ico {
+  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-whatsApp.png");
+          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-whatsApp.png");
+}
+
+.ico.ico--mail {
+  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-email.png");
+          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-email.png");
+}
+
+.footer-social .social-btn:focus-visible {
   outline: 3px solid color-mix(in srgb, #fdf8f2 72%, transparent 28%);
   outline-offset: 3px;
   transform: translateY(-2px);
@@ -888,7 +932,7 @@ body.has-open-nav { overflow: hidden; }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .footer-social a:hover {
+  .footer-social .social-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 28px rgba(10, 8, 14, .45);
     border-color: rgba(255, 255, 255, .35);
@@ -939,7 +983,7 @@ body.has-open-nav { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .footer-action,
-  .footer-social a {
+  .footer-social .social-btn {
     transition: none;
     transform: none !important;
     box-shadow: none !important;
@@ -950,7 +994,7 @@ body.has-open-nav { overflow: hidden; }
   .site-footer,
   .footer-panel,
   .footer-action,
-  .footer-social a {
+  .footer-social .social-btn {
     forced-color-adjust: auto;
     color: ButtonText;
     background: Canvas;
@@ -959,7 +1003,7 @@ body.has-open-nav { overflow: hidden; }
   }
 
   .footer-action:focus-visible,
-  .footer-social a:focus-visible {
+  .footer-social .social-btn:focus-visible {
     outline: 2px solid Highlight;
   }
 }
