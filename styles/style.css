@@ -433,12 +433,6 @@ body.has-open-nav { overflow: hidden; }
   background: var(--hero-highlight-bg);
 }
 
-.hero .hero-highlights li::before {
-  content: var(--hero-highlight-icon);
-  color: var(--hero-highlight-icon-color);
-  margin-inline-end: 0.3rem;
-}
-
 .hero .hero-cta {
   display: inline-flex;
   align-items: center;

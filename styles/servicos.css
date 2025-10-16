@@ -274,18 +274,6 @@
     color: color-mix(in srgb, var(--text) 90%, #000 10%);
   }
 
-  .hero-highlights li::before {
-    content: "";
-    position: absolute;
-    inline-size: 0.7rem;
-    block-size: 0.7rem;
-    border-radius: 50%;
-    inset-inline-start: 0;
-    inset-block-start: 0.4rem;
-    background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #fff 40%));
-    box-shadow: 0 0 0 4px rgba(117, 42, 42, 0.15);
-  }
-
   .hero-cta {
     display: flex;
     flex-wrap: wrap;
