@@ -100,106 +100,72 @@
              <p class="section-text">Formatos pensados para diferentes fases e necessidades, sempre on-line e com combinados transparentes.</p>
           </header>
 
-          <div class="service-cards">
-              <!-- Destaque -->
-            <article class="service-card is-featured" data-animate="fade-up">
-              <div class="service-card__background" aria-hidden="true"></div>
+          <div class="carousel-servicos" role="region" aria-label="Formatos de atendimento" data-items="4" data-animate="fade-up" data-delay="40">
+            <button class="carousel-servicos__toggle" type="button" aria-pressed="false" aria-label="Pausar animação">
+              Pausar
+            </button>
 
-              <header class="service-card__header">
-                 <span class="service-card__tag">Processo individual</span>
-                 <h3>Terapia individual</h3>
-                 <p class="service-sub">Adultos, adolescentes, idosos</p>
-              </header>
+            <button class="carousel-servicos__nav carousel-servicos__nav--prev" type="button" aria-label="Rolar formatos anteriores" aria-controls="carousel-servicos-track">
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button class="carousel-servicos__nav carousel-servicos__nav--next" type="button" aria-label="Rolar próximos formatos" aria-controls="carousel-servicos-track">
+              <span aria-hidden="true">›</span>
+            </button>
 
-              <p class="service-card__lead">
-                 Ansiedade, autoestima, carreira, relações e transições. Estratégias práticas e desenvolvimento de recursos internos.
-              </p>
+            <div class="carousel-servicos__track" id="carousel-servicos-track" data-mask>
+              <article class="carousel-servicos__item">
+                <h3>Terapia individual</h3>
+                <div class="carousel-servicos__body">
+                  <p>Sessões focadas em ansiedade, autoestima, carreira e relações com planos de ação realistas.</p>
+                  <ul class="carousel-servicos__bullets">
+                    <li>Encontros semanais ou quinzenais on-line</li>
+                    <li>Plano terapêutico construído junto com você</li>
+                    <li>Materiais de apoio enviados após a sessão</li>
+                  </ul>
+                  <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Quero+agendar+uma+sess%C3%A3o+individual" target="_blank" rel="noopener noreferrer">Agendar</a>
+                </div>
+              </article>
 
-               <ul class="service-list service-list--checks">
-                 <li>Encontros semanais ou quinzenais</li>
-                <li>Planos de ação entre sessões</li>
-                 <li>Feedback contínuo</li>
-               </ul>
+              <article class="carousel-servicos__item">
+                <h3>Casais</h3>
+                <div class="carousel-servicos__body">
+                  <p>Mediação cuidadosa para fortalecer acordos, escuta ativa e reconexão do casal.</p>
+                  <ul class="carousel-servicos__bullets">
+                    <li>Mapeamento de gatilhos de conflito</li>
+                    <li>Ferramentas para comunicação empática</li>
+                    <li>Planos de acompanhamento entre sessões</li>
+                  </ul>
+                  <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal" target="_blank" rel="noopener noreferrer">Conversar</a>
+                </div>
+              </article>
 
-              <div class="service-meta" role="list" aria-label="Informações do formato">
-                <span class="chip" role="listitem">50 min</span>
-                <span class="chip" role="listitem">On-line</span>
-                 <span class="chip chip--soft" role="listitem">Sigilo &amp; acolhimento</span>
-              </div>
+              <article class="carousel-servicos__item">
+                <h3>Famílias &amp; rede</h3>
+                <div class="carousel-servicos__body">
+                  <p>Apoio sistêmico para famílias, cuidadores e rede de suporte alinharem expectativas e rotinas.</p>
+                  <ul class="carousel-servicos__bullets">
+                    <li>Escuta individual e encontros conjuntos</li>
+                    <li>Construção de combinados sustentáveis</li>
+                    <li>Check-ins periódicos para ajustes</li>
+                  </ul>
+                  <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Preciso+de+apoio+para+minha+fam%C3%ADlia" target="_blank" rel="noopener noreferrer">Agendar</a>
+                </div>
+              </article>
 
-              <footer class="service-card__footer">
-                <p class="service-card__note">Sessões em plataforma segura</p>
-                <a class="btn btn-secondary"
-                  target="_blank" rel="noopener noreferrer"
-                   href="https://wa.me/5521993034166?text=Quero+agendar+uma+sess%C3%A3o+individual">Quero iniciar</a>
-               </footer>
-            </article>
+              <article class="carousel-servicos__item">
+                <h3>Conversa inicial</h3>
+                <div class="carousel-servicos__body">
+                  <p>Encontro breve para entender necessidades, esclarecer dúvidas e orientar próximos passos.</p>
+                  <ul class="carousel-servicos__bullets">
+                    <li>Avaliação gratuita de 15 a 20 minutos</li>
+                    <li>Orientações sobre formatos e valores</li>
+                    <li>Confirmação dos documentos necessários</li>
+                  </ul>
+                  <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Quero+agendar+uma+conversa+inicial" target="_blank" rel="noopener noreferrer">Iniciar</a>
+                </div>
+              </article>
+            </div>
 
-            <!-- Casais -->
-            <article class="service-card" data-animate="fade-up" data-delay="80">
-              <div class="service-card__background" aria-hidden="true"></div>
-
-               <header class="service-card__header">
-                 <span class="service-card__tag">Casais</span>
-                 <h3>Acompanhamento de casais</h3>
-                 <p class="service-sub">Comunicação, acordos e reconexão</p>
-              </header>
-
-               <p class="service-card__lead">
-                 Mediação para lidar com conflitos, fortalecer acordos e construir novos modos de convivência.
-               </p>
-
-              <ul class="service-list service-list--checks">
-                 <li>Sessões conjuntas e individuais quando necessário</li>
-                 <li>Ferramentas de comunicação assertiva</li>
-                <li>Metas monitoradas</li>
-              </ul>
-
-               <div class="service-meta" role="list" aria-label="Informações do formato">
-                <span class="chip" role="listitem">Plano sob medida</span>
-                 <span class="chip" role="listitem">On-line</span>
-              </div>
-
-               <footer class="service-card__footer">
-                <p class="service-card__note">Definição do plano após a primeira conversa</p>
-                 <a class="btn btn-secondary"
-                  target="_blank" rel="noopener noreferrer"
-                  href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal">Conversar sobre o casal</a>
-              </footer>
-            </article>
-
-            <!-- Famílias & Rede -->
-             <article class="service-card" data-animate="fade-up" data-delay="160">
-              <div class="service-card__background" aria-hidden="true"></div>
-
-              <header class="service-card__header">
-                <span class="service-card__tag">Rede de apoio</span>
-                <h3>Famílias &amp; rede de cuidado</h3>
-                <p class="service-sub">Apoio em contextos complexos</p>
-              </header>
-
-               <p class="service-card__lead">
-                  Alinhamento de rotinas, papéis e expectativas entre as pessoas envolvidas no cuidado.
-              </p>
-
-              <ul class="service-list service-list--checks">
-                 <li>Reuniões com membros-chave</li>
-                 <li>Mapeamento de necessidades</li>
-                 <li>Combinados sustentáveis</li>
-              </ul>
-
-               <div class="service-meta" role="list" aria-label="Informações do formato">
-                 <span class="chip" role="listitem">Encontros combinados</span>
-                 <span class="chip" role="listitem">On-line</span>
-              </div>
-
-              <footer class="service-card__footer">
-                <p class="service-card__note">Indicado para famílias, cuidadores e escolas</p>
-                <a class="btn btn-secondary"
-                    target="_blank" rel="noopener noreferrer"
-                    href="https://wa.me/5521993034166?text=Preciso+de+apoio+para+minha+fam%C3%ADlia">Agendar reunião</a>
-              </footer>
-            </article>
           </div>
         </div>
       </section>
@@ -251,10 +217,10 @@
       <section class="section section-faq" id="faq" aria-labelledby="titulo-faq">
         <div class="container">
           <div class="faq-grid">
-            <details class="faq-item" data-animate="fade-up" open></details>
-              <summary>Como funcionam os atendimentos on-line?</summary>
-              <p>Uso plataformas seguras. Você recebe um link privativo e orientações. Recomendo local tranquilo e boa conexão.</p>
-            </details>
+           <details class="faq-item" data-animate="fade-up" open>
+            <summary>Como funcionam os atendimentos on-line?</summary>
+             <p>Uso plataformas seguras. Você recebe um link privativo e orientações. Recomendo local tranquilo e boa conexão.</p>
+           </details>
             <details class="faq-item" data-animate="fade-up" data-delay="60">
               <summary>É possível remarcar ou cancelar?</summary>
               <p>Sim. Política de remarcação com aviso mínimo de 48 horas. Imprevistos são avaliados caso a caso.</p>

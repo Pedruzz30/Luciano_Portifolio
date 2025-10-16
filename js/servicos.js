@@ -137,4 +137,90 @@
 })();
 
 
+// ===== Carousel Serviços: Pausar/Retomar + fallback de movimento
+(() => {
+  const root = document.querySelector('.carousel-servicos');
+  if (!root) return;
 
+  const track = root.querySelector('.carousel-servicos__track');
+  const toggle = root.querySelector('.carousel-servicos__toggle');
+  const navPrev = root.querySelector('.carousel-servicos__nav--prev');
+  const navNext = root.querySelector('.carousel-servicos__nav--next');
+  const motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+
+  if (!track) return;
+
+  const updateToggleCopy = (paused) => {
+    if (!toggle || toggle.disabled) return;
+    toggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    toggle.textContent = paused ? 'Retomar' : 'Pausar';
+    toggle.setAttribute('aria-label', paused ? 'Retomar animação' : 'Pausar animação');
+  };
+
+  const setPaused = (paused) => {
+    track.setAttribute('data-paused', paused ? 'true' : 'false');
+    updateToggleCopy(paused);
+  };
+
+  const applyStaticLayout = () => {
+    root.classList.add('is-static');
+    if (toggle) {
+      toggle.disabled = true;
+      toggle.setAttribute('aria-disabled', 'true');
+      toggle.setAttribute('aria-pressed', 'false');
+      toggle.textContent = 'Movimento reduzido';
+      toggle.setAttribute('aria-label', 'Animação desativada pela preferência de movimento');
+    }
+    track.setAttribute('data-paused', 'true');
+  };
+
+  const applyAnimatedLayout = () => {
+    root.classList.remove('is-static');
+    if (toggle) {
+      toggle.disabled = false;
+      toggle.removeAttribute('aria-disabled');
+    }
+    setPaused(false);
+  };
+
+  const updateLayoutFromPreference = (shouldReduce) => {
+    if (shouldReduce) {
+      applyStaticLayout();
+    } else {
+      applyAnimatedLayout();
+    }
+  };
+
+  toggle?.addEventListener('click', () => {
+    if (toggle.disabled) return;
+    const paused = track.getAttribute('data-paused') === 'true';
+    setPaused(!paused);
+  });
+
+  const scrollByStep = (direction) => {
+    const firstItem = track.querySelector('.carousel-servicos__item');
+    if (!firstItem) return;
+
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || '0');
+    const step = firstItem.getBoundingClientRect().width + gap;
+
+    track.scrollBy({ left: direction * step, behavior: 'smooth' });
+  };
+
+  navPrev?.addEventListener('click', () => scrollByStep(-1));
+  navNext?.addEventListener('click', () => scrollByStep(1));
+
+  const prefersReduced = motionQuery?.matches ?? false;
+  updateLayoutFromPreference(prefersReduced);
+
+  const handlePreferenceChange = (event) => {
+    updateLayoutFromPreference(event.matches);
+  };
+
+  if (motionQuery?.addEventListener) {
+    motionQuery.addEventListener('change', handlePreferenceChange);
+  } else if (motionQuery?.addListener) {
+    motionQuery.addListener(handlePreferenceChange);
+  }
+})();
