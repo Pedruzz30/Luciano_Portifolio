@@ -180,63 +180,36 @@ main > .section:first-child:not(.hero) {
   .brand-text { display: inline-flex; }
 }
 
-/* ---------- 6) Navegação ---------- */
-.menu-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
-  border-radius: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--marrom-terra-firme) 18%, white 82%);
-  background: color-mix(in srgb, var(--areia-dourada) 75%, white 25%);
-  color: var(--marrom-terra-firme);
-  padding: 0;
-  cursor: pointer;
-  transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base);
-}
+/* ---------- 6) Navegação — estilo “painel” inspirado no footer ---------- */
 
-.menu-toggle:hover,
-.menu-toggle:focus-visible {
-  background: color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
-  border-color: color-mix(in srgb, var(--marsala-profundo) 25%, white 75%);
-}
+/* ================================
+   NAV • do zero (sem :root/var)
+   - Desktop: inline, simples
+   - Mobile: overlay full, slide-down
+   - A11y: foco, tap target, reduz movimento
+   - Sem depender da altura do header
+===================================*/
 
-.menu-icon,
-.menu-icon::before,
-.menu-icon::after {
-  content: "";
-  display: block;
-  inline-size: 1.35rem;
-  block-size: 2px;
-  border-radius: 999px;
-  background: currentColor;
-  transition: transform var(--transition-base), opacity var(--transition-base);
-}
+/* Paleta fixa usada:
+   areia-dourada  #f3e6d3
+   dourado-fosco  #c9ae8f
+   marsala        #752a2a
+   marrom         #4c352a
+   berinjela      #3e2731
+*/
 
-.menu-icon { position: relative; }
-.menu-icon::before,
-.menu-icon::after {
-  position: absolute;
-  inset-inline-start: 0;
-}
-.menu-icon::before { transform: translateY(-6px); }
-.menu-icon::after  { transform: translateY(6px); }
-
-.menu-toggle[aria-expanded="true"] .menu-icon { background: transparent; }
-.menu-toggle[aria-expanded="true"] .menu-icon::before { transform: rotate(45deg); }
-.menu-toggle[aria-expanded="true"] .menu-icon::after  { transform: rotate(-45deg); }
-
+/* ---------- Layout base ---------- */
 .site-nav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
+/* Lista e links (desktop default) */
 .nav-list {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.5vw, 1.6rem);
+  gap: clamp(0.9rem, 2.5vw, 1.4rem);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -245,111 +218,207 @@ main > .section:first-child:not(.hero) {
 .nav-link {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 0.65rem;
-  color: var(--marrom-terra-firme);
+  justify-content: center;
+  min-inline-size: 44px;
+  min-block-size: 40px;
+  padding: 0 .6rem;
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: clamp(0.82rem, 1.6vw, 0.95rem);
-  border-radius: 0.6rem;
-  transition: color var(--transition-base), background-color var(--transition-base), opacity var(--transition-base);
+  letter-spacing: .08em;
+  font-weight: 600;
+  font-size: clamp(.82rem, 1.6vw, .95rem);
+  color: #4c352a; /* marrom */
+  background: transparent;
+  transition: color .2s ease, background-color .2s ease, box-shadow .2s ease;
+  position: relative;
 }
-
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: .6rem; right: .6rem; bottom: .2rem;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s ease;
+}
 .nav-link:hover,
 .nav-link:focus-visible {
-  color: var(--marsala-profundo);
-  background: color-mix(in srgb, var(--dourado-fosco) 35%, white 65%);
+  color: #752a2a; /* marsala */
+  background: color-mix(in srgb, #c9ae8f 35%, #ffffff 65%);
 }
+.nav-link:hover::after,
+.nav-link:focus-visible::after { transform: scaleX(1); }
 
 .nav-link[aria-current="page"] {
-  color: var(--marsala-profundo);
-  background: color-mix(in srgb, var(--dourado-fosco) 45%, white 55%);
+  color: #752a2a;
+  background: color-mix(in srgb, #c9ae8f 45%, #ffffff 55%);
   font-weight: 700;
 }
+.nav-link[aria-current="page"]::after { transform: scaleX(1); }
 
+/* ---------- Botão hambúrguer ---------- */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(76,53,42,.18); /* marrom 18% */
+  background: color-mix(in srgb, #f3e6d3 78%, #ffffff 22%);
+  color: #4c352a;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .22s ease, border-color .22s ease, color .22s ease, box-shadow .22s ease;
+}
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+  background: color-mix(in srgb, #c9ae8f 30%, #ffffff 70%);
+  border-color: color-mix(in srgb, #752a2a 25%, #ffffff 75%);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+/* Ícone (3 linhas -> X) */
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+  display: block;
+  inline-size: 18px;
+  block-size: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform .22s ease, opacity .22s ease, background .22s ease;
+}
+.menu-icon { position: relative; }
+.menu-icon::before,
+.menu-icon::after {
+  position: absolute;
+  left: 0;
+  transform-origin: 50% 50%;
+}
+.menu-icon::before { transform: translateY(-6px); }
+.menu-icon::after  { transform: translateY( 6px); }
+
+.menu-toggle[aria-expanded="true"] .menu-icon { background: transparent; }
+.menu-toggle[aria-expanded="true"] .menu-icon::before { transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-icon::after  { transform: rotate(-45deg); }
+
+/* ---------- Backdrop (quando menu abre) ---------- */
 .nav-backdrop {
   position: fixed;
-  inset-inline: 0;
-  inset-block-start: var(--header-offset);
-  inset-block-end: 0;
-  background: rgba(62, 39, 49, 0.32);
+  inset: 0;
+  background: rgba(62,39,49,.32); /* berinjela translúcido */
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease, visibility .2s ease;
   z-index: 1090;
 }
-.nav-backdrop[hidden] { display: none; }
-
+.nav-backdrop.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
 body.has-open-nav { overflow: hidden; }
 
+/* ---------- Mobile: overlay full ---------- */
 @media (max-width: 767px) {
+  /* Esconde lista inline; o menu vira overlay */
+  .nav-list { display: none; }
+
+  /* A própria .site-nav vira o painel */
   html.js .site-nav {
     position: fixed;
-    inset-block-start: var(--header-offset);
-    inset-inline: 0;
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(0.75rem, 3vw, 1.25rem);
-    padding: clamp(1.5rem, 6vw, 2.25rem);
-    background: color-mix(in srgb, var(--areia-dourada) 96%, white 4%);
-    border-block-end: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white 60%);
-    z-index: 1100;
-  }
-  html.js .site-nav.is-open { display: flex; }
-
-  html.js .nav-list {
+    inset: 0;                       /* full-screen overlay; sem depender do header */
+    display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: clamp(0.5rem, 2.5vw, 0.9rem);
-    inline-size: 100%;
-  }
-
-  html.js .nav-link {
-    inline-size: 100%;
     justify-content: flex-start;
-    font-size: clamp(0.95rem, 3.8vw, 1.05rem);
-    padding-inline: 0.75rem;
+    padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+    background: color-mix(in srgb, #f3e6d3 96%, #ffffff 4%);
+    z-index: 1100;
+
+    /* fechado por padrão */
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity .22s ease, transform .22s ease;
   }
+  html.js .site-nav.is-open {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Grid interna: área do topo p/ botão/fechar e lista logo abaixo */
+  .site-nav .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(.5rem, 3.2vw, 1rem);
+    margin-top: 8px;
+  }
+
+  .nav-link {
+    justify-content: flex-start;
+    inline-size: 100%;
+    font-size: clamp(.96rem, 4vw, 1.08rem);
+    padding: .75rem .9rem;
+    border-radius: 12px;
+    background: transparent;
+  }
+  .nav-link + .nav-link { margin-top: 0; }
 }
 
-@media (min-width: 480px) {
-  .menu-toggle { inline-size: 3rem; block-size: 3rem; }
-}
-
+/* ---------- Desktop aprimorado ---------- */
 @media (min-width: 768px) {
   .menu-toggle { display: none; }
-  .site-nav { position: static; }
-  .nav-link { padding-inline: 0.85rem; }
-}
-
-/* Mobile Nav “menu” legado */
-@media (max-width: 800px) {
-  .menu {
-    position: absolute;
-    top: 100%; left: 0; right: 0;
-    flex-direction: column;
-    background: var(--areia-dourada);
-    padding: 1rem 0;
-    display: none;
-  }
-  .menu.open { display: flex; }
-
-  .menu a { overflow: visible; border-radius: 0; }
-  .menu a::before { display: none; }
-  .menu a::after { height: 0 !important; }
-  .menu a:hover,
-  .menu a:focus-visible {
-    background: var(--dourado-fosco);
-    color: var(--marsala-profundo);
+  .site-nav {
+    position: static;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    background: transparent;
+    padding: 0;
   }
 }
 
-/* Fallbacks do header */
-@supports not (backdrop-filter: blur(10px)) {
-  header {
-    background: var(--areia-dourada);
-    box-shadow: 0 2px 8px #0002;
+/* ---------- Focos e contraste ---------- */
+.nav-link:focus-visible,
+.menu-toggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, #c9ae8f 60%, #752a2a 40%);
+  outline-offset: 3px;
+}
+@media (prefers-contrast: more) {
+  .nav-link { text-decoration-thickness: 2px; }
+  .nav-link::after { height: 3px; }
+}
+
+/* ---------- Redução de movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .menu-toggle,
+  .menu-icon,
+  .site-nav,
+  .nav-backdrop {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
   }
 }
+
+/* ---------- Fallback de blur ---------- */
+@supports not (backdrop-filter: blur(2px)) {
+  .nav-backdrop { background: rgba(62,39,49,.38); }
+}
+
+/* ---------- Pequenos refinamentos ---------- */
+@media (min-width: 480px) {
+  .menu-toggle { inline-size: 48px; block-size: 48px; border-radius: 14px; }
+}
+
 
 /* ---------- 7) Hero (unificado) ---------- */
 .hero {
