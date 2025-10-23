@@ -137,90 +137,177 @@
 })();
 
 
-// ===== Carousel Serviços: Pausar/Retomar + fallback de movimento
+ // ===== Carousel Serviços: scroll por arraste, teclas e indicadores =====
 (() => {
   const root = document.querySelector('.carousel-servicos');
   if (!root) return;
 
   const track = root.querySelector('.carousel-servicos__track');
-  const toggle = root.querySelector('.carousel-servicos__toggle');
   const navPrev = root.querySelector('.carousel-servicos__nav--prev');
   const navNext = root.querySelector('.carousel-servicos__nav--next');
+  const indicatorsWrapper = root.querySelector('.carousel-indicators');
   const motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
 
   if (!track) return;
 
-  const updateToggleCopy = (paused) => {
-    if (!toggle || toggle.disabled) return;
-    toggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
-    toggle.textContent = paused ? 'Retomar' : 'Pausar';
-    toggle.setAttribute('aria-label', paused ? 'Retomar animação' : 'Pausar animação');
+  const items = Array.from(track.querySelectorAll('.carousel-servicos__item'));
+  if (!items.length) return;
+
+  const getScrollBehavior = () => (motionQuery?.matches ? 'auto' : 'smooth');
+
+  /* ----- Indicadores ----- */
+  const createIndicators = () => {
+    if (!indicatorsWrapper) return [];
+    indicatorsWrapper.innerHTML = '';
+
+    return items.map((item, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'carousel-indicators__dot';
+      const title = item.querySelector('h3')?.textContent?.trim();
+      dot.setAttribute('aria-label', title ? `Ir para ${title}` : `Ir para card ${index + 1}`);
+      if (index === 0) dot.setAttribute('aria-current', 'true');
+      dot.dataset.index = String(index);
+      dot.addEventListener('click', () => {
+        items[index].scrollIntoView({ behavior: getScrollBehavior(), inline: 'start', block: 'nearest' });
+      });
+      indicatorsWrapper.appendChild(dot);
+      return dot;
+    });
   };
 
-  const setPaused = (paused) => {
-    track.setAttribute('data-paused', paused ? 'true' : 'false');
-    updateToggleCopy(paused);
+  const indicatorDots = createIndicators();
+
+  const updateActiveIndicator = () => {
+    if (!indicatorDots.length) return;
+    const scrollCenter = track.scrollLeft + track.clientWidth / 2;
+    let activeIndex = 0;
+    let minDistance = Number.POSITIVE_INFINITY;
+
+    items.forEach((item, index) => {
+      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+      const distance = Math.abs(scrollCenter - itemCenter);
+      if (distance < minDistance) {
+        minDistance = distance;
+        activeIndex = index;
+      }
+    });
+
+    indicatorDots.forEach((dot, index) => {
+      if (index === activeIndex) {
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
+    });
   };
 
-  const applyStaticLayout = () => {
-    root.classList.add('is-static');
-    if (toggle) {
-      toggle.disabled = true;
-      toggle.setAttribute('aria-disabled', 'true');
-      toggle.setAttribute('aria-pressed', 'false');
-      toggle.textContent = 'Movimento reduzido';
-      toggle.setAttribute('aria-label', 'Animação desativada pela preferência de movimento');
-    }
-    track.setAttribute('data-paused', 'true');
+  /* ----- Setas ----- */
+  const getStepSize = () => {
+    const firstItem = items[0];
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0');
+    return firstItem.getBoundingClientRect().width + gap;
   };
-
-  const applyAnimatedLayout = () => {
-    root.classList.remove('is-static');
-    if (toggle) {
-      toggle.disabled = false;
-      toggle.removeAttribute('aria-disabled');
-    }
-    setPaused(false);
-  };
-
-  const updateLayoutFromPreference = (shouldReduce) => {
-    if (shouldReduce) {
-      applyStaticLayout();
-    } else {
-      applyAnimatedLayout();
-    }
-  };
-
-  toggle?.addEventListener('click', () => {
-    if (toggle.disabled) return;
-    const paused = track.getAttribute('data-paused') === 'true';
-    setPaused(!paused);
-  });
 
   const scrollByStep = (direction) => {
-    const firstItem = track.querySelector('.carousel-servicos__item');
-    if (!firstItem) return;
-
-    const style = window.getComputedStyle(track);
-    const gap = parseFloat(style.columnGap || style.gap || '0');
-    const step = firstItem.getBoundingClientRect().width + gap;
-
-    track.scrollBy({ left: direction * step, behavior: 'smooth' });
+    track.scrollBy({ left: direction * getStepSize(), behavior: getScrollBehavior() });
   };
 
   navPrev?.addEventListener('click', () => scrollByStep(-1));
   navNext?.addEventListener('click', () => scrollByStep(1));
 
-  const prefersReduced = motionQuery?.matches ?? false;
-  updateLayoutFromPreference(prefersReduced);
+  const updateNavState = () => {
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    const tolerance = 2;
+    if (navPrev) navPrev.disabled = track.scrollLeft <= tolerance;
+    if (navNext) navNext.disabled = track.scrollLeft >= maxScroll - tolerance;
+  };
 
-  const handlePreferenceChange = (event) => {
-    updateLayoutFromPreference(event.matches);
+  /* ----- Arraste com pointer events ----- */
+  let isPointerDown = false;
+  let pointerId = null;
+  let dragStartX = 0;
+  let startScrollLeft = 0;
+
+  const endDrag = () => {
+    if (!isPointerDown) return;
+    isPointerDown = false;
+    if (pointerId !== null) {
+      try {
+        track.releasePointerCapture(pointerId);
+      } catch (error) {
+        /* ignore release errors */
+      }
+    }
+    pointerId = null;
+    track.classList.remove('is-dragging');
+  };
+
+  track.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    isPointerDown = true;
+    pointerId = event.pointerId;
+    dragStartX = event.clientX;
+    startScrollLeft = track.scrollLeft;
+    track.setPointerCapture(pointerId);
+    track.classList.add('is-dragging');
+  });
+
+  track.addEventListener('pointermove', (event) => {
+    if (!isPointerDown) return;
+    const deltaX = event.clientX - dragStartX;
+    track.scrollLeft = startScrollLeft - deltaX;
+    event.preventDefault();
+  });
+
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+  track.addEventListener('pointerleave', (event) => {
+    if (isPointerDown && event.pointerType === 'mouse') {
+      endDrag();
+    }
+  });
+
+  /* ----- Teclado ----- */
+  track.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      scrollByStep(-1);
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      scrollByStep(1);
+    }
+  });
+
+  /* ----- Atualizações em scroll/resize ----- */
+  let rafId = 0;
+  const handleScroll = () => {
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      rafId = 0;
+      updateActiveIndicator();
+      updateNavState();
+    });
+  };
+
+  track.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', () => {
+    updateActiveIndicator();
+    updateNavState();
+  });
+
+  const handleMotionChange = () => {
+    updateActiveIndicator();
+    updateNavState();
   };
 
   if (motionQuery?.addEventListener) {
-    motionQuery.addEventListener('change', handlePreferenceChange);
+    motionQuery.addEventListener('change', handleMotionChange);
   } else if (motionQuery?.addListener) {
-    motionQuery.addListener(handlePreferenceChange);
+    motionQuery.addListener(handleMotionChange);
   }
+
+  updateActiveIndicator();
+  updateNavState();
 })();
