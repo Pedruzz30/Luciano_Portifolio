@@ -1,129 +1,224 @@
 /* ================================
-   sobre.css  —  versão enxuta
+   sobre.css — v1.4 (ultra clean)
+   Sofisticação minimal + leitura premium
    Mantém tokens do :root em style.css
    ================================ */
 
-/* --------- Layout base --------- */
+/* --------- Base de layout --------- */
 [id],
 .section + .section {
   scroll-margin-top: calc(var(--header-offset) + 24px);
 }
 
+/* Hero minimalista com polimento */
 .hero--sobre {
-  --hero-bg: linear-gradient(135deg, rgba(201, 174, 143, 0.28), transparent 70%);
+  --hero-bg: linear-gradient(135deg, rgba(201,174,143,.18), transparent 70%);
   --hero-cta-gap: var(--space-xs);
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  /* respiro elegante */
+  padding-block: clamp(3.4rem, 8.4vh, 5.8rem);
+}
+.hero--sobre::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--hero-bg);
+  pointer-events: none;
+  z-index: -1;
+  /* vinheta suave que foca o centro */
+  mask-image: radial-gradient(120% 80% at 50% 35%, #000 58%, transparent 100%);
+}
+
+/* Contêiner do hero realmente centralizado */
+.hero--sobre > * {
+  width: min(92dvw, var(--container-w, 1120px));
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 
 .hero--sobre .hero-copy {
   margin-inline: auto;
+  max-width: 68ch; /* leitura premium (um tico + compacto) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.1rem, 2.6vw, 1.8rem);
   text-align: center;
-  gap: clamp(0.9rem, 2vw, 1.4rem);
 }
 
-.hero--sobre .hero-lead {
-  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
-}
-
+/* --------- Prosa / leitura --------- */
 .prose {
-  max-width: 72ch;
+  max-width: 70ch;
   margin-inline: auto;
+  padding-inline: clamp(1rem, 2.6vw, 1.8rem);
 }
 
-/* --------- Tipografia --------- */
-.eyebrow {
-  font-size: .9rem;
-  letter-spacing: .3px;
-  color: var(--oliva-sutil);
-  margin: 0 0 .4rem;
+/* Ritmo vertical orgânico */
+.prose > * + * { margin-top: .76em; }
+
+/* Hifenização + tipografia fina (pt-BR) */
+.prose,
+.hero--sobre .hero-copy,
+.article {
+  hanging-punctuation: first allow-end;
+  text-wrap: pretty balance;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  orphans: 2;
+  widows: 2;
 }
+
+/* --------- Tipografia (upgrade+) --------- */
+.eyebrow {
+  font-size: 1.02rem;              /* ↑ leve */
+  letter-spacing: .36px;
+  color: var(--oliva-sutil);
+  margin: 0 0 .64rem;
+  text-transform: uppercase;
+}
+
 h1, h2 {
   font-family: "Cormorant Garamond", serif;
-  color: var(--marsala-profundo);
+  color: color-mix(in srgb, var(--marsala-profundo) 96%, black 4%);
+  text-wrap: balance;
 }
+
+/* Título com presença, sem gritar */
+.hero-title,
 h1 {
   font-weight: 800;
-  font-size: clamp(2rem, 3.2vw, 2.8rem);
-  line-height: 1.1;
-  margin: 0 0 .6rem;
+  font-size: clamp(2.4rem, 4.2vw, 3.35rem); /* ↑ sutil */
+  line-height: 1.05;
+  margin: 0 0 .85rem;
+  letter-spacing: .18px;
 }
+
+/* Subtítulos elegantes */
 h2 {
   font-weight: 700;
-  font-size: clamp(1.6rem, 2.6vw, 2rem);
-  line-height: 1.2;
-  margin: 0 0 .8rem;
+  font-size: clamp(1.95rem, 3.2vw, 2.35rem); /* ↑ */
+  line-height: 1.12;
+  margin: 0 0 1.05rem;
 }
 .h2-quiet {
-  margin-bottom: .25rem;
-  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  margin-bottom: .44rem;
+  font-size: clamp(1.72rem, 2.8vw, 2.12rem);
+  color: color-mix(in srgb, var(--marsala-profundo) 92%, black 8%);
 }
+
+/* Corpo do texto maior e macio */
 .lead {
-  font-size: 1.1rem;
-  line-height: 1.75;
-  color: var(--marrom-terra-firme);
-  margin: 0 0 1rem;
+  font-size: 1.25rem;   /* ↑ */
+  line-height: 1.9;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 94%, black 6%);
+  margin: 0 0 1.2rem;
 }
 .article p,
 .prose p {
+  font-size: 1.1rem;    /* ↑ */
+  line-height: 1.85;
   color: var(--marrom-terra-firme);
-  line-height: 1.75;
-  margin: .6rem 0 0;
+  margin: .72rem 0 0;
 }
+
+/* Ênfase */
 .em { color: var(--terracota-queimado); font-weight: 700; }
 
-/* --------- Callout --------- */
+/* Links discretos, com micro-efeito */
+.prose a:not(.btn-reveal) {
+  color: color-mix(in srgb, var(--marsala-profundo) 88%, black 12%);
+  text-decoration: underline;
+  text-decoration-thickness: .09em;
+  text-underline-offset: .18em;
+  transition: text-decoration-thickness .15s ease, opacity .15s ease;
+}
+.prose a:hover { text-decoration-thickness: .12em; opacity: .9; }
+
+/* Seleção de texto */
+::selection { background: color-mix(in srgb, var(--dourado-fosco) 38%, transparent); }
+
+/* Listas e blockquote (acento editorial) */
+.prose ul, .prose ol { padding-inline-start: 1.2rem; }
+.prose li + li { margin-top: .38rem; }
+
+.prose blockquote {
+  margin: 1.15rem 0 0;
+  padding: 1rem 1.1rem;
+  border-inline-start: 4px solid var(--dourado-fosco);
+  background: color-mix(in srgb, white 82%, transparent 18%);
+  border-radius: .8rem;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  box-shadow: 0 6px 18px rgba(0,0,0,.045);
+}
+
+/* --------- Callout / CTA refinados --------- */
 .callout {
-  margin: 1.2rem 0 0;
-  padding: 1.1rem 1rem;
-  border-radius: .9rem;
-  background: rgba(255,255,255,.8);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
-  box-shadow: 0 6px 20px rgba(0,0,0,.06);
+  margin: 1.3rem 0 0;
+  padding: 1.22rem 1.12rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, white 90%, transparent 10%);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 48%, white);
+  box-shadow: 0 10px 26px rgba(0,0,0,.055);
 }
 .callout.soft { border-left: 4px solid var(--dourado-fosco); }
 .callout .label {
   font-weight: 800;
   color: var(--terracota-queimado);
-  margin-bottom: .25rem;
-  letter-spacing: .2px;
+  margin-bottom: .36rem;
+  letter-spacing: .25px;
+}
+@supports (backdrop-filter: blur(9px)) {
+  .callout, .cta-box { backdrop-filter: blur(9px); }
 }
 
-/* --------- CTA --------- */
 .cta-box {
   text-align: center;
-  margin-top: .6rem;
-  background: rgba(255,255,255,.78);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 40%, white);
+  margin-top: .86rem;
+  background: color-mix(in srgb, white 86%, transparent 14%);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 48%, white);
   border-radius: 1rem;
-  padding: clamp(1.2rem, 3vw, 1.8rem);
-  box-shadow: 0 8px 24px rgba(0,0,0,.05);
+  padding: clamp(1.36rem, 3.6vw, 2.2rem);
+  box-shadow: 0 12px 30px rgba(0,0,0,.055);
 }
+
+/* Botão com “pegada” sofisticada */
 .btn-reveal {
   display: inline-block;
-  margin-top: .6rem;
+  margin-top: .78rem;
   border-radius: 999px;
-  padding: .75rem 1.1rem;
+  padding: .88rem 1.24rem; /* ↑ conforto */
   font-weight: 800;
   text-decoration: none;
   color: var(--marsala-profundo);
   border: 2px solid var(--dourado-fosco);
-  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease, outline-color .18s ease, filter .18s ease;
+  will-change: transform, filter;
 }
 .btn-reveal:hover,
 .btn-reveal:focus-visible {
-  background: color-mix(in srgb, var(--dourado-fosco) 85%, white);
+  background: color-mix(in srgb, var(--dourado-fosco) 88%, white);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,.10);
+  box-shadow: 0 12px 22px rgba(0,0,0,.10);
+  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 42%, transparent);
+  outline-offset: 2px;
+  filter: saturate(1.02);
 }
 
-/* --------- Primitives de animação --------- */
+/* --------- Micro animações --------- */
 :root {
   --enter-y: 12px;
   --dur: .50s;
   --ease: cubic-bezier(.22,.61,.36,1);
   --ease-elastic: cubic-bezier(.2,.8,.2,1.2);
 }
-
-/* Reveal suave */
 .reveal {
   opacity: 0;
   transform: translateY(var(--enter-y));
@@ -134,7 +229,6 @@ h2 {
 }
 .reveal.in-view { opacity: 1; transform: none; }
 
-/* Aproximação de cartões */
 .card-approach {
   opacity: 0;
   transform: translateY(10px) scale(.995);
@@ -149,7 +243,7 @@ h2 {
   opacity: 1;
   transform: none;
   filter: none;
-  box-shadow: 0 12px 28px rgba(0,0,0,.07);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
 }
 
 /* Pulse discreto no CTA (1x) */
@@ -162,7 +256,7 @@ h2 {
 
 /* Glow breve no h2 (sem underline) */
 .h2-glow { position: relative; }
-.h2-glow.in-view::before{
+.h2-glow.in-view::before {
   content:"";
   position:absolute; inset:-4px -6px;
   border-radius: 10px;
@@ -175,18 +269,14 @@ h2 {
 }
 
 /* Micro-parallax (opcional) */
-.hero-parallax {
-  will-change: transform;
-  transition: transform .2s linear;
-}
+.hero-parallax { will-change: transform; transition: transform .2s linear; }
 
 /* --------- Barra de leitura (desativada) --------- */
 .read-progress {
   position: fixed;
   left: 0;
   top: calc(var(--header-h, 72px));
-  height: 3px;
-  width: 0%;
+  height: 3px; width: 0%;
   background: linear-gradient(90deg, var(--dourado-fosco), var(--terracota-queimado));
   z-index: 9;
   transition: width .1s linear;
@@ -194,37 +284,37 @@ h2 {
 }
 
 /* --------- Accordion (details) --------- */
-details.prep,
-details.policy { overflow: clip; }
+details.prep, details.policy { overflow: clip; }
 details.prep[open] > *:not(summary),
-details.policy[open] > *:not(summary) {
-  animation: fadeIn .35s ease both;
-}
+details.policy[open] > *:not(summary) { animation: fadeIn .35s ease both; }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: none; }
 }
 
 /* --------- Resets locais --------- */
-/* Desliga qualquer sublinhado decorativo padrão dos h2 nesta página */
 h2::after { content: none !important; }
 
-/* Remove destaque de <mark> nesta página */
 .lead mark,
 .article mark,
 .about-section mark,
-mark,
-mark.em {
+mark, mark.em {
   background: transparent !important;
   color: inherit !important;
   padding: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
 }
-/* Se havia classes utilitárias de mark */
 mark, .spot { all: unset; }
 
-/* --------- Acessibilidade / movimento --------- */
+/* --------- Acessibilidade / foco --------- */
+:where(a, button, summary, [role="button"]):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 52%, transparent);
+  outline-offset: 2px;
+  border-radius: .5rem;
+}
+
+/* --------- Movimento reduzido --------- */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
@@ -232,6 +322,9 @@ mark, .spot { all: unset; }
 /* --------- Responsivo --------- */
 @media (max-width: 980px) {
   .prose { padding-inline: 1rem; }
+  h1 { font-size: clamp(2.2rem, 6vw, 2.7rem); }
+  h2 { font-size: clamp(1.7rem, 4.8vw, 2.05rem); }
+  .lead { font-size: 1.2rem; }
+  .prose p { font-size: 1.08rem; }
 }
-
 

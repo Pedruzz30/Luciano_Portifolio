@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contato | Luciano Pimenta Psicólogo </title>
+    <title>Contato | Luciano Pimenta Psicólogo</title>
     <meta
       name="description"
-      content="Agende sua consulta com o psicólogo Luciano Pimenta (CRP 05/82816). Atendimento on-line acolhedor para ansiedade, relacionamentos e autoconhecimento."
+      content="Agende sua consulta com o psicólogo Luciano Pimenta (CRP 05/82816). Atendimento on-line acolhedor e com combinados claros."
     />
     <meta name="view-transition" content="same-origin" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Contato | Luciano Pimenta Psicólogo Clínico" />
     <meta
       property="og:description"
-      content="Entre em contato para agendar terapia on-line com acolhimento, ética e combinados claros."
+      content="Entre em contato para agendar terapia on-line com acolhimento, ética e disponibilidade flexível."
     />
     <meta property="og:image" content="assets/PortifolioLucianoFotos/foto2.jpg" />
     <meta property="og:locale" content="pt_BR" />
@@ -39,8 +39,7 @@
             height="48"
             loading="lazy"
             decoding="async"
-          />
-        </a>
+@@ -44,210 +44,333 @@
 
         <button
           class="menu-toggle"
@@ -66,21 +65,35 @@
     </header>
 
     <main id="conteudo">
-      <section class="section hero hero--contato" aria-labelledby="hero-contato">
-        <div class="container hero-grid contact-hero-grid">
-          <div class="hero-copy">
+      <section class="section hero hero--contato" aria-labelledby="titulo-contato">
+        <div class="container contato-hero">
+          <div class="contato-hero__content">
             <nav class="breadcrumbs" aria-label="Você está aqui">
               <ol>
                 <li><a href="index.html">Início</a></li>
                 <li aria-current="page">Contato</li>
               </ol>
             </nav>
-            <p class="hero-eyebrow">Luciano Pimenta • Psicólogo</p>
-            <h1 id="hero-contato" class="hero-title">Vamos conversar sobre o que você precisa?</h1>
+            <p class="hero-eyebrow">Luciano Pimenta • Psicólogo Clínico</p>
+            <h1 id="titulo-contato" class="hero-title">Um canal seguro para iniciar sua terapia</h1>
             <p class="hero-lead">
-              Respondo em até um dia útil para combinarmos a primeira consulta on-line. Escolha o canal que for mais confortável
-              e tenha a garantia de sigilo profissional em todas as etapas.
+              Respondo pessoalmente a cada mensagem com orientações claras sobre disponibilidade, valores e formatos de
+              atendimento on-line ou presencial. Escolha o canal preferido e vamos conversar sobre o que você precisa.
             </p>
+            <div class="contato-hero__stats" role="list" aria-label="Indicadores de atendimento">
+              <div class="contato-stat" role="listitem">
+                <span class="contato-stat__value">24h úteis</span>
+                <span class="contato-stat__label">Tempo médio de resposta</span>
+              </div>
+              <div class="contato-stat" role="listitem">
+                <span class="contato-stat__value">100% on-line</span>
+                <span class="contato-stat__label">Atendimento disponível em todo o Brasil</span>
+              </div>
+              <div class="contato-stat" role="listitem">
+                <span class="contato-stat__value">CRP 05/82816</span>
+                <span class="contato-stat__label">Atuação ética e regulamentada</span>
+              </div>
+            </div>
             <div class="hero-cta">
               <a
                 class="btn btn-primary"
@@ -92,121 +105,230 @@
             </div>
           </div>
 
-          <aside class="contact-highlight" aria-label="Resumo de disponibilidade">
-            <h2 class="contact-highlight__title">Disponibilidade atual</h2>
-            <ul class="contact-highlight__list">
-              <li><span>Agenda para novos atendimentos: <strong>terça a sexta</strong></span></li>
-              <li><span>Horários: <strong>8h às 20h (BRT)</strong></span></li>
-              <li><span>Tempo médio de resposta: <strong>até 24h úteis</strong></span></li>
+          <aside class="contato-hero__panel" aria-labelledby="apoio-contato">
+            <h2 id="apoio-contato">Como posso ajudar você neste momento</h2>
+            <p>
+              Escuto com atenção sua história e construo combinados para que você se sinta acolhido e com clareza sobre o
+              processo terapêutico.
+            </p>
+            <ul class="contato-hero__lista">
+              <li>Acompanhamento contínuo com sessões semanais on-line.</li>
+              <li>Preparação para momentos decisivos profissionais ou pessoais.</li>
+              <li>Suporte para ansiedade, relacionamentos e autoconhecimento.</li>
             </ul>
-            <a class="contact-highlight__cta" href="https://maps.app.goo.gl/" target="_blank" rel="noopener noreferrer">
-              Ver localização do consultório
-            </a>
+            <div class="contato-hero__channels">
+              <a class="panel-link" href="tel:+5521993034166">Ligar agora <span aria-hidden="true">→</span></a>
+              <a class="panel-link" href="mailto:contato@lucianopimenta.com">Enviar e-mail <span aria-hidden="true">→</span></a>
+            </div>
           </aside>
         </div>
       </section>
 
-      <section class="section contact-section" aria-labelledby="formulario-contato">
+      <section class="section canais-contato" aria-labelledby="canais-titulo">
         <div class="container">
-          <div class="contact-wrapper">
-            <div class="contact-form-card">
-              <h2 id="formulario-contato">Envie uma mensagem com o que deseja trabalhar</h2>
-              <p class="contact-form-card__intro">
-                Compartilhe um breve resumo sobre o momento que está vivendo. Retorno com orientações, disponibilidade e
-                próximos passos para iniciarmos o acompanhamento.
-              </p>
-              <form id="form-contato" class="contact-form" novalidate>
-                <div class="form-field">
-                  <label for="nome">Nome completo</label>
-                  <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    placeholder="Como devo te chamar?"
-                    autocomplete="name"
-                    required
-                    aria-required="true"
-                    aria-describedby="erro-nome"
-                  />
-                  <span class="field-error" id="erro-nome" role="alert"></span>
-                </div>
-                <div class="form-field">
-                  <label for="email">E-mail</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Seu@email.com"
-                    autocomplete="email"
-                    required
-                    aria-required="true"
-                    aria-describedby="erro-email"
-                  />
-                  <span class="field-error" id="erro-email" role="alert"></span>
-                </div>
-                <div class="form-field">
-                  <label for="mensagem">Mensagem</label>
-                  <textarea
-                    id="mensagem"
-                    name="mensagem"
-                    placeholder="Conte brevemente sobre sua demanda ou perguntas."
-                    rows="6"
-                    required
-                    aria-required="true"
-                    aria-describedby="erro-mensagem"
-                  ></textarea>
-                  <span class="field-error" id="erro-mensagem" role="alert"></span>
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar mensagem</button>
-              </form>
-              <div class="form-feedback" role="status" aria-live="polite"></div>
-            </div>
+          <div class="section-heading">
+            <p class="eyebrow">Escolha o canal ideal</p>
+            <h2 id="canais-titulo">Fale comigo no formato que preferir</h2>
+            <p>Todos os canais são sigilosos e respondidos diretamente por mim. Use o que for mais confortável.</p>
+          </div>
+          <div class="canais-grid">
+            <article class="canal-card">
+              <span class="canal-icone" aria-hidden="true">💬</span>
+              <h3>WhatsApp imediato</h3>
+              <p>Envie uma mensagem rápida para combinarmos um horário inicial ou esclarecer dúvidas pontuais.</p>
+              <a
+                class="btn btn-primary"
+                href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Cheguei%20pelo%20site%20e%20gostaria%20de%20saber%20sobre%20agenda."
+                target="_blank"
+                rel="noopener noreferrer"
+              >Abrir conversa</a>
+            </article>
+            <article class="canal-card">
+              <span class="canal-icone" aria-hidden="true">📧</span>
+              <h3>E-mail detalhado</h3>
+              <p>Ideal para compartilhar contexto e expectativas. Respondo com orientações completas e próximos passos.</p>
+              <a class="btn btn-secondary" href="mailto:contato@lucianopimenta.com">Escrever e-mail</a>
+            </article>
+            <article class="canal-card">
+              <span class="canal-icone" aria-hidden="true">🗓️</span>
+              <h3>Agende uma chamada curta</h3>
+              <p>Preferir conversar por áudio ou vídeo antes? Solicite um encontro de 15 minutos para entendermos o momento.</p>
+              <a class="btn btn-link" href="#form-contato">Solicitar chamada</a>
+            </article>
+          </div>
+        </div>
+      </section>
 
-            <aside class="contact-info" aria-labelledby="info-contato">
-              <h2 id="info-contato">Canais diretos</h2>
-              <ul class="contact-info__list">
-                <li>
-                  <a href="mailto:contato@lucianopimenta.com" class="contact-info__item">
-                    <span class="contact-icon" aria-hidden="true">📧</span>
-                    <div>
-                      <span class="contact-info__label">E-mail</span>
-                      <span class="contact-info__value">contato@lucianopimenta.com</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://wa.me/5521993034166" class="contact-info__item" target="_blank" rel="noopener noreferrer">
-                    <span class="contact-icon" aria-hidden="true">💬</span>
-                    <div>
-                      <span class="contact-info__label">WhatsApp</span>
-                      <span class="contact-info__value">+55 (21) 99303-4166</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="tel:+5521993034166" class="contact-info__item">
-                    <span class="contact-icon" aria-hidden="true">📞</span>
-                    <div>
-                      <span class="contact-info__label">Telefone</span>
-                      <span class="contact-info__value">+55 (21) 99303-4166</span>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-              <div class="contact-location">
-                <h3>Consultório presencial sob agendamento</h3>
-                <p>Botafogo • Rio de Janeiro. Sessões presenciais mediante disponibilidade. Clique para rotas.</p>
-                <a class="contact-map" href="https://maps.app.goo.gl/" target="_blank" rel="noopener noreferrer">
-                  Abrir no Google Maps
-                </a>
+      <section class="section onboarding" aria-labelledby="onboarding-titulo">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Fluxo de atendimento</p>
+            <h2 id="onboarding-titulo">O que acontece depois do primeiro contato</h2>
+            <p>Transparência desde o início para que você se sinta seguro com cada etapa do processo terapêutico.</p>
+          </div>
+          <ol class="onboarding-list">
+            <li class="onboarding-item">
+              <span class="onboarding-number" aria-hidden="true">1</span>
+              <div>
+                <h3>Resposta em até 24h úteis</h3>
+                <p>Retorno com disponibilidade, valores e formatos possíveis (on-line ou presencial em Botafogo).</p>
               </div>
-            </aside>
+            </li>
+            <li class="onboarding-item">
+              <span class="onboarding-number" aria-hidden="true">2</span>
+              <div>
+                <h3>Encontro inicial</h3>
+                <p>Conversamos sobre sua demanda, objetivos e combinados. Esse encontro dura 50 minutos.</p>
+              </div>
+            </li>
+            <li class="onboarding-item">
+              <span class="onboarding-number" aria-hidden="true">3</span>
+              <div>
+                <h3>Plano terapêutico</h3>
+                <p>Definimos a frequência das sessões e recursos de acompanhamento que melhor atendem ao seu momento.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section faq" aria-labelledby="faq-titulo">
+        <div class="container faq-grid">
+          <div class="faq-intro">
+            <p class="eyebrow">Dúvidas frequentes</p>
+            <h2 id="faq-titulo">Antes de escrever, veja se sua pergunta está respondida</h2>
+            <p>
+              Caso algo ainda não esteja claro, fique à vontade para incluir a dúvida na mensagem. Vou orientar da melhor
+              forma possível.
+            </p>
+          </div>
+          <div class="faq-list" role="list">
+            <details class="faq-item" role="listitem">
+              <summary>O atendimento é apenas on-line?</summary>
+              <p>
+                A maior parte dos encontros acontece on-line por videochamada segura. Há possibilidade de sessões
+                presenciais em Botafogo (RJ) conforme disponibilidade.
+              </p>
+            </details>
+            <details class="faq-item" role="listitem">
+              <summary>Preciso ter alguma experiência prévia em terapia?</summary>
+              <p>
+                Não. Acolho pessoas em seu primeiro contato com psicoterapia e conduzo o processo de forma acolhedora,
+                explicando cada etapa.
+              </p>
+            </details>
+            <details class="faq-item" role="listitem">
+              <summary>Como funcionam pagamentos e recibos?</summary>
+              <p>
+                Os pagamentos podem ser feitos via PIX ou transferência bancária. Emito recibos mensais para fins de
+                reembolso ou declaração de Imposto de Renda.
+              </p>
+            </details>
+            <details class="faq-item" role="listitem">
+              <summary>E se eu precisar remarcar uma sessão?</summary>
+              <p>
+                Basta avisar com pelo menos 24 horas de antecedência para remarcarmos sem custos. Combinados são
+                estabelecidos logo na primeira conversa.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section disponibilidade" aria-labelledby="disponibilidade-titulo">
+        <div class="container disponibilidade-grid">
+          <article class="disponibilidade-card">
+            <p class="eyebrow">Agenda atual</p>
+            <h2 id="disponibilidade-titulo">Horários disponíveis</h2>
+            <ul class="disponibilidade-list">
+              <li><strong>Terça a sexta</strong> — das 8h às 20h (horário de Brasília)</li>
+              <li>Sessões de 50 minutos com periodicidade semanal</li>
+              <li>Atendimento individual para adultos e jovens adultos</li>
+            </ul>
+            <p>Indique sua preferência de dias e horários na mensagem para agilizar o agendamento.</p>
+          </article>
+          <article class="local-card" aria-labelledby="local-titulo">
+            <h2 id="local-titulo">Consultório presencial</h2>
+            <p>Atendimentos presenciais sob agendamento no bairro de Botafogo, Rio de Janeiro.</p>
+            <div class="local-info">
+              <span class="local-endereco">Próximo ao metrô Botafogo • Rua tranquila e de fácil acesso</span>
+              <a class="panel-link" href="https://maps.app.goo.gl/" target="_blank" rel="noopener noreferrer">
+                Ver rota no Google Maps <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section contato-form" aria-labelledby="formulario-contato">
+        <div class="container contato-form__grid">
+          <div class="contato-form__intro">
+            <p class="eyebrow">Mensagem direta</p>
+            <h2 id="formulario-contato">Conte um pouco sobre o que você busca</h2>
+            <p>
+              Use o formulário para compartilhar contexto, objetivos e horários preferenciais. Quanto mais detalhes, mais
+              precisa será minha resposta.
+            </p>
+            <ul class="form-tips">
+              <li>Escreva como prefere ser chamado(a).</li>
+              <li>Se desejar, inclua objetivos terapêuticos ou temas centrais.</li>
+              <li>Indique disponibilidade de dias e horários.</li>
+            </ul>
+          </div>
+
+          <div class="contato-form__card">
+            <form id="form-contato" class="contact-form" novalidate>
+              <div class="form-field">
+                <label for="nome">Nome completo</label>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  placeholder="Como devo te chamar?"
+                  autocomplete="name"
+                  required
+                  aria-required="true"
+                  aria-describedby="erro-nome"
+                />
+                <span class="field-error" id="erro-nome" role="alert"></span>
+              </div>
+              <div class="form-field">
+                <label for="email">E-mail</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="seu@email.com"
+                  autocomplete="email"
+                  required
+                  aria-required="true"
+                  aria-describedby="erro-email"
+                />
+                <span class="field-error" id="erro-email" role="alert"></span>
+              </div>
+              <div class="form-field">
+                <label for="mensagem">Mensagem</label>
+                <textarea
+                  id="mensagem"
+                  name="mensagem"
+                  placeholder="Conte brevemente sobre sua demanda, expectativas e disponibilidade."
+                  rows="7"
+                  required
+                  aria-required="true"
+                  aria-describedby="erro-mensagem"
+                ></textarea>
+                <span class="field-error" id="erro-mensagem" role="alert"></span>
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+            </form>
+            <div class="form-feedback" role="status" aria-live="polite"></div>
+            <p class="form-privacidade">Seus dados são utilizados apenas para retorno ao contato e seguem sigilo profissional.</p>
           </div>
         </div>
       </section>
     </main>
 
-     <footer class="site-footer" role="contentinfo">
+    <footer class="site-footer" role="contentinfo">
       <div class="container footer-content">
         <section class="footer-panel" aria-label="Informações principais do rodapé">
           <div class="footer-columns">
@@ -225,7 +347,7 @@
                     <span class="footer-icon" aria-hidden="true">
                       <span class="ico ico--mail" aria-hidden="true"></span>
                     </span>
-                    <span>lucianopimenta.psi@gmail.com</span>
+                    <span>contato@lucianopimenta.com</span>
                   </a>
                 </li>
                 <li>
@@ -280,8 +402,8 @@
 
     </footer>
 
-    <script type="module" src="assets/js/menu.js" defer></script>
-    <script type="module" src="assets/js/transitions.js" defer></script>
-    <script defer src="assets/js/contato.js"></script>
+    <script type="module" src="js/menu.js" defer></script>
+    <script type="module" src="js/transitions.js" defer></script>
+    <script defer src="js/contato.js"></script>
   </body>
 </html>

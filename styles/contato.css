@@ -1,128 +1,374 @@
 /* ==========================================================
-   contato.css — Página de contato de Luciano Pimenta
+   contato.css — Página de contato
    ========================================================== */
 
 /* ---------- Hero ---------- */
 .hero--contato {
-  --hero-bg: linear-gradient(140deg, rgba(117, 42, 42, 0.18), rgba(201, 174, 143, 0.4));
+  --hero-bg: linear-gradient(140deg, rgba(117, 42, 42, 0.18), rgba(201, 174, 143, 0.35));
   --hero-media-shadow: none;
+  position: relative;
 }
 
-.contact-hero-grid {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  align-items: stretch;
-  gap: clamp(1.8rem, 5vw, 3rem);
-}
-
-.hero--contato .hero-copy {
-  gap: clamp(1.1rem, 3vw, 1.6rem);
-}
-
-.hero--contato .hero-cta {
-  gap: clamp(0.75rem, 2vw, 1rem);
-}
-
-/* ---------- Destaque lateral ---------- */
-.contact-highlight {
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.6rem, 4vw, 2.3rem);
+.contato-hero {
   display: grid;
-  gap: clamp(1rem, 3vw, 1.4rem);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 38%, white 62%);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 6vw, 3.5rem);
+  align-items: stretch;
+}
+
+.contato-hero__content {
+  display: grid;
+  gap: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.contato-hero__stats {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.contato-stat {
+  padding: 1.1rem;
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
+  box-shadow: 0 12px 30px rgba(62, 39, 49, 0.08);
+  display: grid;
+  gap: 0.25rem;
+}
+
+.contato-stat__value {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: color-mix(in srgb, var(--marsala-profundo) 80%, black 20%);
+}
+
+.contato-stat__label {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 75%, black 25%);
+}
+
+.contato-hero__panel {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.8rem, 5vw, 2.6rem);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 32%, white 68%);
   box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  align-content: start;
 }
 
-.contact-highlight__title {
+.contato-hero__panel p {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.1rem);
-  color: color-mix(in srgb, var(--marsala-profundo) 82%, black 18%);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
+  line-height: 1.7;
 }
 
-.contact-highlight__list {
+.contato-hero__lista {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.65rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
+  gap: 0.6rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
 }
 
-.contact-highlight__list li {
+.contato-hero__lista li {
   display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-weight: 500;
+  align-items: flex-start;
+  gap: 0.55rem;
 }
 
-.contact-highlight__list li::before {
-  content: "•";
-  color: color-mix(in srgb, var(--marsala-profundo) 75%, black 25%);
-  font-size: 1.4rem;
-  line-height: 1;
+.contato-hero__lista li::before {
+  content: "";
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--marsala-profundo) 70%, black 30%);
+  flex-shrink: 0;
+  margin-top: 0.35rem;
 }
 
-.contact-highlight__cta {
+.contato-hero__channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.panel-link {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 35%, white 65%);
+  background: color-mix(in srgb, white 88%, var(--areia-dourada) 12%);
   text-decoration: none;
   font-weight: 600;
+  color: color-mix(in srgb, var(--marsala-profundo) 75%, black 25%);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-.contact-highlight__cta::after {
-  content: "→";
-  transition: transform var(--transition-base);
+.panel-link:hover,
+.panel-link:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
 }
 
-.contact-highlight__cta:hover::after,
-.contact-highlight__cta:focus-visible::after {
-  transform: translateX(4px);
-}
-
-/* ---------- Seção de contato ---------- */
-.contact-section {
+/* ---------- Canais ---------- */
+.canais-contato {
   background: color-mix(in srgb, var(--areia-dourada) 96%, white 4%);
 }
 
-.contact-wrapper {
+.section-heading {
+  max-inline-size: 640px;
   display: grid;
-  gap: clamp(2rem, 6vw, 3.5rem);
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  align-items: start;
+  gap: 0.75rem;
+  margin-block-end: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-.contact-form-card,
-.contact-info {
-  background: rgba(255, 255, 255, 0.94);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 5vw, 2.6rem);
-  box-shadow: var(--shadow-soft);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 32%, white 68%);
-  display: grid;
-  gap: clamp(1.2rem, 3vw, 1.6rem);
-}
-
-.contact-form-card h2,
-.contact-info h2,
-.contact-info h3 {
+.eyebrow {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--marsala-profundo) 70%, black 30%);
   margin: 0;
+}
+
+.canais-grid {
+  display: grid;
+  gap: clamp(1.6rem, 4vw, 2.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.canal-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.6rem, 5vw, 2.3rem);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 26%, white 74%);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.canal-icone {
+  font-size: 1.8rem;
+}
+
+.canal-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-family: var(--font-display);
+  color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
+}
+
+.canal-card p {
+  margin: 0;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+}
+
+.canal-card .btn {
+  justify-self: start;
+}
+
+/* ---------- Onboarding ---------- */
+.onboarding-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.onboarding-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.2rem;
+  align-items: start;
+  padding: 1.4rem 1.6rem;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
+  box-shadow: var(--shadow-soft);
+}
+
+.onboarding-number {
+  inline-size: 44px;
+  block-size: 44px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--marsala-profundo) 82%, black 18%);
+  color: white;
+}
+
+.onboarding-item h3 {
+  margin: 0 0 0.4rem;
   font-family: var(--font-display);
   color: color-mix(in srgb, var(--marsala-profundo) 80%, black 20%);
 }
 
-.contact-form-card__intro,
-.contact-info p {
+.onboarding-item p {
   margin: 0;
   color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
   line-height: 1.7;
 }
 
-.contact-form {
+/* ---------- FAQ ---------- */
+.faq {
+  background: color-mix(in srgb, var(--areia-dourada) 94%, white 6%);
+}
+
+.faq-grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+.faq-intro {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.faq-intro h2 {
+  margin: 0;
+  color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
+  font-family: var(--font-display);
+}
+
+.faq-intro p {
+  margin: 0;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+}
+
+.faq-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.faq-item {
+  border-radius: 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem 1.2rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--marsala-profundo) 75%, black 25%);
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: "+";
+  float: right;
+  font-weight: 600;
+  transition: transform var(--transition-base);
+}
+
+.faq-item[open] summary::after {
+  content: "−";
+}
+
+.faq-item p {
+  margin: 0.75rem 0 0;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+  line-height: 1.7;
+}
+
+/* ---------- Disponibilidade ---------- */
+.disponibilidade-grid {
+  display: grid;
+  gap: clamp(1.8rem, 4vw, 2.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.disponibilidade-card,
+.local-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 1rem;
+}
+
+.disponibilidade-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+}
+
+.local-info {
+  display: grid;
+  gap: 0.6rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+}
+
+.local-endereco {
+  font-weight: 600;
+}
+
+/* ---------- Formulário ---------- */
+.contato-form {
   display: grid;
   gap: clamp(1rem, 3vw, 1.4rem);
+}
+
+.contato-form__grid {
+  display: grid;
+  gap: clamp(2rem, 6vw, 3.6rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+.contato-form__intro {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.contato-form__intro h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
+}
+
+.contato-form__intro p {
+  margin: 0;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+}
+
+.form-tips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 76%, black 24%);
+}
+
+.contato-form__card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.8rem, 5vw, 2.6rem);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 1.2rem;
 }
 
 .form-field {
@@ -150,7 +396,10 @@
   transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
 }
 
-.form-field textarea { min-height: 180px; resize: vertical; }
+.form-field textarea {
+  min-height: 180px;
+  resize: vertical;
+}
 
 .form-field input:focus,
 .form-field textarea:focus {
@@ -165,75 +414,73 @@
   color: color-mix(in srgb, #b60000 75%, black 25%);
 }
 
-/* ---------- Informações diretas ---------- */
-.contact-info__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.9rem;
+.form-feedback {
+  display: none;
+  border-radius: 0.85rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
 }
 
-.contact-info__item {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  padding: 0.75rem 0.95rem;
-  border-radius: 1rem;
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
-  background: rgba(255, 255, 255, 0.8);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
-}
-
-.contact-info__item:hover,
-.contact-info__item:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
-}
-
-.contact-icon { font-size: 1.25rem; }
-
-.contact-info__label {
+.form-feedback.is-visible {
   display: block;
-  font-weight: 600;
-  font-size: 0.95rem;
 }
 
-.contact-info__value { font-size: 0.95rem; }
-
-.contact-location {
-  display: grid;
-  gap: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
+.form-feedback.is-success {
+  background: rgba(90, 177, 113, 0.18);
+  color: #256138;
 }
 
-.contact-map {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: color-mix(in srgb, var(--marsala-profundo) 75%, black 25%);
-  font-weight: 600;
-  text-decoration: none;
+.form-feedback.is-error {
+  background: rgba(204, 91, 91, 0.18);
+  color: #8c1f1f;
 }
 
-.contact-map::after {
-  content: "↗";
-  font-size: 0.95rem;
+.form-privacidade {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 70%, black 30%);
 }
 
-.contact-map:hover,
-.contact-map:focus-visible {
-  text-decoration: underline;
+/* ---------- Responsividade ---------- */
+@media (max-width: 960px) {
+  .contato-hero,
+  .faq-grid,
+  .contato-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contato-hero__panel,
+  .contato-form__card,
+  .canal-card,
+  .disponibilidade-card,
+  .local-card {
+    justify-self: stretch;
+  }
+
+  .contato-hero__content {
+    text-align: center;
+  }
+
+  .contato-hero__stats {
+    text-align: left;
+  }
+
+  .contato-hero__channels,
+  .hero-cta {
+    justify-content: center;
+  }
 }
 
-@media (max-width: 720px) {
-  .hero--contato .hero-grid { text-align: center; }
-  .hero--contato .hero-cta { justify-content: center; }
-  .contact-highlight { justify-items: center; text-align: center; }
-  .contact-highlight__list li { justify-content: center; }
-  .contact-highlight__list li::before { display: none; }
-  .contact-info__item { justify-content: center; text-align: left; }
+@media (max-width: 640px) {
+  .contato-hero__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .onboarding-item {
+    grid-template-columns: 1fr;
+  }
+
+  .onboarding-number {
+    justify-self: start;
+  }
 }
