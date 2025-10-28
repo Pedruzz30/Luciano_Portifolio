@@ -1,338 +1,426 @@
 /* ==========================================================
-   contato.css — Página de contato
+   contato.css — Página de contato (versão redesenhada)
    ========================================================== */
 
 /* ---------- Hero ---------- */
 .hero--contato {
-  --hero-bg: linear-gradient(140deg, rgba(117, 42, 42, 0.18), rgba(201, 174, 143, 0.35));
-  --hero-media-shadow: none;
   position: relative;
+  background: radial-gradient(circle at top left, rgba(201, 174, 143, 0.4), transparent 55%),
+    linear-gradient(135deg, rgba(117, 42, 42, 0.22), rgba(62, 39, 49, 0.55));
+  color: white;
+  overflow: hidden;
+}
+
+.hero--contato::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+.hero--contato .container {
+  position: relative;
+  z-index: 1;
 }
 
 .contato-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: clamp(2rem, 6vw, 3.5rem);
+  gap: clamp(2rem, 6vw, 3.75rem);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   align-items: stretch;
 }
 
-.contato-hero__content {
+.contato-hero__text {
   display: grid;
-  gap: clamp(1.2rem, 3vw, 1.8rem);
+  gap: clamp(1.2rem, 3vw, 1.9rem);
 }
 
-.contato-hero__stats {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-}
-
-.contato-stat {
-  padding: 1.1rem;
-  border-radius: 1.1rem;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
-  box-shadow: 0 12px 30px rgba(62, 39, 49, 0.08);
-  display: grid;
-  gap: 0.25rem;
-}
-
-.contato-stat__value {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: color-mix(in srgb, var(--marsala-profundo) 80%, black 20%);
-}
-
-.contato-stat__label {
+.hero-eyebrow {
   font-size: 0.9rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 75%, black 25%);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: color-mix(in srgb, white 90%, var(--dourado-fosco) 10%);
 }
 
-.contato-hero__panel {
-  background: rgba(255, 255, 255, 0.94);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 5vw, 2.6rem);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 32%, white 68%);
-  box-shadow: var(--shadow-soft);
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.5rem);
-  align-content: start;
-}
-
-.contato-hero__panel p {
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 4vw, 3.5rem);
+  line-height: 1.1;
   margin: 0;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
-  line-height: 1.7;
 }
 
-.contato-hero__lista {
+.hero-lead {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: color-mix(in srgb, white 88%, rgba(0, 0, 0, 0.4) 12%);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.contato-hero__compromissos {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 0.6rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
-}
-
-.contato-hero__lista li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-}
-
-.contato-hero__lista li::before {
-  content: "";
-  inline-size: 10px;
-  block-size: 10px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--marsala-profundo) 70%, black 30%);
-  flex-shrink: 0;
-  margin-top: 0.35rem;
-}
-
-.contato-hero__channels {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.7rem;
 }
 
-.panel-link {
+.contato-hero__compromissos li {
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 500;
+}
+/* ===============================
+   Card de Contato — refinado e claro
+   =============================== */
+
+.contato-hero__card {
+  --card-bg: color-mix(in srgb, white 94%, var(--areia-dourada) 6%);
+  --card-border: color-mix(in srgb, var(--marsala-profundo) 18%, transparent 82%);
+  --card-shadow: 0 14px 36px -18px rgba(0,0,0,.25);
+  --ink-strong: var(--marrom-terra-firme);
+  --ink-soft: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
+  --accent: var(--marsala-profundo);
+
+  position: relative;
+  isolation: isolate;
+  background: var(--card-bg);
+  color: var(--ink-strong);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl, 20px);
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  display: grid;
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(8px);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  animation: contatoFadeUp .6s ease both;
+}
+
+/* brilho radial bem sutil ao fundo */
+.contato-hero__card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background:
+    radial-gradient(1200px 280px at 20% -10%,
+      color-mix(in srgb, var(--areia-dourada) 28%, transparent 72%) 0%,
+      transparent 55%)
+    no-repeat;
+  z-index: -1;
+}
+
+.contato-hero__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 52px -20px rgba(0,0,0,.28);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent 72%);
+}
+
+/* Título */
+.contato-hero__card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.2vw, 2rem);
+  color: var(--accent);
+  margin: 0;
+  line-height: 1.18;
+  position: relative;
+}
+
+.contato-hero__card h2::after {
+  content: "";
+  display: block;
+  width: 2.75rem;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-top: .5rem;
+  opacity: .9;
+}
+
+/* Texto de apoio */
+.contato-hero__card > p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* Lista */
+.contato-hero__lista {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.contato-hero__lista div {
+  display: grid;
+  gap: .28rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
+  transition: border-color .25s ease, background-color .25s ease;
+  border-radius: 6px;
+}
+
+.contato-hero__lista div:hover {
+  border-color: color-mix(in srgb, var(--accent) 65%, black 35%);
+  background: color-mix(in srgb, var(--areia-dourada) 10%, transparent 90%);
+}
+
+.contato-hero__lista dt {
+  font-size: .82rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--ink-strong) 75%, black 25%);
+}
+
+.contato-hero__lista dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.06rem;
+}
+
+/* Links em forma de pílula */
+.contato-hero__lista a {
+  --pill-bg: color-mix(in srgb, white 86%, var(--areia-dourada) 14%);
+  --pill-brd: color-mix(in srgb, var(--accent) 26%, transparent 74%);
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.55rem 0.9rem;
+  gap: .55rem;
+  padding: .5rem .8rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 35%, white 65%);
-  background: color-mix(in srgb, white 88%, var(--areia-dourada) 12%);
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-brd);
+  box-shadow: 0 2px 0 rgba(0,0,0,.06) inset;
+  color: inherit;
   text-decoration: none;
-  font-weight: 600;
-  color: color-mix(in srgb, var(--marsala-profundo) 75%, black 25%);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  position: relative;
+  transition: transform .15s ease, box-shadow .25s ease, background-color .25s ease, border-color .25s ease;
+  white-space: nowrap; /* 👈 impede quebra de linha */
+  overflow-wrap: normal; /* reforço */
 }
 
-.panel-link:hover,
-.panel-link:focus-visible {
+.contato-hero__lista a:hover {
   transform: translateY(-1px);
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 8px 20px -10px rgba(0,0,0,.25);
+  background: color-mix(in srgb, white 80%, var(--areia-dourada) 20%);
+  border-color: color-mix(in srgb, var(--accent) 38%, transparent 62%);
 }
 
-/* ---------- Canais ---------- */
-.canais-contato {
-  background: color-mix(in srgb, var(--areia-dourada) 96%, white 4%);
+.contato-hero__lista a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 50%, white 50%);
+  outline-offset: 2px;
 }
 
-.section-heading {
-  max-inline-size: 640px;
+/* Nota final */
+.contato-hero__nota {
+  margin: .2rem 0 0 0;
+  padding-top: .8rem;
+  border-top: 1px dashed var(--card-border);
+  color: color-mix(in srgb, var(--ink-strong) 68%, black 32%);
+  font-style: italic;
+  font-size: .94rem;
+  line-height: 1.55;
+}
+
+/* Animação de entrada */
+@keyframes contatoFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Grid em duas colunas em telas médias */
+@media (min-width: 720px) {
+  .contato-hero__lista {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* ---------- Escolhas ---------- */
+.contato-escolhas {
+  background: color-mix(in srgb, var(--areia-dourada) 92%, white 8%);
+}
+
+.contato-escolhas__intro {
+  max-inline-size: 620px;
   display: grid;
-  gap: 0.75rem;
-  margin-block-end: clamp(1.5rem, 4vw, 2.5rem);
+  gap: 0.7rem;
+  margin-block-end: clamp(1.6rem, 4vw, 2.5rem);
 }
 
-.eyebrow {
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: color-mix(in srgb, var(--marsala-profundo) 70%, black 30%);
-  margin: 0;
-}
-
-.canais-grid {
+.contato-escolhas__grid {
   display: grid;
-  gap: clamp(1.6rem, 4vw, 2.6rem);
+  gap: clamp(1.4rem, 4vw, 2.6rem);
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-.canal-card {
+.contato-card {
   background: rgba(255, 255, 255, 0.95);
   border-radius: var(--radius-lg);
-  padding: clamp(1.6rem, 5vw, 2.3rem);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 26%, white 74%);
-  box-shadow: var(--shadow-soft);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
+  padding: clamp(1.8rem, 5vw, 2.5rem);
   display: grid;
   gap: 0.9rem;
   align-content: start;
+  box-shadow: var(--shadow-soft);
 }
 
-.canal-icone {
-  font-size: 1.8rem;
+.contato-card__icone {
+  font-size: 2rem;
 }
 
-.canal-card h3 {
+.contato-card h3 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-family: var(--font-display);
-  color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
+  color: var(--marsala-profundo);
 }
 
-.canal-card p {
+.contato-card p {
   margin: 0;
   color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
 }
 
-.canal-card .btn {
+.contato-card .btn {
   justify-self: start;
 }
 
-/* ---------- Onboarding ---------- */
-.onboarding-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: clamp(1.2rem, 3vw, 1.8rem);
+/* ---------- Detalhes ---------- */
+.atendimento-detalhes {
+  background: white;
 }
 
-.onboarding-item {
+.detalhes-grid {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.2rem;
-  align-items: start;
-  padding: 1.4rem 1.6rem;
+  gap: clamp(1.6rem, 4vw, 2.8rem);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.detalhes-card {
+  background: color-mix(in srgb, white 94%, var(--areia-dourada) 6%);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
+  padding: clamp(1.8rem, 4vw, 2.5rem);
+  display: grid;
+  gap: 1rem;
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 26%, white 74%);
   box-shadow: var(--shadow-soft);
 }
 
-.onboarding-number {
-  inline-size: 44px;
-  block-size: 44px;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 1.1rem;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--marsala-profundo) 82%, black 18%);
-  color: white;
-}
-
-.onboarding-item h3 {
-  margin: 0 0 0.4rem;
-  font-family: var(--font-display);
-  color: color-mix(in srgb, var(--marsala-profundo) 80%, black 20%);
-}
-
-.onboarding-item p {
+.detalhes-card h2,
+.detalhes-card h3 {
   margin: 0;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
-  line-height: 1.7;
+  font-family: var(--font-display);
+  color: var(--marsala-profundo);
 }
 
-/* ---------- FAQ ---------- */
-.faq {
-  background: color-mix(in srgb, var(--areia-dourada) 94%, white 6%);
+.detalhes-card p {
+  margin: 0;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
 }
 
-.faq-grid {
-  display: grid;
-  gap: clamp(2rem, 5vw, 3rem);
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: start;
-}
-
-.faq-intro {
+.detalhes-lista {
+  margin: 0;
+  padding-left: 1.25rem;
   display: grid;
   gap: 0.75rem;
-}
-
-.faq-intro h2 {
-  margin: 0;
-  color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
-  font-family: var(--font-display);
-}
-
-.faq-intro p {
-  margin: 0;
   color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
 }
 
-.faq-list {
+.detalhes-lista li {
+  line-height: 1.6;
+}
+
+.detalhes-horarios {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.detalhes-horarios li {
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 20%, white 80%);
+  font-weight: 600;
+}
+
+/* ---------- Perguntas ---------- */
+.perguntas {
+  background: color-mix(in srgb, var(--areia-dourada) 85%, white 15%);
+}
+
+.perguntas-grid {
+  display: grid;
+  gap: clamp(1.8rem, 4vw, 3rem);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.perguntas-intro {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.perguntas-lista {
   display: grid;
   gap: 1rem;
 }
 
-.faq-item {
-  border-radius: 1.1rem;
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
-  background: rgba(255, 255, 255, 0.95);
-  padding: 1rem 1.2rem;
+.pergunta {
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 24%, white 76%);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 1.1rem 1.4rem;
   box-shadow: var(--shadow-soft);
 }
 
-.faq-item summary {
+.pergunta summary {
   cursor: pointer;
   font-weight: 600;
+  font-size: 1.05rem;
   color: color-mix(in srgb, var(--marsala-profundo) 75%, black 25%);
-  list-style: none;
 }
 
-.faq-item summary::-webkit-details-marker { display: none; }
+.pergunta summary::-webkit-details-marker {
+  display: none;
+}
 
-.faq-item summary::after {
+.pergunta summary::after {
   content: "+";
-  float: right;
-  font-weight: 600;
+  float: inline-end;
   transition: transform var(--transition-base);
 }
 
-.faq-item[open] summary::after {
-  content: "−";
+.pergunta[open] summary::after {
+  transform: rotate(45deg);
 }
 
-.faq-item p {
-  margin: 0.75rem 0 0;
+.pergunta p {
+  margin-block: 0.75rem 0 0;
   color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
-  line-height: 1.7;
-}
-
-/* ---------- Disponibilidade ---------- */
-.disponibilidade-grid {
-  display: grid;
-  gap: clamp(1.8rem, 4vw, 2.6rem);
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.disponibilidade-card,
-.local-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.6rem, 4vw, 2.4rem);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
-  box-shadow: var(--shadow-soft);
-  display: grid;
-  gap: 1rem;
-}
-
-.disponibilidade-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.6rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
-}
-
-.local-info {
-  display: grid;
-  gap: 0.6rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
-}
-
-.local-endereco {
-  font-weight: 600;
 }
 
 /* ---------- Formulário ---------- */
 .contato-form {
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.4rem);
+  background: white;
 }
 
 .contato-form__grid {
   display: grid;
-  gap: clamp(2rem, 6vw, 3.6rem);
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.8rem, 4vw, 2.8rem);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   align-items: start;
 }
 
@@ -341,83 +429,73 @@
   gap: 0.8rem;
 }
 
-.contato-form__intro h2 {
+.form-tips {
+  list-style: none;
   margin: 0;
-  font-family: var(--font-display);
-  color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
-}
-
-.contato-form__intro p {
-  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
   color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
 }
 
-.form-tips {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.contato-form__card {
+  background: color-mix(in srgb, white 95%, var(--areia-dourada) 5%);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.6rem, 4vw, 2.4rem);
   display: grid;
-  gap: 0.5rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 76%, black 24%);
+  gap: 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 26%, white 74%);
+  box-shadow: var(--shadow-soft);
 }
 
-.contato-form__card {
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 5vw, 2.6rem);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 30%, white 70%);
-  box-shadow: var(--shadow-soft);
+.contact-form {
   display: grid;
   gap: 1.2rem;
 }
 
 .form-field {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.45rem;
 }
 
 .form-field label {
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  color: color-mix(in srgb, var(--marsala-profundo) 65%, black 35%);
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 85%, black 15%);
 }
 
 .form-field input,
 .form-field textarea {
-  width: 100%;
-  border-radius: 0.85rem;
-  border: 1px solid color-mix(in srgb, var(--cinza-quente-neutro) 35%, white 65%);
-  padding: 0.85rem 1.1rem;
   font: inherit;
-  color: var(--marrom-terra-firme);
-  background: color-mix(in srgb, white 88%, var(--areia-dourada) 12%);
-  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+  padding: 0.75rem 0.95rem;
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--cinza-quente-neutro) 35%, white 65%);
+  background: rgba(255, 255, 255, 0.92);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .form-field textarea {
-  min-height: 180px;
   resize: vertical;
+  min-height: 160px;
 }
 
 .form-field input:focus,
 .form-field textarea:focus {
-  border-color: color-mix(in srgb, var(--marsala-profundo) 60%, white 40%);
-  box-shadow: 0 0 0 4px rgba(117, 42, 42, 0.18);
-  transform: translateY(-1px);
+  border-color: var(--marsala-profundo);
+  box-shadow: 0 0 0 3px rgba(117, 42, 42, 0.2);
+  outline: none;
 }
 
 .field-error {
-  min-height: 1.1rem;
   font-size: 0.85rem;
-  color: color-mix(in srgb, #b60000 75%, black 25%);
+  min-height: 1.1em;
+  color: #9b1c1c;
 }
 
 .form-feedback {
   display: none;
-  border-radius: 0.85rem;
-  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.1rem;
   font-weight: 600;
 }
 
@@ -426,61 +504,43 @@
 }
 
 .form-feedback.is-success {
-  background: rgba(90, 177, 113, 0.18);
-  color: #256138;
+  background: rgba(76, 145, 92, 0.12);
+  color: #276749;
+  border: 1px solid rgba(76, 145, 92, 0.3);
 }
 
 .form-feedback.is-error {
-  background: rgba(204, 91, 91, 0.18);
-  color: #8c1f1f;
+  background: rgba(229, 62, 62, 0.12);
+  color: #c53030;
+  border: 1px solid rgba(229, 62, 62, 0.3);
 }
 
 .form-privacidade {
   margin: 0;
   font-size: 0.9rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 70%, black 30%);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 75%, black 25%);
 }
 
 /* ---------- Responsividade ---------- */
-@media (max-width: 960px) {
-  .contato-hero,
-  .faq-grid,
-  .contato-form__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .contato-hero__panel,
-  .contato-form__card,
-  .canal-card,
-  .disponibilidade-card,
-  .local-card {
-    justify-self: stretch;
-  }
-
-  .contato-hero__content {
-    text-align: center;
-  }
-
-  .contato-hero__stats {
-    text-align: left;
-  }
-
-  .contato-hero__channels,
-  .hero-cta {
+@media (max-width: 760px) {
+  .hero-actions .btn {
+    inline-size: 100%;
     justify-content: center;
+  }
+
+  .contato-hero__compromissos {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
 
-@media (max-width: 640px) {
-  .contato-hero__stats {
-    grid-template-columns: 1fr;
-  }
-
-  .onboarding-item {
-    grid-template-columns: 1fr;
-  }
-
-  .onboarding-number {
-    justify-self: start;
+@media (prefers-reduced-motion: reduce) {
+  .hero-actions,
+  .contato-card,
+  .detalhes-card,
+  .pergunta,
+  .contato-form__card {
+    transition: none !important;
+    animation: none !important;
   }
 }
