@@ -277,7 +277,7 @@
   @media (hover: hover) {
     .hero-media:hover img { transform: scale(1.03); }
   }
-  
+
 /* ===== SECTION SERVIÇOS (carrossel) ===== */
 .section-servicos {
   background:
@@ -344,6 +344,7 @@
   opacity: 0.55;
   box-shadow: none;
   transform: none;
+  pointer-events: none;
 }
 .carousel-servicos__nav--prev { inset-inline-start: clamp(0.5rem, 4vw, 1.25rem); }
 .carousel-servicos__nav--next { inset-inline-end: clamp(0.5rem, 4vw, 1.25rem); }
@@ -355,6 +356,7 @@
   --thumb-hover: color-mix(in srgb, var(--terracota-queimado) 55%, rgba(255,255,255,.9) 45%);
   --edge-fade: 14%; /* largura do fade nas bordas */
   --snap-pad: clamp(1rem, 4vw, 2rem);
+  --scrollbar-size: clamp(.5rem, 1.2vw, .65rem);
 
   display: grid;
   grid-auto-flow: column;
@@ -396,8 +398,9 @@
       transparent 100%);
 
   /* Scrollbar base (Firefox) */
-  scrollbar-width: thin;
+  scrollbar-width: auto;
   scrollbar-color: var(--thumb) transparent;
+  scrollbar-gutter: stable both-edges;
 }
 .carousel-servicos__track:active,
 .carousel-servicos__track.is-dragging { cursor: grabbing; }
@@ -410,7 +413,7 @@
 
 /* ===== Scrollbar WebKit — versão premium ===== */
 .carousel-servicos__track::-webkit-scrollbar {
-  height: .36rem;                 /* base mais discreta */
+  height: var(--scrollbar-size);
   background: transparent;
 }
 
@@ -462,17 +465,6 @@
 /* canto (quando aparece em elementos com overflow nos dois eixos) */
 .carousel-servicos__track::-webkit-scrollbar-corner { background: transparent; }
 
-/* Desktop: deixa levemente mais alta no hover do trilho (melhor alvo) */
-@media (hover: hover) and (pointer: fine) {
-  .carousel-servicos__track::-webkit-scrollbar { height: .42rem; }
-  .carousel-servicos__track:hover::-webkit-scrollbar-thumb {
-    background:
-      linear-gradient(90deg,
-        color-mix(in srgb, var(--thumb-hover) 94%, #fff 6%),
-        var(--thumb-hover));
-  }
-}
-
 /* Acessibilidade: se o usuário preferir menos movimento, tira sombras animadas */
 @media (prefers-reduced-motion: reduce) {
   .carousel-servicos__track::-webkit-scrollbar-thumb {
@@ -480,11 +472,14 @@
   }
 }
 
-/* Só mostra a barra quando houver hover (desktop) */
+/* Desktop: altura um pouco maior e exibição apenas no hover */
 @media (hover: hover) and (pointer: fine) {
-  .carousel-servicos__track::-webkit-scrollbar { height: .42rem; }
+  .carousel-servicos__track::-webkit-scrollbar { height: calc(var(--scrollbar-size) + .12rem); }
   .carousel-servicos__track:hover::-webkit-scrollbar-thumb {
-    background-color: var(--thumb-hover);
+    background:
+      linear-gradient(90deg,
+        color-mix(in srgb, var(--thumb-hover) 94%, #fff 6%),
+        var(--thumb-hover));
   }
 }
 

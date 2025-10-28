@@ -122,69 +122,62 @@
         </div>
       </section>
 
-      <section class="section contato-escolhas" aria-labelledby="canais-titulo">
-        <div class="container">
-          <div class="contato-escolhas__intro">
-            <p class="eyebrow">Escolha seu caminho</p>
-            <h2 id="canais-titulo">Três formas simples de iniciar sua terapia</h2>
-            <p>Todos os canais são sigilosos e respondidos diretamente por mim. Sinta-se à vontade para escolher o que traz mais conforto.</p>
-          </div>
-
-          <div class="contato-escolhas__grid">
-            <article class="contato-card">
-              <span class="contato-card__icone" aria-hidden="true">💬</span>
-              <h3>Mensagem rápida</h3>
-              <p>Envie um “olá” pelo WhatsApp para combinarmos um horário inicial ou tirar dúvidas objetivas.</p>
-              <a
-                class="btn btn-primary"
-                href="https://wa.me/5521993034166?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20terapia."
-                target="_blank"
-                rel="noopener noreferrer"
-              >Abrir conversa</a>
-            </article>
-
-            <article class="contato-card">
-              <span class="contato-card__icone" aria-hidden="true">📝</span>
-              <h3>Mensagem detalhada</h3>
-              <p>Prefere contar com calma? Escreva um e-mail com seu contexto, expectativas e horários preferidos.</p>
-              <a class="btn btn-secondary" href="mailto:lucianopimenta.psi@gmail.com">Enviar e-mail</a>
-            </article>
-
-            <article class="contato-card">
-              <span class="contato-card__icone" aria-hidden="true">🎥</span>
-              <h3>Chamada de alinhamento</h3>
-              <p>Agende uma conversa de 15 minutos para eu entender sua necessidade e apresentar como podemos avançar.</p>
-              <a class="btn btn-link" href="#form-contato">Solicitar chamada</a>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <section class="section atendimento-detalhes" aria-labelledby="detalhes-titulo">
         <div class="container detalhes-grid">
-          <article class="detalhes-card">
+
+          <!-- Card 1 -->
+          <article class="detalhes-card" aria-labelledby="detalhes-titulo">
             <p class="eyebrow">Transparência desde o primeiro contato</p>
             <h2 id="detalhes-titulo">Como funciona depois da sua mensagem</h2>
+
             <ol class="detalhes-lista">
               <li><strong>Retorno em até 24h úteis</strong> com valores, disponibilidade e instruções claras.</li>
               <li><strong>Encontro inicial de 50 minutos</strong> para acolher sua história e estabelecer combinados.</li>
               <li><strong>Plano terapêutico personalizado</strong> com frequência semanal e acompanhamento contínuo.</li>
             </ol>
+
+            <!-- Badges curtas de contexto -->
+            <ul class="detalhes-badges" role="list">
+              <li><span aria-hidden="true">🛡️</span> Sigilo profissional • LGPD</li>
+              <li><span aria-hidden="true">💻</span> Modalidade: 100% on-line</li>
+              <li><span aria-hidden="true">⏱️</span> Sessões: 50 min</li>
+              <li><span aria-hidden="true">🔁</span> Cancelamento: aviso prévio de 48h</li>
+            </ul>
+
             <p>Todo o processo acontece com sigilo profissional e respeito ao seu tempo.</p>
           </article>
 
+          <!-- Card 2 -->
           <article class="detalhes-card">
             <p class="eyebrow">Para facilitar seu planejamento</p>
-            <h3>Horários disponíveis</h3>
-            <ul class="detalhes-horarios">
+            <h2>Horários disponíveis</h2>
+            <ul class="detalhes-horarios" role="list">
               <li>Segunda a sexta • 8h às 20h</li>
               <li>Sessões on-line para todo o Brasil</li>
-              <li>Aviso previo de 48h para remarcar outro horário</li>
+              <li>Aviso prévio de 48h para remarcar</li>
             </ul>
             <p>Indique na mensagem dias e horários que funcionam melhor para você. Assim, agilizamos o agendamento.</p>
+
+            <!-- CTA compacto dentro do card -->
+            <div class="detalhes-cta">
+              <a class="btn btn--whats" href="https://wa.me/5521993034166" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensagem pelo WhatsApp (abre em nova aba)">
+                WhatsApp
+              </a>
+              <a class="btn btn--mail" href="mailto:contato@lucianopimenta.com">
+                E-mail
+              </a>
+            </div>
           </article>
+
         </div>
+
+        <!-- Disclaimer de emergência (opcional, mas recomendado) -->
+        <p class="detalhes-disclaimer" role="note">
+          Este canal não substitui atendimentos de urgência. Em caso de crise, procure o serviço de emergência local (SAMU 192) 
+          ou apoio emocional 24h no CVV (ligue 188).
+        </p>
       </section>
+
 
       <section class="section perguntas" aria-labelledby="perguntas-titulo">
         <div class="container perguntas-grid">

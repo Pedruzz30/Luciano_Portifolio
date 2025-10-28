@@ -246,56 +246,6 @@
   }
 }
 
-
-/* ---------- Escolhas ---------- */
-.contato-escolhas {
-  background: color-mix(in srgb, var(--areia-dourada) 92%, white 8%);
-}
-
-.contato-escolhas__intro {
-  max-inline-size: 620px;
-  display: grid;
-  gap: 0.7rem;
-  margin-block-end: clamp(1.6rem, 4vw, 2.5rem);
-}
-
-.contato-escolhas__grid {
-  display: grid;
-  gap: clamp(1.4rem, 4vw, 2.6rem);
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-.contato-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: var(--radius-lg);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, white 72%);
-  padding: clamp(1.8rem, 5vw, 2.5rem);
-  display: grid;
-  gap: 0.9rem;
-  align-content: start;
-  box-shadow: var(--shadow-soft);
-}
-
-.contato-card__icone {
-  font-size: 2rem;
-}
-
-.contato-card h3 {
-  margin: 0;
-  font-size: 1.35rem;
-  font-family: var(--font-display);
-  color: var(--marsala-profundo);
-}
-
-.contato-card p {
-  margin: 0;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
-}
-
-.contato-card .btn {
-  justify-self: start;
-}
-
 /* ---------- Detalhes ---------- */
 .atendimento-detalhes {
   background: white;
