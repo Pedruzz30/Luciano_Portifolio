@@ -246,65 +246,193 @@
   }
 }
 
-/* ---------- Detalhes ---------- */
+/* ===============================
+   ATENDIMENTO — versão moderna/sophisticated
+   =============================== */
+
+/* ---- Section / grid ---- */
 .atendimento-detalhes {
-  background: white;
+  --surface: color-mix(in srgb, #fff 98%, var(--areia-dourada) 2%);
+  background: var(--surface);
+  padding-block: clamp(1.8rem, 4vw, 3rem);
 }
 
 .detalhes-grid {
+  --col-min: 360px;
+  --gap: clamp(1.2rem, 3vw, 2rem);
   display: grid;
-  gap: clamp(1.6rem, 4vw, 2.8rem);
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(var(--col-min), 1fr));
+  align-items: start;
 }
 
-.detalhes-card {
-  background: color-mix(in srgb, white 94%, var(--areia-dourada) 6%);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.8rem, 4vw, 2.5rem);
+/* ---- Card com “vidro” leve + borda ativa ---- */
+.detalhes-grid > .detalhes-card {
+  --glass: color-mix(in srgb, #fff 92%, var(--areia-dourada) 8%);
+  --brd: color-mix(in srgb, var(--dourado-fosco) 34%, #fff 66%);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.86)) padding-box,
+    linear-gradient(135deg, var(--brd), rgba(255,255,255,0)) border-box;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xl, 20px);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 12px 28px -16px rgba(0,0,0,.18),
+    0 1px 0 rgba(255,255,255,.6) inset;
+  padding: clamp(1.5rem, 3.4vw, 2rem);
   display: grid;
-  gap: 1rem;
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 26%, white 74%);
-  box-shadow: var(--shadow-soft);
+  gap: clamp(.95rem, 1.8vw, 1.25rem);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+}
+.detalhes-grid > .detalhes-card:hover,
+.detalhes-grid > .detalhes-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow:
+    0 22px 46px -22px rgba(0,0,0,.26),
+    0 1px 0 rgba(255,255,255,.7) inset;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.9)) padding-box,
+    linear-gradient(135deg, color-mix(in srgb, var(--dourado-fosco) 58%, #fff 42%), rgba(255,255,255,0)) border-box;
 }
 
+/* ---- Eyebrow + títulos com traço fino ---- */
+.detalhes-card .eyebrow {
+  margin: 0;
+  font-size: .86rem;
+  letter-spacing: .04em;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 70%, #000 30%);
+}
 .detalhes-card h2,
 .detalhes-card h3 {
   margin: 0;
   font-family: var(--font-display);
   color: var(--marsala-profundo);
+  font-weight: 700;
+  line-height: 1.18;
 }
-
+.detalhes-card h2::after,
+.detalhes-card h3::after {
+  content: "";
+  display: block;
+  width: 2.6rem; height: 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--marsala-profundo) 88%, #000 12%);
+  margin-top: .5rem;
+  opacity: .95;
+}
 .detalhes-card p {
   margin: 0;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 82%, #000 18%);
+  line-height: 1.65;
+  font-size: clamp(.95rem, 1.6vw, 1.02rem);
+  text-wrap: pretty;
 }
 
-.detalhes-lista {
-  margin: 0;
-  padding-left: 1.25rem;
-  display: grid;
-  gap: 0.75rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
+
+
+/* ---- Badges clean (sem emoji) ---- */
+.detalhes-badges {
+  display: flex; flex-wrap: wrap; gap: .55rem .65rem;
+  margin: .2rem 0 0; padding: 0; list-style: none;
+}
+.detalhes-badges li {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .42rem .72rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, #fff, color-mix(in srgb, #fff 86%, var(--areia-dourada) 14%));
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 32%, #fff 68%);
+  font-weight: 600; font-size: .92rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 86%, #000 14%);
 }
 
-.detalhes-lista li {
-  line-height: 1.6;
-}
-
+/* ---- Horários como chips alinhados; vira 2 colunas quando couber ---- */
 .detalhes-horarios {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.6rem;
+  display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none;
+  grid-template-columns: 1fr;
+}
+.detalhes-horarios li {
+  padding: .72rem 1rem;
+  border-radius: 14px;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, #fff 86%, var(--areia-dourada) 14%),
+    color-mix(in srgb, #fff 80%, var(--areia-dourada) 20%));
+  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 28%, #fff 72%);
+  font-weight: 700; color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
+  box-shadow: 0 1px 0 rgba(0,0,0,.05) inset;
+}
+@container (min-width: 720px) {
+  .detalhes-horarios { grid-template-columns: 1fr 1fr; }
 }
 
-.detalhes-horarios li {
-  padding: 0.6rem 0.9rem;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 20%, white 80%);
-  font-weight: 600;
+/* ---- CTA pílula com borda-gradiente e ícone PNG ---- */
+.detalhes-cta {
+  display: flex; flex-wrap: wrap; gap: .7rem .85rem;
+  margin-top: .6rem;
+}
+
+.detalhes-cta .btn,
+.detalhes-cta .btn:link,
+.detalhes-cta .btn:visited {
+  --grad: linear-gradient(135deg,
+            color-mix(in srgb, var(--dourado-fosco) 52%, #fff 48%),
+            color-mix(in srgb, var(--terracota-queimado) 46%, #fff 54%));
+  background:
+    linear-gradient(180deg, color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%), #fff) padding-box,
+    var(--grad) border-box;
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: .64rem 1.15rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 92%, #000 8%);
+  text-decoration: none; font-weight: 800; letter-spacing: .01em; line-height: 1;
+
+  box-shadow: 0 2px 0 rgba(0,0,0,.06) inset;
+  transition: transform .18s ease, box-shadow .25s ease, background .25s ease, filter .25s ease;
+  outline: none; white-space: nowrap;
+}
+
+/* ícones (PNG) */
+.detalhes-cta .btn::before {
+  content: "";
+  inline-size: 1.12em; block-size: 1.12em; flex-shrink: 0;
+  background: center / contain no-repeat;
+  opacity: .92; transition: opacity .25s ease, transform .25s ease, filter .25s ease;
+}
+.detalhes-cta .btn--whats::before { background-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-whatsApp.png"); }
+.detalhes-cta .btn--mail::before  { background-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-email.png"); }
+
+/* hover/foco elegante */
+.detalhes-cta .btn:hover,
+.detalhes-cta .btn:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -14px rgba(0,0,0,.22);
+  filter: saturate(1.05);
+}
+.detalhes-cta .btn:hover::before,
+.detalhes-cta .btn:focus-visible::before {
+  opacity: 1; transform: scale(1.06);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+}
+/* opção brand WhatsApp em hover */
+.detalhes-cta .btn--whats:hover,
+.detalhes-cta .btn--whats:focus-visible { background: #25D366; color: #fff; filter: none; }
+
+/* foco acessível */
+.detalhes-cta .btn:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 60%, #fff 40%);
+  outline-offset: 2px;
+}
+
+/* ---- Resp. fino ---- */
+@media (max-width: 480px) {
+  .detalhes-cta .btn::before { inline-size: 1em; block-size: 1em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .detalhes-grid > .detalhes-card,
+  .detalhes-cta .btn,
+  .detalhes-cta .btn::before { transition: none !important; }
 }
 
 /* ---------- Perguntas ---------- */

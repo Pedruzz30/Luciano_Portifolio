@@ -124,7 +124,7 @@
 
 .intro-highlights {
   margin: 0;
-  padding-left: 1.25rem;
+  padding-left: 0;
   display: grid;
   gap: var(--space-xs, .6rem);
   color: color-mix(in srgb, var(--marrom-terra-firme) 75%, black 25%);
