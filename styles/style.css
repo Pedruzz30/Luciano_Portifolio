@@ -812,15 +812,49 @@ body.has-open-nav { overflow: hidden; }
   outline-offset: 3px;
 }
 
+/* --- BTN SECONDARY — GRADIENT BORDER --- */
 .btn-secondary {
-  color: var(--marsala-profundo);
-  border: 2px solid var(--dourado-fosco);
-  background: rgba(255, 255, 255, 0.9);
+  --btn-fg: color-mix(in srgb, var(--marsala-profundo) 92%, #000 8%);
+  --btn-bg: color-mix(in srgb, #fff 94%, var(--dourado-fosco) 6%);
+  --btn-grad: linear-gradient(135deg, var(--dourado-fosco), color-mix(in srgb, var(--terracota-queimado) 40%, var(--dourado-fosco) 60%));
+  --btn-ring: color-mix(in srgb, var(--dourado-fosco) 55%, transparent);
+
+  position: relative;
+  display: inline-block;
+  padding: .9rem 1.5rem;
+  border-radius: 999px;
+  color: var(--btn-fg);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .02em;
+  cursor: pointer;
+
+  background:
+    var(--btn-grad) padding-box,             /* borda */
+    var(--btn-bg) border-box;                /* fundo */
+  border: 2px solid transparent;
+  box-shadow: 0 10px 24px rgba(62,39,49,.12);
+  transform: translateZ(0);
+  transition: transform .2s ease, box-shadow .25s ease, filter .2s ease;
 }
-.btn-secondary:hover,
-.btn-secondary:focus-visible {
+.btn-secondary::after{ /* brilho em diagonal */
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.25) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  pointer-events:none;
+}
+.btn-secondary:hover{
   transform: translateY(-2px);
-  background: color-mix(in srgb, var(--dourado-fosco) 60%, #fff 40%);
+  box-shadow: 0 16px 36px rgba(62,39,49,.22);
+  filter: saturate(1.03);
+}
+.btn-secondary:hover::after{ transform: translateX(0%); }
+.btn-secondary:focus-visible{
+  outline: 3px solid var(--btn-ring);
+  outline-offset: 3px;
 }
 
 .btn-link {

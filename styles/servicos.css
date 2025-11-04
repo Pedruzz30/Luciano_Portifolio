@@ -87,8 +87,8 @@
   }
 
   .btn,
-  .btn-primary,
-  .btn-secundary {
+  .btn-primary
+   {
     position: relative;
     inline-size: fit-content;
     font-weight: 600;
@@ -101,16 +101,16 @@
   }
 
   .btn:focus-visible,
-  .btn-primary:focus-visible,
-  .btn-secundary:focus-visible {
+  .btn-primary:focus-visible
+   {
     outline: 3px solid color-mix(in srgb, var(--accent) 45%, #ffffff 55%);
     outline-offset: 4px;
   }
 
   @media (hover: hover) {
     .btn:hover,
-    .btn-primary:hover,
-    .btn-secundary:hover {
+    .btn-primary:hover
+     {
       transform: translateY(-2px);
       box-shadow: 0 14px 28px rgba(117, 42, 42, 0.18);
     }
@@ -142,8 +142,7 @@
       transition: none !important;
     }
     .btn,
-    .btn-primary,
-    .btn-secundary {
+    .btn-primary {
       transition: none !important;
     }
   }
@@ -248,7 +247,7 @@
 }
 
 /* Link-CTA mais limpo e alinhado visualmente */
-.hero--servicos.hero--plain .hero-cta .btn-secundary {
+.hero--servicos.hero--plain .hero-cta {
   font-weight: 700;
   text-decoration: none;
   border-bottom: 2px solid color-mix(in srgb, var(--marsala-profundo) 28%, #000 72%);
