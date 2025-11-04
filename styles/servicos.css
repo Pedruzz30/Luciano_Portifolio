@@ -246,17 +246,15 @@
   }
 }
 
-/* Link-CTA mais limpo e alinhado visualmente */
-.hero--servicos.hero--plain .hero-cta {
+/* CTA secundária sem sublinhado, alinhada ao estilo global */
+.hero--servicos.hero--plain .hero-cta .btn-secondary {
   font-weight: 700;
   text-decoration: none;
-  border-bottom: 2px solid color-mix(in srgb, var(--marsala-profundo) 28%, #000 72%);
-  padding-bottom: .2rem;
   opacity: .96;
-  transition: border-color 180ms ease, opacity 180ms ease;
+  transition: transform .2s ease, box-shadow .25s ease, filter .2s ease, opacity 180ms ease;
 }
-.hero--servicos.hero--plain .hero-cta .btn-secunary:hover {
-  border-color: color-mix(in srgb, var(--marsala-profundo) 60%, #000 40%);
+.hero--servicos.hero--plain .hero-cta .btn-secondary:hover,
+.hero--servicos.hero--plain .hero-cta .btn-secondary:focus-visible {
   opacity: 1;
 }
 

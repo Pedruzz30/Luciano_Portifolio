@@ -216,7 +216,7 @@
 
 /* Ênfase e links */
 .em{ color: var(--terracota-queimado); font-weight: var(--w-bold); }
-.prose a:not(.btn-reveal){
+.prose a:not(.btn, .btn-primary, .btn-secondary, .btn-link, .btn-reveal){
   color: color-mix(in srgb, var(--marsala-profundo) 88%, black 12%);
   text-decoration: underline;
   text-decoration-thickness: .08em;

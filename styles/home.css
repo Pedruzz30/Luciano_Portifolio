@@ -215,10 +215,6 @@
   line-height: 1.65;
 }
 
-.service-icon {
-  font-size: clamp(1.6rem, 3.6vw, 2.1rem);
-}
-
 .service-link {
   font-weight: 600;
   color: color-mix(in srgb, var(--marsala-profundo) 78%, black 22%);
