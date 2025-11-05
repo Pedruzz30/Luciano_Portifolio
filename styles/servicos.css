@@ -643,80 +643,83 @@
     .process-step { padding: 1.5rem 1.6rem; }
   }
 
-  /* ===== CTA ===== */
-  .section-cta {
-    background:
-      radial-gradient(120% 120% at 0% 0%, rgba(117, 42, 42, 0.18), transparent 60%),
-      linear-gradient(200deg, rgba(255, 255, 255, 0.95), rgba(201, 174, 143, 0.28));
-  }
+/* ===== CTA (v2.1 — stack vertical centrado) ===== */
+
+/* força layout em coluna única e centraliza tudo */
+.cta-card {
+  display: flex;                  /* troca grid por flex p/ empilhar fácil */
+  flex-direction: column;
+  align-items: center;            /* centraliza filhos */
+  justify-content: center;
+  text-align: center;
+  gap: clamp(var(--space-2), 2.5vw, var(--space-3));
+
+  max-inline-size: 44rem;         /* largura de leitura boa */
+  margin-inline: auto;
+  padding: clamp(var(--space-5), 5vw, calc(var(--space-5) + 1rem));
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, rgba(255, 255, 255, 0.9) 85%, rgba(117, 42, 42, 0.1) 15%);
+}
+
+/* títulos e texto limitados pra não “esticar” demais */
+.cta-card h2,
+.cta-card p,
+.cta-actions {
+  inline-size: min(100%, 38rem);
+  margin: 0;
+}
+
+/* botão 100% central, sem chance de desalinhar */
+.cta-card :where(.btn-primary) {
+  align-self: center;
+  justify-self: center;
+  border-radius: 999px;
+  padding-inline: clamp(1.4rem, 3vw, 2rem);
+  padding-block: 0.9rem;
+  background: linear-gradient(
+    130deg,
+    color-mix(in srgb, var(--marsala-profundo) 96%, #000 4%),
+    color-mix(in srgb, var(--marsala-profundo) 86%, #fff 14%)
+  );
+  color: #fff;
+  border: 1px solid color-mix(in srgb, var(--marsala-profundo) 55%, #fff 45%);
+  box-shadow: 0 18px 40px rgba(117, 42, 42, 0.28);
+}
+
+/* ações (se tiver mais de um botão) continuam centralizadas e em linha */
+.cta-actions {
+  display: inline-flex;
+  gap: clamp(.6rem, 1.8vw, 1rem);
+  align-items: center;
+  justify-content: center;
+}
+
+/* remove o layout lado a lado das container queries anteriores */
+@container cta (min-width: 920px) {
   .cta-card {
-    padding: clamp(var(--space-5), 5vw, calc(var(--space-5) + 1rem));
-    border-radius: var(--radius-xl);
-    background: color-mix(in srgb, rgba(255, 255, 255, 0.82) 75%, rgba(117, 42, 42, 0.18) 25%);
-    box-shadow: var(--shadow-xl);
+    /* garante 1 coluna sempre */
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    display: grid;
-    gap: var(--space-3);
-  }
-  .cta-card h2 {
-    margin: 0;
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(2.1rem, 4.6vw, 3rem);
-  }
-  .cta-card p {
-    margin: 0;
-    font-size: var(--fs-lg);
-    color: var(--text-muted);
-  }
-  .cta-card :where(.btn-primary) {
-    justify-self: center;
-    border-radius: 999px;
-    padding-inline: clamp(1.5rem, 3vw, 2rem);
-    padding-block: 0.85rem;
-    background: linear-gradient(
-      130deg,
-      var(--marsala-profundo),
-      color-mix(in srgb, var(--marsala-profundo) 85%, #fff 15%)
-    );
-    color: #fff;
-    box-shadow: 0 22px 44px rgba(117, 42, 42, 0.28);
-  }
-  @media (hover: hover) {
-    .cta-card :where(.btn-primary:hover, .btn-primary:focus-visible) {
-      background: linear-gradient(
-        130deg,
-        color-mix(in srgb, var(--marsala-profundo) 95%, #000 5%),
-        var(--marsala-profundo)
-      );
-      box-shadow: 0 28px 54px rgba(117, 42, 42, 0.34);
-    }
-  }
-
-/* ---------- PAGES / RESPONSIVO ---------- */
-@layer pages {
-  /* Container Query (ativa porque .section-diferenciais tem container-name) */
-  @container diferenciais (min-width: 920px) {
-    .diferenciais-grid {
-      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-      align-items: center;
-    }
-  }
-
-  @media (max-width: 960px) {
-    .hero--servicos .hero-grid { grid-template-columns: minmax(0, 1fr); text-align: center; }
-    .hero-copy { justify-items: center; }
-    .hero-cta { justify-content: center; }
-  }
-
-  @media (max-width: 720px) {
-    .hero-copy { background: rgba(255, 255, 255, 0.65); }
-  }
-
-  @media (max-width: 480px) {
-    .section { padding-block: clamp(var(--space-4), 12vw, var(--space-5)); }
-    .mini-card, .process-step { padding: clamp(var(--space-3), 6vw, var(--space-4)); }
+    gap: clamp(var(--space-2), 2.5vw, var(--space-3));
   }
 }
+
+/* se houver imagem/figure dentro do CTA, ela também fica centralizada e com limite */
+.cta-card > figure {
+  margin: 0;
+  inline-size: min(100%, 36rem);
+  max-block-size: 18rem;
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - .25rem);
+}
+.cta-card > figure img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 
 /* ---------- FORCED COLORS ---------- */
 @media (forced-colors: active) {
