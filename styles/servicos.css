@@ -149,7 +149,7 @@
   @layer components {
     .mini-card,
     .process-step,
-    .cta-card :where(.btn-primary) {
+    .cta-card .btn.btn-primary {
       transition: none !important;
     }
   }
@@ -269,143 +269,231 @@
   .hero--servicos.hero--plain .hero-lead { font-size: clamp(1rem, 3.2vw, 1.12rem); }
 }
 
-  /* ===== SECTION SERVIÇOS (carrossel) ===== */
-  .section-servicos {
-    background:
-      radial-gradient(180% 140% at 110% -10%, rgba(117, 42, 42, 0.08), transparent 60%),
-      radial-gradient(120% 100% at -15% 15%, rgba(201, 174, 143, 0.24), transparent 62%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9));
-    container: servicos / inline-size;
-  }
+/* ===== SECTION SERVIÇOS (carrossel) — refinado ===== */
+.section-servicos {
+  /* fundo com luz suave e sem “glare” */
+  background:
+    radial-gradient(180% 140% at 110% -10%, rgba(117, 42, 42, 0.08), transparent 60%),
+    radial-gradient(120% 100% at -15% 15%, rgba(201, 174, 143, 0.20), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.92));
+  container: servicos / inline-size;
+  padding-block: clamp(2rem, 5vw, 3.25rem); /* respira um pouco mais */
+}
 
-  /* CARROSSEL DE SERVIÇOS — “Netflix meets terapia premium” */
-  .carousel-servicos {
-    --gap: clamp(1rem, 2vw, 1.75rem);
-    --radius: 1.25rem;
-    --shadow: 0 6px 20px rgba(62, 39, 49, 0.1);
-    --hover-shadow: 0 12px 28px rgba(62, 39, 49, 0.18);
-    --border: color-mix(in srgb, var(--dourado-fosco) 40%, #fff 60%);
-    --bg: color-mix(in srgb, #fff 92%, var(--areia-dourada) 8%);
-    --bg-hover: color-mix(in srgb, #fff 88%, var(--areia-dourada) 12%);
+/* “Netflix meets terapia premium” */
+.carousel-servicos {
+  --gap: clamp(1rem, 2vw, 1.75rem);
+  --radius: 1.25rem;
+  --shadow: 0 8px 24px rgba(62, 39, 49, 0.10);
+  --hover-shadow: 0 16px 36px rgba(62, 39, 49, 0.18);
+  --border: color-mix(in srgb, var(--dourado-fosco) 42%, #fff 58%);
+  --bg: color-mix(in srgb, #fff 94%, var(--areia-dourada) 6%);
+  --bg-hover: color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%);
 
-    position: relative;
-    inline-size: min(100%, 1200px);
-    margin-inline: auto;
-    padding-inline: clamp(1rem, 3vw, 2rem);
-    overflow: hidden;
-  }
+  position: relative;
+  inline-size: min(100%, 1200px);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2rem);
+  overflow: hidden;
 
-  .carousel-servicos__track {
-    display: flex;
-    gap: var(--gap);
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding-block: 1.5rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--marsala-profundo) 30%, #fff 70%) transparent;
-  }
+  /* suaviza composição e melhora performance */
+  content-visibility: auto;
+  contain-intrinsic-size: 600px 400px;
+}
 
-  .carousel-servicos__track::-webkit-scrollbar { height: .6rem; }
-  .carousel-servicos__track::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--marsala-profundo) 40%, #fff 60%);
-    border-radius: 999px;
-  }
-  .carousel-servicos__track::-webkit-scrollbar-thumb:hover {
-    background: color-mix(in srgb, var(--marsala-profundo) 55%, #fff 45%);
-  }
+/* trilho com edge-fade e snap previsível */
+.carousel-servicos__track {
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: clamp(1rem, 3vw, 2rem); /* alinha o primeiro card ao padding do container */
+  padding-block: clamp(1.2rem, 2.5vw, 1.8rem);
+  -webkit-overflow-scrolling: touch;
 
-  .carousel-servicos__item {
-    flex: 0 0 auto;
-    inline-size: min(90%, 20rem);
-    scroll-snap-align: start;
-    background: var(--bg);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-    padding: clamp(1.25rem, 3vw, 1.75rem);
-    display: grid;
-    gap: 1rem;
-    transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease;
-  }
-  .carousel-servicos__item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--hover-shadow);
-    background: var(--bg-hover);
-  }
+  /* fade nas bordas para esconder cortes bruscos */
+  mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
 
-  .carousel-servicos__header h3 {
-    font-family: "Cormorant Garamond", serif;
-    font-weight: 700;
-    margin: 0;
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    color: var(--marsala-profundo);
-  }
-  .carousel-servicos__subtitle {
-    margin: 0;
-    font-size: 1rem;
-    color: color-mix(in srgb, var(--terracota-queimado) 60%, #000 40%);
-  }
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--marsala-profundo) 30%, #fff 70%) transparent;
+}
+.carousel-servicos__track::-webkit-scrollbar { height: .6rem; }
+.carousel-servicos__track::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--marsala-profundo) 40%, #fff 60%);
+  border-radius: 999px;
+}
+.carousel-servicos__track::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--marsala-profundo) 55%, #fff 45%);
+}
 
-  .carousel-servicos__body {
-    color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
-    font-size: 1rem;
-    line-height: 1.6;
-  }
+/* item com “caixa de joias” — borda/brilho sutil e sombra macia */
+.carousel-servicos__item {
+  flex: 0 0 auto;
+  inline-size: min(90%, 20rem);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background:
+    linear-gradient(180deg, #fff, color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%)) padding-box,
+    linear-gradient(135deg, var(--border), rgba(255,255,255,0)) border-box; /* borda ativa suave */
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  display: grid;
+  gap: 0.9rem;
+  transition:
+    transform .22s cubic-bezier(.22,.61,.36,1),
+    box-shadow .25s ease,
+    background-color .25s ease,
+    border-color .25s ease,
+    filter .25s ease;
+  will-change: transform;
+}
+.carousel-servicos__item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--hover-shadow);
+  background: var(--bg-hover);
+  border-color: color-mix(in srgb, var(--dourado-fosco) 55%, #fff 45%);
+}
 
-  .carousel-servicos__cta {
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: .4rem;
-    padding: .55rem 1.2rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--marsala-profundo) 55%, #fff 45%);
-    background: color-mix(in srgb, #fff 85%, var(--areia-dourada) 15%);
-    color: color-mix(in srgb, var(--marsala-profundo) 80%, #000 20%);
-    font-weight: 600;
-    text-decoration: none;
-    transition: all .25s ease;
-  }
-  .carousel-servicos__cta:hover {
-    background: var(--marsala-profundo);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(62, 39, 49, 0.22);
-  }
+/* título e subtítulo com hierarquia clara */
+.carousel-servicos__header h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  margin: 0;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  color: var(--marsala-profundo);
+  letter-spacing: .2px;
+}
+.carousel-servicos__subtitle {
+  margin: .1rem 0 0;
+  font-size: .98rem;
+  color: color-mix(in srgb, var(--terracota-queimado) 58%, #000 42%);
+}
 
+/* texto do corpo com leitura suave */
+.carousel-servicos__body {
+  color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
+  font-size: 1rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+  hyphens: auto;
+}
+
+/* CTA “pílula” com foco AA e micro brilho no hover */
+.carousel-servicos__cta {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .6rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--marsala-profundo) 55%, #fff 45%);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 92%, var(--areia-dourada) 8%),
+      color-mix(in srgb, #fff 86%, var(--areia-dourada) 14%));
+  color: color-mix(in srgb, var(--marsala-profundo) 86%, #000 14%);
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: .01em;
+  transition:
+    transform .2s ease,
+    box-shadow .25s ease,
+    background .25s ease,
+    color .25s ease,
+    border-color .25s ease;
+  position: relative;
+  isolation: isolate;
+}
+.carousel-servicos__cta::after {
+  /* brilho diagonal discreto */
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  pointer-events:none;
+  z-index: -1;
+}
+.carousel-servicos__cta:hover {
+  background: var(--marsala-profundo);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(62,39,49,.22);
+  border-color: color-mix(in srgb, var(--dourado-fosco) 58%, #fff 42%);
+}
+.carousel-servicos__cta:hover::after { transform: translateX(0%); }
+.carousel-servicos__cta:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 55%, #000 45%);
+  outline-offset: 2px;
+}
+
+/* botões de navegação com presença elegante e foco claro */
+.carousel-servicos__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: 50%;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 92%, var(--areia-dourada) 8%),
+      color-mix(in srgb, #fff 86%, var(--areia-dourada) 14%));
+  border: 1px solid var(--border);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+  z-index: 5;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+.carousel-servicos__nav:hover {
+  background: color-mix(in srgb, var(--marsala-profundo) 92%, #fff 8%);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(0,0,0,.16);
+  transform: translateY(-50%) scale(1.06);
+  border-color: color-mix(in srgb, var(--dourado-fosco) 55%, #fff 45%);
+}
+.carousel-servicos__nav:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 55%, #000 45%);
+  outline-offset: 2px;
+}
+.carousel-servicos__nav--prev { left: .5rem; }
+.carousel-servicos__nav--next { right: .5rem; }
+
+/* ===== Responsividade & CQs ===== */
+@media (max-width: 720px) {
+  .carousel-servicos { padding-inline: 1rem; }
+  .carousel-servicos__track { gap: 1rem; padding-block: 1rem; }
+  .carousel-servicos__item { inline-size: 85%; }
+  .carousel-servicos__nav { inline-size: 2.3rem; block-size: 2.3rem; }
+}
+
+/* container query: quando a seção couber mais, deixe os cards um pouco mais largos */
+@container servicos (min-width: 880px) {
+  .carousel-servicos__item { inline-size: 22rem; }
+}
+@container servicos (min-width: 1100px) {
+  .carousel-servicos__item { inline-size: 24rem; }
+}
+
+/* ===== Acessibilidade & motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-servicos__track { scroll-behavior: auto; }
+  .carousel-servicos__item,
+  .carousel-servicos__cta,
   .carousel-servicos__nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
-    border-radius: 50%;
-    background: color-mix(in srgb, #fff 88%, var(--areia-dourada) 12%);
-    border: 1px solid var(--border);
-    color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition: all .25s ease;
-    z-index: 5;
+    transition: none !important;
+    transform: none !important;
   }
-  .carousel-servicos__nav:hover {
-    background: color-mix(in srgb, var(--marsala-profundo) 90%, #fff 10%);
-    color: #fff;
-    box-shadow: 0 8px 22px rgba(0,0,0,.18);
-    transform: translateY(-50%) scale(1.05);
-  }
-  .carousel-servicos__nav--prev { left: .5rem; }
-  .carousel-servicos__nav--next { right: .5rem; }
-
-  @media (max-width: 720px) {
-    .carousel-servicos { padding-inline: 1rem; }
-    .carousel-servicos__track { gap: 1rem; padding-block: 1rem; }
-    .carousel-servicos__item { inline-size: 85%; }
-    .carousel-servicos__nav { inline-size: 2.3rem; block-size: 2.3rem; }
-  }
+  .carousel-servicos__cta::after { transition: none !important; }
+}
 
   /* ===== DIFERENCIAIS ===== */
   .section-diferenciais {
@@ -670,7 +758,7 @@
 }
 
 /* botão 100% central, sem chance de desalinhar */
-.cta-card :where(.btn-primary) {
+.cta-card .btn.btn-primary {
   align-self: center;
   justify-self: center;
   border-radius: 999px;
