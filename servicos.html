@@ -85,92 +85,225 @@
         </div>
       </section>
 
-
-      <!-- PLANOS / SERVIÇOS -->
+      <!-- SERVIÇOS -->
       <section class="section section-servicos" id="planos" aria-labelledby="titulo-planos">
         <div class="container">
           <header class="section-heading">
             <p class="kicker">Principais frentes de trabalho</p>
             <h2 id="titulo-planos">Atendimentos personalizados</h2>
             <p class="section-text">Formatos pensados para diferentes fases e necessidades, sempre on-line e com combinados transparentes.</p>
+
+            <!-- A11Y: instruções para leitores de tela -->
+            <p id="carousel-instrucoes" class="visually-hidden">
+              Carrossel de formatos. Use Tab para focar a lista, setas para rolar horizontalmente.
+              Você também pode usar os botões anterior e próximo.
+            </p>
           </header>
 
-          <div class="carousel-servicos" role="region" aria-label="Formatos de atendimento" data-animate="fade-up" data-delay="40">
-            <button class="carousel-servicos__nav carousel-servicos__nav--prev" type="button" aria-label="Rolar formatos anteriores" aria-controls="carousel-servicos-track">
+          <div class="carousel-servicos"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Formatos de atendimento"
+              aria-describedby="carousel-instrucoes"
+              data-animate="fade-up" data-delay="40">
+
+            <button class="carousel-servicos__nav carousel-servicos__nav--prev"
+                    type="button"
+                    aria-label="Rolar formatos anteriores"
+                    aria-controls="carousel-servicos-track"
+                    aria-keyshortcuts="ArrowLeft">
               <span aria-hidden="true">‹</span>
             </button>
-            <button class="carousel-servicos__nav carousel-servicos__nav--next" type="button" aria-label="Rolar próximos formatos" aria-controls="carousel-servicos-track">
+
+            <button class="carousel-servicos__nav carousel-servicos__nav--next"
+                    type="button"
+                    aria-label="Rolar próximos formatos"
+                    aria-controls="carousel-servicos-track"
+                    aria-keyshortcuts="ArrowRight">
               <span aria-hidden="true">›</span>
             </button>
 
-            <div class="carousel-servicos__track" id="carousel-servicos-track" tabindex="0" role="list">
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                  <h3>Terapia individual</h3>
-                  <p class="carousel-servicos__subtitle">Adultos • Foco em ansiedade, autoestima e carreira</p>
+            <div class="carousel-servicos__track"
+                id="carousel-servicos-track"
+                tabindex="0"
+                role="list"
+                aria-orientation="horizontal"
+                aria-live="off">
+
+              <!-- CARD 1 -->
+              <article class="carousel-servicos__item card-servico"
+                      role="listitem"
+                      aria-labelledby="serv-1-title"
+                      aria-describedby="serv-1-sub serv-1-meta serv-1-desc">
+                <header class="card-servico__header">
+                  <h3 id="serv-1-title" class="card-servico__title">Terapia individual</h3>
+                  <p id="serv-1-sub" class="card-servico__subtitle">Adultos • Ansiedade, autoestima, carreira</p>
+
+                  <ul class="card-servico__badges" aria-label="Caracteristicas do formato">
+                    <li class="badge badge--online">On-line</li>
+                    <li class="badge">Foco em autonomia</li>
+                    <li class="badge">Plano personalizado</li>
+                  </ul>
                 </header>
-                <div class="carousel-servicos__body">
-                  <p>Sessões on-line estruturadas para construir autonomia emocional, revisar crenças e fortalecer estratégias de enfrentamento.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Encontros semanais ou quinzenais com objetivos claros</li>
-                    <li>Plano terapêutico personalizado e revisitado continuamente</li>
+
+                <div class="card-servico__body" id="serv-1-desc">
+                  <p>Encontros estruturados para revisar crenças, desenvolver estratégias de enfrentamento e fortalecer recursos internos.</p>
+
+                  <dl class="card-servico__meta" id="serv-1-meta">
+                    <div><dt>Duração</dt><dd>50–60 min</dd></div>
+                    <div><dt>Frequência</dt><dd>Semanal ou quinzenal</dd></div>
+                    <div><dt>Formato</dt><dd>On-line, sigiloso</dd></div>
+                  </dl>
+
+                  <ul class="card-servico__bullets" aria-label="O que você recebe">
+                    <li>Objetivos claros e revisados periodicamente</li>
                     <li>Materiais de apoio e exercícios entre sessões</li>
+                    <li>Revisão de progresso a cada ciclo</li>
                   </ul>
                 </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Quero+agendar+uma+sess%C3%A3o+individual" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
+
+                <footer class="card-servico__footer">
+                  <a class="btn btn--primary card-servico__cta"
+                    href="https://wa.me/5521993034166?text=Quero+agendar+uma+sess%C3%A3o+individual"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="Agendar sessão individual — abre no WhatsApp">
+                    Agendar sessão
+                  </a>
+                </footer>
               </article>
 
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                  <h3>Casais</h3>
-                  <p class="carousel-servicos__subtitle">Casais em diferentes fases da relação</p>
+              <!-- CARD 2 -->
+              <article class="carousel-servicos__item card-servico"
+                      role="listitem"
+                      aria-labelledby="serv-2-title"
+                      aria-describedby="serv-2-sub serv-2-meta serv-2-desc">
+                <header class="card-servico__header">
+                  <h3 id="serv-2-title" class="card-servico__title">Casais</h3>
+                  <p id="serv-2-sub" class="card-servico__subtitle">Casais em diferentes fases da relação</p>
+
+                  <ul class="card-servico__badges" aria-label="Caracteristicas do formato">
+                    <li class="badge">Mediação ética</li>
+                    <li class="badge">Comunicação empática</li>
+                    <li class="badge">Acordos práticos</li>
+                  </ul>
                 </header>
-                <div class="carousel-servicos__body">
-                  <p>Mediação ética para resgatar o diálogo, alinhar expectativas e reconstruir acordos possíveis para ambos.</p>
-                  <ul class="carousel-servicos__bullets">
+
+                <div class="card-servico__body" id="serv-2-desc">
+                  <p>Espaço seguro para resgatar diálogo, alinhar expectativas e criar combinados possíveis para ambos.</p>
+
+                  <dl class="card-servico__meta" id="serv-2-meta">
+                    <div><dt>Duração</dt><dd>60–75 min</dd></div>
+                    <div><dt>Participantes</dt><dd>2 pessoas</dd></div>
+                    <div><dt>Formato</dt><dd>On-line, com tarefas entre sessões</dd></div>
+                  </dl>
+
+                  <ul class="card-servico__bullets">
                     <li>Mapeamento de ciclos de conflito e gatilhos</li>
-                    <li>Ferramentas para comunicação empática e assertiva</li>
-                    <li>Planos de acompanhamento entre sessões</li>
+                    <li>Ferramentas de comunicação assertiva</li>
+                    <li>Planos de acompanhamento</li>
                   </ul>
                 </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
+
+                <footer class="card-servico__footer">
+                  <a class="btn btn--primary card-servico__cta"
+                    href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="Agendar sessão para casais — abre no WhatsApp">
+                    Agendar sessão
+                  </a>
+                </footer>
               </article>
 
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                  <h3>Famílias &amp; rede</h3>
-                  <p class="carousel-servicos__subtitle">Cuidadores, familiares e rede de apoio</p>
+              <!-- CARD 3 -->
+              <article class="carousel-servicos__item card-servico"
+                      role="listitem"
+                      aria-labelledby="serv-3-title"
+                      aria-describedby="serv-3-sub serv-3-meta serv-3-desc">
+                <header class="card-servico__header">
+                  <h3 id="serv-3-title" class="card-servico__title">Famílias &amp; rede</h3>
+                  <p id="serv-3-sub" class="card-servico__subtitle">Cuidadores, familiares e rede de apoio</p>
+
+                  <ul class="card-servico__badges" aria-label="Caracteristicas do formato">
+                    <li class="badge">Olhar sistêmico</li>
+                    <li class="badge">Limites saudáveis</li>
+                    <li class="badge">Rotina sustentável</li>
+                  </ul>
                 </header>
-                <div class="carousel-servicos__body">
-                  <p>Apoio sistêmico para facilitar acordos, estabelecer limites saudáveis e criar rotinas que sustentem o cuidado.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Escuta individual e encontros conjuntos quando necessário</li>
-                    <li>Construção de combinados sustentáveis para o grupo</li>
-                    <li>Check-ins periódicos para ajustes e encaminhamentos</li>
+
+                <div class="card-servico__body" id="serv-3-desc">
+                  <p>Apoio para acordos realistas, responsabilidades claras e ritos de cuidado que funcionem no dia a dia.</p>
+
+                  <dl class="card-servico__meta" id="serv-3-meta">
+                    <div><dt>Duração</dt><dd>60–75 min</dd></div>
+                    <div><dt>Participantes</dt><dd>2–5 pessoas</dd></div>
+                    <div><dt>Formato</dt><dd>On-line, encontros conjuntos e individuais</dd></div>
+                  </dl>
+
+                  <ul class="card-servico__bullets">
+                    <li>Escuta individual e encontros conjuntos</li>
+                    <li>Combinados claros e acompanhados</li>
+                    <li>Check-ins periódicos para ajustes</li>
                   </ul>
                 </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Preciso+de+apoio+para+minha+fam%C3%ADlia" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
+
+                <footer class="card-servico__footer">
+                  <a class="btn btn--primary card-servico__cta"
+                    href="https://wa.me/5521993034166?text=Preciso+de+apoio+para+minha+fam%C3%ADlia"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="Agendar sessão para famílias — abre no WhatsApp">
+                    Agendar sessão
+                  </a>
+                </footer>
               </article>
 
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                  <h3>Conversa inicial</h3>
-                  <p class="carousel-servicos__subtitle">Primeiro contato orientativo</p>
+              <!-- CARD 4 -->
+              <article class="carousel-servicos__item card-servico"
+                      role="listitem"
+                      aria-labelledby="serv-4-title"
+                      aria-describedby="serv-4-sub serv-4-meta serv-4-desc">
+                <header class="card-servico__header">
+                  <h3 id="serv-4-title" class="card-servico__title">Conversa inicial</h3>
+                  <p id="serv-4-sub" class="card-servico__subtitle">Primeiro contato orientativo</p>
+
+                  <ul class="card-servico__badges" aria-label="Caracteristicas do formato">
+                    <li class="badge badge--grac">Gratuita</li>
+                    <li class="badge">15–20 min</li>
+                    <li class="badge">Triagem</li>
+                  </ul>
                 </header>
-                <div class="carousel-servicos__body">
-                  <p>Momento breve para mapear necessidades, esclarecer dúvidas sobre o processo terapêutico e definir próximos passos.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Avaliação gratuita de 15 a 20 minutos on-line</li>
-                    <li>Orientações sobre formatos, valores e contratos</li>
-                    <li>Checklist de documentos e encaminhamentos quando necessário</li>
+
+                <div class="card-servico__body" id="serv-4-desc">
+                  <p>Breve mapeamento de necessidades, dúvidas sobre o processo e definição dos próximos passos.</p>
+
+                  <dl class="card-servico__meta" id="serv-4-meta">
+                    <div><dt>Objetivo</dt><dd>Orientar e alinhar expectativas</dd></div>
+                    <div><dt>Formato</dt><dd>On-line</dd></div>
+                    <div><dt>Encaminhamentos</dt><dd>Se necessário</dd></div>
+                  </dl>
+
+                  <ul class="card-servico__bullets">
+                    <li>Checklist de documentos e combinados</li>
+                    <li>Apresentação de formatos e valores</li>
+                    <li>Agenda sugerida</li>
                   </ul>
                 </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Quero+agendar+uma+conversa+inicial" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
+
+                <footer class="card-servico__footer">
+                  <a class="btn btn--primary card-servico__cta"
+                    href="https://wa.me/5521993034166?text=Quero+agendar+uma+conversa+inicial"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="Agendar conversa inicial — abre no WhatsApp">
+                    Agendar sessão
+                  </a>
+                </footer>
               </article>
+
             </div>
           </div>
         </div>
-      </section>
+</section>
+
+
 
       <!-- DIFERENCIAIS -->
       <section class="section section-diferenciais" aria-labelledby="titulo-diferenciais">

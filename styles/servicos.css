@@ -269,221 +269,322 @@
   .hero--servicos.hero--plain .hero-lead { font-size: clamp(1rem, 3.2vw, 1.12rem); }
 }
 
-/* ===== SECTION SERVIÇOS (carrossel) — refinado ===== */
+/* === SECTION SERVIÇOS (carrossel) — refinado ==================================
+   Checklist: contraste AA ✓ · foco AA ✓ · fallback edge fade ✓ · prefers-reduced-motion ✓ · scroll snap ✓ · hover estável ✓
+   ============================================================================ */
+
+/* === Tokens locais === */
 .section-servicos {
-  /* fundo com luz suave e sem “glare” */
-  background:
+  --servicos-gap: clamp(1rem, 2vw, 1.75rem);
+  --servicos-radius: 1.25rem;
+  --servicos-radius-pill: 999px;
+  --servicos-shadow-sm: 0 8px 24px rgba(62, 39, 49, 0.10);
+  --servicos-shadow-md: 0 12px 28px rgba(62, 39, 49, 0.14);
+  --servicos-shadow-lg: 0 18px 42px rgba(62, 39, 49, 0.20);
+  --servicos-bg-base: #fdf9f5;
+  --servicos-surface: #ffffff;
+  --servicos-surface-warm: #fff8f1;
+  --servicos-border: #d9c5ac;
+  --servicos-border-strong: #ba7960;
+  --servicos-text: #3f2f2a;
+  --servicos-text-soft: #5a443d;
+  --servicos-accent: #4c2c33;
+  --servicos-cta-dark: #402129;
+  --servicos-focus: #caa06d;
+  --servicos-transition: 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --servicos-cta-sheen: rgba(255, 255, 255, 0.22);
+}
+
+@supports (color: color-mix(in srgb, red 50%, white)) {
+  .section-servicos {
+    --servicos-border: color-mix(in srgb, var(--dourado-fosco) 42%, #fff 58%);
+    --servicos-border-strong: color-mix(in srgb, var(--terracota-queimado) 42%, #fff 58%);
+    --servicos-text: color-mix(in srgb, var(--marrom-terra-firme) 88%, #000 12%);
+    --servicos-text-soft: color-mix(in srgb, var(--terracota-queimado) 58%, #000 42%);
+    --servicos-accent: color-mix(in srgb, var(--marsala-profundo) 92%, #000 8%);
+    --servicos-cta-dark: color-mix(in srgb, var(--marsala-profundo) 94%, #000 6%);
+    --servicos-focus: color-mix(in srgb, var(--dourado-fosco) 55%, #000 45%);
+    --servicos-cta-sheen: rgba(255, 255, 255, 0.18);
+    --servicos-surface-warm: color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%);
+  }
+}
+
+/* === Base do container === */
+.section-servicos {
+  background-color: var(--servicos-bg-base);
+  background-image:
     radial-gradient(180% 140% at 110% -10%, rgba(117, 42, 42, 0.08), transparent 60%),
     radial-gradient(120% 100% at -15% 15%, rgba(201, 174, 143, 0.20), transparent 62%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.92));
   container: servicos / inline-size;
-  padding-block: clamp(2rem, 5vw, 3.25rem); /* respira um pouco mais */
+  padding-block: clamp(2rem, 5vw, 3.25rem);
 }
 
-/* “Netflix meets terapia premium” */
 .carousel-servicos {
-  --gap: clamp(1rem, 2vw, 1.75rem);
-  --radius: 1.25rem;
-  --shadow: 0 8px 24px rgba(62, 39, 49, 0.10);
-  --hover-shadow: 0 16px 36px rgba(62, 39, 49, 0.18);
-  --border: color-mix(in srgb, var(--dourado-fosco) 42%, #fff 58%);
-  --bg: color-mix(in srgb, #fff 94%, var(--areia-dourada) 6%);
-  --bg-hover: color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%);
-
   position: relative;
   inline-size: min(100%, 1200px);
   margin-inline: auto;
   padding-inline: clamp(1rem, 3vw, 2rem);
   overflow: hidden;
-
-  /* suaviza composição e melhora performance */
-  content-visibility: auto;
-  contain-intrinsic-size: 600px 400px;
+  border-radius: calc(var(--servicos-radius) + 0.35rem);
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
-/* trilho com edge-fade e snap previsível */
+@supports (content-visibility: auto) {
+  .carousel-servicos {
+    content-visibility: auto;
+    contain-intrinsic-size: 600px 400px;
+  }
+}
+
+/* === Trilho e scroll snap === */
 .carousel-servicos__track {
+  position: relative;
   display: flex;
-  gap: var(--gap);
+  gap: var(--servicos-gap);
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: clamp(1rem, 3vw, 2rem); /* alinha o primeiro card ao padding do container */
+  scroll-padding-inline: clamp(1rem, 3vw, 2rem);
   padding-block: clamp(1.2rem, 2.5vw, 1.8rem);
+  padding-inline: 0.2rem;
   -webkit-overflow-scrolling: touch;
-
-  /* fade nas bordas para esconder cortes bruscos */
+  scrollbar-width: thin;
+  scrollbar-color: var(--servicos-accent) transparent;
+  outline: 0;
   mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--marsala-profundo) 30%, #fff 70%) transparent;
 }
-.carousel-servicos__track::-webkit-scrollbar { height: .6rem; }
+
+.carousel-servicos__track:focus-visible,
+.carousel-servicos__track:focus-within {
+  outline: 3px solid var(--servicos-focus);
+  outline-offset: 4px;
+}
+
+.carousel-servicos__track::-webkit-scrollbar { height: 0.65rem; }
+.carousel-servicos__track::-webkit-scrollbar-track { background: transparent; }
 .carousel-servicos__track::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--marsala-profundo) 40%, #fff 60%);
-  border-radius: 999px;
+  background: var(--servicos-accent);
+  border-radius: var(--servicos-radius-pill);
+  border: 2px solid transparent;
 }
 .carousel-servicos__track::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--marsala-profundo) 55%, #fff 45%);
+  background: var(--servicos-cta-dark);
 }
 
-/* item com “caixa de joias” — borda/brilho sutil e sombra macia */
+@supports not (mask-image: linear-gradient(to right, transparent, #000)) {
+  .carousel-servicos__track::before,
+  .carousel-servicos__track::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inline-size: clamp(1.5rem, 6vw, 3rem);
+    pointer-events: none;
+    background: linear-gradient(to right, var(--servicos-bg-base), transparent);
+  }
+
+  .carousel-servicos__track::before { inset-inline-start: 0; }
+  .carousel-servicos__track::after {
+    inset-inline-end: 0;
+    transform: scaleX(-1);
+  }
+}
+
+/* === Cartões === */
 .carousel-servicos__item {
   flex: 0 0 auto;
   inline-size: min(90%, 20rem);
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  background:
-    linear-gradient(180deg, #fff, color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%)) padding-box,
-    linear-gradient(135deg, var(--border), rgba(255,255,255,0)) border-box; /* borda ativa suave */
-  border: 1px solid transparent;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: clamp(1.25rem, 3vw, 1.75rem);
   display: grid;
   gap: 0.9rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: var(--servicos-radius);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(180deg, var(--servicos-surface), var(--servicos-surface-warm)) padding-box,
+    linear-gradient(135deg, var(--servicos-border), rgba(255, 255, 255, 0)) border-box;
+  box-shadow: var(--servicos-shadow-sm);
   transition:
-    transform .22s cubic-bezier(.22,.61,.36,1),
-    box-shadow .25s ease,
-    background-color .25s ease,
-    border-color .25s ease,
-    filter .25s ease;
+    transform var(--servicos-transition),
+    box-shadow var(--servicos-transition),
+    background-color var(--servicos-transition),
+    border-color var(--servicos-transition);
   will-change: transform;
 }
-.carousel-servicos__item:hover {
+
+.carousel-servicos__item:hover,
+.carousel-servicos__item:focus-within {
   transform: translateY(-4px);
-  box-shadow: var(--hover-shadow);
-  background: var(--bg-hover);
-  border-color: color-mix(in srgb, var(--dourado-fosco) 55%, #fff 45%);
+  box-shadow: var(--servicos-shadow-md);
+  border-color: var(--servicos-border-strong);
 }
 
-/* título e subtítulo com hierarquia clara */
 .carousel-servicos__header h3 {
+  margin: 0;
   font-family: "Cormorant Garamond", serif;
   font-weight: 700;
-  margin: 0;
   font-size: clamp(1.35rem, 2.6vw, 1.85rem);
-  color: var(--marsala-profundo);
-  letter-spacing: .2px;
-}
-.carousel-servicos__subtitle {
-  margin: .1rem 0 0;
-  font-size: .98rem;
-  color: color-mix(in srgb, var(--terracota-queimado) 58%, #000 42%);
+  letter-spacing: 0.015em;
+  color: var(--servicos-accent);
 }
 
-/* texto do corpo com leitura suave */
+.carousel-servicos__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.98rem;
+  color: var(--servicos-text-soft);
+}
+
 .carousel-servicos__body {
-  color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
+  color: var(--servicos-text);
   font-size: 1rem;
   line-height: 1.65;
+  overflow-wrap: break-word;
+  text-wrap: balance;
   text-wrap: pretty;
   hyphens: auto;
 }
 
-/* CTA “pílula” com foco AA e micro brilho no hover */
+/* === CTA === */
 .carousel-servicos__cta {
   justify-self: start;
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: .6rem 1.15rem;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--marsala-profundo) 55%, #fff 45%);
+  gap: 0.5rem;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--servicos-radius-pill);
+  border: 1px solid var(--servicos-border-strong);
   background:
     linear-gradient(180deg,
-      color-mix(in srgb, #fff 92%, var(--areia-dourada) 8%),
-      color-mix(in srgb, #fff 86%, var(--areia-dourada) 14%));
-  color: color-mix(in srgb, var(--marsala-profundo) 86%, #000 14%);
+      color-mix(in srgb, #ffffff 92%, var(--areia-dourada) 8%),
+      color-mix(in srgb, #ffffff 86%, var(--areia-dourada) 14%));
+  color: var(--servicos-cta-dark);
   font-weight: 700;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  letter-spacing: .01em;
   transition:
-    transform .2s ease,
-    box-shadow .25s ease,
-    background .25s ease,
-    color .25s ease,
-    border-color .25s ease;
+    transform var(--servicos-transition),
+    box-shadow var(--servicos-transition),
+    background-color var(--servicos-transition),
+    color var(--servicos-transition),
+    border-color var(--servicos-transition);
   position: relative;
   isolation: isolate;
 }
-.carousel-servicos__cta::after {
-  /* brilho diagonal discreto */
-  content:"";
-  position:absolute; inset:0;
-  border-radius: inherit;
-  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
-  transform: translateX(-120%);
-  transition: transform .6s cubic-bezier(.22,.61,.36,1);
-  pointer-events:none;
-  z-index: -1;
-}
-.carousel-servicos__cta:hover {
-  background: var(--marsala-profundo);
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(62,39,49,.22);
-  border-color: color-mix(in srgb, var(--dourado-fosco) 58%, #fff 42%);
-}
-.carousel-servicos__cta:hover::after { transform: translateX(0%); }
-.carousel-servicos__cta:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 55%, #000 45%);
-  outline-offset: 2px;
+
+@supports not (color: color-mix(in srgb, red 50%, white)) {
+  .carousel-servicos__cta {
+    background: linear-gradient(180deg, #fff8f1, #f5e5d6);
+  }
 }
 
-/* botões de navegação com presença elegante e foco claro */
+.carousel-servicos__cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 35%, var(--servicos-cta-sheen) 50%, transparent 68%);
+  transform: translateX(-120%);
+  transition: transform 360ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.carousel-servicos__cta:hover,
+.carousel-servicos__cta:focus-visible {
+  background: var(--servicos-accent);
+  color: #ffffff;
+  box-shadow: var(--servicos-shadow-lg);
+  border-color: var(--servicos-border-strong);
+}
+
+.carousel-servicos__cta:hover::after,
+.carousel-servicos__cta:focus-visible::after {
+  transform: translateX(0%);
+}
+
+.carousel-servicos__cta:focus-visible {
+  outline: 3px solid var(--servicos-focus);
+  outline-offset: 3px;
+}
+
+/* === Navegação lateral === */
 .carousel-servicos__nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
+  inline-size: 2.85rem;
+  block-size: 2.85rem;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
   border-radius: 50%;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, #fff 92%, var(--areia-dourada) 8%),
-      color-mix(in srgb, #fff 86%, var(--areia-dourada) 14%));
-  border: 1px solid var(--border);
-  color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform .2s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+  border: 1px solid var(--servicos-border);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #ffffff 92%, var(--areia-dourada) 8%),
+      color-mix(in srgb, #ffffff 86%, var(--areia-dourada) 14%));
+  color: var(--servicos-text);
+  box-shadow: var(--servicos-shadow-sm);
+  transition:
+    transform var(--servicos-transition),
+    box-shadow var(--servicos-transition),
+    background-color var(--servicos-transition),
+    color var(--servicos-transition),
+    border-color var(--servicos-transition);
   z-index: 5;
-  box-shadow: 0 6px 18px rgba(0,0,0,.08);
 }
-.carousel-servicos__nav:hover {
-  background: color-mix(in srgb, var(--marsala-profundo) 92%, #fff 8%);
-  color: #fff;
-  box-shadow: 0 10px 26px rgba(0,0,0,.16);
-  transform: translateY(-50%) scale(1.06);
-  border-color: color-mix(in srgb, var(--dourado-fosco) 55%, #fff 45%);
-}
-.carousel-servicos__nav:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 55%, #000 45%);
-  outline-offset: 2px;
-}
-.carousel-servicos__nav--prev { left: .5rem; }
-.carousel-servicos__nav--next { right: .5rem; }
 
-/* ===== Responsividade & CQs ===== */
+@supports not (color: color-mix(in srgb, red 50%, white)) {
+  .carousel-servicos__nav {
+    background: linear-gradient(180deg, #ffffff, #f2dfce);
+  }
+}
+
+.carousel-servicos__nav:hover,
+.carousel-servicos__nav:focus-visible {
+  background: var(--servicos-accent);
+  color: #ffffff;
+  border-color: var(--servicos-border-strong);
+  box-shadow: var(--servicos-shadow-md);
+  transform: translateY(-50%) scale(1.03);
+}
+
+.carousel-servicos__nav:focus-visible {
+  outline: 3px solid var(--servicos-focus);
+  outline-offset: 3px;
+}
+
+.carousel-servicos__nav--prev { inset-inline-start: 0.75rem; }
+.carousel-servicos__nav--next { inset-inline-end: 0.75rem; }
+
+/* === Responsividade === */
 @media (max-width: 720px) {
   .carousel-servicos { padding-inline: 1rem; }
   .carousel-servicos__track { gap: 1rem; padding-block: 1rem; }
   .carousel-servicos__item { inline-size: 85%; }
-  .carousel-servicos__nav { inline-size: 2.3rem; block-size: 2.3rem; }
+  .carousel-servicos__nav { inline-size: 2.75rem; block-size: 2.75rem; }
 }
 
-/* container query: quando a seção couber mais, deixe os cards um pouco mais largos */
 @container servicos (min-width: 880px) {
   .carousel-servicos__item { inline-size: 22rem; }
 }
+
+@container servicos (min-width: 960px) {
+  .carousel-servicos__item { inline-size: 23rem; }
+}
+
 @container servicos (min-width: 1100px) {
   .carousel-servicos__item { inline-size: 24rem; }
 }
 
-/* ===== Acessibilidade & motion ===== */
+/* === Movimento reduzido === */
 @media (prefers-reduced-motion: reduce) {
   .carousel-servicos__track { scroll-behavior: auto; }
   .carousel-servicos__item,
@@ -491,8 +592,168 @@
   .carousel-servicos__nav {
     transition: none !important;
     transform: none !important;
+    box-shadow: var(--servicos-shadow-sm) !important;
   }
   .carousel-servicos__cta::after { transition: none !important; }
+}
+
+/* ====== CARD LAYOUT (altura coerente) ====== */
+.carousel-servicos__item.card-servico {
+  /* mantém teu visual mas separa em 3 zonas */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.9rem;
+  min-block-size: 100%;
+}
+
+/* ====== HEADER ====== */
+.card-servico__header {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.card-servico__title {
+  margin: 0;
+  font: 700 clamp(1.2rem, 2.4vw, 1.6rem) / 1.15 var(--font-display, "Cormorant Garamond", serif);
+  color: var(--servicos-accent);
+  letter-spacing: 0.015em;
+}
+
+.card-servico__subtitle {
+  margin: 0.1rem 0 0;
+  font-size: 0.98rem;
+  color: var(--servicos-text-soft);
+}
+
+/* ====== BADGES ====== */
+.card-servico__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  margin-top: 0.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  --_bdg-bg: color-mix(in srgb, var(--areia-dourada, #e9d4b5) 22%, #fff 78%);
+  --_bdg-bd: color-mix(in srgb, var(--areia-dourada, #e9d4b5) 42%, #fff 58%);
+  --_bdg-tx: color-mix(in srgb, var(--marsala-profundo, #4c2c33) 86%, #000 14%);
+  display: inline-block;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--_bdg-bd);
+  background: var(--_bdg-bg);
+  color: var(--_bdg-tx);
+  font-size: 0.78rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.badge--online {
+  --_bdg-bg: color-mix(in srgb, #34c759 24%, #fff 76%);
+  --_bdg-bd: color-mix(in srgb, #34c759 40%, #fff 60%);
+}
+
+.badge--grac {
+  /* “gratuita” */
+  --_bdg-bg: color-mix(in srgb, #2db7f5 24%, #fff 76%);
+  --_bdg-bd: color-mix(in srgb, #2db7f5 40%, #fff 60%);
+}
+
+/* ====== BODY + TEXTO ====== */
+.card-servico__body {
+  display: grid;
+  gap: 0.8rem;
+  color: var(--servicos-text);
+}
+
+.card-servico__body > p {
+  margin: 0;
+  line-height: 1.6;
+  text-wrap: balance;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+/* ====== META (DL compacto em 3 colunas) ====== */
+.card-servico__meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem 0.8rem;
+  margin: 0;
+}
+
+.card-servico__meta > div { min-width: 0; }
+
+.card-servico__meta dt {
+  margin: 0 0 0.1rem;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--servicos-text-soft) 84%, #000 16%);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card-servico__meta dd {
+  margin: 0;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--servicos-accent) 88%, #000 12%);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* ====== BULLETS ====== */
+.card-servico__bullets {
+  display: grid;
+  gap: 0.42rem;
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  color: color-mix(in srgb, var(--servicos-text) 92%, #000 8%);
+}
+
+.card-servico__bullets li { line-height: 1.35; }
+
+/* ====== FOOTER / CTA alinhada ====== */
+.card-servico__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* ou flex-end, se preferir colar na direita */
+  margin-top: 0.1rem;
+}
+
+/* Herdando tua CTA e reforçando contraste quando sobre fundo claro */
+.card-servico .carousel-servicos__cta {
+  border-color: var(--servicos-border-strong);
+}
+
+.card-servico .carousel-servicos__cta:hover,
+.card-servico .carousel-servicos__cta:focus-visible {
+  background: var(--servicos-accent);
+  color: #fff;
+}
+
+/* ====== RESPONSIVIDADE FINA ====== */
+@container servicos (max-width: 640px) {
+  .card-servico__meta {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@container servicos (min-width: 1120px) {
+  .card-servico__title { font-size: 1.75rem; }
+  .card-servico__meta dd { font-size: 0.98rem; }
+}
+
+/* ====== FALLBACK sem color-mix ====== */
+@supports not (color: color-mix(in srgb, red 50%, white)) {
+  .badge {
+    background: #f3e6d6;
+    border-color: #e2cdb1;
+    color: #4c2c33;
+  }
+  .card-servico__meta dt { color: #6a5147; }
+  .card-servico__meta dd { color: #4c2c33; }
 }
 
   /* ===== DIFERENCIAIS ===== */
