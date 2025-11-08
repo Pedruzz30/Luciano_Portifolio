@@ -45,6 +45,7 @@
 
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/home.css" />
+    <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 768px)" />
   </head>
 
   <body>
@@ -90,7 +91,7 @@
       <!-- HERO -->
       <section class="section hero hero--has-media hero--inicio" aria-labelledby="hero-title">
         <div class="container hero-grid">
-          <div class="hero-copy">
+         <div class="hero-copy" data-mobile-reveal>
             <p class="hero-eyebrow">Psicoterapia online com ética, presença e resultados</p>
             <h1 id="hero-title" class="hero-title">
               Terapia para reconstruir histórias e fortalecer escolhas conscientes.
@@ -128,7 +129,7 @@
       <!-- INTRO / SOBRE TEASER -->
       <section id="sobre" class="section intro" aria-labelledby="intro-title">
         <div class="container intro-grid">
-          <div class="intro-text">
+         <div class="intro-text" data-mobile-reveal>
             <h2 id="intro-title">Um acompanhamento técnico, humano e personalizado</h2>
             <p>
               Cada jornada terapêutica é construída ao seu ritmo, a partir de metas combinadas e da escuta ativa. A
@@ -142,7 +143,7 @@
             </ul>
             <a class="link-inline" href="sobre.html">Conheça minha trajetória completa</a>
           </div>
-          <figure class="intro-media">
+          <figure class="intro-media" data-mobile-reveal>
             <img
               src="assets/PortifolioLucianoFotos/Logo1.jpg"
               alt="Detalhes do consultório acolhedor de Luciano Pimenta Dias"
@@ -165,8 +166,8 @@
             </p>
           </div>
 
-          <div class="ethics-cards" role="list">
-            <article class="ethic" role="listitem" tabindex="0">
+           <div class="ethics-cards" role="list">
+            <article class="ethic" role="listitem" tabindex="0" data-mobile-reveal>
               <h3>Sigilo profissional</h3>
               <p>
                 Todas as informações são tratadas com confidencialidade, em conformidade com as normas
@@ -174,7 +175,7 @@
               </p>
             </article>
 
-            <article class="ethic" role="listitem" tabindex="0">
+            <article class="ethic" role="listitem" tabindex="0" data-mobile-reveal>
               <h3>Combinados claros</h3>
               <p>
                 Horários, valores e políticas de remarcação são definidos com transparência desde o início
@@ -182,7 +183,7 @@
               </p>
             </article>
 
-            <article class="ethic" role="listitem" tabindex="0">
+            <article class="ethic" role="listitem" tabindex="0" data-mobile-reveal>
               <h3>Encaminhamento responsável</h3>
               <p>
                 Quando necessário, são realizadas orientações ou indicações para outros profissionais
@@ -268,6 +269,7 @@
     </footer>
 
     <script type="module" src="js/menu.js" defer></script>
+    <script src="js/mobile.js" defer></script>
     <script type="module" src="js/transitions.js" defer></script>
   </body>
 </html>

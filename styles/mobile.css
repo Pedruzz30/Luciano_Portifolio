@@ -1,0 +1,400 @@
+/* Mobile & tablet overrides (<=768px) */
+@media (max-width: 768px) {
+  :root {
+    --header-h: clamp(3.5rem, 9vw, 4.5rem);
+    --header-offset: calc(var(--header-h) + 1px);
+    --space-2xs: clamp(0.5rem, 1.5vw, 0.75rem);
+    --space-xs: clamp(0.65rem, 2vw, 0.95rem);
+    --space-sm: clamp(0.9rem, 3vw, 1.4rem);
+    --space-md: clamp(1.4rem, 5vw, 2.4rem);
+    --space-lg: clamp(2rem, 7vw, 3rem);
+    --space-xl: clamp(3rem, 10vw, 4rem);
+  }
+
+  body {
+    font-size: clamp(1rem, 0.9rem + 0.7vw, 1.08rem);
+    line-height: 1.65;
+    padding-block-start: var(--header-offset);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .container {
+    inline-size: min(100%, 680px);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .section {
+    padding-block: clamp(2rem, 8vw, 3.25rem);
+  }
+
+  /* Navigation */
+  .site-header {
+    block-size: var(--header-h);
+    padding-inline: 0;
+  }
+
+  .header-inner {
+    gap: clamp(0.5rem, 3vw, 1rem);
+    padding-inline: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .brand img {
+    inline-size: clamp(2.75rem, 26vw, 3.6rem);
+    border-radius: 0.75rem;
+  }
+
+  .menu-toggle {
+    inline-size: 44px;
+    block-size: 44px;
+    border-radius: 16px;
+  }
+
+  body.has-open-nav {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  html.js .site-nav {
+    position: fixed;
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+    inset-block-start: var(--header-h);
+    inline-size: min(88vw, 360px);
+    max-inline-size: 360px;
+    min-block-size: calc(100vh - var(--header-h));
+    padding: clamp(1.5rem, 5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(1.5rem, 6vw, 2.5rem);
+    background:
+      linear-gradient(135deg, rgba(201, 174, 143, 0.75), rgba(255, 247, 236, 0.92)),
+      color-mix(in srgb, var(--areia-dourada) 95%, #ffffff 5%);
+    box-shadow: -32px 0 60px rgba(62, 39, 49, 0.16);
+    border-start-start-radius: 24px;
+    border-end-start-radius: 24px;
+    transform: translateX(105%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    overscroll-behavior: contain;
+  }
+
+  html.js .site-nav.is-open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  html.js .site-nav .nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(0.85rem, 3vw, 1.35rem);
+    margin: 0;
+  }
+
+  .nav-link {
+    inline-size: 100%;
+    justify-content: space-between;
+    min-block-size: 48px;
+    padding-block: clamp(0.85rem, 3vw, 1.15rem);
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
+    font-size: clamp(1rem, 4.2vw, 1.32rem);
+    letter-spacing: 0.18em;
+  }
+
+  .nav-backdrop {
+    inset-block-start: 0;
+  }
+
+  /* Generic reveal */
+  [data-mobile-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  [data-mobile-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-mobile-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Hero */
+  .hero {
+    padding-block: clamp(2.5rem, 9vw, 3.6rem);
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 6vw, 2.5rem);
+  }
+
+  .hero-copy {
+    gap: clamp(1rem, 4.5vw, 1.6rem);
+  }
+
+  .hero-title {
+    font-size: clamp(2.1rem, 7.8vw, 2.95rem);
+    line-height: 1.18;
+  }
+
+  .hero-lead {
+    font-size: clamp(1.05rem, 4vw, 1.24rem);
+    color: color-mix(in srgb, var(--marrom-terra-firme) 82%, #000 18%);
+  }
+
+  .hero-cta {
+    display: grid;
+    gap: clamp(0.75rem, 3vw, 1.15rem);
+  }
+
+  .hero-cta .btn {
+    inline-size: 100%;
+    justify-content: center;
+  }
+
+  .hero-media {
+    max-inline-size: min(420px, 100%);
+    margin-inline: auto;
+  }
+
+  /* Intro & cards */
+  .intro-grid,
+  .ethics-grid,
+  .services-grid,
+  .diferenciais-grid,
+  .detalhes-grid,
+  .contato-form__grid,
+  .footer-columns {
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  .intro-text,
+  .diferenciais-copy,
+  .contato-form__intro,
+  .perguntas-intro {
+    text-align: left;
+    gap: clamp(0.9rem, 4vw, 1.4rem);
+  }
+
+  .intro-media,
+  .hero-media,
+  .contato-hero__text,
+  .contato-form__card {
+    margin-inline: auto;
+  }
+
+  .intro-media img,
+  .hero-media img {
+    border-radius: 1.5rem;
+  }
+
+  .ethics-cards,
+  .services-grid,
+  .diferenciais-cards,
+  .detalhes-grid,
+  .perguntas-lista {
+    display: grid;
+    gap: clamp(1.1rem, 4vw, 1.7rem);
+  }
+
+  .ethic,
+  .service-card,
+  .mini-card,
+  .process-step,
+  .detalhes-card,
+  .cta-card,
+  .pergunta,
+  .contato-form__card {
+    border-radius: 1.25rem;
+    padding: clamp(1.25rem, 5vw, 1.8rem);
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 4vw, 1.6rem);
+  }
+
+  .process-step {
+    justify-items: start;
+  }
+
+  .process-step .step-number {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+
+  /* Carousel adjustments */
+  .carousel-servicos {
+    padding-inline: clamp(0.5rem, 4vw, 1rem);
+  }
+
+  .carousel-servicos__track {
+    grid-auto-columns: minmax(82vw, 1fr);
+    padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+  }
+
+  .carousel-servicos__item {
+    min-block-size: 100%;
+  }
+
+  .carousel-servicos__nav {
+    inset-block-start: auto;
+    inset-block-end: clamp(0.75rem, 4vw, 1.25rem);
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+  }
+
+  .carousel-servicos__nav--prev {
+    inset-inline-start: clamp(0.75rem, 4vw, 1.5rem);
+  }
+
+  .carousel-servicos__nav--next {
+    inset-inline-end: clamp(0.75rem, 4vw, 1.5rem);
+  }
+
+  .carousel-servicos__nav[disabled] {
+    opacity: 0.45;
+  }
+
+  .carousel-indicators {
+    justify-content: center;
+  }
+
+  /* Accordion (FAQ) */
+  .pergunta summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-block-size: 48px;
+    font-size: clamp(1.05rem, 3.8vw, 1.2rem);
+  }
+
+  .pergunta__content {
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+
+  .pergunta[data-accordion-state="closed"] .pergunta__content {
+    height: 0;
+  }
+
+  .pergunta[data-accordion-state="open"] .pergunta__content {
+    height: auto;
+  }
+
+  .pergunta p {
+    font-size: clamp(0.98rem, 3.2vw, 1.08rem);
+  }
+
+  /* Contact form */
+  .contact-form {
+    padding: clamp(1.25rem, 5vw, 1.8rem);
+    border-radius: 1.5rem;
+  }
+
+  .form-field label {
+    font-size: 1rem;
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .contact-form button[type="submit"],
+  .contact-form .btn {
+    font-size: 1rem;
+  }
+
+  .contact-form button,
+  .contact-form .btn,
+  .contato-hero .btn,
+  .cta-card .btn,
+  .intro .btn,
+  .section-cta .btn {
+    inline-size: 100%;
+  }
+
+  textarea {
+    min-block-size: clamp(9rem, 40vw, 12rem);
+  }
+
+  /* Footer */
+  .footer-content {
+    gap: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .footer-columns {
+    gap: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .footer-panel,
+  .footer-meta {
+    text-align: left;
+  }
+
+  .footer-social {
+    justify-content: flex-start;
+  }
+
+  /* Typography tweaks */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  .prose {
+    font-size: clamp(1rem, 3.2vw, 1.12rem);
+    line-height: 1.7;
+    gap: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .prose h2 {
+    font-size: clamp(1.75rem, 6vw, 2.35rem);
+  }
+
+  .prose h3 {
+    font-size: clamp(1.35rem, 5vw, 1.75rem);
+  }
+
+  /* Tablets (>=481px) */
+  @media (min-width: 481px) and (max-width: 768px) {
+    .intro-grid,
+    .services-grid,
+    .diferenciais-grid,
+    .detalhes-grid,
+    .contato-form__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ethics-cards,
+    .perguntas-lista {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-columns > :last-child {
+      grid-column: 1 / -1;
+    }
+  }
+}

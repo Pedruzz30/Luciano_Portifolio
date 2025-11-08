@@ -20,13 +20,17 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- CSS -->
+     <!-- CSS -->
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/servicos.css" />
+    <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 768px)" />
 
     <!-- JS -->
     <script type="module" src="js/menu.js" defer></script>
+    <script src="js/mobile.js" defer></script>
     <script defer src="js/servicos.js"></script>
+  </head>
+  <body>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -68,10 +72,10 @@
     </header>
 
     <main id="conteudo">
-      <!-- HERO -->
+     <!-- HERO -->
       <section class="section hero hero--servicos hero--plain" aria-labelledby="hero-title">
         <div class="container hero-grid">
-          <div class="hero-copy">
+          <div class="hero-copy" data-mobile-reveal>
             <p class="hero-eyebrow">CRP 05/82816 • Atendimento 100% on-line</p>
             <h1 id="hero-title">Serviços psicológicos focados em objetivos reais</h1>
             <p class="hero-lead">
@@ -85,16 +89,23 @@
         </div>
       </section>
 
-      <!-- PLANOS / SERVIÇOS -->
+       <!-- PLANOS / SERVIÇOS -->
       <section class="section section-servicos" id="planos" aria-labelledby="titulo-planos">
         <div class="container">
-           <header class="section-heading">
+           <header class="section-heading" data-mobile-reveal>
              <p class="kicker">Principais frentes de trabalho</p>
             <h2 id="titulo-planos">Atendimentos personalizados</h2>
              <p class="section-text">Formatos pensados para diferentes fases e necessidades, sempre on-line e com combinados transparentes.</p>
           </header>
 
-          <div class="carousel-servicos" role="region" aria-label="Formatos de atendimento" data-animate="fade-up" data-delay="40">
+          <div
+            class="carousel-servicos"
+            role="region"
+            aria-label="Formatos de atendimento"
+            data-animate="fade-up"
+            data-delay="40"
+            data-mobile-reveal
+          >
             <button class="carousel-servicos__nav carousel-servicos__nav--prev" type="button" aria-label="Rolar formatos anteriores" aria-controls="carousel-servicos-track">
               <span aria-hidden="true">‹</span>
             </button>
@@ -120,39 +131,7 @@
               </article>
 
               <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                  <h3>Casais</h3>
-                  <p class="carousel-servicos__subtitle">Casais em diferentes fases da relação</p>
-                </header>
-                <div class="carousel-servicos__body">
-                  <p>Mediação ética para resgatar o diálogo, alinhar expectativas e reconstruir acordos possíveis para ambos.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Mapeamento de ciclos de conflito e gatilhos</li>
-                    <li>Ferramentas para comunicação empática e assertiva</li>
-                    <li>Planos de acompanhamento entre sessões</li>
-                  </ul>
-                </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal" target="_blank" rel="noopener noreferrer">Conversar</a>
-              </article>
-
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                  <h3>Famílias &amp; rede</h3>
-                  <p class="carousel-servicos__subtitle">Cuidadores, familiares e rede de apoio</p>
-                </header>
-                <div class="carousel-servicos__body">
-                  <p>Apoio sistêmico para facilitar acordos, estabelecer limites saudáveis e criar rotinas que sustentem o cuidado.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Escuta individual e encontros conjuntos quando necessário</li>
-                    <li>Construção de combinados sustentáveis para o grupo</li>
-                    <li>Check-ins periódicos para ajustes e encaminhamentos</li>
-                  </ul>
-                </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Preciso+de+apoio+para+minha+fam%C3%ADlia" target="_blank" rel="noopener noreferrer">Agendar conversa</a>
-              </article>
-
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
+@@ -156,134 +165,134 @@
                   <h3>Conversa inicial</h3>
                   <p class="carousel-servicos__subtitle">Primeiro contato orientativo</p>
                 </header>
@@ -178,7 +157,7 @@
       <section class="section section-diferenciais" aria-labelledby="titulo-diferenciais">
         <div class="container">
           <div class="diferenciais-grid">
-            <div class="diferenciais-copy" data-animate="fade-up">
+            <div class="diferenciais-copy" data-animate="fade-up" data-mobile-reveal>
               <h2 id="titulo-diferenciais">Combinações que sustentam mudanças consistentes</h2>
               <p>
                 Atendimento on-line com estrutura para garantir confidencialidade, previsibilidade e sensação de progresso.
@@ -200,22 +179,22 @@
             </div>
 
             <div class="diferenciais-cards">
-              <article class="mini-card" data-animate="fade-up">
+              <article class="mini-card" data-animate="fade-up" data-mobile-reveal>
                 <h3>Onboarding cuidadoso</h3>
                 <p>Primeira conversa para entender contextos, limites e expectativas.</p>
               </article>
 
-              <article class="mini-card" data-animate="fade-up" data-delay="80">
+              <article class="mini-card" data-animate="fade-up" data-delay="80" data-mobile-reveal>
                 <h3>Planos de ação</h3>
                 <p>Metas negociadas, experimentos entre sessões e revisão dos resultados.</p>
               </article>
 
-              <article class="mini-card" data-animate="fade-up" data-delay="160">
+              <article class="mini-card" data-animate="fade-up" data-delay="160" data-mobile-reveal>
                 <h3>Acompanhamento ético</h3>
                 <p>Sigilo, prontuário seguro e alinhamento contínuo ao Código de Ética.</p>
               </article>
 
-              <article class="mini-card" data-animate="fade-up" data-delay="240">
+              <article class="mini-card" data-animate="fade-up" data-delay="240" data-mobile-reveal>
                 <h3>Encerramento consciente</h3>
                 <p>Momento de avaliar avanços, consolidar aprendizados e definir próximos passos de forma colaborativa.</p>
               </article>
@@ -227,13 +206,13 @@
       <!-- PROCESSO -->
       <section class="section section-processo" id="processo" aria-labelledby="titulo-processo">
         <div class="container">
-          <header class="section-heading" data-animate="fade-up">
+          <header class="section-heading" data-animate="fade-up" data-mobile-reveal>
             <p class="kicker">Etapas do cuidado</p>
             <h2 id="titulo-processo">Passo a passo do atendimento</h2>
             <p class="section-text">Você acompanha cada etapa, com orientações claras antes, durante e depois das sessões.</p>
           </header>
 
-          <ol class="process-steps">
+          <ol class="process-steps" data-mobile-reveal>
             <li class="process-step" data-animate="fade-up">
               <span class="step-number">1</span>
               <h3>Contato inicial</h3>
@@ -261,7 +240,7 @@
       <!-- CTA -->
       <section class="section section-cta" aria-labelledby="titulo-cta">
         <div class="container">
-          <div class="cta-card" data-animate="fade-up">
+          <div class="cta-card" data-animate="fade-up" data-mobile-reveal>
             <h2 id="titulo-cta">Pronto para dar o próximo passo?</h2>
             <p>Agende uma conversa inicial para alinharmos expectativas, combinados e o caminho terapêutico mais adequado.</p>
             <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://wa.me/5521993034166?text=Quero+agendar+uma+conversa+inicial">Agendar no WhatsApp</a>

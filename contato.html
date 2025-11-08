@@ -25,6 +25,7 @@
     />
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/contato.css" />
+    <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 768px)" />
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -68,7 +69,7 @@
     <main id="conteudo">
       <!-- HERO -->
       <section class="section hero hero--has-media hero--inicio" aria-labelledby="titulo-contato">
-        <div class="container contato-hero">
+         <div class="contato-hero__text" data-mobile-reveal>
           <div class="contato-hero__text">
             <nav class="breadcrumbs" aria-label="Você está aqui"></nav>
 
@@ -90,7 +91,7 @@
               <a class="btn btn-secondary" href="#form-contato">Enviar mensagem</a>
             </div>
 
-            <ul class="contato-hero__compromissos" role="list">
+            <ul class="contato-hero__compromissos" role="list" data-mobile-reveal>
               <li>Atendimento 100% on-line e sigiloso</li>
               <li>Retorno em até 24h úteis</li>
               <li>Atendimento ético • CRP 05/82816</li>
@@ -111,17 +112,19 @@
 
       <!-- ATENDIMENTO DETALHES -->
       <section class="section atendimento-detalhes" aria-labelledby="detalhes-titulo">
-        <div class="container detalhes-grid">
-          <article class="detalhes-card">
+        <div class="container detalhes-grid" data-mobile-reveal>
+          <article class="detalhes-card" data-mobile-reveal>
             <p class="eyebrow">Transparência desde o primeiro contato</p>
             <h2 id="detalhes-titulo">Como funciona depois da sua mensagem</h2>
+            <ul class="contato-hero__lista">
               <li><strong>Retorno em até 24h úteis</strong> com valores, disponibilidade e instruções claras.</li>
               <li><strong>Encontro inicial de 50 minutos</strong> para acolher sua história e estabelecer combinados.</li>
               <li><strong>Plano terapêutico personalizado</strong> com frequência semanal e acompanhamento contínuo.</li>
+            </ul>
             <p>Todo o processo acontece com sigilo profissional e respeito ao seu tempo.</p>
           </article>
 
-          <article class="detalhes-card">
+          <article class="detalhes-card" data-mobile-reveal>
             <p class="eyebrow">Para facilitar seu planejamento</p>
             <h3>Horários disponíveis</h3>
             <ul class="detalhes-horarios">
@@ -137,7 +140,7 @@
       <!-- PERGUNTAS FREQUENTES -->
       <section class="section perguntas" aria-labelledby="perguntas-titulo">
         <div class="container perguntas-grid">
-          <div class="perguntas-intro">
+          <div class="perguntas-intro" data-mobile-reveal>
             <p class="eyebrow">Dúvidas frequentes</p>
             <h2 id="perguntas-titulo">Talvez eu já tenha respondido o que você procura</h2>
             <p>
@@ -146,7 +149,7 @@
             </p>
           </div>
 
-          <div class="perguntas-lista" role="list">
+          <div class="perguntas-lista" role="list" data-mobile-reveal>
             <details class="pergunta" role="listitem">
               <summary>O atendimento é somente on-line?</summary>
               <p>
@@ -179,8 +182,8 @@ Isso garante o mesmo acolhimento e sigilo do atendimento presencial, mas com mai
 
       <!-- FORMULÁRIO -->
       <section class="section contato-form" aria-labelledby="formulario-contato">
-        <div class="container contato-form__grid">
-          <div class="contato-form__intro">
+        <div class="container contato-form__grid" data-mobile-reveal>
+          <div class="contato-form__intro" data-mobile-reveal>
             <p class="eyebrow">Mensagem direta</p>
             <h2 id="formulario-contato">Compartilhe um pouco sobre o que você busca</h2>
             <p>
@@ -194,7 +197,7 @@ Isso garante o mesmo acolhimento e sigilo do atendimento presencial, mas com mai
             </ul>
           </div>
 
-          <div class="contato-form__card">
+          <div class="contato-form__card" data-mobile-reveal>
             <form id="form-contato" class="contact-form" novalidate>
               <div class="form-field">
                 <label for="nome">Nome completo</label>
@@ -324,9 +327,9 @@ Isso garante o mesmo acolhimento e sigilo do atendimento presencial, mas com mai
         </div>
       </div>
     </footer>
-
     <script type="module" src="js/menu.js" defer></script>
+    <script src="js/mobile.js" defer></script>
     <script type="module" src="js/transitions.js" defer></script>
     <script defer src="js/contato.js"></script>
-  </body>
+   </body>
 </html>

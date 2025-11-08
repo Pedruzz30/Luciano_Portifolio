@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/sobre.css" />
+    <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 768px)" />
   </head>
 
   <body>
@@ -63,7 +64,7 @@
       <!-- HERO minimalista -->
       <section class="section hero hero--has-media hero--inicio" aria-labelledby="hero-title">
         <div class="container">
-          <div class="hero-copy prose">
+          <div class="hero-copy prose" data-mobile-reveal>
             <p class="hero-eyebrow eyebrow">CRP 05/82816 • Psicólogo</p>
             <h1 id="hero-sobre" class="hero-title">Sobre mim</h1>
             <p class="hero-lead lead">
@@ -77,7 +78,7 @@
 
       <!-- BLOCO: Quem sou eu -->
       <section class="section">
-        <div class="container prose">
+        <div class="container prose" data-mobile-reveal>
           <h2>Quem sou eu</h2>
           <p>
             Sou <strong>Luciano Pimenta Dias</strong>, psicólogo (<strong>CRP 05/82816</strong>). Minha trajetória é marcada pela escuta atenta e por um
@@ -93,9 +94,9 @@
         </div>
       </section>
 
-      <!-- BLOCO: O que eu faço -->
+       <!-- BLOCO: O que eu faço -->
       <section class="section">
-        <div class="container prose">
+        <div class="container prose" data-mobile-reveal>
           <h2>O que eu faço</h2>
           <p>
             Conduzo processos terapêuticos que ajudam você a <strong>reconhecer padrões</strong>, <strong>estabelecer limites</strong> e
@@ -112,7 +113,7 @@
 
       <!-- BLOCO: Como eu faço -->
       <section class="section">
-        <div class="container prose">
+        <div class="container prose" data-mobile-reveal>
           <h2>Como eu faço</h2>
           <p>
             O processo começa com uma <strong>primeira conversa</strong> para entender sua demanda e sua história. Em seguida,
@@ -138,7 +139,7 @@
 
      <!-- CTA -->
       <section class="section">
-        <div class="container prose cta-box">
+        <div class="container prose cta-box" data-mobile-reveal>
           <h2 class="h2-quiet">Se fez sentido, vamos conversar</h2>
           <p>Envie uma mensagem e combinamos a primeira conversa.</p>
 
@@ -227,6 +228,7 @@
     </footer>
 
     <script type="module" src="js/menu.js" defer></script>
+    <script src="js/mobile.js" defer></script>
     <script type="module" src="js/transitions.js" defer></script>
     <script type="module" src="js/sobre.js" defer></script>
   </body>
