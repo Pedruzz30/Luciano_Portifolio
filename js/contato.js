@@ -1,68 +1,166 @@
-// Script responsável por adicionar a lógica de envio ao formulário de contato.
-const form = document.querySelector('#form-contato');
+(() => {
+  const form = document.querySelector('#form-contato');
+  if (!form) return;
 
-if (form) {
-  const feedback = form.parentElement?.querySelector('.form-feedback');
+  const feedback = document.querySelector('.form-feedback');
   const submitButton = form.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton?.textContent?.trim() || 'Enviar mensagem';
+  const FEEDBACK_TIMEOUT = 6000;
+  let feedbackTimeoutId;
 
-  // Exibe mensagens amigáveis no alerta ou na div de feedback.
-  const showFeedback = (message, type = 'error') => {
+  const fieldErrors = {
+    nome: document.getElementById('erro-nome'),
+    email: document.getElementById('erro-email'),
+    mensagem: document.getElementById('erro-mensagem'),
+  };
+
+  if (feedback) {
+    feedback.setAttribute('role', 'status');
+    feedback.setAttribute('aria-live', 'polite');
+    feedback.setAttribute('tabindex', '-1');
+  }
+
+  const hideFeedback = () => {
+    if (!feedback) return;
+    feedback.textContent = '';
+    feedback.classList.remove('is-error', 'is-success', 'is-visible');
+  };
+
+  const focusFeedback = () => {
+    if (!feedback) return;
+    window.requestAnimationFrame(() => {
+      feedback.focus();
+    });
+  };
+
+  const showFeedback = (message, type) => {
     if (feedback) {
+      window.clearTimeout(feedbackTimeoutId);
       feedback.textContent = message;
-      feedback.classList.add('is-visible');
-      feedback.classList.toggle('is-error', type === 'error');
-      feedback.classList.toggle('is-success', type === 'success');
+      feedback.classList.remove('is-error', 'is-success');
+      feedback.classList.add(type === 'success' ? 'is-success' : 'is-error', 'is-visible');
+      focusFeedback();
+      feedbackTimeoutId = window.setTimeout(hideFeedback, FEEDBACK_TIMEOUT);
     } else {
       window.alert(message);
     }
   };
 
-  // Remove mensagens anteriores para evitar acúmulo de avisos.
-  const clearFeedback = () => {
-    if (!feedback) return;
-    feedback.textContent = '';
-    feedback.classList.remove('is-visible', 'is-error', 'is-success');
+  const setFieldError = (field, message) => {
+    const errorEl = fieldErrors[field];
+    if (!errorEl) return;
+    errorEl.textContent = message;
+    errorEl.hidden = !message;
   };
 
-  // Fornece feedback visual enquanto a URL é preparada.
+  const clearFieldErrors = () => {
+    Object.keys(fieldErrors).forEach((field) => setFieldError(field, ''));
+  };
+
   const setLoadingState = (isLoading) => {
     if (!submitButton) return;
     submitButton.disabled = isLoading;
     submitButton.setAttribute('aria-busy', String(isLoading));
-    submitButton.textContent = isLoading ? 'Preparando mensagem…' : 'Enviar mensagem';
+    submitButton.textContent = isLoading ? 'Preparando mensagem…' : originalButtonText;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    clearFeedback();
+  const buildEmailContent = ({ nome, email, mensagem }) => {
+    const subjectText = `Nova mensagem de ${nome}`;
+    const bodyText = `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`;
 
-    const nome = form.querySelector('#nome')?.value.trim() ?? '';
-    const email = form.querySelector('#email')?.value.trim() ?? '';
-    const mensagem = form.querySelector('#mensagem')?.value.trim() ?? '';
+    return {
+      subjectText,
+      bodyText,
+      subject: encodeURIComponent(subjectText),
+      body: encodeURIComponent(bodyText),
+    };
+  };
 
-    if (!nome || !email || !mensagem) {
-      showFeedback('Por favor, preencha nome, e-mail e mensagem antes de enviar.');
-      return;
+  const openWindowSafely = (url) => {
+    try {
+      const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+      return Boolean(newWindow);
+    } catch (error) {
+      return false;
     }
+  };
 
-    setLoadingState(true);
-
-    // Monta o corpo do e-mail com quebra de linha e codifica os valores.
-    const subject = encodeURIComponent(`Nova mensagem de ${nome}`);
-    const body = encodeURIComponent(`Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`);
+  const launchEmailClient = (subject, body) => {
     const gmailUrl =
       'https://mail.google.com/mail/?view=cm&fs=1' +
       '&to=lucianopimenta.psi@gmail.com' +
       `&su=${subject}` +
       `&body=${body}`;
 
-    window.setTimeout(() => {
-      setLoadingState(false);
-      showFeedback('Abrindo Gmail em uma nova aba…', 'success');
-      window.open(gmailUrl, '_blank', 'noopener');
-      form.reset();
-    }, 300);
+    if (openWindowSafely(gmailUrl)) {
+      return true;
+    }
+
+    const mailtoUrl = `mailto:lucianopimenta.psi@gmail.com?subject=${subject}&body=${body}`;
+    return openWindowSafely(mailtoUrl);
   };
 
-  form.addEventListener('submit', handleSubmit);
-}
+  const validate = ({ nome, email, mensagem }) => {
+    let isValid = true;
+
+    if (!nome) {
+      setFieldError('nome', 'Informe seu nome completo.');
+      isValid = false;
+    }
+
+    if (!email) {
+      setFieldError('email', 'Informe um e-mail válido.');
+      isValid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setFieldError('email', 'Formato de e-mail inválido.');
+      isValid = false;
+    }
+
+    if (!mensagem) {
+      setFieldError('mensagem', 'Escreva uma mensagem antes de enviar.');
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    hideFeedback();
+    clearFieldErrors();
+
+    const formData = new FormData(form);
+    const data = {
+      nome: String(formData.get('nome') || '').trim(),
+      email: String(formData.get('email') || '').trim(),
+      mensagem: String(formData.get('mensagem') || '').trim(),
+    };
+
+    if (!validate(data)) {
+      showFeedback('Por favor, corrija os campos destacados antes de enviar.', 'error');
+      const firstInvalidField = form.querySelector('.field-error:not([hidden])')?.previousElementSibling;
+      if (firstInvalidField instanceof HTMLElement) {
+        firstInvalidField.focus();
+      }
+      return;
+    }
+
+    setLoadingState(true);
+
+    let emailOpened = false;
+
+    try {
+      const { subject, body } = buildEmailContent(data);
+      emailOpened = launchEmailClient(subject, body);
+    } finally {
+      setLoadingState(false);
+    }
+
+    if (emailOpened) {
+      form.reset();
+      showFeedback('Abrindo seu cliente de e-mail. Caso não veja a nova aba, verifique o bloqueio de pop-ups.', 'success');
+    } else {
+      showFeedback('Não foi possível abrir seu cliente de e-mail.', 'error');
+    }
+  });
+})();
