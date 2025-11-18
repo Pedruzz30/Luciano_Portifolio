@@ -648,24 +648,41 @@
 
 /* ========== PÁGINA CONTATO ========== */
 
-/* Em telas até 840px: mantém linha horizontal com scroll */
-@media (max-width: 840px) {
-  .contato-hero__compromissos {
-    justify-content: flex-start;      
-    flex-wrap: nowrap;                
-    overflow-x: auto;                 
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;   
-  }
+/* DESKTOP / BASE */
+.contato-hero__compromissos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;                /* evita quebrar facilmente */
+  overflow-x: auto;                 /* deixa deslizar se faltar espaço */
+  gap: clamp(.8rem, 1vw, 1.1rem);
+  margin-top: 1.6rem;
+  padding: .5rem 1rem;
+  scrollbar-width: thin;            /* Firefox */
+  scrollbar-color: rgba(0,0,0,.2) transparent;
 }
 
-/* Em telas até 760px: só ajuste de respiro, sem mudar o layout */
-@media (max-width: 760px) {
-  .contato-hero__compromissos {
-    padding-inline: 0.75rem;
-    gap: clamp(0.6rem, 2vw, 0.9rem);
-  }
+/* estilo de cada chip */
+.contato-hero__compromissos li {
+  --chip-bg: color-mix(in srgb, #fff 88%, var(--areia-dourada) 12%);
+  --chip-brd: color-mix(in srgb, var(--marsala-profundo) 20%, transparent 80%);
+  flex-shrink: 0;
+  padding: .7rem 1.25rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--chip-bg), color-mix(in srgb, #fff 94%, var(--areia-dourada) 6%));
+  border: 1px solid var(--chip-brd);
+  box-shadow: 0 2px 6px -3px rgba(0, 0, 0, .12);
+  line-height: 1.05;
+  font-weight: 600;
+  font-size: .95rem;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 88%, #000 12%);
+  letter-spacing: .01em;
+  transition: transform .18s ease, box-shadow .22s ease;
+}
+
+.contato-hero__compromissos li:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -6px rgba(0, 0, 0, .18);
 }
 
 
