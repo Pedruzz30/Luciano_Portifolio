@@ -87,16 +87,6 @@
   box-shadow: 0 4px 12px -6px rgba(0, 0, 0, .18);
 }
 
-/* mobile: os chips voltam a quebrar e ficam centralizados */
-@media (max-width: 840px) {
-  .contato-hero__compromissos {
-    flex-wrap: wrap;
-    justify-content: center;
-    overflow-x: visible;
-    row-gap: .7rem;
-  }
-}
-
 /* ===== melhora geral do equilíbrio vertical ===== */
 @media (min-width: 1280px) {
   .hero--contato {
@@ -274,8 +264,6 @@
 .detalhes-cta .btn--whats:hover,
 .detalhes-cta .btn--whats:focus-visible{ background:#25D366; color:#fff; filter:none; }
 
-/* responsivo fino */
-@media (max-width:480px){ .detalhes-cta .btn::before{ inline-size:1em; block-size:1em; } }
 @media (prefers-reduced-motion:reduce){
  .detalhes-grid > .detalhes-card, .detalhes-cta .btn, .detalhes-cta .btn::before{ transition:none !important; }
 }
@@ -396,21 +384,6 @@
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-/* ---------- Mobile refinado ---------- */
-@media (max-width: 720px) {
-  .perguntas-grid {
-    gap: 2rem;
-  }
-  .perguntas-intro {
-    text-align: center;
-    margin-inline: auto;
-  }
-  .pergunta {
-    padding: 1.1rem 1.3rem;
-  }
-}
-
 
 /* ===========================================================
    FORMULÁRIO DE CONTATO — versão premium refinada (2025)
@@ -650,25 +623,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* mobile */
-@media (max-width: 720px) {
-  .contato-form__intro { text-align: center; }
-  .btn.btn-primary { justify-self: center; }
-}
-
-
 /* ---------- Responsividade ---------- */
-@media (max-width: 760px) {
-  .hero-actions .btn {
-    inline-size: 100%;
-    justify-content: center;
-  }
-
-  .contato-hero__compromissos {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .hero-actions,

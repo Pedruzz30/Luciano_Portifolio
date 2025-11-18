@@ -208,15 +208,6 @@
 }
 .hero--servicos.hero--plain .hero-cta .btn-secondary:hover,
 .hero--servicos.hero--plain .hero-cta .btn-secondary:focus-visible { opacity: 1; }
-@media (max-width: 960px) {
-  .hero--servicos.hero--plain h1 { max-inline-size: 24ch; }
-  .hero--servicos.hero--plain .hero-lead { max-inline-size: 60ch; }
-}
-@media (max-width: 720px) {
-  .hero--servicos.hero--plain { padding-block: clamp(1rem, 3vh, 2rem); }
-  .hero--servicos.hero--plain h1 { font-size: clamp(2.1rem, 6vw, 2.6rem); }
-  .hero--servicos.hero--plain .hero-lead { font-size: clamp(1rem, 3.2vw, 1.12rem); }
-}
 
 /* ==========================================================
    SECTION SERVIÇOS — Carrossel (sem blur nas bordas)
@@ -539,17 +530,6 @@
   .carousel-servicos__cta { justify-self: end; padding-inline: 1.35rem; }
 }
 
-/* ----- Ajustes mobile para os botões ----- */
-@media (max-width: 640px) {
-  .carousel-servicos__nav {
-    inline-size: 2.4rem;
-    block-size: 2.4rem;
-    margin-block-start: -1.2rem;
-  }
-  .carousel-servicos__nav--prev { inset-inline-start: 0.35rem; }
-  .carousel-servicos__nav--next { inset-inline-end: 0.35rem; }
-}
-
 /* ----- Reduced motion (consolidado) ----- */
 @media (prefers-reduced-motion: reduce) {
   .carousel-servicos__track { scroll-behavior: auto; transition: none !important; }
@@ -718,10 +698,6 @@
 .process-step p {
   margin: 0; font-size: 1rem; line-height: 1.6;
   color: color-mix(in srgb, var(--marrom-terra-firme) 80%, black 20%);
-}
-@media (max-width: 720px) {
-  .process-steps { gap: 1.6rem; }
-  .process-step { padding: 1.5rem 1.6rem; }
 }
 
 /* ===== CTA (v2.1 — stack vertical centrado) ===== */
