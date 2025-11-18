@@ -258,6 +258,11 @@ main > .section:first-child:not(.hero) {
   transform: scale(1);
 }
 
+.nav-spotlight,
+.nav-actions {
+  display: none;
+}
+
 .nav-link[aria-current="page"] {
   color: color-mix(in srgb, var(--marsala-profundo) 70%, #000 30%);
 }
