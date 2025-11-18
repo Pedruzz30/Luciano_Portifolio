@@ -3,7 +3,7 @@
   const form = document.querySelector('#form-contato');
   if (!form) return;
 
-  const feedback = document.querySelector('.form-feedback');
+  const feedback = form.parentElement?.querySelector('.form-feedback') || document.querySelector('.form-feedback');
   const submitButton = form.querySelector('button[type="submit"]');
   const originalButtonText = submitButton?.textContent?.trim() || 'Enviar mensagem';
   const nomeField = form.elements.namedItem('nome');
@@ -66,17 +66,18 @@
   };
 
   const showFeedback = (message, type = 'info') => {
+    const status = type === 'success' ? 'success' : 'error';
     if (feedback) {
       window.clearTimeout(feedbackTimeoutId);
       feedback.textContent = message;
       feedback.classList.remove('is-error', 'is-success');
-      feedback.classList.add(type === 'success' ? 'is-success' : 'is-error', 'is-visible');
+      feedback.classList.add(status === 'success' ? 'is-success' : 'is-error', 'is-visible');
       focusFeedback();
       feedbackTimeoutId = window.setTimeout(hideFeedback, FEEDBACK_TIMEOUT);
     } else {
       window.alert(message);
     }
-    track('contact_feedback', { type, message });
+    track('contact_feedback', { type: status, message });
   };
 
   const openWindowSafely = (url) => {
@@ -123,11 +124,31 @@
     submitButton.textContent = isLoading ? 'Preparando mensagem…' : originalButtonText;
   };
 
+  const updateDescribedBy = (input, errorEl, shouldAdd) => {
+    if (!input || !errorEl?.id) return;
+    const tokens = new Set(
+      (input.getAttribute('aria-describedby') || '')
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (shouldAdd) {
+      tokens.add(errorEl.id);
+    } else {
+      tokens.delete(errorEl.id);
+    }
+    if (tokens.size) {
+      input.setAttribute('aria-describedby', Array.from(tokens).join(' '));
+    } else {
+      input.removeAttribute('aria-describedby');
+    }
+  };
+
   const setFieldError = (field, message) => {
     const input = form.elements.namedItem(field);
     const errorEl = fieldErrors[field];
     if (message) {
       input?.setAttribute('aria-invalid', 'true');
+      updateDescribedBy(input, errorEl, true);
       if (errorEl) {
         errorEl.textContent = message;
         errorEl.hidden = false;
@@ -135,6 +156,7 @@
       return false;
     }
     input?.removeAttribute('aria-invalid');
+    updateDescribedBy(input, errorEl, false);
     if (errorEl) {
       errorEl.textContent = '';
       errorEl.hidden = true;
@@ -145,6 +167,8 @@
   const clearFieldErrors = () => {
     Object.keys(fieldErrors).forEach((field) => setFieldError(field, ''));
   };
+
+  clearFieldErrors();
 
   const isOffline = () => navigator.onLine === false;
 
@@ -293,6 +317,13 @@
 
     if (!isValid && firstInvalidField instanceof HTMLElement) {
       firstInvalidField.focus();
+      const reduceMotion =
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const scrollOptions = reduceMotion
+        ? { block: 'center' }
+        : { behavior: 'smooth', block: 'center' };
+      firstInvalidField.scrollIntoView(scrollOptions);
     }
 
     return isValid;
