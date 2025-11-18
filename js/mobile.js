@@ -388,10 +388,24 @@
       return;
     }
 
+     const revealed = new WeakSet();
+    const reveal = (el) => {
+      if (revealed.has(el)) return;
+      revealed.add(el);
+      el.classList.add('is-revealed');
+      if (revealed.size === elements.length && safetyTimer) {
+        clearTimeout(safetyTimer);
+      }
+    };
+
+    const safetyTimer = window.setTimeout(() => {
+      elements.forEach(reveal);
+    }, 1400);
+
     revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-revealed');
+        reveal(entry.target);
         observer.unobserve(entry.target);
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -8%' });
