@@ -353,42 +353,66 @@ html.js .site-nav .nav-list {
     font-size: clamp(1.8rem, 6vw, 2.2rem);
   }
 
-  /* Carousel adjustments */
-  .carousel-servicos {
-    padding-inline: clamp(0.5rem, 4vw, 1rem);
-  }
+  /* ============================
+   CARROSSEL SERVIÇOS — MOBILE
+   ============================ */
 
-  .carousel-servicos__track {
-    grid-auto-columns: minmax(82vw, 1fr);
-    padding-inline: clamp(0.75rem, 4vw, 1.5rem);
-  }
+/* container do carrossel no mobile */
+.carousel-servicos {
+  padding-inline: clamp(0.9rem, 4vw, 1.4rem);
+  padding-block: clamp(0.75rem, 3vw, 1.25rem);
+}
 
-  .carousel-servicos__item {
-    min-block-size: 100%;
-  }
+/* trilho: 1 card por vez, com respiro nas laterais */
+.carousel-servicos__track {
+  /* mantém o esquema de colunas automáticas, mas dá um pouco mais de largura pro card */
+  grid-auto-columns: minmax(88vw, 1fr);
 
-  .carousel-servicos__nav {
-    inset-block-start: auto;
-    inset-block-end: clamp(0.75rem, 4vw, 1.25rem);
-    inline-size: 2.5rem;
-    block-size: 2.5rem;
-  }
+  /* evita excesso de padding + overflow lateral no mobile */
+  padding-inline: clamp(0.25rem, 2vw, 0.75rem);
 
-  .carousel-servicos__nav--prev {
-    inset-inline-start: clamp(0.75rem, 4vw, 1.5rem);
-  }
+  /* garante que o snap funcione bem em telas menores (se já tiver no global, reforça) */
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: clamp(0.9rem, 4vw, 1.4rem);
+}
 
-  .carousel-servicos__nav--next {
-    inset-inline-end: clamp(0.75rem, 4vw, 1.5rem);
-  }
+/* item ocupa bem a altura disponível, sem cortar sombra */
+.carousel-servicos__item {
+  min-block-size: 100%;
+}
 
-  .carousel-servicos__nav[disabled] {
-    opacity: 0.45;
-  }
+/* botões de navegação — tamanho bom pro dedão */
+.carousel-servicos__nav {
+  inset-block-start: auto;
+  inset-block-end: clamp(0.9rem, 4vw, 1.35rem);
 
-  .carousel-indicators {
-    justify-content: center;
-  }
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+
+  /* garante que fiquem acima dos cards e clicáveis */
+  z-index: 2;
+}
+
+/* posicionamento à esquerda/direita com respiro */
+.carousel-servicos__nav--prev {
+  inset-inline-start: clamp(0.9rem, 4vw, 1.6rem);
+}
+
+.carousel-servicos__nav--next {
+  inset-inline-end: clamp(0.9rem, 4vw, 1.6rem);
+}
+
+/* estado desabilitado mais sutil, mas ainda perceptível */
+.carousel-servicos__nav[disabled] {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* indicadores centralizados e com espaço dos botões */
+.carousel-indicators {
+  justify-content: center;
+  margin-block-start: clamp(0.5rem, 3vw, 0.9rem);
+}
 
   /* Accordion (FAQ) */
   .pergunta summary {
@@ -448,66 +472,151 @@ html.js .site-nav .nav-list {
     min-block-size: clamp(9rem, 40vw, 12rem);
   }
 
-  /* Footer */
-  .footer-content {
-    gap: clamp(1.75rem, 5vw, 2.5rem);
+  /* ============================
+   FOOTER — MOBILE REFINADO
+   ============================ */
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.6rem, 4.6vw, 2.4rem);
+
+  /* respiro nas laterais no mobile */
+  padding-inline: clamp(1rem, 5vw, 1.75rem);
+}
+
+/* colunas organizadas em stack no mobile */
+.footer-columns {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.15rem, 4vw, 2rem);
+}
+
+/* textos centralizados para leitura mais suave */
+.footer-panel,
+.footer-meta {
+  text-align: center;
+}
+
+/* redes sociais alinhadas e com espaço maior pro dedo */
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.75rem, 3.2vw, 1.1rem);
+}
+
+/* ícones mais amigáveis ao toque */
+.footer-social a {
+  inline-size: clamp(36px, 9vw, 44px);
+  block-size: clamp(36px, 9vw, 44px);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  transition: transform 0.2s ease;
+}
+
+.footer-social a:active,
+.footer-social a:hover {
+  transform: translateY(-2px);
+}
+
+/* metadados finais com respiro extra */
+.footer-meta {
+  margin-block-start: clamp(0.75rem, 3vw, 1.15rem);
+  font-size: clamp(0.85rem, 3.2vw, 0.98rem);
+  opacity: 0.85;
+}
+
+ /* ============================
+   TYPOGRAPHY TWEAKS REFINADO
+   ============================ */
+
+/* títulos com quebra inteligente em qualquer tela */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  hyphens: auto;
+}
+
+/* bloco de texto principal */
+.prose {
+  display: grid; /* permite usar gap de forma confiável */
+  gap: clamp(1rem, 3.4vw, 1.6rem);
+
+  font-size: clamp(1rem, 2.9vw, 1.12rem);
+  line-height: 1.75;
+
+  max-width: 70ch; /* evita linhas gigantes */
+}
+
+/* parágrafos em sequência com respiro extra */
+.prose p + p {
+  margin-top: clamp(0.35rem, 1.8vw, 0.6rem);
+}
+
+/* subtítulos dentro da área de texto */
+.prose h2 {
+  margin-top: clamp(1.5rem, 5vw, 2.25rem);
+  margin-bottom: clamp(0.4rem, 2vw, 0.75rem);
+  font-size: clamp(1.75rem, 5.4vw, 2.35rem);
+  line-height: 1.25;
+}
+
+.prose h3 {
+  margin-top: clamp(1.25rem, 4.2vw, 1.8rem);
+  margin-bottom: clamp(0.35rem, 1.8vw, 0.6rem);
+  font-size: clamp(1.35rem, 4.6vw, 1.75rem);
+  line-height: 1.3;
+}
+
+/* listas mais legíveis */
+.prose ul,
+.prose ol {
+  padding-inline-start: 1.25rem;
+  display: grid;
+  gap: clamp(0.4rem, 2vw, 0.7rem);
+}
+
+.prose li::marker {
+  font-size: 0.9em;
+}
+
+/* ============================
+   TABLETS (481px — 768px)
+   ============================ */
+
+@media (min-width: 481px) and (max-width: 768px) {
+  /* grids principais em 2 colunas, com respiro */
+  .intro-grid,
+  .services-grid,
+  .diferenciais-grid,
+  .detalhes-grid,
+  .contato-form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(1.25rem, 4vw, 2rem);
+    row-gap: clamp(1.25rem, 4vw, 2rem);
+    align-items: start;
+  }
+
+  .ethics-cards,
+  .perguntas-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(1.1rem, 3.6vw, 1.8rem);
+    row-gap: clamp(1rem, 3.4vw, 1.6rem);
   }
 
   .footer-columns {
-    gap: clamp(1.25rem, 4vw, 2rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(1.1rem, 3.6vw, 1.7rem);
+    row-gap: clamp(1rem, 3.4vw, 1.6rem);
   }
 
-  .footer-panel,
-  .footer-meta {
-    text-align: left;
+  /* última coluna ocupando toda a largura (ex: direitos autorais ou CTA final) */
+  .footer-columns > :last-child {
+    grid-column: 1 / -1;
   }
-
-  .footer-social {
-    justify-content: flex-start;
-  }
-
-  /* Typography tweaks */
-  h1,
-  h2,
-  h3 {
-    text-wrap: balance;
-  }
-
-  .prose {
-    font-size: clamp(1rem, 3.2vw, 1.12rem);
-    line-height: 1.7;
-    gap: clamp(1rem, 4vw, 1.5rem);
-  }
-
-  .prose h2 {
-    font-size: clamp(1.75rem, 6vw, 2.35rem);
-  }
-
-  .prose h3 {
-    font-size: clamp(1.35rem, 5vw, 1.75rem);
-  }
-
-  /* Tablets (>=481px) */
-  @media (min-width: 481px) and (max-width: 768px) {
-    .intro-grid,
-    .services-grid,
-    .diferenciais-grid,
-    .detalhes-grid,
-    .contato-form__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .ethics-cards,
-    .perguntas-lista {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .footer-columns {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .footer-columns > :last-child {
-      grid-column: 1 / -1;
-    }
-  }
-}
+}}
