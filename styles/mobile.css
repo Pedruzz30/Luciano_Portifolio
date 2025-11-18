@@ -13,9 +13,11 @@
     --space-xl: clamp(3rem, 10vw, 4rem);
   }
 
-  body.has-open-nav {
+   body.has-open-nav {
     overflow: hidden;
-    height: 100vh;
+    block-size: 100dvh;
+    min-block-size: 100vh;
+    overscroll-behavior: contain;
   }
 
   /* ============================
@@ -48,7 +50,7 @@
     border: 1px solid color-mix(in srgb, var(--marsala-profundo) 10%, #ffffff 90%);
 
     /* vidro suave sem pesar tanto */
-    backdrop-filter: blur(14px);
+      --nav-blur-strength: 12px;
 
     border-start-start-radius: 24px;
     border-end-start-radius: 24px;
@@ -76,6 +78,14 @@
     opacity: 1;
     pointer-events: auto;
   }
+
+@supports ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
+    html.js .site-nav {
+      backdrop-filter: blur(var(--nav-blur-strength));
+      -webkit-backdrop-filter: blur(var(--nav-blur-strength));
+    }
+  }
+
 
   /* lista principal */
   html.js .site-nav .nav-list {
@@ -277,6 +287,11 @@
     justify-content: center;
   }
 
+  .hero-actions .btn {
+    inline-size: 100%;
+    justify-content: center;
+  }
+
   .hero-media {
     max-inline-size: min(420px, 100%);
     margin-inline: auto;
@@ -361,25 +376,40 @@
   /* trilho: 1 card por vez, com respiro, sem vazar pros lados */
   .carousel-servicos__track {
     /* cada item ocupa quase a tela, mas respeita o padding do container */
-    grid-auto-columns: minmax(84vw, 1fr);
+     grid-auto-columns: minmax(82vw, 1fr);
 
     /* evita overflow lateral somando com o padding do container */
     padding-inline: clamp(0.25rem, 2vw, 0.6rem);
 
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     scroll-padding-inline: clamp(0.9rem, 4vw, 1.4rem);
 
     /* garantem experiência suave no dedo */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(62, 39, 49, 0.16) transparent;
+  }
+
+  .carousel-servicos__track::-webkit-scrollbar {
+    height: 0.45rem;
+  }
+
+  .carousel-servicos__track::-webkit-scrollbar-thumb {
+    background: rgba(62, 39, 49, 0.18);
+    border-radius: 999px;
+  }
+
+  .carousel-servicos__track::-webkit-scrollbar-track {
+    background: transparent;
   }
 
   /* item ocupa bem a área útil e encaixa certinho no snap */
   .carousel-servicos__item {
     min-block-size: 100%;
     scroll-snap-align: center;
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal;
   }
 
   /* botões de navegação — dedão friendly */
@@ -446,6 +476,62 @@
 
   .pergunta p {
     font-size: clamp(0.98rem, 3.2vw, 1.08rem);
+  }
+
+  /* Compromissos (chips horizontais) */
+  .contato-hero__compromissos {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: clamp(0.7rem, 2.5vw, 1rem);
+    margin-top: 1.4rem;
+    padding: 0.45rem 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 0.75rem;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(62, 39, 49, 0.16) transparent;
+    touch-action: pan-x;
+  }
+
+  .contato-hero__compromissos::-webkit-scrollbar {
+    height: 0.4rem;
+  }
+
+  .contato-hero__compromissos::-webkit-scrollbar-thumb {
+    background: rgba(62, 39, 49, 0.16);
+    border-radius: 999px;
+  }
+
+  .contato-hero__compromissos::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .contato-hero__compromissos li {
+    --chip-bg: color-mix(in srgb, #fff 88%, var(--areia-dourada) 12%);
+    --chip-brd: color-mix(in srgb, var(--marsala-profundo) 20%, transparent 80%);
+    flex-shrink: 0;
+    padding: 0.6rem 1.05rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--chip-bg), color-mix(in srgb, #fff 94%, var(--areia-dourada) 6%));
+    border: 1px solid var(--chip-brd);
+    box-shadow: 0 2px 6px -3px rgba(0, 0, 0, 0.12);
+    line-height: 1.05;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: color-mix(in srgb, var(--marrom-terra-firme) 88%, #000 12%);
+    letter-spacing: 0.01em;
+    scroll-snap-align: start;
+    transition: transform 0.18s ease, box-shadow 0.22s ease;
+  }
+
+  .contato-hero__compromissos li:hover,
+  .contato-hero__compromissos li:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -6px rgba(0, 0, 0, 0.18);
   }
 
   /* Contact form */
@@ -535,7 +621,7 @@
   h2,
   h3 {
     text-wrap: balance;
-    hyphens: auto;
+    hyphens: manual;
   }
 
   .prose {
@@ -580,12 +666,15 @@
 /* acessibilidade: sem motion exagerado pra quem desativa animação */
 @media (prefers-reduced-motion: reduce) {
   [data-mobile-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .carousel-servicos__track {
+    scroll-behavior: auto;
   }
 }
-
 
 /* ============================
    TABLETS (481px — 768px)
@@ -631,74 +720,26 @@
     background: var(--hero-highlight-mobile-bg);
     padding-inline: clamp(0.6rem, 3vw, 0.9rem);
   }
-}
-
-/* footer centralizado em telas intermediárias */
-@media (max-width: 56.24rem) {
-  .footer-panel { text-align: center; }
-
-  .col-contact .footer-action {
-    justify-content: center;
-    text-align: center;
-  }
-
-  .footer-social { justify-content: center; }
-}
-
-
-/* ========== PÁGINA CONTATO ========== */
-
-/* DESKTOP / BASE */
-.contato-hero__compromissos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;                /* evita quebrar facilmente */
-  overflow-x: auto;                 /* deixa deslizar se faltar espaço */
-  gap: clamp(.8rem, 1vw, 1.1rem);
-  margin-top: 1.6rem;
-  padding: .5rem 1rem;
-  scrollbar-width: thin;            /* Firefox */
-  scrollbar-color: rgba(0,0,0,.2) transparent;
-}
-
-/* estilo de cada chip */
-.contato-hero__compromissos li {
-  --chip-bg: color-mix(in srgb, #fff 88%, var(--areia-dourada) 12%);
-  --chip-brd: color-mix(in srgb, var(--marsala-profundo) 20%, transparent 80%);
-  flex-shrink: 0;
-  padding: .7rem 1.25rem;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--chip-bg), color-mix(in srgb, #fff 94%, var(--areia-dourada) 6%));
-  border: 1px solid var(--chip-brd);
-  box-shadow: 0 2px 6px -3px rgba(0, 0, 0, .12);
-  line-height: 1.05;
-  font-weight: 600;
-  font-size: .95rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 88%, #000 12%);
-  letter-spacing: .01em;
-  transition: transform .18s ease, box-shadow .22s ease;
-}
-
-.contato-hero__compromissos li:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px -6px rgba(0, 0, 0, .18);
-}
-
-
-@media (max-width: 760px) {
-  .hero-actions .btn {
+.contact-form button,
+  .contact-form .btn,
+  .contato-hero .btn,
+  .cta-card .btn,
+  .intro .btn,
+  .section-cta .btn {
+    max-inline-size: 22rem;
     inline-size: 100%;
     justify-content: center;
   }
 }
 
+/* alinhamentos adicionais em telas menores */
 @media (max-width: 720px) {
   .perguntas-grid {
     gap: clamp(1.4rem, 4vw, 2rem);
   }
 
-  .perguntas-intro {
+  .perguntas-intro,
+  .contato-form__intro {
     text-align: center;
     margin-inline: auto;
     max-width: 42rem;
@@ -708,14 +749,44 @@
     padding: 1.1rem 1.3rem;
   }
 
-  .contato-form__intro {
-    text-align: center;
-    margin-inline: auto;
-  }
-
   .btn.btn-primary {
     justify-self: center;
     inline-size: min(100%, 18rem);
+  }
+}
+
+
+/* ============================
+   Ajustes extra por página / breakpoint
+   ============================ */
+
+
+@media (max-width: 640px) {
+  .hero .hero-highlights li {
+    background: var(--hero-highlight-mobile-bg);
+    padding-inline: clamp(0.6rem, 3vw, 0.9rem);
+  }
+
+  .carousel-servicos__nav {
+    margin-block-start: -1.2rem;
+  }
+
+  .carousel-servicos__nav--prev {
+    inset-inline-start: 0.35rem;
+  }
+
+  .carousel-servicos__nav--next {
+    inset-inline-end: 0.35rem;
+  }
+
+  .hero--sobre {
+    min-block-size: calc(64svh - var(--header-offset, 0px));
+  }
+
+  .hero--sobre .hero-copy {
+    max-width: var(--measure-narrow);
+    margin-inline: auto;
+    text-align: left;
   }
 }
 
@@ -729,7 +800,7 @@
 
 /* ========== PÁGINA SERVIÇOS ========== */
 
-@media (max-width: 960px) {
+@media (max-width: 768px) {
   .hero--servicos.hero--plain h1 {
     max-inline-size: 24ch;
   }
@@ -762,24 +833,10 @@
   }
 }
 
-@media (max-width: 640px) {
-  .carousel-servicos__nav {
-    margin-block-start: -1.2rem;
-  }
-
-  .carousel-servicos__nav--prev {
-    inset-inline-start: 0.35rem;
-  }
-
-  .carousel-servicos__nav--next {
-    inset-inline-end: 0.35rem;
-  }
-}
-
 
 /* ========== PÁGINA SOBRE ========== */
 
-@media (max-width: 980px) {
+@media (max-width: 768px) {
   .prose {
     padding-inline: clamp(1rem, 4vw, 1.5rem);
     margin-inline: auto;
@@ -796,17 +853,5 @@
   .article p,
   .prose p {
     font-size: clamp(1rem, 3.2vw, 1.08rem);
-  }
-}
-
-@media (max-width: 640px) {
-  .hero--sobre {
-    min-block-size: calc(64svh - var(--header-offset, 0px));
-  }
-
-  .hero--sobre .hero-copy {
-    max-width: var(--measure-narrow);
-    margin-inline: auto;
-    text-align: left;
   }
 }
