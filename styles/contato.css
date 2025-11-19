@@ -351,21 +351,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- Mobile refinado ---------- */
-@media (max-width: 720px) {
-  .perguntas-grid {
-    gap: 2rem;
-  }
-  .perguntas-intro {
-    text-align: center;
-    margin-inline: auto;
-  }
-  .pergunta {
-    padding: 1.1rem 1.3rem;
-  }
-}
-
-
 /* ===========================================================
    FORMULÁRIO DE CONTATO — versão premium refinada (2025)
    =========================================================== */

@@ -30,20 +30,35 @@
   }
 
   /* ============================
-   NAV MOBILE LATERAL — REFINADO
+   NAV MOBILE LATERAL — MOBILE
    ============================ */
 
+/* tudo isso só ativa até 960px */
+@media (max-width: 960px) {
   html.js .site-nav {
     position: fixed;
-    inset-block-start: var(--header-h);
+
+    /* encosta no header e vai até o fim da tela */
     inset-inline-end: 0;
     inset-inline-start: auto;
+    inset-block-start: var(--header-h);
+    inset-block-end: 0;
+
+    /* altura máxima baseada no viewport “real” (svh) com fallback em vh */
+    max-block-size: max(
+      calc(100vh - var(--header-h)),
+      calc(100svh - var(--header-h))
+    );
+    min-block-size: auto;
 
     inline-size: min(88vw, 380px);
     max-inline-size: 380px;
-    min-block-size: calc(100vh - var(--header-h));
 
     padding: clamp(1.25rem, 4vw, 1.9rem);
+    padding-block-end: max(
+      clamp(1.25rem, 4vw, 1.9rem),
+      env(safe-area-inset-bottom, 1rem)
+    );
 
     display: flex;
     flex-direction: column;
@@ -58,24 +73,24 @@
       0 20px 40px rgba(0, 0, 0, 0.06);
     border: 1px solid color-mix(in srgb, var(--marsala-profundo) 10%, #ffffff 90%);
 
-    /* vidro suave sem pesar tanto */
+    /* vidro suave com fallback natural (se não suportar, ignora) */
     backdrop-filter: blur(14px);
 
     border-start-start-radius: 24px;
     border-end-start-radius: 24px;
 
-    /* nave grande em telas menores */
+    /* conteúdo rola dentro da nave */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     touch-action: pan-y;
 
+    /* estado fechado */
     transform: translateX(105%);
     opacity: 0;
     pointer-events: none;
 
-    z-index: 80; /* acima do conteúdo, abaixo do header se ele tiver z-index alto */
-
+    z-index: 80;
     transition:
       transform 0.32s ease-out,
       opacity 0.32s ease-out;
@@ -99,7 +114,7 @@
     list-style: none;
   }
 
-/* links */
+  /* links */
   .nav-link {
     inline-size: 100%;
     display: inline-flex;
@@ -115,16 +130,16 @@
     text-transform: uppercase;
 
     text-decoration: none;
+    color: color-mix(in srgb, var(--marsala-profundo) 88%, #000 12%);
   }
 
-  /* foco visível mais amigável no teclado */
   .nav-link:focus-visible {
     outline: 2px solid color-mix(in srgb, var(--marsala-profundo) 70%, #ffffff 30%);
     outline-offset: 3px;
     border-radius: 999px;
   }
 
-  /* spotlight + actions (mesma base visual) */
+  /* spotlight + actions */
   .nav-spotlight,
   .nav-actions {
     display: grid;
@@ -136,106 +151,123 @@
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
   }
 
-/* spotlight (avatar + info) */
-.nav-spotlight {
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: clamp(0.85rem, 3vw, 1.1rem);
+  .nav-spotlight {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: clamp(0.85rem, 3vw, 1.1rem);
+  }
+
+  .nav-avatar {
+    inline-size: clamp(64px, 20vw, 80px);
+    block-size: clamp(64px, 20vw, 80px);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid color-mix(in srgb, var(--dourado-fosco) 65%, #fff 35%);
+    box-shadow: 0 10px 18px rgba(62, 39, 49, 0.16);
+    flex-shrink: 0;
+  }
+
+  .nav-avatar img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .nav-identity {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .nav-eyebrow {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-role {
+    margin: 0;
+    color: color-mix(in srgb, var(--marrom-terra-firme) 82%, #000 18%);
+    font-size: clamp(0.98rem, 3.6vw, 1.08rem);
+    font-weight: 600;
+  }
+
+  .nav-status {
+    margin: 0;
+    font-size: clamp(0.92rem, 3.2vw, 1.02rem);
+    color: color-mix(in srgb, var(--marsala-profundo) 72%, #000 28%);
+  }
+
+  .nav-actions {
+    gap: clamp(0.75rem, 2.8vw, 1rem);
+  }
+
+  .nav-action {
+    inline-size: 100%;
+    justify-content: center;
+    min-block-size: 52px;
+  }
+
+  .nav-actions__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(0.55rem, 2vw, 0.85rem);
+  }
+
+  .nav-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.85rem 1rem;
+    border-radius: 999px;
+
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+
+    color: color-mix(in srgb, var(--marsala-profundo) 82%, #000 18%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid color-mix(in srgb, var(--marsala-profundo) 14%, #ffffff 86%);
+
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .nav-chip:hover,
+  .nav-chip:focus-visible,
+  .nav-chip:active {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(62, 39, 49, 0.12);
+  }
+
+  /* backdrop alinhado com o header fixo */
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    inset-block-start: 0;
+    background: rgba(62, 39, 49, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 70;
+    transition: opacity 0.25s ease-out;
+  }
+
+  .nav-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
-.nav-avatar {
-  inline-size: clamp(64px, 20vw, 80px);
-  block-size: clamp(64px, 20vw, 80px);
-  border-radius: 18px;
-  overflow: hidden;
-  border: 2px solid color-mix(in srgb, var(--dourado-fosco) 65%, #fff 35%);
-  box-shadow: 0 10px 18px rgba(62, 39, 49, 0.16);
-  flex-shrink: 0;
-}
-
-.nav-avatar img {
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.nav-identity {
-  display: grid;
-  gap: 0.25rem;
-}
-
-.nav-eyebrow {
-  margin: 0;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.nav-role {
-  margin: 0;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 82%, #000 18%);
-  font-size: clamp(0.98rem, 3.6vw, 1.08rem);
-  font-weight: 600;
-}
-
-.nav-status {
-  margin: 0;
-  font-size: clamp(0.92rem, 3.2vw, 1.02rem);
-  color: color-mix(in srgb, var(--marsala-profundo) 72%, #000 28%);
-}
-
-/* bloco de ações */
-.nav-actions {
-  gap: clamp(0.75rem, 2.8vw, 1rem);
-}
-
-.nav-action {
-  inline-size: 100%;
-  justify-content: center;
-  min-block-size: 52px;
-}
-
-/* chips (atalhos) */
-.nav-actions__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(0.55rem, 2vw, 0.85rem);
-}
-
-.nav-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0.85rem 1rem;
-  border-radius: 999px;
-
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-
-  color: color-mix(in srgb, var(--marsala-profundo) 82%, #000 18%);
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid color-mix(in srgb, var(--marsala-profundo) 14%, #ffffff 86%);
-
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.nav-chip:hover,
-.nav-chip:focus-visible,
-.nav-chip:active {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 22px rgba(62, 39, 49, 0.12);
-}
-
-/* backdrop alinhado com o header fixo */
-.nav-backdrop {
-  inset-block-start: 0;
-  background: rgba(62, 39, 49, 0.55);
+/* Animações mais suaves pra quem não curte muito movimento */
+@media (prefers-reduced-motion: reduce) {
+  html.js .site-nav,
+  .nav-backdrop {
+    transition: none;
+  }
 }
 
 /* ===== Reveal genérico no mobile ===== */
@@ -708,12 +740,35 @@ h3 {
     align-items: start;
   }
 
-  .ethics-cards,
-  .perguntas-lista {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(1.1rem, 3.6vw, 1.8rem);
-    row-gap: clamp(1rem, 3.4vw, 1.6rem);
+  /* Só as cards de ética em 2 colunas, FAQ fica de boa */
+.ethics-cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.1rem, 3.6vw, 1.8rem);
+  row-gap: clamp(1rem, 3.4vw, 1.6rem);
+}
+
+/* ---------- Mobile refinado ---------- */
+@media (max-width: 720px) {
+  .perguntas-grid {
+    gap: 2rem;
   }
+
+  .perguntas-intro {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .pergunta {
+    padding: 1.1rem 1.3rem;
+  }
+
+  /* ética vira 1 coluna no mobile */
+  .ethics-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
 
   .footer-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
