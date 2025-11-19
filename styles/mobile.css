@@ -297,6 +297,33 @@
     margin-inline: auto;
   }
 
+/* Contato: hero mais compacto e alinhado */
+  .hero--contato {
+    min-block-size: auto;
+    padding-block: clamp(2.4rem, 8vw, 3.4rem);
+  }
+
+  .contato-hero {
+    gap: clamp(1.6rem, 4vw, 2.3rem);
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .contato-hero__text {
+    align-items: flex-start;
+    gap: clamp(1rem, 3.5vw, 1.6rem);
+  }
+
+  .contato-hero .hero-title,
+  .contato-hero .hero-lead {
+    max-inline-size: none;
+  }
+
+  .contato-hero__compromissos {
+    margin-inline: calc(-1 * clamp(0.45rem, 2vw, 0.75rem));
+    padding-inline: clamp(0.45rem, 2vw, 0.75rem);
+  }
+
   /* Intro & cards */
   .intro-grid,
   .ethics-grid,
@@ -307,6 +334,24 @@
   .footer-columns {
     grid-template-columns: 1fr;
     gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+.contato-form {
+    padding-block: clamp(2.3rem, 8vw, 3.2rem);
+  }
+
+  .contato-form__grid {
+    row-gap: clamp(1.6rem, 4.5vw, 2.4rem);
+  }
+
+  .contato-form__card {
+    padding: clamp(1.5rem, 5vw, 2rem);
+    box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.18);
+  }
+
+  .form-tips {
+    padding: clamp(0.9rem, 3.5vw, 1.15rem);
+    gap: clamp(0.45rem, 3vw, 0.75rem);
   }
 
   .intro-text,
