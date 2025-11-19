@@ -26,11 +26,17 @@
     email: document.getElementById('erro-email'),
     mensagem: document.getElementById('erro-mensagem'),
   };
+  const baseDescriptions = {
+      nome: ['hint-nome'],
+      email: ['hint-email'],
+      mensagem: ['hint-mensagem', 'mensagem-counter'],
+    };
 
   if (feedback) {
     feedback.setAttribute('role', 'status');
     feedback.setAttribute('aria-live', 'polite');
     feedback.setAttribute('tabindex', '-1');
+    feedback.setAttribute('aria-atomic', 'true');
   }
 
   form.setAttribute('novalidate', 'novalidate');
@@ -65,13 +71,29 @@
     window.requestAnimationFrame(() => feedback.focus());
   };
 
-  const showFeedback = (message, type = 'info') => {
-    const status = type === 'success' ? 'success' : 'error';
+  const showFeedback = (message, type = 'info', options = {}) => {
+    const status = type === 'success' ? 'success' : type === 'info' ? 'info' : 'error';
     if (feedback) {
       window.clearTimeout(feedbackTimeoutId);
-      feedback.textContent = message;
+      feedback.textContent = '';
+      feedback.setAttribute('aria-live', status === 'error' ? 'assertive' : 'polite');
       feedback.classList.remove('is-error', 'is-success');
       feedback.classList.add(status === 'success' ? 'is-success' : 'is-error', 'is-visible');
+
+const text = document.createElement('span');
+      text.textContent = message;
+      feedback.append(text);
+
+      if (options.actionLabel && options.actionHref) {
+        const actionLink = document.createElement('a');
+        actionLink.className = 'feedback-link';
+        actionLink.href = options.actionHref;
+        actionLink.target = options.actionTarget || '_self';
+        actionLink.rel = 'noopener noreferrer';
+        actionLink.textContent = options.actionLabel;
+        feedback.append(document.createTextNode(' '));
+        feedback.append(actionLink);
+      }
       focusFeedback();
       feedbackTimeoutId = window.setTimeout(hideFeedback, FEEDBACK_TIMEOUT);
     } else {
@@ -104,17 +126,22 @@
     };
   };
 
-  const launchEmailClient = (subject, body) => {
-    const gmailUrl =
+  const buildEmailLinks = (subject, body) => {
+    const gmail =
       'https://mail.google.com/mail/?view=cm&fs=1' +
       `&to=${encodeURIComponent(targetEmail)}` +
       `&su=${subject}` +
       `&body=${body}`;
 
-    if (openWindowSafely(gmailUrl)) return true;
+    const mailto = `mailto:${encodeURIComponent(targetEmail)}?subject=${subject}&body=${body}`;
 
-    const mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?subject=${subject}&body=${body}`;
-    return openWindowSafely(mailtoUrl);
+    return { gmail, mailto };
+  };
+
+  const launchEmailClient = (links) => {
+    if (openWindowSafely(links.gmail)) return 'gmail';
+    if (openWindowSafely(links.mailto)) return 'mailto';
+    return '';
   };
 
   const setLoadingState = (isLoading) => {
@@ -126,11 +153,13 @@
 
   const updateDescribedBy = (input, errorEl, shouldAdd) => {
     if (!input || !errorEl?.id) return;
-    const tokens = new Set(
-      (input.getAttribute('aria-describedby') || '')
+    const base = baseDescriptions[input.getAttribute('name') || ''] || [];
+    const tokens = new Set([
+      ...base,
+      ...(input.getAttribute('aria-describedby') || '')
         .split(/\s+/)
         .filter(Boolean),
-    );
+    ]);
     if (shouldAdd) {
       tokens.add(errorEl.id);
     } else {
@@ -168,6 +197,22 @@
     Object.keys(fieldErrors).forEach((field) => setFieldError(field, ''));
   };
 
+  const applyBaseDescriptions = () => {
+    Object.entries(baseDescriptions).forEach(([field, ids]) => {
+      const input = form.elements.namedItem(field);
+      if (!(input instanceof HTMLElement)) return;
+      const tokens = new Set([
+        ...ids,
+        ...(input.getAttribute('aria-describedby') || '')
+          .split(/\s+/)
+          .filter(Boolean),
+      ]);
+      if (tokens.size) {
+        input.setAttribute('aria-describedby', Array.from(tokens).join(' '));
+      }
+    });
+  };
+
   clearFieldErrors();
 
   const isOffline = () => navigator.onLine === false;
@@ -181,15 +226,30 @@
   };
 
   const maybeFallbackWhatsApp = (data) => {
-    const whatsNumber = sanitizeSingleLine(form.dataset.whatsapp || '');
-    if (!whatsNumber) return;
-    const safeMensagem = sanitizeMultiline(
-      `Olá, meu nome é ${data.nome}. ${data.mensagem}`,
-      1000,
-    );
-    const whatsappUrl = `https://wa.me/${whatsNumber}?text=${encodeURIComponent(safeMensagem)}`;
-    openWindowSafely(whatsappUrl);
-  };
+  const whatsNumber = sanitizeSingleLine(form.dataset.whatsapp || '');
+  if (!whatsNumber) return;
+
+  const safeMensagem = sanitizeMultiline(
+    `Olá, meu nome é ${data.nome}. ${data.mensagem}`,
+    1000
+  );
+
+  const whatsappUrl =
+    `https://wa.me/${whatsNumber}?text=${encodeURIComponent(safeMensagem)}`;
+
+  // Feedback elegante + CTA opcional
+  showFeedback(
+    'Se preferir, você pode continuar essa conversa também pelo WhatsApp.',
+    'info',
+    {
+      actionLabel: 'Abrir WhatsApp',
+      actionHref: whatsappUrl,
+      actionTarget: '_blank'
+    }
+  );
+};
+
+
 
   const saveFormData = () => {
     try {
@@ -251,6 +311,7 @@
     mensagemField.addEventListener('input', updateCounter);
   }
 
+  applyBaseDescriptions();
   restoreFormData();
 
   // ====== EVENTS ======
@@ -284,7 +345,7 @@
     const checkNome = sanitizeSingleLine(nome);
     if (!checkNome) {
       if (!firstInvalidField) firstInvalidField = nomeField;
-      setFieldError('nome', 'Informe seu nome completo.');
+     setFieldError('nome', 'Informe como gostaria de ser chamado(a).');
       isValid = false;
     } else {
       setFieldError('nome', '');
@@ -293,7 +354,7 @@
     const checkEmail = sanitizeSingleLine(email);
     if (!checkEmail) {
       if (!firstInvalidField) firstInvalidField = emailField;
-      setFieldError('email', 'Informe um e-mail válido.');
+      setFieldError('email', 'Inclua um e-mail para receber meu retorno.');
       isValid = false;
     } else if (!/^\S+@\S+\.\S+$/.test(checkEmail)) {
       if (!firstInvalidField) firstInvalidField = emailField;
@@ -303,11 +364,12 @@
       setFieldError('email', '');
     }
 
-    if (!mensagem) {
+   const cleanMensagem = sanitizeMultiline(mensagem, MESSAGE_MAX + 1).trim();
+    if (!cleanMensagem) {
       if (!firstInvalidField) firstInvalidField = mensagemField;
       setFieldError('mensagem', 'Escreva uma mensagem antes de enviar.');
       isValid = false;
-    } else if (mensagem.length > MESSAGE_MAX) {
+    } else if (cleanMensagem.length > MESSAGE_MAX) {
       if (!firstInvalidField) firstInvalidField = mensagemField;
       setFieldError('mensagem', `Reduza sua mensagem para até ${MESSAGE_MAX} caracteres.`);
       isValid = false;
@@ -331,7 +393,9 @@
 
   const attemptSend = (data) => {
     const { subject, body } = buildEmailContent(data);
-    return launchEmailClient(subject, body);
+    const links = buildEmailLinks(subject, body);
+    const opened = launchEmailClient(links);
+    return { opened, links };
   };
 
   form.addEventListener('submit', (event) => {
@@ -367,16 +431,16 @@
     setLoadingState(true);
     track('contact_submit_attempt', { formId: 'form-contato' });
 
-    let emailOpened = false;
+   let emailResult = { opened: '', links: { gmail: '', mailto: '' } };
 
     try {
-      emailOpened = attemptSend(data);
+       emailResult = attemptSend(data);
     } finally {
       setLoadingState(false);
       isSubmitting = false;
     }
 
-    if (emailOpened) {
+    if (emailResult.opened) {
       form.reset();
       timeField && (timeField.value = String(Date.now()));
       clearSavedData();
@@ -388,7 +452,14 @@
       track('contact_submit_success', { formId: 'form-contato' });
       form.dispatchEvent(new CustomEvent('contato:success'));
     } else {
-      showFeedback('Não foi possível abrir seu cliente de e-mail.', 'error');
+     const manualLink = emailResult.links.mailto || emailResult.links.gmail;
+      showFeedback(
+        'Não consegui abrir seu e-mail automaticamente. Clique para tentar novamente ou autorize pop-ups.',
+        'error',
+        manualLink
+          ? { actionLabel: 'Abrir e-mail agora', actionHref: manualLink, actionTarget: '_self' }
+          : {},
+      );
       const detail = { data };
       form.dispatchEvent(new CustomEvent('contato:emailfail', { detail }));
     }

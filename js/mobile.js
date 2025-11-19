@@ -2,6 +2,7 @@
 (() => {
   const MOBILE_QUERY = '(max-width: 1024px)';
   const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+  // Keyboard targets inside the mobile nav/accordions
   const focusableSelector =
     'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex="0"]';
 
@@ -11,10 +12,14 @@
   if (!mobileMQ) return;
 
   let initialized = false;
+  // Keeps references for nav mutation observer, event cleanup and async load fallback
   const navState = { observer: null, cleanup: null, close: null, removeLoadListener: null };
+  // Tracks accordion instances and listeners for teardown
   const accordionCleanups = [];
   let accordionItems = [];
+  // Reveal effect observer and safety timer
   let revealObserver = null;
+  let revealSafetyTimer = null;
 
   const init = () => {
     if (initialized || !mobileMQ.matches) return;
@@ -56,6 +61,10 @@
     if (revealObserver) {
       revealObserver.disconnect();
       revealObserver = null;
+    }
+    if (revealSafetyTimer) {
+      clearTimeout(revealSafetyTimer);
+      revealSafetyTimer = null;
     }
     document.querySelectorAll('[data-mobile-reveal]').forEach((el) => {
       el.classList.add('is-revealed');
@@ -211,6 +220,8 @@
         document.removeEventListener('pointerdown', handlePointerDown, true);
         document.body.classList.remove('has-open-nav');
         nav.removeAttribute('data-mobile-open');
+        nav.removeAttribute('data-mobile-nav');
+        backdrop.removeAttribute('data-mobile-backdrop');
       };
 
       navState.close = closeMenu;
@@ -393,12 +404,13 @@
       if (revealed.has(el)) return;
       revealed.add(el);
       el.classList.add('is-revealed');
-      if (revealed.size === elements.length && safetyTimer) {
-        clearTimeout(safetyTimer);
+      if (revealed.size === elements.length && revealSafetyTimer) {
+        clearTimeout(revealSafetyTimer);
+        revealSafetyTimer = null;
       }
     };
 
-    const safetyTimer = window.setTimeout(() => {
+    revealSafetyTimer = window.setTimeout(() => {
       elements.forEach(reveal);
     }, 1400);
 

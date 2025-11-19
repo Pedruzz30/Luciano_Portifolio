@@ -196,15 +196,15 @@ Isso garante o mesmo acolhimento e sigilo do atendimento presencial, mas com mai
         <div class="container contato-form__grid" data-mobile-reveal>
           <div class="contato-form__intro" data-mobile-reveal>
             <p class="eyebrow">Mensagem direta</p>
-            <h2 id="formulario-contato">Compartilhe um pouco sobre o que você busca</h2>
+            <h2 id="formulario-contato">Compartilhe o que você precisa agora</h2>
             <p>
-              Quanto mais contexto você puder trazer, mais personalizada será minha resposta. Se preferir, indique como
-              gostaria de ser contatado(a).
+              Respondo pessoalmente em até 24h úteis. Traga o contexto que se sentir confortável e combine o melhor canal
+              para continuarmos a conversa.
             </p>
             <ul class="form-tips">
-              <li>Escreva seu nome e como prefere ser chamado(a).</li>
-              <li>Conte sobre objetivos, sintomas ou situações atuais.</li>
-              <li>Inclua dias e horários em que costuma estar disponível.</li>
+              <li>Conte seu nome e como prefere ser chamado(a).</li>
+              <li>Descreva objetivos, sintomas ou situações atuais com poucas frases.</li>
+              <li>Indique dias e horários em que costuma estar disponível para o retorno.</li>
             </ul>
           </div>
 
@@ -224,13 +224,14 @@ Isso garante o mesmo acolhimento e sigilo do atendimento presencial, mas com mai
                   type="text"
                   id="nome"
                   name="nome"
-                  placeholder="Nome completo"
+                placeholder="Como prefere ser chamado(a)"
                   autocomplete="name"
                   required
                   aria-required="true"
-                  aria-describedby="erro-nome"
+                  aria-describedby="erro-nome hint-nome"
                 />
-                <span class="field-error" id="erro-nome" role="alert"></span>
+                <p class="field-hint" id="hint-nome">Ex.: Nome completo ou nome social que gostaria que eu use.</p>
+                <span class="field-error" id="erro-nome" role="alert" hidden></span>
               </div>
 
               <div class="form-field">
@@ -243,23 +244,26 @@ Isso garante o mesmo acolhimento e sigilo do atendimento presencial, mas com mai
                   autocomplete="email"
                   required
                   aria-required="true"
-                  aria-describedby="erro-email"
+                  aria-describedby="erro-email hint-email"
                 />
-                <span class="field-error" id="erro-email" role="alert"></span>
+                <p class="field-hint" id="hint-email">Usarei este e-mail para responder com valores e horários.</p>
+                <span class="field-error" id="erro-email" role="alert" hidden></span>
               </div>
+
 
               <div class="form-field">
                 <label for="mensagem">Mensagem</label>
                 <textarea
                   id="mensagem"
                   name="mensagem"
-                  placeholder="Conte brevemente sobre sua demanda, expectativas e disponibilidade de horário."
+                  placeholder="Conte brevemente sua demanda, expectativas e disponibilidade."
                   rows="7"
                   required
                   aria-required="true"
-                  aria-describedby="erro-mensagem"
+                  aria-describedby="erro-mensagem hint-mensagem"
                 ></textarea>
-                <span class="field-error" id="erro-mensagem" role="alert"></span>
+                <p class="field-hint" id="hint-mensagem">Compartilhe o essencial para que eu possa orientar os próximos passos.</p>
+                <span class="field-error" id="erro-mensagem" role="alert" hidden></span>
               </div>
 
               <button type="submit" class="btn btn-primary">Enviar mensagem</button>
