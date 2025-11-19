@@ -37,22 +37,13 @@
 @media (max-width: 960px) {
   html.js .site-nav {
     position: fixed;
-
-    /* encosta no header e vai até o fim da tela */
+    inset-block-start: var(--header-h);
     inset-inline-end: 0;
     inset-inline-start: auto;
-    inset-block-start: var(--header-h);
-    inset-block-end: 0;
-
-    /* altura máxima baseada no viewport “real” (svh) com fallback em vh */
-    max-block-size: max(
-      calc(100vh - var(--header-h)),
-      calc(100svh - var(--header-h))
-    );
-    min-block-size: auto;
 
     inline-size: min(88vw, 380px);
     max-inline-size: 380px;
+    min-block-size: calc(100vh - var(--header-h));
 
     padding: clamp(1.25rem, 4vw, 1.9rem);
     padding-block-end: max(
@@ -73,19 +64,16 @@
       0 20px 40px rgba(0, 0, 0, 0.06);
     border: 1px solid color-mix(in srgb, var(--marsala-profundo) 10%, #ffffff 90%);
 
-    /* vidro suave com fallback natural (se não suportar, ignora) */
     backdrop-filter: blur(14px);
 
     border-start-start-radius: 24px;
     border-end-start-radius: 24px;
 
-    /* conteúdo rola dentro da nave */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     touch-action: pan-y;
 
-    /* estado fechado */
     transform: translateX(105%);
     opacity: 0;
     pointer-events: none;
@@ -209,12 +197,6 @@
     min-block-size: 52px;
   }
 
-  .nav-actions__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(0.55rem, 2vw, 0.85rem);
-  }
-
   .nav-chip {
     display: inline-flex;
     align-items: center;
@@ -259,14 +241,6 @@
   .nav-backdrop.is-visible {
     opacity: 1;
     pointer-events: auto;
-  }
-}
-
-/* Animações mais suaves pra quem não curte muito movimento */
-@media (prefers-reduced-motion: reduce) {
-  html.js .site-nav,
-  .nav-backdrop {
-    transition: none;
   }
 }
 
