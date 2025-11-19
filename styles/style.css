@@ -128,6 +128,37 @@ button:focus-visible {
   border-radius: 0;
 }
 
+/* Blocos de texto reutilizáveis (organiza cópia em todas as páginas) */
+.text-flow,
+.prose {
+  display: grid;
+  gap: clamp(0.85rem, 2vw, 1.3rem);
+  max-inline-size: min(72ch, 100%);
+  line-height: 1.75;
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 82%, black 18%);
+}
+
+:where(.text-flow, .prose) > * { margin: 0; }
+
+:where(.text-flow, .prose) h2,
+:where(.text-flow, .prose) h3 {
+  font-family: var(--font-display);
+  line-height: 1.25;
+  text-wrap: balance;
+  color: color-mix(in srgb, var(--marrom-terra-firme) 88%, black 12%);
+}
+
+:where(.text-flow, .prose) h2 { font-size: clamp(1.8rem, 3.8vw, 2.35rem); }
+:where(.text-flow, .prose) h3 { font-size: clamp(1.35rem, 3vw, 1.7rem); }
+
+:where(.text-flow, .prose) ul,
+:where(.text-flow, .prose) ol {
+  padding-inline-start: 1.1rem;
+  display: grid;
+  gap: clamp(0.4rem, 1.4vw, 0.75rem);
+}
+
 /* 1ª seção do main com respiro (sem mexer no :root) */
 main > *:first-child { margin-block-start: 0; }
 main > .section:first-child:not(.hero) {
