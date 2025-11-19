@@ -354,10 +354,118 @@ main > .section:first-child:not(.hero) {
   pointer-events: auto;
 }
 
-body.has-open-nav { overflow: hidden; }
+/* Quando o menu está aberto, trava o scroll do fundo */
+body.has-open-nav {
+  overflow: hidden;
+  block-size: 100dvh;
+}
 
+/* ===================== MOBILE NAV (≤ 767px) ===================== */
+@media (max-width: 767px) {
+  /* Esconde a lista por padrão quando há JS */
+  html.js .nav-list {
+    display: none;
+  }
+
+  /* Painel em tela cheia */
+  html.js .site-nav {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding-block: max(18px, env(safe-area-inset-top));
+    padding-inline: clamp(1.25rem, 6vw, 2rem);
+    padding-bottom: max(26px, env(safe-area-inset-bottom));
+
+    background:
+      radial-gradient(circle at 15% 20%, rgba(201, 174, 143, 0.65), transparent 55%),
+      radial-gradient(circle at 85% 15%, rgba(117, 42, 42, 0.45), transparent 55%),
+      color-mix(in srgb, var(--areia-dourada) 96%, #ffffff 4%);
+
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+
+    z-index: 1100;
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Vidrinho de leve, se o navegador aguentar */
+  @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+    html.js .site-nav {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+  }
+
+  /* Estado aberto */
+  html.js .site-nav.is-open {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Lista de navegação quando aberto */
+  html.js .site-nav.is-open .nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(0.85rem, 3vw, 1.2rem);
+    margin-block: clamp(2rem, 10vw, 3rem);
+    padding: 0;
+  }
+
+  /* Links do menu no mobile */
+  .nav-link {
+    inline-size: 100%;
+    min-block-size: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: clamp(1rem, 5vw, 1.35rem);
+    letter-spacing: 0.16em;
+    padding-block: clamp(0.95rem, 3.8vw, 1.25rem);
+    padding-inline: clamp(1.1rem, 6vw, 1.7rem);
+  }
+
+  /* Bolinha indicadora à direita */
+  .nav-link::after {
+    content: "";
+    inline-size: 12px;
+    block-size: 12px;
+    margin-inline-start: 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--marsala-profundo) 60%, #000 40%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .nav-link[aria-current="page"]::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===================== DESKTOP (≥ 768px) ===================== */
 @media (min-width: 768px) {
-  .menu-toggle { display: none; }
+  .menu-toggle {
+    display: none;
+  }
 
   .site-nav {
     position: static;
@@ -368,18 +476,21 @@ body.has-open-nav { overflow: hidden; }
   }
 }
 
+/* Foco visível compartilhado */
 .nav-link:focus-visible,
 .menu-toggle:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--dourado-fosco) 65%, var(--marsala-profundo) 35%);
   outline-offset: 3px;
 }
 
+/* Alto contraste */
 @media (prefers-contrast: more) {
   .nav-link::before {
     box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--marsala-profundo) 80%, #000 20%);
   }
 }
 
+/* Menos movimento pra quem pediu */
 @media (prefers-reduced-motion: reduce) {
   .nav-link,
   .nav-link::before,
@@ -395,9 +506,10 @@ body.has-open-nav { overflow: hidden; }
 }
 
 @supports not (backdrop-filter: blur(6px)) {
-  .nav-backdrop { background: rgba(62, 39, 49, 0.55); }
+  .nav-backdrop {
+    background: rgba(62, 39, 49, 0.55);
+  }
 }
-
 
 /* ---------- 7) Hero (unificado) ---------- */
 .hero {
@@ -547,6 +659,13 @@ body.has-open-nav { overflow: hidden; }
           mask-position: center;
   -webkit-mask-size: contain;
           mask-size: contain;
+}
+
+@media (max-width: 640px) {
+  .hero .hero-highlights li {
+    background: var(--hero-highlight-mobile-bg);
+    padding-inline: clamp(0.6rem, 3vw, 0.9rem);
+  }
 }
 
 @media (min-width: 960px) {
@@ -1063,6 +1182,9 @@ body.has-open-nav { overflow: hidden; }
   min-inline-size: 0;
   overflow-wrap: anywhere; /* quebra em qualquer ponto se necessário */
 }
+@media (max-width: 56.24rem) {
+  .col-contact .footer-action { justify-content: center; text-align: center; }
+}
 
 /* 2) Painel de navegação: compactar + 2 colunas no desktop */
 .col-links {
@@ -1184,6 +1306,12 @@ body.has-open-nav { overflow: hidden; }
   line-height: 1.6;
 }
 .footer-meta p { margin: 0; }
+
+@media (max-width: 56.24rem) {
+  .footer-panel { text-align: center; }
+  .col-contact .footer-action { justify-content: center; }
+  .footer-social { justify-content: center; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .footer-action,

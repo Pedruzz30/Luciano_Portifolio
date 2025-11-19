@@ -51,42 +51,6 @@
   margin-top: .6rem;
 }
 
-/* ===== COMPROMISSOS (parte azul) — linha fluida ===== */
-.contato-hero__compromissos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;                /* evita quebrar facilmente */
-  overflow-x: auto;                 /* deixa deslizar se faltar espaço */
-  gap: clamp(.8rem, 1vw, 1.1rem);
-  margin-top: 1.6rem;
-  padding: .5rem 1rem;
-  scrollbar-width: thin;            /* Firefox */
-  scrollbar-color: rgba(0,0,0,.2) transparent;
-}
-
-/* estilo de cada chip */
-.contato-hero__compromissos li {
-  --chip-bg: color-mix(in srgb, #fff 88%, var(--areia-dourada) 12%);
-  --chip-brd: color-mix(in srgb, var(--marsala-profundo) 20%, transparent 80%);
-  flex-shrink: 0;
-  padding: .7rem 1.25rem;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--chip-bg), color-mix(in srgb, #fff 94%, var(--areia-dourada) 6%));
-  border: 1px solid var(--chip-brd);
-  box-shadow: 0 2px 6px -3px rgba(0, 0, 0, .12);
-  line-height: 1.05;
-  font-weight: 600;
-  font-size: .95rem;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 88%, #000 12%);
-  letter-spacing: .01em;
-  transition: transform .18s ease, box-shadow .22s ease;
-}
-.contato-hero__compromissos li:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px -6px rgba(0, 0, 0, .18);
-}
-
 /* ===== melhora geral do equilíbrio vertical ===== */
 @media (min-width: 1280px) {
   .hero--contato {
@@ -99,6 +63,7 @@
     margin-bottom: 1.2rem;
   }
 }
+
 
 /* ========== POLIMENTO GERAL ========== */
 :root{
@@ -263,6 +228,8 @@
 .detalhes-cta .btn--whats:hover,
 .detalhes-cta .btn--whats:focus-visible{ background:#25D366; color:#fff; filter:none; }
 
+/* responsivo fino */
+@media (max-width:480px){ .detalhes-cta .btn::before{ inline-size:1em; block-size:1em; } }
 @media (prefers-reduced-motion:reduce){
  .detalhes-grid > .detalhes-card, .detalhes-cta .btn, .detalhes-cta .btn::before{ transition:none !important; }
 }
@@ -383,6 +350,21 @@
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ---------- Mobile refinado ---------- */
+@media (max-width: 720px) {
+  .perguntas-grid {
+    gap: 2rem;
+  }
+  .perguntas-intro {
+    text-align: center;
+    margin-inline: auto;
+  }
+  .pergunta {
+    padding: 1.1rem 1.3rem;
+  }
+}
+
 
 /* ===========================================================
    FORMULÁRIO DE CONTATO — versão premium refinada (2025)
@@ -622,7 +604,25 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* mobile */
+@media (max-width: 720px) {
+  .contato-form__intro { text-align: center; }
+  .btn.btn-primary { justify-self: center; }
+}
+
+
 /* ---------- Responsividade ---------- */
+@media (max-width: 760px) {
+  .hero-actions .btn {
+    inline-size: 100%;
+    justify-content: center;
+  }
+
+  .contato-hero__compromissos {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .hero-actions,
