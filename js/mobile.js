@@ -1,6 +1,6 @@
 // js/mobile.js — mobile only enhancements
 (() => {
-  const MOBILE_QUERY = '(max-width: 768px)';
+  const MOBILE_QUERY = '(max-width: 1024px)';
   const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
   const focusableSelector =
     'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex="0"]';

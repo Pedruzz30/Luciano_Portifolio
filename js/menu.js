@@ -11,7 +11,7 @@
     backdrop: null,
     focusableSelectors:
       'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex="0"]',
-    mq: window.matchMedia('(min-width: 768px)')
+    mq: window.matchMedia('(min-width: 1025px)')
   };
 
   const Menu = {

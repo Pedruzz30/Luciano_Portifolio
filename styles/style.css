@@ -461,8 +461,8 @@ body.has-open-nav {
   }
 }
 
-/* ===================== DESKTOP (≥ 768px) ===================== */
-@media (min-width: 768px) {
+/* ===================== DESKTOP (≥ 1025px) ===================== */
+@media (min-width: 1025px) {
   .menu-toggle {
     display: none;
   }
