@@ -248,6 +248,17 @@
   let startX = 0;
   let startScrollLeft = 0;
   let activePointerId = null;
+  let lastClientX = 0;
+  let lastTimestamp = 0;
+  let velocityX = 0;
+
+  const initialSnapType = getComputedStyle(track).scrollSnapType || 'inline mandatory';
+  const initialScrollBehavior = track.style.scrollBehavior;
+
+  const restoreSnap = () => {
+    track.style.scrollSnapType = initialSnapType;
+    track.style.scrollBehavior = initialScrollBehavior;
+  };
 
   const stopDragging = () => {
     if (!isPointerDown) return;
@@ -257,23 +268,48 @@
     }
     activePointerId = null;
     track.classList.remove('is-dragging');
+
+    const momentum = velocityX * 180;
+    if (Math.abs(momentum) > 14) {
+      track.scrollTo({
+        left: track.scrollLeft - momentum,
+        behavior: prefersReduced ? 'auto' : 'smooth'
+      });
+    }
+
+    setTimeout(() => {
+      restoreSnap();
+      requestScrollState();
+    }, 140);
   };
 
   addListener(track, 'pointerdown', e => {
-    if (e.pointerType === 'touch') return;
-    if (e.button !== 0) return;
+    if (e.button !== undefined && e.button !== 0) return;
+    if (!e.isPrimary) return;
     isPointerDown = true;
     activePointerId = e.pointerId;
     startX = e.clientX;
+    lastClientX = e.clientX;
+    lastTimestamp = performance.now();
     startScrollLeft = track.scrollLeft;
+    track.style.scrollSnapType = 'none';
+    track.style.scrollBehavior = 'auto';
     track.setPointerCapture(activePointerId);
     track.classList.add('is-dragging');
   });
 
   addListener(track, 'pointermove', e => {
     if (!isPointerDown || e.pointerId !== activePointerId) return;
+    const now = performance.now();
     const delta = e.clientX - startX;
+    const stepDelta = e.clientX - lastClientX;
+    const dt = now - lastTimestamp || 16;
+
     track.scrollLeft = startScrollLeft - delta;
+
+    velocityX = stepDelta / dt;
+    lastClientX = e.clientX;
+    lastTimestamp = now;
   });
 
   ['pointerup', 'pointercancel'].forEach(eventName => {
