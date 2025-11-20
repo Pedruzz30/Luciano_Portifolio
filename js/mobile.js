@@ -288,6 +288,11 @@
         if (animating) return;
         animating = true;
 
+        // Keep the native <details> state in sync to avoid browsers hiding the panel
+        // when the element isn't marked as open. This also enables the [open] styles
+        // already defined in the stylesheet.
+        item.open = open;
+
         item.dataset.accordionState = open ? 'open' : 'closed';
         summary.setAttribute('aria-expanded', open ? 'true' : 'false');
 
