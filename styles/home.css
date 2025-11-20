@@ -569,15 +569,9 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
   .hero--inicio .hero-title { font-size: clamp(2.4rem, 4.6vw, 3.2rem); }
 }
 
-/* =========================================================
-   ÉTICA & CREDENCIAIS — v2 (refino pesado e acessível)
-   - Mobile-first, grid elástico e container queries
-   - Foco visível real, contraste calibrado
-   - Animação opcional (respeita reduced motion)
-   - Tipos e espaçamentos com clamp
-   - Hover/active só em dispositivos “pointer:fine”
-   - Mantém sua paleta (areia/dourado/marrom) sem dark
-   ========================================================= */
+/* ==========================
+   SEÇÃO ÉTICA & CREDENCIAIS
+   ========================== */
 
 .ethics {
   /* Paleta e tokens locais (herdam do :root se existir) */
@@ -592,7 +586,7 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
   --ethics-shadow: 0 6px 14px rgba(0, 0, 0, .06);
   --ethics-shadow-hover: 0 12px 28px rgba(0, 0, 0, .08);
 
-  /* Rítmo, raio e tempo */
+  /* Ritmo, raio e tempo */
   --ethics-radius: var(--radius-sm, .75rem);
   --ethics-flow: clamp(1.1rem, 2.8vw, 1.6rem);
   --ethics-trans: 180ms cubic-bezier(.2,.6,.2,1);
@@ -603,17 +597,23 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
 
   /* Ativa container queries pro grid filho */
   container-type: inline-size;
+  container-name: ethics;
 }
 
-/* ===== Cabeçalho + texto ===== */
+/* Distância confortável pra ancoragem */
+.ethics + * {
+  scroll-margin-top: calc(var(--header-offset, 4.5rem) + 24px);
+}
+
+/* ==========================
+   LAYOUT: GRID E TEXTO
+   ========================== */
+
 .ethics-grid {
   display: grid;
   gap: clamp(1rem, 3vw, 2rem);
   align-items: start;
-}
-
-.ethics-grid > div:first-child {
-  max-width: min(62ch, 100%);
+  grid-template-columns: 1fr; /* mobile primeiro */
 }
 
 .ethics h2 {
@@ -635,98 +635,189 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
   text-wrap: pretty;
 }
 
-/* ===== Cards ===== */
+.ethics .kicker,
+.ethics .eyebrow {
+  font-size: .9rem;
+  letter-spacing: .3px;
+  color: var(--ethics-soft);
+  margin: 0 0 .35rem;
+}
+
+.ethics-grid > div:first-child {
+  max-width: min(60ch, 100%);
+}
+
+/* ==========================
+   CARDS — versão refinada
+   ========================== */
+
 .ethics-cards {
   display: grid;
-  gap: clamp(.85rem, 2vw, 1.2rem);
-  /* 250 → 320 para cartões mais respirados em telas grandes */
-  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(1rem, 2vw, 1.4rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  align-items: stretch;
+  padding-block: .25rem; /* dá um respiro vertical pros cards */
 }
 
 .ethic {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  /* altura mínima confortável, sem parecer bloco gigante */
+  min-block-size: clamp(9rem, 11vw, 12.5rem);
+
   background: var(--ethics-card-bg);
   border: 1px solid var(--ethics-card-border);
   border-radius: var(--ethics-radius);
-  padding: var(--ethics-flow);
-  box-shadow: var(--ethics-shadow);
-  transition: transform var(--ethics-trans), box-shadow var(--ethics-trans), border-color var(--ethics-trans), background-color var(--ethics-trans);
-  outline: none; /* foco visível custom abaixo */
+
+  /* mais respiro que o padrão, mas ainda contido */
+  padding: clamp(1.2rem, 2.4vw, 1.7rem);
+
+  /* sombra em duas camadas pra ficar mais natural/premium */
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, .045),
+    0 8px 18px rgba(0, 0, 0, .06);
+
+  transition:
+    transform var(--ethics-trans),
+    box-shadow var(--ethics-trans),
+    border-color var(--ethics-trans),
+    background-color var(--ethics-trans),
+    outline-color var(--ethics-trans);
+
+  outline: none;
   will-change: transform;
-  contain: content;
+  contain: layout paint;
 }
 
 .ethic h3 {
   font-family: var(--font-display, serif);
   font-weight: 600;
-  font-size: clamp(1.12rem, 2.2vw, 1.42rem);
-  color: color-mix(in srgb, var(--marrom-terra-firme) 84%, black 16%);
-  margin: 0 0 .45rem;
-  line-height: 1.2;
+  font-size: clamp(1.18rem, 2.2vw, 1.45rem);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 86%, black 14%);
+  margin: 0 0 .6rem;
+  line-height: 1.22;
+  letter-spacing: .2px;
   text-wrap: balance;
 }
 
 .ethic p,
 .ethic li {
-  font-size: clamp(.92rem, 1.4vw, 1.04rem);
+  font-size: clamp(.94rem, 1.4vw, 1.06rem);
   color: var(--ethics-text);
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .ethic ul {
-  margin: .6rem 0 0;
-  padding-inline-start: 1.2rem;
+  margin: .75rem 0 0;
+  padding-inline-start: 1.15rem;
 }
 
 .ethic ul li + li {
-  margin-block-start: .35rem;
+  margin-block-start: .4rem;
 }
 
-/* Estados interativos só onde faz sentido (mouse/trackpad) */
+/* Suporte opcional a ícones */
+.ethic .icon {
+  inline-size: 1.25em;
+  block-size: 1.25em;
+  margin-inline-end: .5rem;
+  flex: 0 0 auto;
+  opacity: .9;
+}
+
+/* ==========================
+   INTERAÇÃO (HOVER / FOCUS)
+   ========================== */
+
+/* Hover/active só em dispositivos com mouse */
 @media (hover: hover) and (pointer: fine) {
+  .ethic {
+    cursor: default;
+  }
+
   .ethic:hover {
     transform: translateY(-3px);
     box-shadow: var(--ethics-shadow-hover);
     border-color: var(--ethics-card-border-hover);
     background: color-mix(in srgb, var(--ethics-card-bg) 92%, white 8%);
   }
+
   .ethic:active {
     transform: translateY(-1px) scale(.997);
   }
+
+  .ethic a {
+    text-decoration-thickness: .08em;
+    text-underline-offset: .18em;
+  }
+
+  .ethic a:hover {
+    text-decoration: underline;
+  }
 }
 
-/* Foco visível acessível (teclado e leitores) */
+/* Foco visível acessível */
 .ethic:focus-visible,
 .ethic:has(:focus-visible) {
   outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 60%, white 40%);
   outline-offset: 2px;
   border-color: var(--ethics-card-border-hover);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--dourado-fosco) 18%, transparent), var(--ethics-shadow);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--dourado-fosco) 18%, transparent),
+    var(--ethics-shadow);
 }
 
-/* ===== Layout responsivo via container queries ===== */
-/* Quando o container .ethics tiver largura ≥ 760px, vira 2 colunas */
-@container (min-width: 760px) {
+/* ==========================
+   LAYOUT RESPONSIVO
+   ========================== */
+
+/* Quando o container .ethics tiver ≥ 760px, 2 colunas */
+@container ethics (min-width: 760px) {
   .ethics-grid {
     grid-template-columns: 1fr 1.08fr;
     align-items: center;
     gap: clamp(1.2rem, 2.4vw, 2rem);
   }
+
   .ethics-cards {
     gap: clamp(.9rem, 1.6vw, 1.1rem);
   }
 }
 
-/* ===== Preferências do usuário ===== */
-/* Menos movimento para quem prefere */
-@media (prefers-reduced-motion: reduce) {
-  .ethic {
-    transition: border-color var(--ethics-trans), background-color var(--ethics-trans), box-shadow var(--ethics-trans);
-    transform: none !important;
+/* Fallback pra browsers sem container queries */
+@supports not (container-type: inline-size) {
+  @media (min-width: 840px) {
+    .ethics-grid {
+      grid-template-columns: 1fr 1.08fr;
+      align-items: center;
+      gap: clamp(1.2rem, 2.4vw, 2rem);
+    }
+
+    .ethics-cards {
+      gap: clamp(.9rem, 1.6vw, 1.1rem);
+    }
   }
 }
 
-/* Mais contraste melhora leitura */
+/* ==========================
+   PREFERÊNCIAS DO USUÁRIO
+   ========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ethic {
+    transition:
+      border-color var(--ethics-trans),
+      background-color var(--ethics-trans),
+      box-shadow var(--ethics-trans);
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
 @media (prefers-contrast: more) {
   .ethics {
     --ethics-border: color-mix(in srgb, var(--dourado-fosco) 45%, white 55%);
@@ -736,7 +827,6 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
   }
 }
 
-/* Modo de alto contraste forçado (Windows/UA) */
 @media (forced-colors: active) {
   .ethics {
     background: Canvas;
@@ -752,81 +842,21 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
   }
 }
 
-/* ===== Micro-ajustes tipográficos ===== */
-.ethics .kicker,
-.ethics .eyebrow {
-  font-size: .9rem;
-  letter-spacing: .3px;
-  color: var(--ethics-soft);
-  margin: 0 0 .35rem;
-}
+/* ==========================
+   ANIMAÇÃO DE ENTRADA
+   ========================== */
 
-/* ===== Suporte opcional a ícones dentro do card ===== */
-.ethic .icon {
-  inline-size: 1.25em;
-  block-size: 1.25em;
-  margin-inline-end: .5rem;
-  flex: 0 0 auto;
-  opacity: .9;
-}
-
-/* ===== Distância do resto da página (seção adjacente) ===== */
-.ethics + * {
-  scroll-margin-top: calc(var(--header-offset, 4.5rem) + 24px);
-}
-
-/* ===== Compat de Container Queries + fallback ===== */
-.ethics { 
-  /* nomeia o container p/ queries nomeadas e tooling */
-  container-name: ethics;
-}
-
-@container ethics (min-width: 760px) {
-  /* repete tuas regras de CQ, mas nomeadas (mais legível) */
-  .ethics-grid {
-    grid-template-columns: 1fr 1.08fr;
-    align-items: center;
-    gap: clamp(1.2rem, 2.4vw, 2rem);
-  }
-  .ethics-cards { gap: clamp(.9rem, 1.6vw, 1.1rem); }
-}
-
-/* Fallback pra browsers sem CQ */
-@supports not (container-type: inline-size) {
-  @media (min-width: 840px) {
-    .ethics-grid {
-      grid-template-columns: 1fr 1.08fr;
-      align-items: center;
-      gap: clamp(1.2rem, 2.4vw, 2rem);
-    }
-    .ethics-cards { gap: clamp(.9rem, 1.6vw, 1.1rem); }
-  }
-}
-
-/* ===== Cards com altura uniforme e layout estável ===== */
-.ethics-cards {
-  align-items: stretch;            /* força mesma altura por linha */
-}
-.ethic {
-  display: flex;                   /* conteúdo em coluna */
-  flex-direction: column;
-  min-block-size: clamp(8.5rem, 12vw, 12rem); /* altura mínima elegante */
-}
-.ethic h3 { margin-block-end: .4rem; }
-.ethic p:last-child { margin-block-end: 0; }
-
-/* ===== Micro states e áreas clicáveis mais confortáveis ===== */
-@media (hover: hover) and (pointer: fine) {
-  .ethic { cursor: default; }      /* evita “mão” se não houver link */
-  .ethic a { text-decoration-thickness: .08em; text-underline-offset: .18em; }
-  .ethic a:hover { text-decoration: underline; }
-}
-
-/* ===== Animação opcional de entrada (suave e acessível) ===== */
 @keyframes ethics-fade-up {
-  from { opacity: .001; transform: translateY(10px); }
-  to   { opacity: 1;    transform: translateY(0); }
+  from {
+    opacity: .001;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .ethic {
     animation: ethics-fade-up 420ms var(--ethics-trans) both;
@@ -836,17 +866,10 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
   .ethic:nth-child(3) { animation-delay: .14s; }
 }
 
-/* ===== Foco + hover coerentes (quando há elementos focáveis) ===== */
-.ethic:has(a, button, [tabindex]) { 
-  /* só adiciona realce extra quando há algo interativo dentro */
-  transition: transform var(--ethics-trans), box-shadow var(--ethics-trans), border-color var(--ethics-trans), background-color var(--ethics-trans), outline-color var(--ethics-trans);
-}
-.ethic:has(:focus-visible) {
-  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 60%, white 40%);
-  outline-offset: 2px;
-}
+/* ==========================
+   IMPRESSÃO & FALLBACKS
+   ========================== */
 
-/* ===== Bordas/cores mais previsíveis em impressão ===== */
 @media print {
   .ethics {
     background: #fff !important;
@@ -859,7 +882,7 @@ section { scroll-margin-top: calc(var(--header-h, 5rem) + 2rem); }
   }
 }
 
-/* ===== Safeguard para color-mix (fallback simples) ===== */
+/* Fallback simples pra quem não suporta color-mix */
 @supports not (color: color-mix(in srgb, black 10%, white 90%)) {
   .ethics {
     background: var(--areia-dourada, #E5CBA8);

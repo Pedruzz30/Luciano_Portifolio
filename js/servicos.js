@@ -14,6 +14,8 @@
   const showAnimatedImmediately = () => {
     animated.forEach(el => {
       el.style.transitionDelay = '';
+      el.style.transition = 'none';
+      el.style.animation = 'none';
       el.classList.add('is-visible');
     });
   };
@@ -42,7 +44,7 @@
 
   /* ========== TILT SUTIL NOS CARDS ========== */
   const tiltCards = document.querySelectorAll('.carousel-servicos__item');
-  const tiltInitialized = new WeakSet();
+  const tiltInitialized = new Map();
   const MAX_TILT = 6;
 
   const setupTilt = () => {
@@ -59,6 +61,7 @@
       };
 
       const applyTilt = e => {
+        if (prefersReduced || !pointerQuery.matches) return;
         if (frame) cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() => {
           const rect = card.getBoundingClientRect();
@@ -70,15 +73,32 @@
         });
       };
 
-      card.addEventListener('pointermove', applyTilt);
-      card.addEventListener('pointerleave', () => {
+      const handlePointerLeave = () => {
         if (frame) cancelAnimationFrame(frame);
         frame = requestAnimationFrame(resetTilt);
+      };
+
+      const handlePointerDown = () => {
+        card.style.transition = prefersReduced ? 'none' : 'transform 120ms ease';
+      };
+
+      const handlePointerUp = resetTilt;
+
+      card.addEventListener('pointermove', applyTilt);
+      card.addEventListener('pointerleave', handlePointerLeave);
+      card.addEventListener('pointerdown', handlePointerDown);
+      card.addEventListener('pointerup', handlePointerUp);
+
+      tiltInitialized.set(card, {
+        cancelFrame: () => { if (frame) cancelAnimationFrame(frame); frame = null; },
+        reset: resetTilt,
+        listeners: [
+          ['pointermove', applyTilt],
+          ['pointerleave', handlePointerLeave],
+          ['pointerdown', handlePointerDown],
+          ['pointerup', handlePointerUp]
+        ]
       });
-      card.addEventListener('pointerdown', () => {
-        card.style.transition = 'transform 120ms ease';
-      });
-      card.addEventListener('pointerup', resetTilt);
     });
   };
 
@@ -213,8 +233,15 @@
     track.scrollBy({ left: direction * step, behavior: prefersReduced ? 'auto' : 'smooth' });
   };
 
-  prev?.addEventListener('click', () => scrollStep(-1));
-  next?.addEventListener('click', () => scrollStep(1));
+ const cleanupFns = [];
+
+  const addListener = (target, event, handler, options) => {
+    target?.addEventListener(event, handler, options);
+    cleanupFns.push(() => target?.removeEventListener(event, handler, options));
+  };
+
+  prev && addListener(prev, 'click', () => scrollStep(-1));
+  next && addListener(next, 'click', () => scrollStep(1));
 
   /* Arraste */
   let isPointerDown = false;
@@ -232,7 +259,7 @@
     track.classList.remove('is-dragging');
   };
 
-  track.addEventListener('pointerdown', e => {
+  addListener(track, 'pointerdown', e => {
     if (e.button !== 0) return;
     isPointerDown = true;
     activePointerId = e.pointerId;
@@ -242,23 +269,23 @@
     track.classList.add('is-dragging');
   });
 
-  track.addEventListener('pointermove', e => {
+  addListener(track, 'pointermove', e => {
     if (!isPointerDown || e.pointerId !== activePointerId) return;
     const delta = e.clientX - startX;
     track.scrollLeft = startScrollLeft - delta;
   });
 
   ['pointerup', 'pointercancel'].forEach(eventName => {
-    track.addEventListener(eventName, stopDragging);
+   addListener(track, eventName, stopDragging);
   });
 
-  track.addEventListener('pointerleave', e => {
+   addListener(track, 'pointerleave', e => {
     if (!isPointerDown || e.pointerId !== activePointerId) return;
     stopDragging();
   });
 
   /* Teclado */
-  track.addEventListener('keydown', e => {
+ addListener(track, 'keydown', e => {
     switch (e.key) {
       case 'ArrowLeft':
         e.preventDefault();
@@ -281,7 +308,7 @@
     }
   });
 
-  track.addEventListener('focusin', event => {
+  addListener(track, 'focusin', event => {
     const focusItem = event.target.closest('.carousel-servicos__item');
     if (!focusItem) return;
     const index = items.indexOf(focusItem);
@@ -291,8 +318,7 @@
   });
 
   /* Atualização visual */
-  track.addEventListener('scroll', requestScrollState, { passive: true });
-
+    addListener(track, 'scroll', requestScrollState, { passive: true });
   const resizeObserver = typeof ResizeObserver !== 'undefined'
     ? new ResizeObserver(() => requestScrollState())
     : null;
@@ -300,8 +326,9 @@
   if (resizeObserver) {
     resizeObserver.observe(track);
     items.forEach(item => resizeObserver.observe(item));
+    cleanupFns.push(() => resizeObserver.disconnect());
   } else {
-    window.addEventListener('resize', requestScrollState);
+    addListener(window, 'resize', requestScrollState);
   }
 
   requestScrollState();
@@ -314,18 +341,46 @@
         revealObserver = null;
       }
       showAnimatedImmediately();
-    } else if (!revealObserver) {
-      setupReveal();
+      tiltInitialized.forEach((data, card) => {
+        data.cancelFrame();
+        data.listeners.forEach(([evt, handler]) => card.removeEventListener(evt, handler));
+        data.reset();
+        tiltInitialized.delete(card);
+      });
+    } else {
+      animated.forEach(el => {
+        el.style.transition = '';
+        el.style.animation = '';
+        if (!el.classList.contains('is-visible')) el.style.transitionDelay = '';
+      });
+      if (!revealObserver) {
+        setupReveal();
+      }
+      setupTilt();
     }
   });
 
   pointerQuery.addEventListener('change', () => {
-    if (!pointerQuery.matches) {
-      tiltCards.forEach(card => {
-        card.style.transform = '';
+    if (!pointerQuery.matches || prefersReduced) {
+      tiltInitialized.forEach((data, card) => {
+        data.cancelFrame();
+        data.listeners.forEach(([evt, handler]) => card.removeEventListener(evt, handler));
+        data.reset();
+        tiltInitialized.delete(card);
       });
-    } else {
-      setupTilt();
+      return;
     }
+    setupTilt();
   });
+
+  window.addEventListener('pagehide', () => {
+    if (revealObserver) revealObserver.disconnect();
+    tiltInitialized.forEach((data, card) => {
+      data.cancelFrame();
+      data.listeners.forEach(([evt, handler]) => card.removeEventListener(evt, handler));
+      data.reset();
+    });
+    tiltInitialized.clear();
+    cleanupFns.forEach(fn => fn());
+  }, { once: true });
 })();
