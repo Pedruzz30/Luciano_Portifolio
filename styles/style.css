@@ -165,23 +165,33 @@ main > .section:first-child:not(.hero) {
   padding-block-start: clamp(2.25rem, 5vw, 3.5rem);
 }
 
-/* ---------- 5) Header ---------- */
+/* ---------- 5) Header (v2 enxuto) ---------- */
 .site-header {
   position: fixed;
   inset-block-start: 0;
   inset-inline: 0;
   inline-size: 100%;
   block-size: var(--header-h);
+
+  /* mantém tua paleta, só organiza */
   background: color-mix(in srgb, var(--areia-dourada) 92%, white 8%);
   border-block-end: 1px solid color-mix(in srgb, var(--dourado-fosco) 32%, white 68%);
   box-shadow: 0 4px 14px rgba(62, 39, 49, 0.1);
+
   z-index: 1000;
   isolation: isolate;
+
+  /* vidro suave */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  transition: background var(--transition-base), box-shadow var(--transition-base);
+
+  /* transição mais previsível */
+  transition:
+    background var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
+/* conteúdo interno do header */
 .header-inner {
   display: flex;
   align-items: center;
@@ -190,19 +200,32 @@ main > .section:first-child:not(.hero) {
   min-block-size: 100%;
 }
 
+/* logo + texto */
 .brand {
   display: inline-flex;
   align-items: center;
   gap: clamp(0.5rem, 2vw, 0.85rem);
+
   color: inherit;
   text-decoration: none;
+
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+
+  border-radius: 999px; /* ajuda no foco bonito */
 }
 
+/* acessibilidade: foco visível sem exagerar */
+.brand:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--marsala-profundo) 38%, #ffffff 62%);
+  outline-offset: 3px;
+}
+
+/* logo */
 .brand img {
+  display: block;
   inline-size: clamp(3.1rem, 9vw, 3.75rem);
   block-size: auto;
   border-radius: 0.5rem;
@@ -210,8 +233,11 @@ main > .section:first-child:not(.hero) {
 }
 
 .brand:hover img,
-.brand:focus-visible img { opacity: 0.85; }
+.brand:focus-visible img {
+  opacity: 0.85;
+}
 
+/* texto ao lado da marca */
 .brand-text {
   display: none;
   font-weight: 600;
@@ -219,7 +245,9 @@ main > .section:first-child:not(.hero) {
 }
 
 @media (min-width: 1024px) {
-  .brand-text { display: inline-flex; }
+  .brand-text {
+    display: inline-flex;
+  }
 }
 
 /* ---------- 6) Navegação — menu renovado ---------- */
@@ -554,11 +582,6 @@ body.has-open-nav {
   --hero-highlight-bg: transparent;
   --hero-highlight-mobile-bg: color-mix(in srgb, #fff 82%, var(--areia-dourada) 18%);
   --hero-highlight-text: color-mix(in srgb, var(--marrom-terra-firme) 80%, #000 20%);
-  --hero-media-bg: rgba(255, 255, 255, 0.6);
-  --hero-media-radius: clamp(1.5rem, 4vw, 2.5rem);
-  --hero-media-padding: clamp(0.8rem, 2vw, 1.2rem);
-  --hero-media-shadow: 0 20px 40px rgba(62, 39, 49, 0.15);
-  --hero-cta-gap: 0.75rem;
 
   position: relative;
   padding-block: clamp(3rem, 7vw, 5rem);
@@ -627,7 +650,7 @@ body.has-open-nav {
 .hero .hero-cta {
   display: inline-flex;
   align-items: center;
-  gap: var(--hero-cta-gap);
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
@@ -640,57 +663,33 @@ body.has-open-nav {
   font-size: clamp(0.92rem, 1.5vw, 1rem);
 }
 
+/* ===========================================================
+   ==========  HERO MEDIA LIMPA (só a imagem)  ===============
+   =========================================================== */
+
 .hero .hero-media {
-  background: var(--hero-media-bg);
-  border-radius: var(--hero-media-radius);
-  padding: var(--hero-media-padding);
-  box-shadow: var(--hero-media-shadow);
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.5rem);
-  justify-items: center;
-  text-align: center;
-  max-inline-size: min(420px, 95%);
-  margin-inline: auto;
+  all: unset;           /* limpa tudo da classe */
+  display: block;
+  max-width: 480px;     /* ajuste se quiser limitar o tamanho */
+  margin: 0 auto;       /* centraliza bonitinho */
 }
 
 .hero .hero-media img {
-  border-radius: clamp(1.2rem, 3vw, 1.8rem);
-  box-shadow: var(--shadow-soft);
+  display: block;
+  width: 100%;
+  height: auto;
+  background: none;
+  border-radius: 0;     /* imagem crua */
+  box-shadow: none;     /* sem sombra */
 }
 
-.hero .hero-media figcaption {
-  margin: 0;
-  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
-  color: color-mix(in srgb, var(--marrom-terra-firme) 80%, #000 20%);
-}
-
+/* remove o texto e o badge */
+.hero .hero-media figcaption,
 .hero .hero-media .hero-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1rem;
-  border-radius: 999px;
-  background: rgba(117, 42, 42, 0.12);
-  color: var(--marsala-profundo);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+  display: none !important;
 }
 
-.hero .hero-media .hero-badge .ico {
-  inline-size: 1.2rem;
-  block-size: 1.2rem;
-  background: currentColor;
-  -webkit-mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-heart.png");
-          mask-image: url("../assets/PortifolioLucianoFotos/SVG/SVG-heart.png");
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-          mask-position: center;
-  -webkit-mask-size: contain;
-          mask-size: contain;
-}
+/* =========================================================== */
 
 @media (max-width: 640px) {
   .hero .hero-highlights li {
@@ -703,14 +702,17 @@ body.has-open-nav {
   .hero {
     padding-block: clamp(4rem, 8vw, 6rem);
   }
+
   .hero .hero-grid {
     grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
     align-items: stretch;
   }
+
   .hero .hero-copy {
     align-content: center;
     justify-items: start;
   }
+
   .hero .hero-media {
     align-content: center;
   }
@@ -730,7 +732,6 @@ body.has-open-nav {
   overflow: visible !important;
   background-clip: border-box !important;
 }
-
 
 /* ---------- 8) Sections genéricas ---------- */
 .section-heading {

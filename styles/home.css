@@ -23,24 +23,117 @@
   --shadow-soft: 0 8px 18px rgba(0,0,0,.06);
 }
 
-/* ---------- Hero ---------- */
-.hero--inicio {
-  position: relative; /* necessário pro ::before */
-  overflow: hidden;   /* clipe do overlay respeita o raio */
-  --hero-bg: var(--gradient-hero);
-  --hero-eyebrow-color: color-mix(in srgb, var(--marrom-terra-firme) 70%, black 30%);
-  --hero-lead-color: color-mix(in srgb, var(--marrom-terra-firme) 78%, black 22%);
-  --hero-highlight-icon: "•";
-  --hero-highlight-icon-color: color-mix(in srgb, var(--marsala-profundo) 75%, black 25%);
-  --hero-highlight-bg: rgba(255, 255, 255, 0.38);
-  --hero-highlight-mobile-bg: rgba(255, 255, 255, 0.72);
-  --hero-media-bg: rgba(255, 255, 255, 0.58);
-  --hero-media-radius: clamp(1.4rem, 4vw, 2.2rem);
-  --hero-media-padding: clamp(1rem, 2.5vw, 1.4rem);
-  --hero-media-shadow: var(--shadow-soft);
-  --hero-cta-gap: var(--space-xs, .6rem);
+/* ===========================
+   HERO BASE (GLOBAL)
+=========================== */
+.hero {
+  --hero-bg:
+    radial-gradient(circle at 0% 0%, rgba(201, 174, 143, 0.3), transparent 55%),
+    radial-gradient(circle at 90% 10%, rgba(117, 42, 42, 0.2), transparent 60%),
+    linear-gradient(135deg, var(--areia-dourada), var(--areia-dourada));
 
+  --hero-eyebrow-color: var(--oliva-sutil);
+  --hero-lead-color: color-mix(in srgb, var(--marrom-terra-firme) 85%, #000 15%);
+  --hero-highlight-text: color-mix(in srgb, var(--marrom-terra-firme) 80%, #000 20%);
+
+  padding-block: clamp(3rem, 7vw, 5rem);
   background: var(--hero-bg);
+  color: var(--marrom-terra-firme);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero .hero-grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.hero .hero-copy {
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.4rem);
+  max-inline-size: min(40rem, 100%);
+}
+
+.hero .hero-eyebrow {
+  margin: 0;
+  font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--hero-eyebrow-color);
+}
+
+.hero .hero-title {
+  margin: 0;
+  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 3.9rem);
+  line-height: 1.08;
+}
+
+.hero .hero-lead {
+  margin: 0;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.75;
+  color: var(--hero-lead-color);
+}
+
+.hero .hero-highlights {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(0.5rem, 1.8vw, 0.8rem);
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  color: var(--hero-highlight-text);
+}
+
+.hero .hero-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ===========================
+   HERO MEDIA — LIMPA / ESTÁTICA
+=========================== */
+.hero .hero-media {
+  /* sem all: unset pra não quebrar nada estruturalmente */
+  display: block;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+/* imagem totalmente estática, sem efeito */
+.hero .hero-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.2rem; /* só estilo visual, sem animação */
+  object-fit: cover;
+  background: none;
+  box-shadow: none;
+  transform: none;
+  transition: none;
+  animation: none;
+  filter: none;
+  will-change: auto;
+}
+
+/* some com qualquer texto/selinho dentro da media, se existir */
+.hero .hero-media figcaption,
+.hero .hero-media .hero-badge {
+  display: none !important;
+}
+
+/* ===========================
+   HERO-INICIO (HOME)
+=========================== */
+.hero--inicio {
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-hero);
   border-radius: var(--radius-lg, 1.2rem);
   margin-block-end: var(--space-md, 2rem);
 }
@@ -67,32 +160,51 @@
 }
 
 .hero--inicio .hero-title {
-  font-family: var(--font-display, serif);
+  margin: 0;
   font-weight: 600;
   color: color-mix(in srgb, var(--marrom-terra-firme) 82%, black 18%);
-  margin: 0;
-  text-wrap: balance;
 }
 
+/* HERO-INICIO usa o mesmo comportamento de media limpa,
+   só reforçamos que não há efeitos aqui também */
 .hero--inicio .hero-media {
-  border-radius: var(--hero-media-radius);
-  background: var(--hero-media-bg);
-  box-shadow: var(--hero-media-shadow);
-  padding: var(--hero-media-padding);
+  display: block;
+  max-width: 360px;
+  margin-inline: auto;
 }
 
 .hero--inicio .hero-media img {
-  display: block;
-  width: min(85vw, 480px);
-  max-width: 100%;
-  height: auto;
-  border-radius: calc(var(--hero-media-radius) - .4rem);
+  border-radius: 1.2rem;
   object-fit: cover;
-  transform: translateZ(0);
-  transition: transform .45s ease;
+  transform: none;
+  transition: none;
+  animation: none;
 }
 
-.hero--inicio:hover .hero-media img { transform: translate3d(0, -6px, 0); }
+/* IMPORTANTE: nada acontece no hover */
+.hero--inicio:hover .hero-media img {
+  transform: none;
+}
+
+/* ===========================
+   BREAKPOINTS
+=========================== */
+@media (max-width: 640px) {
+  .hero .hero-highlights li {
+    background: rgba(255, 255, 255, 0.72);
+    padding-inline: clamp(0.6rem, 3vw, 0.9rem);
+  }
+}
+
+@media (min-width: 960px) {
+  .hero {
+    padding-block: clamp(4rem, 8vw, 6rem);
+  }
+
+  .hero .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  }
+}
 
 /* ---------- Sessão introdutória ---------- */
 .intro { position: relative; }
