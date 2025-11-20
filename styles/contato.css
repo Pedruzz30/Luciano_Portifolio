@@ -304,19 +304,19 @@
   border-color: color-mix(in srgb, var(--dourado-fosco) 40%, white 60%);
   box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.14);
 }
-
 .pergunta summary {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: color-mix(in srgb, var(--marsala-profundo) 80%, black 20%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   list-style: none;
-  outline: none;
-  transition: color 0.25s ease;
+  cursor: pointer;
 }
+
+.pergunta summary::-webkit-details-marker {
+  display: none;
+}
+
+
 
 .pergunta summary:hover {
   color: color-mix(in srgb, var(--marsala-profundo) 100%, black 0%);
