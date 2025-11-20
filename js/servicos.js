@@ -233,7 +233,7 @@
     track.scrollBy({ left: direction * step, behavior: prefersReduced ? 'auto' : 'smooth' });
   };
 
- const cleanupFns = [];
+  const cleanupFns = [];
 
   const addListener = (target, event, handler, options) => {
     target?.addEventListener(event, handler, options);
@@ -245,12 +245,15 @@
 
   /* Arraste */
   let isPointerDown = false;
+  let isDragging = false;
   let startX = 0;
+  let startY = 0;
   let startScrollLeft = 0;
   let activePointerId = null;
   let lastClientX = 0;
   let lastTimestamp = 0;
   let velocityX = 0;
+  const DRAG_START_THRESHOLD = 8;
 
   const initialSnapType = getComputedStyle(track).scrollSnapType || 'inline mandatory';
   const initialScrollBehavior = track.style.scrollBehavior;
@@ -263,14 +266,12 @@
   const stopDragging = () => {
     if (!isPointerDown) return;
     isPointerDown = false;
-    if (activePointerId !== null) {
+    if (isDragging && activePointerId !== null) {
       try { track.releasePointerCapture(activePointerId); } catch (e) { /* noop */ }
     }
-    activePointerId = null;
-    track.classList.remove('is-dragging');
 
     const momentum = velocityX * 180;
-    if (Math.abs(momentum) > 14) {
+    if (isDragging && Math.abs(momentum) > 14) {
       track.scrollTo({
         left: track.scrollLeft - momentum,
         behavior: prefersReduced ? 'auto' : 'smooth'
@@ -278,28 +279,59 @@
     }
 
     setTimeout(() => {
-      restoreSnap();
+      if (isDragging) {
+        restoreSnap();
+        track.classList.remove('is-dragging');
+      }
       requestScrollState();
+      isDragging = false;
+      activePointerId = null;
     }, 140);
+  };
+
+  const startDragging = e => {
+    isDragging = true;
+    activePointerId = e.pointerId;
+    startScrollLeft = track.scrollLeft;
+    lastClientX = e.clientX;
+    lastTimestamp = performance.now();
+    try { track.setPointerCapture(activePointerId); } catch (err) { /* noop */ }
+    track.style.scrollSnapType = 'none';
+    track.style.scrollBehavior = 'auto';
+    track.classList.add('is-dragging');
   };
 
   addListener(track, 'pointerdown', e => {
     if (e.button !== undefined && e.button !== 0) return;
     if (!e.isPrimary) return;
     isPointerDown = true;
-    activePointerId = e.pointerId;
+    isDragging = false;
+    activePointerId = null;
     startX = e.clientX;
-    lastClientX = e.clientX;
-    lastTimestamp = performance.now();
-    startScrollLeft = track.scrollLeft;
-    track.style.scrollSnapType = 'none';
-    track.style.scrollBehavior = 'auto';
-    track.setPointerCapture(activePointerId);
-    track.classList.add('is-dragging');
+    startY = e.clientY;
+    velocityX = 0;
   });
 
   addListener(track, 'pointermove', e => {
-    if (!isPointerDown || e.pointerId !== activePointerId) return;
+    if (!isPointerDown) return;
+    const deltaX = e.clientX - startX;
+    const deltaY = e.clientY - startY;
+
+    if (!isDragging) {
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > DRAG_START_THRESHOLD) {
+        isPointerDown = false;
+        return;
+      }
+
+      if (Math.abs(deltaX) > DRAG_START_THRESHOLD) {
+        startDragging(e);
+      } else {
+        return;
+      }
+    }
+
+    if (activePointerId !== null && e.pointerId !== activePointerId) return;
+
     const now = performance.now();
     const delta = e.clientX - startX;
     const stepDelta = e.clientX - lastClientX;
@@ -313,16 +345,16 @@
   });
 
   ['pointerup', 'pointercancel'].forEach(eventName => {
-   addListener(track, eventName, stopDragging);
+    addListener(track, eventName, stopDragging);
   });
 
-   addListener(track, 'pointerleave', e => {
-    if (!isPointerDown || e.pointerId !== activePointerId) return;
+  addListener(track, 'pointerleave', e => {
+    if (!isPointerDown || (activePointerId !== null && e.pointerId !== activePointerId)) return;
     stopDragging();
   });
 
   /* Teclado */
- addListener(track, 'keydown', e => {
+  addListener(track, 'keydown', e => {
     switch (e.key) {
       case 'ArrowLeft':
         e.preventDefault();
@@ -355,7 +387,7 @@
   });
 
   /* Atualização visual */
-    addListener(track, 'scroll', requestScrollState, { passive: true });
+  addListener(track, 'scroll', requestScrollState, { passive: true });
   const resizeObserver = typeof ResizeObserver !== 'undefined'
     ? new ResizeObserver(() => requestScrollState())
     : null;

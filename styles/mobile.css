@@ -409,6 +409,8 @@
   /* garante que o snap funcione bem em telas menores (se já tiver no global, reforça) */
   scroll-snap-type: x mandatory;
   scroll-padding-inline: clamp(0.9rem, 4vw, 1.4rem);
+  scroll-snap-stop: always;
+  touch-action: pan-x pinch-zoom;
 }
 
 /* item ocupa bem a altura disponível, sem cortar sombra */
@@ -426,6 +428,7 @@
 
   /* garante que fiquem acima dos cards e clicáveis */
   z-index: 2;
+  touch-action: manipulation;
 }
 
 /* posicionamento à esquerda/direita com respiro */
