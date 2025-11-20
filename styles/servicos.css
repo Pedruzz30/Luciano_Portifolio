@@ -351,7 +351,7 @@
   scroll-snap-type: inline mandatory;
   scroll-padding-inline: var(--snap-pad);
 
-  touch-action: pan-y;
+  touch-action: pan-x pinch-zoom;
   cursor: grab;
   -webkit-overflow-scrolling: touch;
 

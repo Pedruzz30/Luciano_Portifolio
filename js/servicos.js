@@ -260,6 +260,7 @@
   };
 
   addListener(track, 'pointerdown', e => {
+    if (e.pointerType === 'touch') return;
     if (e.button !== 0) return;
     isPointerDown = true;
     activePointerId = e.pointerId;
