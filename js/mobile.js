@@ -22,12 +22,12 @@
   let revealSafetyTimer = null;
 
   const init = () => {
-    if (initialized || !mobileMQ.matches) return;
-    initialized = true;
-    enhanceNavigation();
-    initAccordions();
-    initReveal();
-  };
+  if (initialized || !mobileMQ.matches) return;
+  initialized = true;
+  enhanceNavigation();
+  // initAccordions(); // desativado por enquanto
+  initReveal();
+};
 
   const destroy = () => {
     if (!initialized) return;
