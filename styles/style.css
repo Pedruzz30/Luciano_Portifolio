@@ -407,7 +407,7 @@ main > .section:first-child:not(.hero) {
   z-index: 1090;
 }
 
-.nav-backdrop:not([hidden]) {
+.nav-backdrop.is-visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;

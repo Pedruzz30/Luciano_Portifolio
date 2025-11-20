@@ -2,10 +2,14 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ========= 0) Helpers ========= */
 function inViewObserver(selectors, onEnter, options = { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }) {
+  const nodes = document.querySelectorAll(selectors);
+  if (!nodes.length) return { disconnect(){} };
+
   if (reduceMotion || !('IntersectionObserver' in window)) {
-    document.querySelectorAll(selectors).forEach(el => onEnter(el));
+    nodes.forEach(el => onEnter(el));
     return { disconnect(){} };
   }
+
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -14,7 +18,7 @@ function inViewObserver(selectors, onEnter, options = { rootMargin: '0px 0px -10
       }
     });
   }, options);
-  document.querySelectorAll(selectors).forEach(el => obs.observe(el));
+  nodes.forEach(el => obs.observe(el));
   return obs;
 }
 
@@ -22,9 +26,11 @@ function inViewObserver(selectors, onEnter, options = { rootMargin: '0px 0px -10
 const revealTargets = [
   ...document.querySelectorAll('.prose .lead, .prose > p, .callout, .cta-box')
 ];
+const maxStaggerSteps = 4;
 revealTargets.forEach((el, i) => {
   el.classList.add('reveal');
-  el.style.setProperty('--delay', `${Math.min(i * 80, 320)}ms`);
+  const step = Math.min(i, maxStaggerSteps);
+  el.dataset.staggerStep = String(step);
 });
 
 inViewObserver('.reveal', el => el.classList.add('in-view'));
@@ -47,24 +53,29 @@ if (cta) {
 function animateDetails(detailsEl, open) {
   if (reduceMotion) return;
   const content = [...detailsEl.children].find(n => n.tagName?.toLowerCase() !== 'summary');
-  if (!content) return;
+  const summary = detailsEl.querySelector('summary');
+  if (!content || !summary) return;
 
-  const start = detailsEl.offsetHeight;
+  const summaryHeight = summary.offsetHeight;
+  const wasOpen = detailsEl.open;
+  if (!wasOpen) detailsEl.open = true;
+  const expandedHeight = summaryHeight + content.scrollHeight;
+  if (!wasOpen) detailsEl.open = false;
+  const from = open ? summaryHeight : expandedHeight;
+  const to = open ? expandedHeight : summaryHeight;
+
+  detailsEl.classList.add('is-animating');
   detailsEl.open = true;
-  const end = detailsEl.offsetHeight;
-
-  const from = open ? start : end;
-  const to = open ? end : start;
-
   detailsEl.style.height = `${from}px`;
-  // reflow
-  void detailsEl.offsetHeight;
-  detailsEl.style.transition = 'height .28s cubic-bezier(.22,.61,.36,1)';
-  detailsEl.style.height = `${to}px`;
+
+  requestAnimationFrame(() => {
+    detailsEl.style.height = `${to}px`;
+  });
 
   const clean = () => {
+    detailsEl.classList.remove('is-animating');
     detailsEl.style.height = '';
-    detailsEl.style.transition = '';
+
     if (!open) detailsEl.open = false;
     detailsEl.removeEventListener('transitionend', clean);
   };
@@ -80,7 +91,10 @@ const heroProse = document.querySelector('.hero-about .prose');
 if (heroProse && !reduceMotion) {
   heroProse.classList.add('hero-parallax');
   const maxShift = 0.015; // 1.5%
-  const onScroll = () => {
+  let raf = null;
+
+  const updateParallax = () => {
+    raf = null;
     const vh = innerHeight;
     const rect = heroProse.getBoundingClientRect();
     const center = rect.top + rect.height / 2;
@@ -88,7 +102,21 @@ if (heroProse && !reduceMotion) {
     const shift = Math.max(-maxShift, Math.min(maxShift, r * maxShift));
     heroProse.style.transform = `translateY(${shift * rect.height}px)`;
   };
-  onScroll();
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
+
+  const scheduleParallax = () => {
+    if (raf) return;
+    raf = requestAnimationFrame(updateParallax);
+  };
+
+  updateParallax();
+
+  const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  const listenerOptions = controller ? { passive: true, signal: controller.signal } : { passive: true };
+
+  addEventListener('scroll', scheduleParallax, listenerOptions);
+  addEventListener('resize', scheduleParallax, controller ? { signal: controller.signal } : undefined);
+
+  if (controller) {
+    addEventListener('pagehide', () => controller.abort(), { once: true });
+  }
 }
