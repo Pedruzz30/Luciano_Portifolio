@@ -219,20 +219,17 @@
 }
 
 /* ==========================================================
-   SECTION SERVIÇOS — Carrossel (sem blur nas bordas)
+   SECTION SERVIÇOS — Grid (3 cards, mais compacto)
    ========================================================== */
 
 /* ===================== TOKENS LOCAIS ===================== */
 .section-servicos {
-  --servicos-gap: clamp(1rem, 2vw, 1.75rem);
-  --servicos-radius: 1.25rem;
+  --servicos-gap: clamp(1.25rem, 2.4vw, 1.8rem);
+  --servicos-radius: 1.1rem;
   --servicos-radius-pill: 999px;
-  --servicos-shadow-sm: 0 8px 24px rgba(62, 39, 49, 0.10);
-  --servicos-shadow-md: 0 12px 28px rgba(62, 39, 49, 0.14);
-  --servicos-shadow-lg: 0 18px 42px rgba(62, 39, 49, 0.20);
+  --servicos-shadow-sm: 0 6px 18px rgba(62, 39, 49, 0.10);
+  --servicos-shadow-md: 0 10px 24px rgba(62, 39, 49, 0.14);
   --servicos-bg-base: #fdf9f5;
-  --servicos-surface: #ffffff;
-  --servicos-surface-warm: #fff8f1;
   --servicos-border: #d9c5ac;
   --servicos-border-strong: #ba7960;
   --servicos-text: #3f2f2a;
@@ -240,14 +237,14 @@
   --servicos-accent: #4c2c33;
   --servicos-cta-dark: #402129;
   --servicos-focus: #caa06d;
-  --servicos-transition: 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  --servicos-cta-sheen: rgba(255, 255, 255, 0.18);
+  --servicos-transition: 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+
   background:
     radial-gradient(180% 140% at 110% -10%, rgba(117, 42, 42, 0.08), transparent 60%),
     radial-gradient(120% 100% at -15% 15%, rgba(201, 174, 143, 0.24), transparent 62%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9));
   container: servicos / inline-size;
-  padding-block: clamp(2rem, 5vw, 3.25rem);
+  padding-block: clamp(2rem, 5vw, 3rem);
 }
 
 @supports (color: color-mix(in srgb, red 50%, white)) {
@@ -259,349 +256,209 @@
     --servicos-accent: color-mix(in srgb, var(--marsala-profundo) 92%, #000 8%);
     --servicos-cta-dark: color-mix(in srgb, var(--marsala-profundo) 94%, #000 6%);
     --servicos-focus: color-mix(in srgb, var(--dourado-fosco) 55%, #000 45%);
-    --servicos-surface-warm: color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%);
   }
 }
 
-/* ----- Wrapper e variáveis do carrossel ----- */
-.carousel-servicos {
-  --card-radius: 1.25rem;
-  --gap: clamp(1rem, 3vw, 1.75rem);
-  --card-shadow: 0 6px 18px rgba(62, 39, 49, 0.1);
-  --card-shadow-hover: 0 12px 28px rgba(62, 39, 49, 0.15);
-  --card-bg: color-mix(in srgb, #fff 92%, var(--areia-dourada) 8%);
-  --card-bg-hover: color-mix(in srgb, #fff 88%, var(--areia-dourada) 12%);
-  --card-border: color-mix(in srgb, var(--dourado-fosco) 48%, #fff 52%);
-  --cta-bg: color-mix(in srgb, var(--terracota-queimado) 55%, #fff 45%);
+/* GRID DOS 3 CARDS */
+.servicos-grid {
+  --card-radius: 1.1rem;
+  --card-shadow: 0 4px 14px rgba(62, 39, 49, 0.10);
+  --card-shadow-hover: 0 10px 24px rgba(62, 39, 49, 0.16);
+  --card-bg: color-mix(in srgb, #fff 94%, var(--areia-dourada) 6%);
+  --card-bg-hover: color-mix(in srgb, #fff 90%, var(--areia-dourada) 10%);
+  --card-border: color-mix(in srgb, var(--dourado-fosco) 40%, #fff 60%);
+  --cta-bg: color-mix(in srgb, var(--terracota-queimado) 52%, #fff 48%);
   --cta-text: color-mix(in srgb, var(--marsala-profundo) 88%, #000 12%);
-  position: relative;
-  inline-size: min(100%, 1180px);
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 4vw, 2rem);
-  padding-block-end: clamp(1rem, 3vw, 1.75rem);
-  container: carousel / inline-size;
-  overflow: hidden; /* FIX: sem mask/fade */
-  border-radius: calc(var(--servicos-radius) + 0.35rem);
-  background-color: transparent;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-}
-@supports (content-visibility: auto) {
-  .carousel-servicos { content-visibility: auto; contain-intrinsic-size: 600px 400px; }
-}
-
-/* ----- Controles de navegação ----- */
-.carousel-servicos__nav {
-  position: absolute;
-  inset-block-start: 50%;
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
-  margin-block-start: -1.375rem;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--dourado-fosco) 45%, #fff 55%);
-  background: color-mix(in srgb, #fff 85%, var(--areia-dourada) 15%);
-  color: color-mix(in srgb, var(--marrom-terra-firme) 92%, #000 8%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  cursor: pointer;
-  transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease, border-color .25s ease;
-}
-.carousel-servicos__nav span { font-size: 1.75rem; line-height: 1; }
-.carousel-servicos__nav:hover {
-  background: color-mix(in srgb, #fff 72%, var(--areia-dourada) 28%);
-  border-color: color-mix(in srgb, var(--dourado-fosco) 62%, #fff 38%);
-  color: color-mix(in srgb, var(--marsala-profundo) 78%, #000 22%);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 32px rgba(62, 39, 49, 0.16);
-  outline: none;
-}
-.carousel-servicos__nav:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 55%, #fff 45%);
-  outline-offset: 3px;
-}
-.carousel-servicos__nav[disabled] {
-  cursor: not-allowed;
-  opacity: 0.55;
-  box-shadow: none;
-  transform: none;
-}
-.carousel-servicos__nav--prev { inset-inline-start: clamp(0.5rem, 4vw, 1.25rem); }
-.carousel-servicos__nav--next { inset-inline-end: clamp(0.5rem, 4vw, 1.25rem); }
-
-/* ----- Trilha com scroll snapping (sem mask de fade) ----- */
-.carousel-servicos__track {
-  /* tokens */
-  --thumb: color-mix(in srgb, var(--terracota-queimado) 38%, rgba(255,255,255,.82) 62%);
-  --thumb-hover: color-mix(in srgb, var(--terracota-queimado) 55%, rgba(255,255,255,.9) 45%);
-  --snap-pad: clamp(1rem, 4vw, 2rem);
 
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(min(82vw, 19rem), 1fr);
-  gap: var(--gap);
-
-  padding-block: clamp(1rem, 2.6vw, 1.5rem);
-  padding-inline: var(--snap-pad);
-
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scroll-behavior: smooth;
-
-  scroll-snap-type: inline mandatory;
-  scroll-padding-inline: var(--snap-pad);
-
-  touch-action: pan-x pinch-zoom;
-  cursor: grab;
-  -webkit-overflow-scrolling: touch;
-
-  contain: content;
-  will-change: scroll-position;
-
-  /* Scrollbar base */
-  scrollbar-width: thin;
-  scrollbar-color: var(--thumb) transparent;
-}
-.carousel-servicos__track:active,
-.carousel-servicos__track.is-dragging { cursor: grabbing; }
-
-/* Scrollbar WebKit */
-.carousel-servicos__track::-webkit-scrollbar { height: .36rem; background: transparent; }
-.carousel-servicos__track::-webkit-scrollbar-track {
-  background: transparent;
-  box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,.06),
-    inset 0 6px 10px -8px rgba(0,0,0,.22);
-  border-radius: 999px;
-}
-.carousel-servicos__track::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--thumb) 86%, #fff 14%), var(--thumb));
-  border-radius: 999px;
-  border: 6px solid transparent;
-  background-clip: padding-box;
-  box-shadow:
-    0 2px 6px rgba(0,0,0,.18),
-    inset 0 0 0 1px rgba(255,255,255,.25);
-  min-width: 2.25rem;
-}
-.carousel-servicos__track::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--thumb-hover) 92%, #fff 8%), var(--thumb-hover));
-  box-shadow:
-    0 4px 10px rgba(0,0,0,.24),
-    inset 0 0 0 1px rgba(255,255,255,.3);
-}
-.carousel-servicos__track::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(90deg,
-    color-mix(in srgb, var(--thumb-hover) 70%, #000 30%),
-    color-mix(in srgb, var(--thumb-hover) 85%, #000 15%));
-  box-shadow:
-    0 1px 4px rgba(0,0,0,.28),
-    inset 0 0 0 1px rgba(255,255,255,.22);
-}
-.carousel-servicos__track::-webkit-scrollbar-corner { background: transparent; }
-
-/* Snap nos filhos */
-.carousel-servicos__track > * {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  gap: var(--servicos-gap);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-block-start: clamp(1.4rem, 3vw, 1.9rem);
+  padding-inline: clamp(0.5rem, 3vw, 1rem);
 }
 
-/* ----- Cartões de serviço ----- */
-.carousel-servicos__item {
+/* CARD BASE */
+.servico-card {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: clamp(0.85rem, 2.4vw, 1.15rem);
-  padding: clamp(1.25rem, 3vw, 1.75rem);
+  gap: clamp(0.75rem, 2vw, 1rem);
+  padding: clamp(1.1rem, 2.6vw, 1.5rem);
   background: var(--card-bg);
-  color: color-mix(in srgb, var(--marrom-terra-firme) 90%, #000 10%);
+  color: var(--servicos-text);
   border: 1px solid var(--card-border);
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
-  min-block-size: clamp(19rem, 48vw, 22rem);
-  transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, border-color .25s ease;
-  container-type: inline-size;
-  container-name: card;
+  min-block-size: auto;           /* antes ficava muito alto */
+  transition:
+    transform var(--servicos-transition),
+    box-shadow var(--servicos-transition),
+    background-color var(--servicos-transition),
+    border-color var(--servicos-transition);
   position: relative;
   overflow: clip;
 }
-.carousel-servicos__item:focus-within {
-  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 60%, #fff 40%);
+
+.servico-card:focus-within {
+  outline: 3px solid var(--servicos-focus);
   outline-offset: 3px;
 }
-.carousel-servicos__item:hover,
-.carousel-servicos__item:focus-within {
-  transform: translateY(-6px);
+
+/* HOVER / FOCUS */
+.servico-card:hover,
+.servico-card:focus-within {
+  transform: translateY(-4px);
   box-shadow: var(--card-shadow-hover);
   background: var(--card-bg-hover);
-  border-color: color-mix(in srgb, var(--dourado-fosco) 62%, #fff 38%);
+  border-color: var(--servicos-border-strong);
 }
 
-.carousel-servicos__header { display: grid; gap: 0.35rem; }
-.carousel-servicos__header h3 {
+/* CABEÇALHO DO CARD */
+.servico-card__header {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.servico-card__header h3 {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  font-size: clamp(1.4rem, 3vw, 1.8rem); /* levemente menor */
   line-height: 1.15;
 }
-.carousel-servicos__subtitle {
+
+.servico-card__subtitle {
   margin: 0;
-  font-size: clamp(0.9rem, 1.8vw, 1rem);
-  color: color-mix(in srgb, var(--terracota-queimado) 60%, #000 40%);
+  font-size: clamp(0.9rem, 1.7vw, 1rem);
+  color: var(--servicos-text-soft);
   letter-spacing: 0.02em;
 }
 
-/* ----- Conteúdo interno ----- */
-.carousel-servicos__body {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 0.75rem;
-  align-content: start;
-  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
-  line-height: 1.6;
+/* Alinhamento perfeito entre cards */
+.servico-card__body {
+  min-height: 180px; /* ajuste fino */
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
-.carousel-servicos__body p {
+
+
+.servico-card__body p {
   margin: 0;
-  color: color-mix(in srgb, var(--marrom-terra-firme) 85%, #000 15%);
+  color: color-mix(in srgb, var(--marrom-terra-firme) 82%, #000 18%);
   text-wrap: pretty;
 }
 
-.carousel-servicos__bullets {
-  margin: 0; padding: 0; display: grid; gap: 0.55rem; list-style: none;
-}
-.carousel-servicos__bullets li {
-  position: relative; padding-inline-start: 1.25rem;
-}
-.carousel-servicos__bullets li::before {
-  content: ""; position: absolute; inset-inline-start: 0; inset-block-start: 0.55em;
-  inline-size: 0.5rem; block-size: 0.5rem; border-radius: 999px;
-  background: color-mix(in srgb, var(--terracota-queimado) 70%, #fff 30%);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--areia-dourada) 70%, #fff 30%);
-  transform: translateY(-50%);
+/* lista dentro dos cards — alinhada com o texto */
+.servico-card__bullets {
+  margin: 0.5rem 0 0;      /* um respiro depois do parágrafo */
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.4rem;
 }
 
-/* ----- CTA ----- */
-.carousel-servicos__cta {
-  justify-self: start;
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.55rem 1.15rem; border-radius: 999px;
-  border: 1px solid var(--cta-bg);
-  background: color-mix(in srgb, #fff 82%, var(--areia-dourada) 18%);
-  color: var(--cta-text); text-decoration: none; font-weight: 600; letter-spacing: 0.01em;
-  transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease, border-color .25s ease;
+.servico-card__bullets li {
+  position: static;         /* não precisa mais de posição relativa */
+  padding-inline-start: 0;  /* TIRA o recuo da antiga bolinha */
 }
-.carousel-servicos__cta::after { content: "→"; font-size: 1rem; line-height: 1; transition: transform .25s ease; }
-.carousel-servicos__cta:hover,
-.carousel-servicos__cta:focus-visible {
-  background: var(--cta-bg); color: #fff;
+
+/* garante que não tenha pseudo sobrando */
+.servico-card__bullets li::before {
+  content: none !important;
+}
+
+/* CTA DO CARD */
+.servico-card__cta {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1.05rem;
+  border-radius: 999px;
+  border: 1px solid var(--cta-bg);
+  background: color-mix(in srgb, #fff 85%, var(--areia-dourada) 15%);
+  color: var(--cta-text);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-size: 0.9rem;
+  transition:
+    transform var(--servicos-transition),
+    box-shadow var(--servicos-transition),
+    background-color var(--servicos-transition),
+    color var(--servicos-transition),
+    border-color var(--servicos-transition);
+}
+
+.servico-card__cta::after {
+  content: "→";
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform var(--servicos-transition);
+}
+
+.servico-card__cta:hover,
+.servico-card__cta:focus-visible {
+  background: var(--cta-bg);
+  color: #fff;
   border-color: color-mix(in srgb, var(--marsala-profundo) 70%, #fff 30%);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(62, 39, 49, 0.18);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(62, 39, 49, 0.18);
   outline: none;
 }
-.carousel-servicos__cta:hover::after,
-.carousel-servicos__cta:focus-visible::after { transform: translateX(4px); }
 
-/* ----- Indicadores ----- */
-.carousel-indicators {
-  display: flex; justify-content: center; align-items: center;
-  gap: 0.6rem; margin-block-start: clamp(1rem, 3vw, 1.5rem);
-}
-.carousel-indicators__dot {
-  inline-size: 0.65rem; block-size: 0.65rem; border-radius: 999px; border: 0;
-  background: color-mix(in srgb, var(--areia-dourada) 65%, rgba(255,255,255,0.4) 35%);
-  transition: transform .25s ease, background-color .25s ease, box-shadow .25s ease;
-  cursor: pointer; padding: 0;
-}
-.carousel-indicators__dot[aria-current="true"] {
-  inline-size: 1.4rem;
-  background: color-mix(in srgb, var(--terracota-queimado) 65%, #fff 35%);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--areia-dourada) 70%, rgba(255,255,255,0.6) 30%);
-}
-.carousel-indicators__dot:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--dourado-fosco) 55%, #fff 45%);
-  outline-offset: 3px;
+.servico-card__cta:hover::after,
+.servico-card__cta:focus-visible::after {
+  transform: translateX(3px);
 }
 
-/* ----- Container queries ----- */
-@container carousel (min-width: 520px) {
-  .carousel-servicos__track { grid-auto-columns: minmax(19rem, 45%); }
-}
-@container carousel (min-width: 820px) {
-  .carousel-servicos__track { grid-auto-columns: minmax(19.5rem, 32%); }
-}
-@container carousel (min-width: 1120px) {
-  .carousel-servicos__track { grid-auto-columns: minmax(19.5rem, 25%); }
-}
+/* MOBILE — versão refinada e equilibrada */
+@media (max-width: 720px) {
 
-@container card (min-width: 23.5rem) {
-  .carousel-servicos__body { grid-template-rows: auto 1fr auto; gap: 0.85rem; }
-  .carousel-servicos__bullets { gap: 0.65rem; }
-  .carousel-servicos__cta { justify-self: end; padding-inline: 1.35rem; }
-}
-
-/* =========================
-   MOBILE FIRST (até 640px)
-   ========================= */
-@media (max-width: 640px) {
-  /* tira moldura + deixa tudo mais leve */
-  .carousel-servicos {
-    padding-inline: 0.25rem;
-    box-shadow: none;
+  .servicos-grid {
+    grid-template-columns: 1fr;
+    padding-inline: 0.75rem;
+    gap: 1.25rem; /* dá mais respiro entre os cards */
   }
 
-  /* cards menores — 78% da tela, deslizando suave */
-  .carousel-servicos__track {
-    grid-auto-columns: minmax(75vw, 1fr); /* <-- menor */
-    padding-inline: 0.5rem;
-    gap: 0.75rem; /* dá uma afinada */
-    cursor: auto;
-    scroll-padding-inline: 0.5rem;
-  }
-
-  /* cartão mais compacto visualmente */
-  .carousel-servicos__item {
+  .servico-card {
+    padding: 1.15rem 1rem 1.35rem;
     min-block-size: auto;
-    padding: 0.9rem 0.9rem 1rem;
-    border-radius: 1rem; /* dá um “soft” */
-    transform: scale(0.98); /* fica mais discreto */
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(62, 39, 49, 0.08); /* sombra mais suave pra mobile */
   }
 
-  /* botões 12% menores */
-  .carousel-servicos__nav {
-    inline-size: 2rem;
-    block-size: 2rem;
-    inset-block-start: auto;
-    inset-block-end: 0.5rem;
-    margin-block-start: 0;
-    transform: none;
+  /* Título do card */
+  .servico-card__header h3 {
+    font-size: 1.4rem;       /* levemente maior pra manter hierarquia */
+    line-height: 1.25;
   }
 
-  .carousel-servicos__nav--prev {
-    inset-inline-start: 0.75rem;
+  /* Subtítulo */
+  .servico-card__subtitle {
+    font-size: 0.92rem;
   }
 
-  .carousel-servicos__nav--next {
-    inset-inline-end: 0.75rem;
+  /* Texto principal + lista */
+  .servico-card__body {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    gap: 0.65rem;
   }
 
-  /* indicadores mais próximos e menores */
-  .carousel-indicators {
-    margin-block-start: 0.5rem;
+  .servico-card__body p {
+    margin-bottom: 0.35rem;
   }
 
-  .carousel-indicators__dot {
-    inline-size: 0.45rem;
-    block-size: 0.45rem;
+  /* Lista dentro do card — compacto e alinhado */
+  .servico-card__bullets {
+    gap: 0.45rem;
   }
-}
 
-/* ----- Reduced motion ----- */
-@media (prefers-reduced-motion: reduce) {
-  .carousel-servicos__track { scroll-behavior: auto; transition: none !important; }
-  .carousel-servicos__item,
-  .carousel-servicos__cta,
-  .carousel-servicos__nav,
-  .carousel-indicators__dot { transition: none !important; }
+  /* CTA mais proporcional pro mobile */
+  .servico-card__cta {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.9rem;
+  }
 }
 
 /* ===== DIFERENCIAIS ===== */

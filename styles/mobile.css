@@ -388,69 +388,7 @@
     font-size: clamp(1.8rem, 6vw, 2.2rem);
   }
 
-  /* ============================
-   CARROSSEL SERVIÇOS — MOBILE
-   ============================ */
-
-/* container do carrossel no mobile */
-.carousel-servicos {
-  padding-inline: clamp(0.9rem, 4vw, 1.4rem);
-  padding-block: clamp(0.75rem, 3vw, 1.25rem);
-}
-
-/* trilho: 1 card por vez, com respiro nas laterais */
-.carousel-servicos__track {
-  /* mantém o esquema de colunas automáticas, mas dá um pouco mais de largura pro card */
-  grid-auto-columns: minmax(88vw, 1fr);
-
-  /* evita excesso de padding + overflow lateral no mobile */
-  padding-inline: clamp(0.25rem, 2vw, 0.75rem);
-
-  /* garante que o snap funcione bem em telas menores (se já tiver no global, reforça) */
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: clamp(0.9rem, 4vw, 1.4rem);
-  scroll-snap-stop: always;
-  touch-action: pan-x pinch-zoom;
-}
-
-/* item ocupa bem a altura disponível, sem cortar sombra */
-.carousel-servicos__item {
-  min-block-size: 100%;
-}
-
-/* botões de navegação — tamanho bom pro dedão */
-.carousel-servicos__nav {
-  inset-block-start: auto;
-  inset-block-end: clamp(0.9rem, 4vw, 1.35rem);
-
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
-
-  /* garante que fiquem acima dos cards e clicáveis */
-  z-index: 2;
-  touch-action: manipulation;
-}
-
-/* posicionamento à esquerda/direita com respiro */
-.carousel-servicos__nav--prev {
-  inset-inline-start: clamp(0.9rem, 4vw, 1.6rem);
-}
-
-.carousel-servicos__nav--next {
-  inset-inline-end: clamp(0.9rem, 4vw, 1.6rem);
-}
-
-/* estado desabilitado mais sutil, mas ainda perceptível */
-.carousel-servicos__nav[disabled] {
-  opacity: 0.4;
-  cursor: default;
-}
-
-/* indicadores centralizados e com espaço dos botões */
-.carousel-indicators {
-  justify-content: center;
-  margin-block-start: clamp(0.5rem, 3vw, 0.9rem);
-}
+  
 
   /* Accordion (FAQ) */
   .pergunta summary {

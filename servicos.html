@@ -116,91 +116,99 @@
         </div>
       </section>
 
-       <!-- PLANOS / SERVIÇOS -->
+     
+      <!-- PLANOS / SERVIÇOS -->
       <section class="section section-servicos" id="planos" aria-labelledby="titulo-planos">
-          <div class="container">
-           <header class="section-heading text-flow">
-             <p class="kicker">Principais frentes de trabalho</p>
+        <div class="container">
+          <header class="section-heading text-flow">
+            <p class="kicker">Principais frentes de trabalho</p>
             <h2 id="titulo-planos">Atendimentos personalizados</h2>
-             <p class="section-text">Formatos pensados para diferentes fases e necessidades, sempre on-line e com combinados transparentes.</p>
+            <p class="section-text">
+              Formatos pensados para diferentes fases e necessidades, sempre on-line e com combinados transparentes.
+            </p>
           </header>
 
-          <div class="carousel-servicos" role="region" aria-label="Formatos de atendimento" data-animate="fade-up" data-delay="40">
-            <button class="carousel-servicos__nav carousel-servicos__nav--prev" type="button" aria-label="Rolar formatos anteriores" aria-controls="carousel-servicos-track">
-              <span aria-hidden="true">‹</span>
-            </button>
-            <button class="carousel-servicos__nav carousel-servicos__nav--next" type="button" aria-label="Rolar próximos formatos" aria-controls="carousel-servicos-track">
-              <span aria-hidden="true">›</span>
-            </button>
+          <div class="servicos-grid" data-animate="fade-up" data-delay="40" role="list">
+            <!-- 1) Conversa inicial -->
+            <article class="servico-card" role="listitem">
+              <header class="servico-card__header">
+                <h3>Conversa inicial</h3>
+                <p class="servico-card__subtitle">Primeiro contato breve e orientativo</p>
+              </header>
+              <div class="servico-card__body">
+                <p>
+                  Encontro rápido para entender sua demanda, tirar dúvidas sobre o processo terapêutico
+                  e alinhar próximos passos com tranquilidade.
+                </p>
+                <ul class="servico-card__bullets">
+                  <li>Conversa on-line de 15 a 20 minutos</li>
+                  <li>Esclarecimento sobre formatos, valores e frequência</li>
+                  <li>Indicação de atendimento ou encaminhamento, se necessário</li>
+                </ul>
+              </div>
+              <a
+                class="servico-card__cta"
+                href="https://wa.me/5521993034166?text=Quero+agendar+uma+conversa+inicial"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Agendar conversa inicial
+              </a>
+            </article>
 
-            <div class="carousel-servicos__track" id="carousel-servicos-track" tabindex="0" role="list">
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                 <h3>Conversa inicial</h3>
-                  <p class="carousel-servicos__subtitle">Primeiro contato orientativo</p>
-                </header>
-                <div class="carousel-servicos__body">
-                  <p>Momento breve para mapear necessidades, esclarecer dúvidas sobre o processo terapêutico e definir próximos passos.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Avaliação gratuita de 15 a 20 minutos on-line</li>
-                    <li>Orientações sobre formatos, valores e contratos</li>
-                    <li>Checklist de documentos e encaminhamentos quando necessário</li>
-                  </ul>
-                </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Quero+agendar+uma+sess%C3%A3o+individual" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
-              </article>
+            <!-- 2) Terapia individual -->
+            <article class="servico-card" role="listitem">
+              <header class="servico-card__header">
+                <h3>Terapia individual</h3>
+                <p class="servico-card__subtitle">Adultos •  Adolescentes • Idosos  Ansiedade, autoestima e carreira</p>
+              </header>
+              <div class="servico-card__body">
+                <p>
+                  Sessões on-line focadas em fortalecer recursos internos, revisar padrões de pensamento
+                  e construir estratégias mais saudáveis de enfrentamento.
+                </p>
+                <ul class="servico-card__bullets">
+                  <li>Encontros semanais ou quinzenais com objetivos combinados</li>
+                  <li>Plano terapêutico ajustado ao ritmo e à rotina da pessoa</li>
+                  <li>Propostas de reflexão e exercícios entre as sessões</li>
+                </ul>
+              </div>
+              <a
+                class="servico-card__cta"
+                href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+individual"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Agendar terapia individual
+              </a>
+            </article>
 
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                 <h3>Terapia individual</h3>
-                  <p class="carousel-servicos__subtitle">Adultos • Foco em ansiedade, autoestima e carreira</p>
-                </header>
-                <div class="carousel-servicos__body">
-                  <p>Sessões on-line estruturadas para construir autonomia emocional, revisar crenças e fortalecer estratégias de enfrentamento.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Encontros semanais ou quinzenais com objetivos claros</li>
-                    <li>Plano terapêutico personalizado e revisitado continuamente</li>
-                    <li>Materiais de apoio e exercícios entre sessões</li>
-                  </ul>
-                </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
-              </article>
-
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                   <h3>Casais</h3>
-                  <p class="carousel-servicos__subtitle">Casais em diferentes fases da relação</p>
-                </header>
-                <div class="carousel-servicos__body">
-                  <p>Mediação ética para resgatar o diálogo, alinhar expectativas e reconstruir acordos possíveis para ambos.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Mapeamento de ciclos de conflito e gatilhos</li>
-                    <li>Ferramentas para comunicação empática e assertiva</li>
-                    <li>Planos de acompanhamento entre sessões</li>
-                  </ul>
-                </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Preciso+de+apoio+para+minha+fam%C3%ADlia" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
-              </article>
-
-              <article class="carousel-servicos__item" role="listitem">
-                <header class="carousel-servicos__header">
-                  <h3>Famílias &amp; rede</h3>
-                  <p class="carousel-servicos__subtitle">Cuidadores, familiares e rede de apoio</p>
-                </header>
-                <div class="carousel-servicos__body">
-                  <p>Apoio sistêmico para facilitar acordos, estabelecer limites saudáveis e criar rotinas que sustentem o cuidado.</p>
-                  <ul class="carousel-servicos__bullets">
-                    <li>Escuta individual e encontros conjuntos quando necessário</li>
-                    <li>Construção de combinados sustentáveis para o grupo</li>
-                    <li>Check-ins periódicos para ajustes e encaminhamentos</li>
-                  </ul>
-                </div>
-                <a class="carousel-servicos__cta" href="https://wa.me/5521993034166?text=Quero+agendar+uma+conversa+inicial" target="_blank" rel="noopener noreferrer">Agendar sessão</a>
-              </article>
-            </div>
-
-            <div class="carousel-indicators" role="group" aria-label="Indicadores do carrossel"></div>
-
+            <!-- 3) Casais -->
+            <article class="servico-card" role="listitem">
+              <header class="servico-card__header">
+                <h3>Casais</h3>
+                <p class="servico-card__subtitle">Casais em momentos de ajuste ou conflito</p>
+              </header>
+              <div class="servico-card__body">
+                <p>
+                  Espaço mediado para resgatar o diálogo, revisar acordos e construir combinações
+                  mais justas e possíveis para ambos na relação.
+                </p>
+                <ul class="servico-card__bullets">
+                  <li>Mapeamento dos ciclos de conflito e dos principais gatilhos</li>
+                  <li>Ferramentas para comunicação mais clara e respeitosa</li>
+                  <li>Plano de acompanhamento com metas definidas em conjunto</li>
+                </ul>
+              </div>
+              <a
+                class="servico-card__cta"
+                href="https://wa.me/5521993034166?text=Tenho+interesse+em+terapia+de+casal"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Agendar terapia de casal
+              </a>
+            </article>
           </div>
         </div>
       </section>
