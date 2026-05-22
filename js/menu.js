@@ -77,6 +77,7 @@
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('pointerdown', handlePointerDown, true);
     state.nav.addEventListener('focusin', cacheFocusables);
+    window.addEventListener('hashchange', () => ensureCurrentLink(state.nav));
 
     syncLayout();
 
@@ -339,11 +340,19 @@ function showBackdrop() {
     const links = Array.from(nav.querySelectorAll('a[href]'));
     if (!links.length) return;
 
-    const currentPath = normalizePath(location.href);
+    const currentUrl = new URL(location.href);
+    const currentPath = normalizePath(currentUrl.href);
+    const currentHash = currentUrl.hash || '#inicio';
 
     links.forEach((link) => {
-      const linkPath = normalizePath(link.href);
-      if (linkPath === currentPath) {
+      const linkUrl = new URL(link.href, location.href);
+      const linkPath = normalizePath(linkUrl.href);
+      const samePath = linkPath === currentPath;
+      const isCurrent = linkUrl.hash
+        ? samePath && linkUrl.hash === currentHash
+        : samePath && !currentUrl.hash;
+
+      if (isCurrent) {
         link.setAttribute('aria-current', 'page');
       } else {
         link.removeAttribute('aria-current');

@@ -464,61 +464,66 @@
   }
 
   /* ============================
-   FOOTER — MOBILE REFINADO
+   FOOTER — MOBILE
    ============================ */
 
 .footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.6rem, 4.6vw, 2.4rem);
-
-  /* respiro nas laterais no mobile */
-  padding-inline: clamp(1rem, 5vw, 1.75rem);
+  gap: clamp(0.95rem, 3.4vw, 1.5rem);
 }
 
-/* colunas organizadas em stack no mobile */
 .footer-columns {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.15rem, 4vw, 2rem);
+  grid-template-columns: 1fr;
+  gap: clamp(1.1rem, 4vw, 1.55rem);
 }
 
-/* textos centralizados para leitura mais suave */
 .footer-panel,
 .footer-meta {
-  text-align: center;
+  text-align: left;
 }
 
-/* redes sociais alinhadas e com espaço maior pro dedo */
+.footer-top {
+  align-items: start;
+}
+
+.footer-title {
+  max-inline-size: 100%;
+}
+
+.footer-brand,
 .footer-social {
-  display: flex;
-  justify-content: center;
-  gap: clamp(0.75rem, 3.2vw, 1.1rem);
+  justify-content: flex-start;
 }
 
-/* ícones mais amigáveis ao toque */
-.footer-social a {
-  inline-size: clamp(36px, 9vw, 44px);
-  block-size: clamp(36px, 9vw, 44px);
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 999px;
-  transition: transform 0.2s ease;
+.footer-badges {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
-.footer-social a:active,
-.footer-social a:hover {
-  transform: translateY(-2px);
+.footer-primary,
+.footer-secondary,
+.footer-action {
+  min-block-size: 44px;
 }
 
-/* metadados finais com respiro extra */
 .footer-meta {
-  margin-block-start: clamp(0.75rem, 3vw, 1.15rem);
-  font-size: clamp(0.85rem, 3.2vw, 0.98rem);
-  opacity: 0.85;
+  margin-block-start: 0;
+  font-size: clamp(0.78rem, 2.8vw, 0.88rem);
+  opacity: 1;
+}
+
+@media (min-width: 42.01rem) {
+  .footer-columns {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
+  .col-branding {
+    grid-column: 1 / -1;
+  }
+
+  .footer-meta {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
  /* ============================
@@ -685,14 +690,15 @@ h3 {
 
 
 
-  .footer-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(1.1rem, 3.6vw, 1.7rem);
-    row-gap: clamp(1rem, 3.4vw, 1.6rem);
-  }
+  @media (min-width: 42.01rem) {
+    .footer-columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(1.1rem, 3.6vw, 1.7rem);
+      row-gap: clamp(1rem, 3.4vw, 1.6rem);
+    }
 
-  /* última coluna ocupando toda a largura (ex: direitos autorais ou CTA final) */
-  .footer-columns > :last-child {
-    grid-column: 1 / -1;
+    .col-branding {
+      grid-column: 1 / -1;
+    }
   }
 }}
