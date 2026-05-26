@@ -1,39 +1,31 @@
-/* Mobile & tablet overrides (<=1024px) */
-@media (max-width: 1024px) {
-  :root {
-    --header-h: clamp(3.5rem, 8vw, 4.75rem);
-    --header-offset: calc(var(--header-h) + 1px);
-    --space-2xs: clamp(0.5rem, 1.5vw, 0.75rem);
-    --space-xs: clamp(0.65rem, 1.8vw, 1rem);
-    --space-sm: clamp(0.9rem, 2.8vw, 1.4rem);
-    --space-md: clamp(1.4rem, 4vw, 2.4rem);
-    --space-lg: clamp(2rem, 5vw, 3.1rem);
-    --space-xl: clamp(2.6rem, 8vw, 4rem);
-  }
+/* =======================================================
+   mobile.css — estilos exclusivos de telas ≤ 1024px
+   Carregado via media="(max-width: 1024px)" no HTML,
+   portanto não precisa de @media wrapper externo.
+   ======================================================= */
 
-  body {
-    font-size: 15px;
-    line-height: 1.6;
-  }
+/* ─── 1) Tokens mobile ─── */
+:root {
+  --header-h: clamp(3.5rem, 8vw, 4.75rem);
+  --header-offset: calc(var(--header-h) + 1px);
+}
 
-  .container {
-    inline-size: min(1100px, 92%);
-  }
+/* ─── 2) Base ─── */
+body {
+  font-size: 15px;
+  line-height: 1.6;
+}
 
-  .section {
-    padding-block: clamp(1.75rem, 5vw, 3rem);
-  }
+.container {
+  inline-size: min(1100px, 92%);
+}
 
-  body.has-open-nav {
-    overflow: hidden;
-    height: 100vh;
-  }
+body.has-open-nav {
+  overflow: hidden;
+  height: 100dvh;
+}
 
-  /* ============================
-   NAV MOBILE LATERAL — MOBILE
-   ============================ */
-
-/* tudo isso só ativa até 960px */
+/* ─── 3) Nav mobile — drawer lateral (≤ 960px) ─── */
 @media (max-width: 960px) {
   html.js .site-nav {
     position: fixed;
@@ -43,7 +35,7 @@
 
     inline-size: min(88vw, 380px);
     max-inline-size: 380px;
-    min-block-size: calc(100vh - var(--header-h));
+    min-block-size: calc(100dvh - var(--header-h));
 
     padding: clamp(1.25rem, 4vw, 1.9rem);
     padding-block-end: max(
@@ -63,9 +55,7 @@
       -32px 0 60px rgba(62, 39, 49, 0.16),
       0 20px 40px rgba(0, 0, 0, 0.06);
     border: 1px solid color-mix(in srgb, var(--marsala-profundo) 10%, #ffffff 90%);
-
     backdrop-filter: blur(14px);
-
     border-start-start-radius: 24px;
     border-end-start-radius: 24px;
 
@@ -77,7 +67,6 @@
     transform: translateX(105%);
     opacity: 0;
     pointer-events: none;
-
     z-index: 80;
     transition:
       transform 0.32s ease-out,
@@ -91,7 +80,6 @@
     pointer-events: auto;
   }
 
-  /* lista principal */
   html.js .site-nav .nav-list {
     display: flex;
     flex-direction: column;
@@ -102,21 +90,17 @@
     list-style: none;
   }
 
-  /* links */
   .nav-link {
     inline-size: 100%;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-
     min-block-size: 50px;
     padding-block: clamp(0.85rem, 3vw, 1.15rem);
     padding-inline: clamp(1rem, 4vw, 1.5rem);
-
     font-size: clamp(1rem, 3.6vw, 1.28rem);
     letter-spacing: 0.18em;
     text-transform: uppercase;
-
     text-decoration: none;
     color: color-mix(in srgb, var(--marsala-profundo) 88%, #000 12%);
   }
@@ -127,7 +111,6 @@
     border-radius: 999px;
   }
 
-  /* spotlight + actions */
   .nav-spotlight,
   .nav-actions {
     display: grid;
@@ -197,40 +180,9 @@
     min-block-size: 52px;
   }
 
-  .nav-chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0.85rem 1rem;
-    border-radius: 999px;
-
-    text-decoration: none;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-
-    color: color-mix(in srgb, var(--marsala-profundo) 82%, #000 18%);
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid color-mix(in srgb, var(--marsala-profundo) 14%, #ffffff 86%);
-
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
-    transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease;
-  }
-
-  .nav-chip:hover,
-  .nav-chip:focus-visible,
-  .nav-chip:active {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 22px rgba(62, 39, 49, 0.12);
-  }
-
-  /* backdrop alinhado com o header fixo */
   .nav-backdrop {
     position: fixed;
     inset: 0;
-    inset-block-start: 0;
     background: rgba(62, 39, 49, 0.55);
     opacity: 0;
     pointer-events: none;
@@ -243,462 +195,3 @@
     pointer-events: auto;
   }
 }
-
-/* ===== Reveal genérico no mobile ===== */
-[data-mobile-reveal] {
-  opacity: 0;
-  transform: translateY(18px);
-  transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
-}
-
-[data-mobile-reveal].is-revealed {
-  opacity: 1;
-  transform: none;
-}
-
-/* acessibilidade: sem motion exagerado pra quem desativa animação */
-@media (prefers-reduced-motion: reduce) {
-  [data-mobile-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
-
-  /* Hero */
-  .hero {
-    padding-block: clamp(2.5rem, 9vw, 3.6rem);
-  }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 6vw, 2.5rem);
-  }
-
-  .hero-copy {
-    gap: clamp(1rem, 4.5vw, 1.6rem);
-  }
-
-  .hero-title {
-    font-size: clamp(2.1rem, 7.8vw, 2.95rem);
-    line-height: 1.18;
-  }
-
-  .hero-lead {
-    font-size: clamp(1.05rem, 4vw, 1.24rem);
-    color: color-mix(in srgb, var(--marrom-terra-firme) 82%, #000 18%);
-  }
-
-  .hero-cta {
-    display: grid;
-    gap: clamp(0.75rem, 3vw, 1.15rem);
-  }
-
-  .hero-cta .btn {
-    inline-size: 100%;
-    justify-content: center;
-  }
-
-  .hero-media {
-    max-inline-size: min(460px, 100%);
-    margin-inline: auto;
-    display: grid;
-    place-items: center;
-  }
-
-  .hero-media img,
-  .intro-media img {
-    inline-size: 100%;
-    max-block-size: min(26rem, 62vh);
-    object-fit: cover;
-    aspect-ratio: 4 / 5;
-    border-radius: 1.5rem;
-  }
-
-  /* Intro & cards */
-  .intro-grid,
-  .ethics-grid,
-  .services-grid,
-  .diferenciais-grid,
-  .detalhes-grid,
-  .contato-form__grid,
-  .footer-columns {
-    grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 5vw, 2.5rem);
-  }
-
-  .intro-text,
-  .diferenciais-copy,
-  .contato-form__intro,
-  .perguntas-intro {
-    text-align: left;
-    gap: clamp(0.9rem, 4vw, 1.4rem);
-  }
-
-  .intro-media,
-  .hero-media,
-  .contato-hero__text,
-  .contato-form__card {
-    margin-inline: auto;
-    inline-size: min(640px, 100%);
-  }
-
-  .intro-media img,
-  .hero-media img {
-    border-radius: 1.5rem;
-  }
-
-  .ethics-cards,
-  .services-grid,
-  .diferenciais-cards,
-  .detalhes-grid,
-  .perguntas-lista,
-  .depoimentos-grid {
-    display: grid;
-    gap: clamp(1.1rem, 4vw, 1.7rem);
-    grid-template-columns: 1fr;
-  }
-
-  .ethic,
-  .service-card,
-  .mini-card,
-  .process-step,
-  .detalhes-card,
-  .cta-card,
-  .pergunta,
-  .depoimento,
-  .contato-form__card {
-    border-radius: 1.25rem;
-    padding: clamp(1.25rem, 5vw, 1.8rem);
-  }
-
-  .process-steps {
-    grid-template-columns: 1fr;
-    gap: clamp(1rem, 4vw, 1.6rem);
-  }
-
-  .process-step {
-    justify-items: start;
-  }
-
-  .process-step .step-number {
-    font-size: clamp(1.8rem, 6vw, 2.2rem);
-  }
-
-  
-
-  /* Accordion (FAQ) */
-  .pergunta summary {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    min-block-size: 50px;
-    font-size: clamp(1.05rem, 3.8vw, 1.2rem);
-  }
-
-  .pergunta__content {
-    overflow: hidden;
-    transition: height 0.3s ease;
-    padding-block: clamp(0.5rem, 2vw, 0.75rem);
-  }
-
-  .pergunta[data-accordion-state="closed"] .pergunta__content {
-    height: 0;
-  }
-
-  .pergunta[data-accordion-state="open"] .pergunta__content {
-    height: auto;
-  }
-
-  .pergunta p {
-    font-size: clamp(0.98rem, 3.2vw, 1.08rem);
-    margin: 0;
-  }
-
-  /* Contact form */
-  .contact-form {
-    padding: clamp(1.35rem, 5vw, 1.95rem);
-    border-radius: 1.5rem;
-    display: grid;
-    gap: clamp(0.95rem, 3vw, 1.35rem);
-  }
-
-  .form-field label {
-    font-size: 1rem;
-    display: inline-block;
-    margin-block-end: 0.35rem;
-  }
-
-  .form-field input,
-  .form-field textarea,
-  .contact-form button[type="submit"],
-  .contact-form .btn {
-    font-size: 1rem;
-    inline-size: 100%;
-    min-block-size: 48px;
-    border-radius: 14px;
-    padding: 0.85rem 1rem;
-  }
-
-  .contact-form button,
-  .contact-form .btn,
-  .contato-hero .btn,
-  .cta-card .btn,
-  .intro .btn,
-  .section-cta .btn {
-    inline-size: 100%;
-  }
-
-  textarea {
-    min-block-size: clamp(9rem, 40vw, 12rem);
-  }
-
-  .form-field .field-error {
-    display: block;
-    margin-block-start: 0.4rem;
-  }
-
-  /* ============================
-   FOOTER — MOBILE
-   ============================ */
-
-.footer-content {
-  gap: clamp(0.95rem, 3.4vw, 1.5rem);
-}
-
-.footer-columns {
-  grid-template-columns: 1fr;
-  gap: clamp(1.1rem, 4vw, 1.55rem);
-}
-
-.footer-panel,
-.footer-meta {
-  text-align: left;
-}
-
-.footer-top {
-  align-items: start;
-}
-
-.footer-title {
-  max-inline-size: 100%;
-}
-
-.footer-brand,
-.footer-social {
-  justify-content: flex-start;
-}
-
-.footer-badges {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.footer-primary,
-.footer-secondary,
-.footer-action {
-  min-block-size: 44px;
-}
-
-.footer-meta {
-  margin-block-start: 0;
-  font-size: clamp(0.78rem, 2.8vw, 0.88rem);
-  opacity: 1;
-}
-
-@media (min-width: 42.01rem) {
-  .footer-columns {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  }
-
-  .col-branding {
-    grid-column: 1 / -1;
-  }
-
-  .footer-meta {
-    display: flex;
-    justify-content: space-between;
-  }
-}
-
- /* ============================
-   TYPOGRAPHY TWEAKS REFINADO
-   ============================ */
-
-/* títulos com quebra inteligente em qualquer tela */
-h1,
-h2,
-h3 {
-  text-wrap: balance;
-  hyphens: auto;
-}
-
-/* bloco de texto principal */
-.prose {
-  display: grid; /* permite usar gap de forma confiável */
-  gap: clamp(1rem, 3.4vw, 1.6rem);
-
-  font-size: clamp(1rem, 2.9vw, 1.12rem);
-  line-height: 1.75;
-
-  max-width: 70ch; /* evita linhas gigantes */
-}
-
-/* parágrafos em sequência com respiro extra */
-.prose p + p {
-  margin-top: clamp(0.35rem, 1.8vw, 0.6rem);
-}
-
-/* subtítulos dentro da área de texto */
-.prose h2 {
-  margin-top: clamp(1.5rem, 5vw, 2.25rem);
-  margin-bottom: clamp(0.4rem, 2vw, 0.75rem);
-  font-size: clamp(1.75rem, 5.4vw, 2.35rem);
-  line-height: 1.25;
-}
-
-.prose h3 {
-  margin-top: clamp(1.25rem, 4.2vw, 1.8rem);
-  margin-bottom: clamp(0.35rem, 1.8vw, 0.6rem);
-  font-size: clamp(1.35rem, 4.6vw, 1.75rem);
-  line-height: 1.3;
-}
-
-/* listas mais legíveis */
-.prose ul,
-.prose ol {
-  padding-inline-start: 1.25rem;
-  display: grid;
-  gap: clamp(0.4rem, 2vw, 0.7rem);
-}
-
-.prose li::marker {
-    font-size: 0.9em;
-  }
-
-/* ============================
-   TELEFONES PEQUENOS (≤ 480px)
-   ============================ */
-@media (max-width: 480px) {
-  :root {
-    --header-h: clamp(3.25rem, 10vw, 4rem);
-  }
-
-  .container {
-    inline-size: 94%;
-  }
-
-  .hero-title {
-    font-size: clamp(1.9rem, 8vw, 2.35rem);
-  }
-
-  .hero-lead,
-  .intro-text,
-  .prose,
-  .pergunta p {
-    font-size: clamp(0.98rem, 4vw, 1.08rem);
-  }
-
-  .hero-media img,
-  .intro-media img {
-    max-block-size: min(22rem, 58vh);
-  }
-
-  .nav-actions__grid {
-    gap: 0.65rem;
-  }
-
-  .nav-chip,
-  .btn,
-  .nav-action,
-  .footer-action,
-  .social-btn {
-    min-block-size: 48px;
-  }
-
-  .footer-content {
-    padding-inline: 1.1rem;
-  }
-}
-
-/* ============================
-   MICRO-TELAS (≤ 360px)
-   ============================ */
-@media (max-width: 360px) {
-  .hero-title,
-  .intro-text h2,
-  .perguntas-intro h2 {
-    word-break: keep-all;
-    text-wrap: balance;
-  }
-
-  .hero-media img,
-  .intro-media img {
-    aspect-ratio: 3 / 4;
-  }
-}
-
-/* ============================
-   TABLETS (481px — 768px)
-   ============================ */
-
-@media (min-width: 481px) and (max-width: 768px) {
-  /* grids principais em 2 colunas, com respiro */
-  .intro-grid,
-  .services-grid,
-  .diferenciais-grid,
-  .detalhes-grid,
-  .contato-form__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(1.25rem, 4vw, 2rem);
-    row-gap: clamp(1.25rem, 4vw, 2rem);
-    align-items: start;
-  }
-
-  /* Só as cards de ética em 2 colunas, FAQ fica de boa */
-.ethics-cards {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(1.1rem, 3.6vw, 1.8rem);
-  row-gap: clamp(1rem, 3.4vw, 1.6rem);
-}
-
-/* ---------- Mobile refinado ---------- */
-@media (max-width: 720px) {
-  .perguntas-grid {
-    gap: 2rem;
-  }
-
-  .perguntas-intro {
-    text-align: center;
-    margin-inline: auto;
-  }
-
-  .pergunta {
-    padding: 1.1rem 1.3rem;
-  }
-
-  /* ética vira 1 coluna no mobile */
-  .ethics-cards {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-
-
-  @media (min-width: 42.01rem) {
-    .footer-columns {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: clamp(1.1rem, 3.6vw, 1.7rem);
-      row-gap: clamp(1rem, 3.4vw, 1.6rem);
-    }
-
-    .col-branding {
-      grid-column: 1 / -1;
-    }
-  }
-}}

@@ -1552,33 +1552,51 @@ body.landing-page {
 
 /* ─────────────────── 13) RESPONSIVO ─────────────────── */
 
+/* 1100px — hero name começa a comprimir */
 @media (max-width: 1100px) {
   .lp-hero__name {
     font-size: clamp(3.2rem, 8vw, 6rem);
   }
 }
 
+/* 1024px — layouts em grid viram coluna única */
 @media (max-width: 1024px) {
-
-
   .lp-hero__left {
     padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 2.5rem);
-    padding-left: clamp(1.5rem, 5vw, 2.5rem);
     align-content: start;
   }
 
   .lp-hero__name {
-    font-size: clamp(3rem, 12vw, 5.5rem);
+    font-size: clamp(3rem, 10vw, 5.5rem);
   }
 
+  /* Seções */
+  .lp-about,
+  .lp-services,
+  .lp-testimonials,
+  .lp-process,
+  .lp-contact {
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
 
+  /* Sobre */
   .lp-about__grid {
     grid-template-columns: 1fr;
   }
 
   .lp-about__media {
     position: static;
-    max-inline-size: 400px;
+    max-inline-size: 420px;
+  }
+
+  .lp-about__text {
+    padding-top: 0;
+  }
+
+  /* Atendimentos */
+  .lp-services__header,
+  .lp-process__header {
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
   }
 
   .lp-services__grid {
@@ -1597,11 +1615,13 @@ body.landing-page {
     border-bottom: none;
   }
 
+  /* Depoimentos */
   .lp-testimonials__grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.85rem;
   }
 
+  /* Processo */
   .lp-process__intro {
     grid-template-columns: 1fr;
     align-items: start;
@@ -1624,6 +1644,7 @@ body.landing-page {
     grid-template-columns: none;
   }
 
+  /* Contato */
   .lp-contact__grid {
     grid-template-columns: 1fr;
     align-items: start;
@@ -1633,32 +1654,77 @@ body.landing-page {
     max-inline-size: 720px;
   }
 
+  .lp-contact__copy .lp-section-title {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+  }
+
   .lp-contact__panel {
     inline-size: min(720px, 100%);
   }
 }
 
+/* 768px — phones médios e paisagem */
 @media (max-width: 768px) {
+  /* Hero */
+  .lp-hero {
+    min-block-size: auto;
+  }
+
+  .lp-hero__left {
+    padding-block: clamp(2.5rem, 8vw, 4rem);
+    padding-inline: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .lp-hero__name {
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+  }
+
+  .lp-hero__lead {
+    font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+    line-height: 1.72;
+  }
+
+  .lp-hero__role::before {
+    width: min(42rem, 100%);
+  }
+
   .lp-hero__deco {
     display: none;
   }
 
   .lp-hero__actions {
-    display: grid;
-    grid-template-columns: 40fr 60fr;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
   }
 
   .lp-hero__actions .btn {
+    inline-size: 100%;
     justify-content: center;
+    min-block-size: 52px;
   }
 
+  /* Processo */
+  .lp-steps {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .lp-process__note ul {
+    gap: 0.6rem;
+  }
+
+  /* Contato */
   .lp-contact__actions {
-    display: grid;
-    grid-template-columns: 40fr 60fr;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
   }
 
   .lp-contact__actions .btn {
+    inline-size: 100%;
     justify-content: center;
+    min-block-size: 52px;
   }
 
   .lp-contact__signals {
@@ -1670,25 +1736,76 @@ body.landing-page {
     padding: clamp(1rem, 4vw, 1.25rem);
   }
 
-  .lp-steps {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
+  /* Footer */
+  .lp-footer__headline-inner {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .lp-process__note ul {
-    gap: 0.6rem;
+  .lp-footer__call {
+    font-size: clamp(2.4rem, 11vw, 4rem);
+  }
+
+  .lp-footer__cta {
+    inline-size: 100%;
+    justify-content: center;
+    min-block-size: 52px;
+  }
+
+  .lp-footer__headline {
+    padding-block: clamp(2.5rem, 7vw, 4rem);
   }
 }
 
+/* 480px — phones pequenos */
 @media (max-width: 480px) {
-
-  .lp-section-title {
-    font-size: clamp(2rem, 11vw, 2.8rem);
+  .lp-hero__name {
+    font-size: clamp(2.4rem, 13vw, 3.5rem);
   }
 
-  .lp-hero__actions,
-  .lp-contact__actions {
+  .lp-hero__role {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+  }
+
+  .lp-hero__role::before {
+    width: min(42rem, 100%);
+  }
+
+  .lp-section-title {
+    font-size: clamp(1.9rem, 10vw, 2.8rem) !important;
+  }
+
+  .lp-pullquote {
+    font-size: 1rem;
+    padding: 1rem 1.1rem;
+  }
+
+  .lp-testimonial {
+    padding: 1.25rem;
+  }
+
+  .lp-contact__copy .lp-section-title {
+    font-size: clamp(1.75rem, 9vw, 2.4rem) !important;
+  }
+
+  /* Footer */
+  .lp-footer__body {
     grid-template-columns: 1fr;
+  }
+
+  .lp-footer__call {
+    font-size: clamp(2.1rem, 13vw, 3rem);
+  }
+
+  .lp-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .lp-footer__bottom p {
+    font-size: 0.72rem;
   }
 }
 
@@ -1856,131 +1973,6 @@ body.landing-page {
 
   .lp-footer__brand {
     grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 560px) {
-  .lp-footer__headline-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lp-footer__body {
-    grid-template-columns: 1fr;
-  }
-
-  .lp-footer__bottom {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════
-   MOBILE — Revisão completa (hero, seções, footer)
-   ═══════════════════════════════════════════════════════ */
-
-/* ── Seções: padding reduzido no mobile ── */
-@media (max-width: 1024px) {
-  .lp-about,
-  .lp-services,
-  .lp-testimonials,
-  .lp-process,
-  .lp-contact {
-    padding-block: clamp(3rem, 7vw, 5rem);
-  }
-
-  .lp-services__header,
-  .lp-process__header {
-    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-  }
-
-  .lp-about__text {
-    padding-top: 0;
-  }
-
-  .lp-contact__copy .lp-section-title {
-    font-size: clamp(1.8rem, 5vw, 2.6rem);
-  }
-}
-
-/* ── Hero: ajustes específicos de mobile ── */
-@media (max-width: 768px) {
-  .lp-hero {
-    min-block-size: auto;
-  }
-
-  .lp-hero__left {
-    padding-block: clamp(3rem, 8vw, 5rem);
-    padding-inline: clamp(1.25rem, 5vw, 2rem);
-  }
-
-  .lp-hero__name {
-    font-size: clamp(3rem, 14vw, 5rem);
-  }
-
-  .lp-hero__lead {
-    font-size: 1rem;
-    line-height: 1.72;
-  }
-
-  .lp-hero__actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-  }
-
-  .lp-hero__actions .btn {
-    inline-size: 100%;
-    justify-content: center;
-    min-block-size: 52px;
-  }
-
-
-}
-
-/* ── Footer: headline escala bem em phone ── */
-@media (max-width: 768px) {
-  .lp-footer__call {
-    font-size: clamp(2.4rem, 11vw, 4rem);
-  }
-
-  .lp-footer__cta {
-    inline-size: 100%;
-    justify-content: center;
-    min-block-size: 52px;
-  }
-
-  .lp-footer__headline {
-    padding-block: clamp(2.5rem, 7vw, 4rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .lp-hero__name {
-    font-size: clamp(2.6rem, 15vw, 4rem);
-  }
-
-  .lp-hero__role {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-  }
-
-  .lp-section-title {
-    font-size: clamp(2rem, 10vw, 2.8rem) !important;
-  }
-
-  .lp-footer__call {
-    font-size: clamp(2.1rem, 13vw, 3rem);
-  }
-
-  .lp-footer__bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
-  }
-
-  .lp-footer__bottom p {
-    font-size: 0.72rem;
   }
 }
 
