@@ -80,14 +80,6 @@
     });
   }
 
-  // timers/limpezas entre páginas
-  let cleanupFns = [];
-  function addCleanup(fn){ cleanupFns.push(fn); }
-  function runCleanup(){
-    for (const fn of cleanupFns) { try { fn(); } catch {} }
-    cleanupFns = [];
-  }
-
   // controla navegações concorrentes
   let navAbort = null;
   let navLock = false;
@@ -164,8 +156,6 @@
 
     // execução da transição + troca do DOM
     const vt = document.startViewTransition(() => {
-      runCleanup(); // limpa timers da página anterior
-
       const oldMain = document.querySelector('main');
       oldMain.replaceWith(newMain);
 
@@ -191,7 +181,6 @@
       newMain.addEventListener('blur', () => newMain.removeAttribute('tabindex'), { once:true });
 
       setActiveNav(url);
-      reinitPageBits();
     });
 
     // libera lock quando terminar
@@ -199,37 +188,6 @@
       document.documentElement.classList.remove('no-anim');
       navLock = false;
     });
-  }
-
-  // ===== Reinit de scripts da página =====
-  function reinitPageBits(){
-    // hero swap (sem acumular interval)
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReduced){
-      const multi = document.querySelectorAll('.hero-swap .swap-item');
-      if (multi.length > 1){
-        let i = 0;
-        multi.forEach(el => el.classList.remove('is-active'));
-        multi[0]?.classList.add('is-active');
-        const id = setInterval(() => {
-          multi[i].classList.remove('is-active');
-          i = (i + 1) % multi.length;
-          multi[i].classList.add('is-active');
-        }, 2600);
-        addCleanup(() => clearInterval(id));
-      } else {
-        const single = document.querySelector('.hero-swap .swap-item');
-        if (single){
-          const words = ['escuta','acolhimento','clareza'];
-          let i = Math.max(0, words.indexOf((single.textContent||'').trim()));
-          const id = setInterval(() => {
-            i = (i + 1) % words.length;
-            single.textContent = words[i];
-          }, 2600);
-          addCleanup(() => clearInterval(id));
-        }
-      }
-    }
   }
 
   // ===== Interceptores =====
@@ -281,7 +239,6 @@
     swapTo(location.href, false);
   });
 
-  // Marca nav ativa e inicia scripts na carga
+  // Marca nav ativa na carga
   setActiveNav(location.href);
-  reinitPageBits();
 })();

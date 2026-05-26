@@ -14,9 +14,6 @@
   let initialized = false;
   // Keeps references for nav mutation observer, event cleanup and async load fallback
   const navState = { observer: null, cleanup: null, close: null, removeLoadListener: null };
-  // Tracks accordion instances and listeners for teardown
-  const accordionCleanups = [];
-  let accordionItems = [];
   // Reveal effect observer and safety timer
   let revealObserver = null;
   let revealSafetyTimer = null;
@@ -25,7 +22,6 @@
   if (initialized || !mobileMQ.matches) return;
   initialized = true;
   enhanceNavigation();
-  // initAccordions(); // desativado por enquanto
   initReveal();
 };
 
@@ -52,11 +48,6 @@
     document.querySelectorAll('.site-nav[data-mobile-nav]').forEach((navEl) => {
       navEl.removeAttribute('data-mobile-open');
     });
-
-    accordionCleanups.splice(0).forEach((fn) => {
-      try { fn(); } catch {}
-    });
-    accordionItems = [];
 
     if (revealObserver) {
       revealObserver.disconnect();
@@ -237,162 +228,6 @@
       window.addEventListener('load', onLoad, { once: true });
       navState.removeLoadListener = () => window.removeEventListener('load', onLoad);
     }
-  }
-
-  function initAccordions() {
-    const nodes = Array.from(document.querySelectorAll('.pergunta'));
-    if (!nodes.length) return;
-
-    accordionItems = [];
-
-    nodes.forEach((item, index) => {
-      if (!(item instanceof HTMLElement)) return;
-      if (item.dataset.mobileAccordion === 'ready') return;
-
-      const summary = item.querySelector('summary');
-      if (!summary) return;
-
-      item.dataset.mobileAccordion = 'ready';
-
-      let panel = item.querySelector('.pergunta__content');
-      if (!panel) {
-        panel = document.createElement('div');
-        panel.className = 'pergunta__content';
-        const fragment = document.createDocumentFragment();
-        while (summary.nextSibling) {
-          fragment.appendChild(summary.nextSibling);
-        }
-        panel.appendChild(fragment);
-        item.appendChild(panel);
-      }
-
-      const triggerId = summary.id || `pergunta-trigger-${index + 1}`;
-      const panelId = panel.id || `pergunta-panel-${index + 1}`;
-      summary.id = triggerId;
-      panel.id = panelId;
-
-      summary.setAttribute('role', 'button');
-      summary.setAttribute('aria-controls', panelId);
-      summary.setAttribute('aria-expanded', 'false');
-      summary.setAttribute('tabindex', '0');
-      panel.setAttribute('role', 'region');
-      panel.setAttribute('aria-labelledby', triggerId);
-      panel.hidden = true;
-      panel.style.height = '0px';
-      item.dataset.accordionState = 'closed';
-
-      let animating = false;
-
-      const setOpen = (open, { focus = false } = {}) => {
-        if (item.dataset.accordionState === (open ? 'open' : 'closed')) return;
-        if (animating) return;
-        animating = true;
-
-        // Keep the native <details> state in sync to avoid browsers hiding the panel
-        // when the element isn't marked as open. This also enables the [open] styles
-        // already defined in the stylesheet.
-        item.open = open;
-
-        item.dataset.accordionState = open ? 'open' : 'closed';
-        summary.setAttribute('aria-expanded', open ? 'true' : 'false');
-
-        const finish = () => {
-          panel.style.transition = '';
-          panel.style.height = '';
-          if (!open) panel.hidden = true;
-          animating = false;
-        };
-
-        if (motionMQ?.matches) {
-          panel.hidden = !open;
-          finish();
-          if (open && focus) {
-            const focusable = panel.querySelector(focusableSelector);
-            if (focusable instanceof HTMLElement) {
-              focusable.focus({ preventScroll: true });
-            }
-          }
-          return;
-        }
-
-        panel.hidden = false;
-        const startHeight = open ? 0 : panel.scrollHeight;
-        const endHeight = open ? panel.scrollHeight : 0;
-
-        panel.style.transition = 'height 0.3s ease';
-        panel.style.height = `${startHeight}px`;
-        panel.offsetHeight;
-        panel.style.height = `${endHeight}px`;
-
-        panel.addEventListener('transitionend', finish, { once: true });
-
-        if (open && focus) {
-          requestAnimationFrame(() => {
-            const focusable = panel.querySelector(focusableSelector);
-            if (focusable instanceof HTMLElement) {
-              focusable.focus({ preventScroll: true });
-            }
-          });
-        }
-      };
-
-      const closeOthers = () => {
-        accordionItems.forEach((entry) => {
-          if (entry.element === item) return;
-          entry.setOpen(false);
-        });
-      };
-
-      const toggle = () => {
-        if (item.dataset.accordionState === 'open') {
-          setOpen(false);
-        } else {
-          closeOthers();
-          setOpen(true, { focus: true });
-        }
-      };
-
-      const onClick = (event) => {
-        event.preventDefault();
-        toggle();
-      };
-
-      const onKeydown = (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          toggle();
-        }
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          event.preventDefault();
-          const direction = event.key === 'ArrowDown' ? 1 : -1;
-          const idx = accordionItems.findIndex((entry) => entry.element === item);
-          if (idx === -1) return;
-          const next = accordionItems[(idx + direction + accordionItems.length) % accordionItems.length];
-          next?.summary?.focus({ preventScroll: true });
-        }
-      };
-
-      summary.addEventListener('click', onClick);
-      summary.addEventListener('keydown', onKeydown);
-
-      accordionItems.push({ element: item, setOpen, summary, panel });
-
-      accordionCleanups.push(() => {
-        summary.removeEventListener('click', onClick);
-        summary.removeEventListener('keydown', onKeydown);
-        summary.removeAttribute('role');
-        summary.removeAttribute('aria-controls');
-        summary.removeAttribute('aria-expanded');
-        summary.removeAttribute('tabindex');
-        panel.removeAttribute('role');
-        panel.removeAttribute('aria-labelledby');
-        panel.hidden = false;
-        panel.style.height = '';
-        panel.style.transition = '';
-        item.removeAttribute('data-accordion-state');
-        delete item.dataset.mobileAccordion;
-      });
-    });
   }
 
   function initReveal() {
