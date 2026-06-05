@@ -14,6 +14,8 @@
     mq: window.matchMedia('(min-width: 1025px)'),
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)'),
     focusables: [],
+    sectionLinks: [],
+    sectionScrollRaf: 0,
     transitioning: false
   };
 
@@ -25,7 +27,7 @@
       value ? openMenu() : closeMenu({ restoreFocus: false, force: true });
     },
     refreshActive() {
-      ensureCurrentLink(state.nav);
+      refreshActiveNav();
     }
   };
 
@@ -42,7 +44,7 @@
     state.backdrop = state.header.querySelector('.nav-backdrop') || createBackdrop(state.header);
     state.toggleLabel = state.toggle?.querySelector('.visually-hidden') || null;
 
-    ensureCurrentLink(state.nav);
+    refreshActiveNav();
 
     if (!state.toggle || !state.nav) return;
 
@@ -56,12 +58,21 @@
     state.backdrop?.addEventListener('click', () => closeMenu());
 
     state.toggle.addEventListener('click', () => {
-       if (state.transitioning) return;
+      if (state.transitioning) return;
       isOpen() ? closeMenu() : openMenu();
     });
 
     state.nav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => closeMenu({ restoreFocus: false }));
+      link.addEventListener('click', () => {
+        const linkUrl = new URL(link.href, location.href);
+        const samePageSection = linkUrl.hash && normalizePath(linkUrl.href) === normalizePath(location.href);
+
+        if (samePageSection) {
+          setActiveLink(link);
+        }
+
+        closeMenu({ restoreFocus: false });
+      });
     });
 
     if (state.mq.addEventListener) state.mq.addEventListener('change', syncLayout);
@@ -77,11 +88,14 @@
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('pointerdown', handlePointerDown, true);
     state.nav.addEventListener('focusin', cacheFocusables);
-    window.addEventListener('hashchange', () => ensureCurrentLink(state.nav));
+    window.addEventListener('hashchange', refreshActiveNav);
+    window.addEventListener('scroll', requestSectionUpdate, { passive: true });
+    document.addEventListener('scroll', requestSectionUpdate, { passive: true });
+    window.addEventListener('resize', refreshActiveNav);
 
     syncLayout();
 
-    Menu.refreshActive = () => ensureCurrentLink(state.nav);
+    Menu.refreshActive = refreshActiveNav;
   }
 
   function createBackdrop(header) {
@@ -111,7 +125,7 @@
     state.toggle.setAttribute('aria-expanded', 'true');
     state.toggle.setAttribute('aria-label', 'Fechar menu principal');
     if (state.toggleLabel) state.toggleLabel.textContent = 'Fechar menu';
-     showBackdrop();
+    showBackdrop();
     document.body.classList.add('has-open-nav');
 
     const finalizeOpen = () => {
@@ -139,16 +153,17 @@
       return;
     }
 
- if (state.transitioning && !force) return;
+    if (state.transitioning && !force) return;
 
     state.transitioning = !immediate;
     state.header.classList.remove('is-menu-open');
     state.nav.classList.remove('is-open');
+    document.body.classList.remove('has-open-nav'); // restaura scroll da página
     state.toggle.setAttribute('aria-expanded', 'false');
     state.toggle.setAttribute('aria-label', 'Abrir menu principal');
     if (state.toggleLabel) state.toggleLabel.textContent = 'Abrir menu';
 
-     const finalizeClose = () => {
+    const finalizeClose = () => {
       updateHiddenState({ forceClosed: true });
       state.transitioning = false;
 
@@ -255,7 +270,7 @@
     return el instanceof HTMLElement && !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true';
   }
 
- function updateHiddenState(options = {}) {
+  function updateHiddenState(options = {}) {
     const { forceClosed = false } = options;
     if (!state.nav) return;
     if (state.mq.matches) {
@@ -266,7 +281,7 @@
     }
   }
 
-function showBackdrop() {
+  function showBackdrop() {
     if (!state.backdrop) return;
     state.backdrop.hidden = false;
     onNextFrame(() => state.backdrop?.classList.add('is-visible'));
@@ -335,6 +350,78 @@ function showBackdrop() {
     return num * 1000;
   }
 
+  function refreshActiveNav() {
+    if (!state.nav) return;
+    collectSectionLinks();
+
+    if (location.hash && state.sectionLinks.length) {
+      ensureCurrentLink(state.nav);
+    } else if (state.sectionLinks.length) {
+      updateCurrentSection();
+    } else {
+      ensureCurrentLink(state.nav);
+    }
+  }
+
+  function collectSectionLinks() {
+    state.sectionLinks = [];
+    if (!state.nav) return;
+
+    const currentPath = normalizePath(location.href);
+    const links = Array.from(state.nav.querySelectorAll('a[href]'));
+
+    state.sectionLinks = links.map((link) => {
+      const linkUrl = new URL(link.href, location.href);
+      if (!linkUrl.hash || normalizePath(linkUrl.href) !== currentPath) return null;
+
+      const section = document.getElementById(decodeURIComponent(linkUrl.hash.slice(1)));
+      if (!section) return null;
+
+      return { link, section };
+    }).filter(Boolean).sort((a, b) => a.section.offsetTop - b.section.offsetTop);
+  }
+
+  function requestSectionUpdate() {
+    if (!state.sectionLinks.length || state.sectionScrollRaf) return;
+    state.sectionScrollRaf = requestAnimationFrame(updateCurrentSection);
+  }
+
+  function updateCurrentSection() {
+    state.sectionScrollRaf = 0;
+    if (!state.sectionLinks.length) return;
+
+    const headerHeight = state.header?.offsetHeight || 0;
+    const activationOffset = Math.min(window.innerHeight * 0.34, 220);
+    const currentScroll = window.scrollY + headerHeight + activationOffset;
+    let current = state.sectionLinks[0];
+
+    state.sectionLinks.forEach((item) => {
+      if (item.section.offsetTop <= currentScroll) current = item;
+    });
+
+    const pageBottom = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    if (pageBottom >= documentHeight - 2) {
+      current = state.sectionLinks[state.sectionLinks.length - 1];
+    }
+
+    setActiveLink(current.link);
+  }
+
+  function setActiveLink(activeLink) {
+    if (!state.nav) return;
+
+    state.nav.querySelectorAll('a[href]').forEach((link) => {
+      const isActive = link === activeLink;
+      link.classList.toggle('active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
   function ensureCurrentLink(nav) {
     if (!nav) return;
     const links = Array.from(nav.querySelectorAll('a[href]'));
@@ -342,7 +429,7 @@ function showBackdrop() {
 
     const currentUrl = new URL(location.href);
     const currentPath = normalizePath(currentUrl.href);
-    const currentHash = currentUrl.hash || '#inicio';
+    const currentHash = currentUrl.hash;
 
     links.forEach((link) => {
       const linkUrl = new URL(link.href, location.href);
@@ -352,11 +439,9 @@ function showBackdrop() {
         ? samePath && linkUrl.hash === currentHash
         : samePath && !currentUrl.hash;
 
-      if (isCurrent) {
-        link.setAttribute('aria-current', 'page');
-      } else {
-        link.removeAttribute('aria-current');
-      }
+      link.classList.toggle('active', isCurrent);
+      if (isCurrent) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
     });
   }
 
@@ -369,5 +454,3 @@ function showBackdrop() {
     }
   }
 })();
-
-

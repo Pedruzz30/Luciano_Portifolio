@@ -1,7 +1,52 @@
-// transitions.js 
+// transitions.js
 (() => {
-  // Progressive Enhancement: sem suporte, vida que segue
   if (!document.startViewTransition) return;
+
+  // ===== Progress bar =====
+  const progressEl = document.createElement('div');
+  progressEl.id = 'nav-progress';
+  progressEl.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(progressEl);
+
+  const progressStyle = document.createElement('style');
+  progressStyle.textContent = `
+    #nav-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0;
+      z-index: 99999;
+      pointer-events: none;
+      background: var(--terracota-queimado, #c6654c);
+      opacity: 0;
+      transition: width .35s ease, opacity .2s ease;
+    }
+    html.nav-loading #nav-progress { width: 72%; opacity: 1; }
+    html.nav-done   #nav-progress { width: 100%; opacity: 0; }
+  `;
+  document.head.appendChild(progressStyle);
+
+  function showProgress() {
+    document.documentElement.classList.remove('nav-done');
+    document.documentElement.classList.add('nav-loading');
+  }
+  function hideProgress() {
+    document.documentElement.classList.remove('nav-loading');
+    document.documentElement.classList.add('nav-done');
+    setTimeout(() => document.documentElement.classList.remove('nav-done'), 400);
+  }
+
+  // ===== Aria-live para leitores de tela =====
+  const liveRegion = document.createElement('div');
+  liveRegion.className = 'visually-hidden';
+  liveRegion.setAttribute('aria-live', 'polite');
+  liveRegion.setAttribute('aria-atomic', 'true');
+  document.body.insertAdjacentElement('afterbegin', liveRegion);
+
+  function announce(text) {
+    liveRegion.textContent = '';
+    requestAnimationFrame(() => { liveRegion.textContent = text; });
+  }
 
   // ===== Helpers =====
   const sameOrigin = (url) => {
@@ -22,7 +67,6 @@
     const currHrefs = new Set(currLinks.map(l => hrefKey(l.getAttribute('href'))));
     const nextHrefs = new Set(nextLinks.map(l => hrefKey(l.getAttribute('href'))));
 
-    // add faltantes
     for (const link of nextLinks) {
       const href = hrefKey(link.getAttribute('href'));
       if (!currHrefs.has(href)) {
@@ -34,14 +78,12 @@
       }
     }
 
-    // remover CSS não usados (exceto globais)
     for (const link of currLinks) {
       const href = hrefKey(link.getAttribute('href'));
       const keepGlobal = /(?:^|\/)(style\.css|fonts\.googleapis\.com)/.test(href);
       if (!keepGlobal && !nextHrefs.has(href)) link.remove();
     }
 
-    // meta description
     const nextDesc = toDoc.head.querySelector('meta[name="description"]');
     if (nextDesc) {
       let currDesc = document.head.querySelector('meta[name="description"]');
@@ -53,7 +95,6 @@
       currDesc.setAttribute('content', nextDesc.getAttribute('content') || '');
     }
 
-    // canonical
     const nextCanon = toDoc.head.querySelector('link[rel="canonical"]');
     if (nextCanon) {
       let currCanon = document.head.querySelector('link[rel="canonical"]');
@@ -66,32 +107,47 @@
     }
   }
 
-  // normaliza path (tira /index.html)
   const normPath = (url) =>
-    new URL(url, location.href).pathname.replace(/index\.html?$/,'') || '/';
+    new URL(url, location.href).pathname.replace(/index\.html?$/, '').replace(/\/+$/, '') || '/';
 
-  function setActiveNav(url){
-    const path = normPath(url);
-    document.querySelectorAll('.site-nav .nav-link').forEach(a=>{
-      const aPath = normPath(a.href);
-      a.classList.toggle('active', aPath === path);
-      if (aPath === path) a.setAttribute('aria-current','page');
+  // Sincroniza hrefs dos nav-links com a página destino.
+  // Necessário porque só <main> e <footer> são trocados — o <header> permanece.
+  function syncNavLinks(incomingDoc) {
+    const incomingLinks = Array.from(incomingDoc.querySelectorAll('.site-nav .nav-link'));
+    const currentLinks  = Array.from(document.querySelectorAll('.site-nav .nav-link'));
+    incomingLinks.forEach((link, i) => {
+      if (currentLinks[i]) currentLinks[i].setAttribute('href', link.getAttribute('href'));
+    });
+  }
+
+  function setActiveNav(url) {
+    const current = new URL(url, location.href);
+    const path = normPath(current.href);
+    const hash = current.hash || (path === '/' ? '#inicio' : '');
+
+    document.querySelectorAll('.site-nav .nav-link').forEach(a => {
+      const link = new URL(a.href, location.href);
+      const aPath = normPath(link.href);
+      const active = aPath === path && (link.hash ? link.hash === hash : !hash);
+      a.classList.toggle('active', active);
+      if (active) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
     });
   }
 
-  // controla navegações concorrentes
+  // ===== Controle de navegação concorrente =====
   let navAbort = null;
   let navLock = false;
   history.scrollRestoration = 'manual';
 
   // ===== Prefetch leve =====
-  const prefetchCache = new Map(); // url -> Promise<Response>
-  async function prefetch(url){
-    if (!sameOrigin(url)) return;
-    if (prefetchCache.has(url)) return;
+  const prefetchCache = new Map();
+  async function prefetch(url) {
+    const cacheUrl = new URL(url, location.href).href;
+    if (!sameOrigin(cacheUrl)) return;
+    if (prefetchCache.has(cacheUrl)) return;
 
-    const p = fetch(url, { headers:{ 'X-Requested-With':'view-transition' }})
+    const p = fetch(cacheUrl, { headers: { 'X-Requested-With': 'view-transition' } })
       .then(async res => {
         if (!res.ok) return null;
         const html = await res.text();
@@ -101,7 +157,8 @@
           for (const link of nextLinks) {
             const href = hrefKey(link.getAttribute('href'));
             if (!href) continue;
-            const exists = document.head.querySelector(`link[rel="preload"][as="style"][href="${href}"], link[rel="stylesheet"][href="${href}"]`);
+            const exists = Array.from(document.head.querySelectorAll('link[rel="preload"][as="style"], link[rel="stylesheet"]'))
+              .some(item => hrefKey(item.getAttribute('href')) === href);
             if (!exists) {
               const preload = document.createElement('link');
               preload.rel = 'preload';
@@ -111,87 +168,102 @@
             }
           }
         } catch {}
-        return res;
+        return html;
       })
-      .catch(()=>null);
+      .catch(() => { prefetchCache.delete(cacheUrl); return null; });
 
-    prefetchCache.set(url, p);
+    prefetchCache.set(cacheUrl, p);
   }
 
   // ===== Troca de página =====
-  async function fetchDoc(url, signal){
+  async function fetchDoc(url, signal) {
     try {
-      // usa prefetch se existir
-      const pre = prefetchCache.get(url);
-      const res = pre ? await pre : await fetch(url, { headers:{ 'X-Requested-With':'view-transition' }, signal });
-      if (!res || !res.ok) return null;
-      const html = await res.text();
+      const cacheUrl = new URL(url, location.href).href;
+      const pre = prefetchCache.get(cacheUrl);
+      let html = pre ? await pre : null;
+
+      if (!html) {
+        const res = await fetch(cacheUrl, { headers: { 'X-Requested-With': 'view-transition' }, signal });
+        if (!res || !res.ok) return null;
+        html = await res.text();
+      }
+
       return new DOMParser().parseFromString(html, 'text/html');
     } catch {
       return null;
     }
   }
 
-  async function swapTo(url, pushState = true){
-    // evita corrida
+  async function swapTo(url, pushState = true) {
     if (navLock) return;
     navLock = true;
     if (navAbort) try { navAbort.abort(); } catch {}
     navAbort = new AbortController();
 
-   const doc = await fetchDoc(url, navAbort.signal);
-    if (!doc) { location.href = url; return; }
+    showProgress();
+
+    const doc = await fetchDoc(url, navAbort.signal);
+    if (!doc) { hideProgress(); navLock = false; location.href = url; return; }
 
     const newMain = doc.querySelector('main');
     const newTitle = doc.querySelector('title')?.textContent || document.title;
-    if (!newMain) { location.href = url; return; }
+    if (!newMain) { hideProgress(); navLock = false; location.href = url; return; }
 
     document.documentElement.classList.add('no-anim');
 
-    // fecha menu se estiver aberto
     try { if (window.Menu?.isOpen?.()) window.Menu.setOpen(false); } catch {}
 
-    // 🔑 Sincroniza CSS/meta antes de trocar o main
     syncHead(document, doc);
 
-    // execução da transição + troca do DOM
     const vt = document.startViewTransition(() => {
       const oldMain = document.querySelector('main');
       oldMain.replaceWith(newMain);
 
+      // Substitui o footer para que conteúdo e links correspondam à página destino
+      const newFooter = doc.querySelector('footer');
+      const oldFooter = document.querySelector('footer');
+      if (newFooter && oldFooter) oldFooter.replaceWith(newFooter);
+
+      // Sincroniza hrefs do nav-header com a página destino
+      syncNavLinks(doc);
+
+      // Sincroniza classe do body (ex: landing-page)
+      const incomingBodyClass = doc.body.getAttribute('class');
+      if (incomingBodyClass !== null) document.body.className = incomingBodyClass;
+
       document.title = newTitle;
       if (pushState) history.pushState(null, '', url);
 
-      // rola pro topo (ou pra hash se tiver)
       const u = new URL(url, location.href);
       if (u.hash) {
-        // tenta rolar até o id da hash
         requestAnimationFrame(() => {
           const target = document.querySelector(u.hash);
-          if (target) target.scrollIntoView({ behavior:'auto', block:'start' });
+          if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
           else window.scrollTo({ top: 0, behavior: 'auto' });
         });
       } else {
         window.scrollTo({ top: 0, behavior: 'auto' });
       }
 
-      // foco de a11y
-      newMain.setAttribute('tabindex','-1');
+      newMain.setAttribute('tabindex', '-1');
       newMain.focus({ preventScroll: true });
-      newMain.addEventListener('blur', () => newMain.removeAttribute('tabindex'), { once:true });
+      newMain.addEventListener('blur', () => newMain.removeAttribute('tabindex'), { once: true });
 
       setActiveNav(url);
+      try { window.Menu?.refreshActive?.(); } catch {}
     });
 
-    // libera lock quando terminar
-    Promise.resolve(vt?.finished).catch(()=>{}).finally(()=>{
+    Promise.resolve(vt?.finished).catch(() => {}).finally(() => {
       document.documentElement.classList.remove('no-anim');
+      hideProgress();
       navLock = false;
+      announce(newTitle);
+      // Anima elementos [data-mobile-reveal] do novo conteúdo
+      try { window.Reveal?.run?.(newMain); } catch {}
     });
   }
 
   // ===== Interceptores =====
-  // Prefetch em hover/toque
   document.addEventListener('pointerenter', (e) => {
     const a = e.target.closest?.('a[href]');
     if (!a) return;
@@ -202,7 +274,6 @@
     prefetch(new URL(href, location.href).href);
   }, { capture: true });
 
-  // Navegação com transição
   document.addEventListener('click', (e) => {
     const a = e.target.closest?.('a[href]');
     if (!a) return;
@@ -216,8 +287,19 @@
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
+        history.replaceState(null, '', href);
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        try {
+          window.setTimeout(() => window.Menu?.refreshActive?.(), 180);
+          window.setTimeout(() => window.Menu?.refreshActive?.(), 640);
+          window.setTimeout(() => window.Menu?.refreshActive?.(), 1100);
+        } catch {}
+        return;
       }
+      // Alvo não existe na página atual (ex: #inicio em casal.html após view transition).
+      // Navega para o index com o hash correto.
+      e.preventDefault();
+      swapTo(new URL('index.html' + href, location.href).href, true);
       return;
     }
 
@@ -226,19 +308,21 @@
 
     const abs = new URL(href, location.href).href;
 
-    // mesmo path + só hash? deixa padrão
-    if (new URL(abs).pathname.replace(/index\.html?$/,'') === new URL(location.href).pathname.replace(/index\.html?$/,'')
+    // mesmo path + só hash? deixa o browser rolar normalmente
+    if (new URL(abs).pathname.replace(/index\.html?$/, '') === new URL(location.href).pathname.replace(/index\.html?$/, '')
         && new URL(abs).hash) return;
 
     e.preventDefault();
     swapTo(abs, true);
   });
 
-  // Back/forward
+  // Back/forward — libera o lock antes de navegar para não travar
   window.addEventListener('popstate', () => {
+    navLock = false;
+    if (navAbort) try { navAbort.abort(); } catch {}
+    navAbort = null;
     swapTo(location.href, false);
   });
 
-  // Marca nav ativa na carga
   setActiveNav(location.href);
 })();

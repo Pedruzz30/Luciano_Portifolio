@@ -56,7 +56,10 @@ body {
   padding-block-start: var(--header-offset); /* Main reserva espaço do header */
 }
 
-main { padding-block-start: 0; }
+main {
+  padding-block-start: 0;
+  view-transition-name: page;
+}
 
 img {
   max-width: 100%;
@@ -172,6 +175,7 @@ main > .section:first-child:not(.hero) {
   inset-inline: 0;
   inline-size: 100%;
   block-size: var(--header-h);
+  view-transition-name: site-header;
 
   /* mantém tua paleta, só organiza */
   background: color-mix(in srgb, var(--areia-dourada) 92%, white 8%);

@@ -1,10 +1,14 @@
 (() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (typeof IntersectionObserver === 'undefined') return;
-
-  function run() {
-    const els = Array.from(document.querySelectorAll('[data-mobile-reveal]:not(.is-revealed)'));
+  function run(container) {
+    const root = container || document;
+    const els = Array.from(root.querySelectorAll('[data-mobile-reveal]:not(.is-revealed)'));
     if (!els.length) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        typeof IntersectionObserver === 'undefined') {
+      els.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
 
     const revealed = new WeakSet();
 
@@ -29,9 +33,11 @@
     els.forEach(el => observer.observe(el));
   }
 
+  window.Reveal = { run };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run, { once: true });
+    document.addEventListener('DOMContentLoaded', () => run(document), { once: true });
   } else {
-    run();
+    run(document);
   }
 })();

@@ -7,7 +7,7 @@
     <title>Luciano Pimenta Dias | Psicoterapia Online</title>
     <meta
       name="description"
-      content="Psicoterapia online com Luciano Pimenta Dias, psicólogo CRP 05/82816. Atendimento acolhedor para organizar emoções, relações e escolhas com sigilo e ética."
+      content="Psicoterapia online com Luciano Pimenta Dias, psicólogo CRP 05/82816. Atendimento para pessoas que buscam autonomia emocional, clareza nos vínculos e formas mais conscientes de existir."
     />
     <meta
       name="keywords"
@@ -32,7 +32,7 @@
       property="og:description"
       content="Atendimento psicológico on-line com escuta qualificada, combinados claros e cuidado ético."
     />
-    <meta property="og:image" content="assets/PortifolioLucianoFotos/foto2.jpg" />
+    <meta property="og:image" content="https://lucianopimenta.com.br/assets/PortifolioLucianoFotos/Luciano-foto-site.jpeg" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Luciano Pimenta Dias Psicólogo" />
@@ -40,6 +40,7 @@
       name="twitter:description"
       content="Psicoterapia on-line com acolhimento, sigilo e objetivos construídos em conjunto."
     />
+    <meta name="twitter:image" content="https://lucianopimenta.com.br/assets/PortifolioLucianoFotos/Luciano-foto-site.jpeg" />
 
     <!-- Fontes: Fraunces (display) + DM Sans (corpo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,7 +54,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=DM+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="preload" href="assets/PortifolioLucianoFotos/foto-hero.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="assets/PortifolioLucianoFotos/Luciano-foto-site.jpeg" as="image" fetchpriority="high" />
 
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/mobile.css" media="(max-width: 1024px)" />
@@ -96,7 +97,7 @@
           <div class="nav-spotlight" data-mobile-reveal>
             <div class="nav-avatar" aria-hidden="true">
               <img
-                src="assets/PortifolioLucianoFotos/foto-hero.png"
+                src="assets/PortifolioLucianoFotos/Luciano-foto-site.jpeg"
                 alt=""
                 loading="lazy"
                 decoding="async"
@@ -114,8 +115,8 @@
           <ul class="nav-list">
             <li><a class="nav-link" href="#inicio">Início</a></li>
             <li><a class="nav-link" href="#sobre">Sobre</a></li>
-            <li><a class="nav-link" href="#atendimentos">Atendimentos</a></li>
-            <li><a class="nav-link" href="#processo">Processo</a></li>
+            <li><a class="nav-link" href="#individual">Terapia Individual</a></li>
+            <li><a class="nav-link" href="#casal">Terapia de Casal</a></li>
             <li><a class="nav-link" href="#contato">Contato</a></li>
           </ul>
 
@@ -144,14 +145,19 @@
             <p class="lp-tag">Psicoterapia online</p>
 
             <div class="lp-hero__heading">
-              <h1 id="hero-title" class="lp-hero__name">Luciano<br>Pimenta</h1>
+              <h1 id="hero-title" class="lp-hero__name" style="font-size: clamp(2.4rem, 5.5vw, 5.5rem);">
+                Terapia não é sobre<br>se adaptar mais.<br>É sobre se reconhecer.
+              </h1>
               <p class="lp-hero__role">Psicólogo · CRP 05/82816</p>
             </div>
 
             <p class="lp-hero__lead">
-              Um espaço de escuta profissional para organizar emoções, relações e escolhas
-              com acolhimento, sigilo e objetivos possíveis para a sua rotina.
+              Psicoterapia para pessoas que se cansaram de viver tentando sustentar relações, expectativas e versões de si que já não fazem sentido.
             </p>
+
+            <blockquote class="lp-pullquote">
+              "Cuidado sem limite vira desgaste. Vínculo sem clareza vira prisão."
+            </blockquote>
 
             <div class="lp-hero__actions" aria-label="Ações principais">
               <a
@@ -162,17 +168,15 @@
               >
                 Agendar conversa inicial
               </a>
-              <a class="btn btn-secondary" href="#atendimentos">Ver atendimentos</a>
+              <a class="btn btn-secondary" href="#processo">Como funciona o processo</a>
             </div>
           </div>
         </div>
 
-          <span class="lp-hero__deco" aria-hidden="true">Psicólogo</span>
-
-        </div>
+        <span class="lp-hero__deco" aria-hidden="true">Psicólogo</span>
 
         <div class="lp-hero__bar" aria-label="Resumo do atendimento">
-          <div class="lp-hero__bar-track" aria-hidden="false">
+          <div class="lp-hero__bar-track">
             <span class="lp-hero__bar-item">Atendimento 100% on-line</span>
             <span class="lp-hero__bar-item">Sessões de 50 minutos</span>
             <span class="lp-hero__bar-item">Retorno em até 24h úteis</span>
@@ -195,201 +199,279 @@
       </section>
 
       <!-- ========== SOBRE ========== -->
-      <section id="sobre" class="lp-about" aria-labelledby="sobre-title">
+      <section id="sobre" class="lp-about lp-about--profile" aria-labelledby="sobre-title">
         <div class="container lp-about__grid">
 
           <figure class="lp-about__media" data-mobile-reveal>
-            <img
-              src="assets/PortifolioLucianoFotos/Luciano-foto-site.jpeg"
-              alt="Retrato de Luciano Pimenta Dias, psicólogo"
-              width="800"
-              height="1067"
-              loading="lazy"
-              decoding="async"
-            />
+            <div class="lp-about__portrait">
+              <img
+                src="assets/PortifolioLucianoFotos/Luciano-foto-site.jpeg"
+                alt="Retrato de Luciano Pimenta Dias, psicólogo, de expressão acolhedora"
+                width="800"
+                height="1067"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption class="lp-about__caption">
+              <span>Luciano Pimenta Dias</span>
+              <small>Psicólogo · CRP 05/82816</small>
+            </figcaption>
           </figure>
 
           <div class="lp-about__text" data-mobile-reveal>
             <p class="lp-tag">Sobre o psicólogo</p>
-            <h2 id="sobre-title" class="lp-section-title">Cuidado técnico,<br>linguagem simples.</h2>
+            <h2 id="sobre-title" class="lp-section-title">Ajudo pessoas a se reconhecerem, se posicionarem e sustentarem escolhas com mais autonomia emocional.</h2>
+            <ul class="lp-about__badges" aria-label="Características do atendimento">
+              <li>Atendimento on-line</li>
+              <li>Clínica relacional</li>
+              <li>Escuta ética</li>
+            </ul>
             <blockquote class="lp-pullquote">
-              "Trabalho com escuta atenta e metas combinadas — para que a terapia se conecte
-              à vida real, não apenas às sessões."
+              "Se abandonar para manter vínculos também gera sofrimento."
             </blockquote>
-            <p>
-              Sou Luciano Pimenta Dias, psicólogo. Trabalho com adolescentes, adultos, idosos,
-              casais e famílias que buscam compreender padrões, aliviar sobrecargas e construir
-              escolhas mais conscientes.
-            </p>
-            <p>
-              A terapia acontece a partir de uma escuta atenta e de metas combinadas. Em cada
-              etapa, conversamos sobre o que está acontecendo agora, nomeamos prioridades e
-              transformamos reflexões em caminhos práticos para a vida cotidiana.
-            </p>
-            <p>
-              O processo é conduzido com sigilo profissional, respeito à sua história e
-              abertura para revisar a rota sempre que necessário.
-            </p>
+            <div class="lp-about__copy">
+              <p>
+                Sou Luciano Pimenta, psicólogo clínico. Meu trabalho surgiu do interesse pelas relações humanas, pelos conflitos emocionais e pelas formas silenciosas de sofrimento que muitas pessoas carregam ao longo da vida.
+              </p>
+              <p>
+                Atendo principalmente pessoas que se acostumaram a cuidar demais, ceder demais e se adaptar tanto aos outros que, em algum momento, perderam contato com as próprias necessidades.
+              </p>
+              <p>
+                Acredito em uma clínica acolhedora, mas honesta. Um espaço onde seja possível compreender dores, questionar padrões e construir formas mais conscientes de existir e se relacionar.
+              </p>
+            </div>
+            <dl class="lp-about__facts" aria-label="Resumo do atendimento">
+              <div>
+                <dt>Formato</dt>
+                <dd>Online</dd>
+              </div>
+              <div>
+                <dt>Atuação</dt>
+                <dd>Individual e casal</dd>
+              </div>
+              <div>
+                <dt>Registro</dt>
+                <dd>CRP 05/82816</dd>
+              </div>
+            </dl>
           </div>
         </div>
-      </section>
 
-      <!-- ========== ATENDIMENTOS ========== -->
-      <section id="atendimentos" class="lp-services" aria-labelledby="atendimentos-title">
         <div class="container">
-
-          <header class="lp-services__header" data-mobile-reveal>
-            <p class="lp-tag">Frentes de trabalho</p>
-            <h2 id="atendimentos-title" class="lp-section-title">Atendimentos para diferentes momentos.</h2>
-            <p class="lp-services__lead">
-              Os formatos abaixo são ajustados conforme a sua demanda, sempre com acordos
-              transparentes desde o primeiro contato.
-            </p>
-          </header>
-
-          <div class="lp-services__grid" role="list">
-
-            <article class="lp-service-card" role="listitem" data-mobile-reveal>
-              <span class="lp-service-card__num" aria-hidden="true">01</span>
-              <div class="lp-service-card__content">
-                <p class="lp-service-card__label">Primeiro passo</p>
-                <h3>Conversa inicial</h3>
-                <p>Encontro breve para entender sua busca, tirar dúvidas sobre terapia e avaliar o formato mais adequado.</p>
-                <ul>
-                  <li>Orientação on-line</li>
-                  <li>Alinhamento de expectativas</li>
-                  <li>Encaminhamento quando necessário</li>
-                </ul>
-              </div>
+          <div class="lp-about__principles" aria-label="Pilares da atuação clínica">
+            <article data-mobile-reveal>
+              <span aria-hidden="true">01</span>
+              <h3>Escuta com profundidade</h3>
+              <p>Mais do que aliviar sintomas, a terapia também ajuda a compreender o que sustenta determinados conflitos emocionais e padrões relacionais.</p>
             </article>
-
-            <article class="lp-service-card" role="listitem" data-mobile-reveal>
-              <span class="lp-service-card__num" aria-hidden="true">02</span>
-              <div class="lp-service-card__content">
-                <p class="lp-service-card__label">Individual</p>
-                <h3>Terapia individual</h3>
-                <p>Sessões para ansiedade, autoestima, carreira, luto, relações, identidade e transições importantes.</p>
-                <ul>
-                  <li>Adultos, adolescentes e idosos</li>
-                  <li>Metas revisadas periodicamente</li>
-                  <li>Estratégias entre sessões</li>
-                </ul>
-              </div>
+            <article data-mobile-reveal>
+              <span aria-hidden="true">02</span>
+              <h3>Clareza emocional</h3>
+              <p>Nem toda adaptação é maturidade. Muitas vezes ela nasce do medo de perder vínculos, decepcionar pessoas ou entrar em conflito.</p>
             </article>
-
-            <article class="lp-service-card" role="listitem" data-mobile-reveal>
-              <span class="lp-service-card__num" aria-hidden="true">03</span>
-              <div class="lp-service-card__content">
-                <p class="lp-service-card__label">Relações</p>
-                <h3>Casais e famílias</h3>
-                <p>Espaço mediado para fortalecer diálogo, revisar acordos e cuidar dos conflitos com mais clareza.</p>
-                <ul>
-                  <li>Mapeamento de ciclos de conflito</li>
-                  <li>Comunicação e limites</li>
-                  <li>Combinados construídos em conjunto</li>
-                </ul>
-              </div>
+            <article data-mobile-reveal>
+              <span aria-hidden="true">03</span>
+              <h3>Relações mais conscientes</h3>
+              <p>O objetivo não é endurecer emocionalmente, mas construir relações mais verdadeiras e menos baseadas em culpa, medo ou desgaste.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ========== DEPOIMENTOS ========== -->
-      <section class="lp-testimonials" aria-labelledby="depoimentos-title">
-        <div class="container">
+      <!-- ========== TERAPIA INDIVIDUAL ========== -->
+      <section id="individual" class="lp-contact lp-individual" aria-labelledby="individual-title">
+        <div class="container lp-contact__grid">
 
-          <header class="lp-testimonials__header" data-mobile-reveal>
-            <p class="lp-tag">Experiências</p>
-            <h2 id="depoimentos-title" class="lp-section-title">O que dizem sobre o processo.</h2>
-          </header>
-
-          <div class="lp-testimonials__grid">
-            <blockquote class="lp-testimonial" data-mobile-reveal>
-              <p>"A terapia me ajudou a entender padrões que eu nem percebia que existiam. O processo foi lento, cuidadoso e transformador."</p>
-              <footer><cite>Paciente · Terapia individual</cite></footer>
+          <div class="lp-contact__copy" data-mobile-reveal>
+            <p class="lp-tag">Terapia Individual</p>
+            <h2 id="individual-title" class="lp-section-title">Um espaço para se escutar com mais clareza.</h2>
+            <blockquote class="lp-pullquote">
+              "Nem toda permanência é amor. Às vezes, permanecer é só o nome que o medo encontrou."
             </blockquote>
-
-            <blockquote class="lp-testimonial" data-mobile-reveal>
-              <p>"Me senti acolhido desde a primeira sessão. Luciano tem uma escuta atenta e não julgadora — algo que eu precisava muito."</p>
-              <footer><cite>Paciente · Conversa inicial + Terapia</cite></footer>
-            </blockquote>
-
-            <blockquote class="lp-testimonial" data-mobile-reveal>
-              <p>"Em poucas sessões consegui organizar coisas que estavam me pesando há anos. A abordagem é clara, direta e humana."</p>
-              <footer><cite>Paciente · Terapia individual</cite></footer>
-            </blockquote>
+            <p class="lp-contact__lead">
+              A terapia individual oferece um espaço ético e sigiloso para compreender emoções, padrões relacionais e modos de funcionamento que se repetem na sua história.
+            </p>
+            <p class="lp-contact__lead">
+              O processo não parte de fórmulas prontas. Ele é construído em conjunto, respeitando seu ritmo, seu momento de vida e os objetivos que fazem sentido para você.
+            </p>
+            <ul class="lp-contact__signals" aria-label="Focos da terapia individual">
+              <li>Escuta ética</li>
+              <li>Clareza emocional</li>
+              <li>Ritmo possível</li>
+            </ul>
+            <div class="lp-contact__actions">
+              <a
+                class="btn btn-primary lp-contact__action"
+                href="https://wa.me/5521993034166?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20conversa%20inicial."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Agendar conversa inicial
+              </a>
+              <a class="btn btn-secondary lp-contact__action" href="#processo">
+                Como funciona
+              </a>
+            </div>
           </div>
+
+          <aside class="lp-contact__panel" aria-label="Quando a terapia individual pode ajudar" data-mobile-reveal>
+            <div class="lp-contact__panel-header">
+              <p class="lp-contact__panel-kicker">Pode ajudar quando</p>
+              <h3>A terapia individual pode ajudar quando:</h3>
+            </div>
+            <div role="list" class="lp-contact__details lp-contact__details--list">
+              <div role="listitem">você sente culpa quando tenta se priorizar</div>
+              <div role="listitem">pensa demais antes de se posicionar</div>
+              <div role="listitem">vive relações intensas, mas emocionalmente confusas</div>
+              <div role="listitem">sente dificuldade em estabelecer limites</div>
+              <div role="listitem">sustenta vínculos mesmo quando está emocionalmente exausto(a)</div>
+              <div role="listitem">percebe padrões emocionais que se repetem</div>
+              <div role="listitem">busca mais autonomia para fazer escolhas</div>
+            </div>
+          </aside>
+
+        </div>
+      </section>
+
+      <!-- ========== TERAPIA DE CASAL ========== -->
+      <section id="casal" class="lp-contact" aria-labelledby="casal-title">
+        <div class="container lp-contact__grid">
+
+          <div class="lp-contact__copy" data-mobile-reveal>
+            <p class="lp-tag">Terapia de Casal</p>
+            <h2 id="casal-title" class="lp-section-title">Quando a conversa virou distância, a relação pede cuidado.</h2>
+            <blockquote class="lp-pullquote">
+              "O problema nem sempre é a diferença entre duas pessoas, mas o modo como a diferença passa a ferir o vínculo."
+            </blockquote>
+            <p class="lp-contact__lead">
+              A terapia de casal não busca culpados. Ela ajuda os parceiros a compreender ciclos de conflito, silêncios, ressentimentos, quebras de confiança e expectativas que deixaram de ser conversadas com clareza.
+            </p>
+            <p class="lp-contact__lead">
+              O processo oferece um espaço seguro para que ambos possam falar, escutar e construir acordos possíveis, seja para reconstruir o vínculo ou tomar decisões com mais responsabilidade.
+            </p>
+            <ul class="lp-contact__signals" aria-label="Focos da terapia de casal">
+              <li>Comunicação</li>
+              <li>Confiança</li>
+              <li>Limites e acordos</li>
+            </ul>
+            <div class="lp-contact__actions">
+              <a
+                class="btn btn-primary lp-contact__action"
+                href="https://wa.me/5521993034166?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20conversa%20sobre%20terapia%20de%20casal."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Agendar conversa inicial
+              </a>
+              <a class="btn btn-secondary lp-contact__action" href="casal.html">
+                Veja Mais Detalhes
+              </a>
+            </div>
+          </div>
+
+          <aside class="lp-contact__panel" aria-label="Quando a terapia de casal pode ajudar" data-mobile-reveal>
+            <div class="lp-contact__panel-header">
+              <p class="lp-contact__panel-kicker">Pode ajudar quando</p>
+              <h3>Sinais de que é hora de olhar para a relação.</h3>
+            </div>
+            <div role="list" class="lp-contact__details lp-contact__details--list">
+              <div role="listitem">os mesmos conflitos voltam sem resolução</div>
+              <div role="listitem">o diálogo virou defesa, cobrança ou silêncio</div>
+              <div role="listitem">há ressentimentos acumulados</div>
+              <div role="listitem">a confiança foi abalada</div>
+              <div role="listitem">limites e responsabilidades estão confusos</div>
+              <div role="listitem">existe dúvida sobre continuar ou se separar</div>
+              <div role="listitem">a convivência se tornou emocionalmente pesada</div>
+            </div>
+          </aside>
+
         </div>
       </section>
 
       <!-- ========== PROCESSO ========== -->
-      <section id="processo" class="lp-process" aria-labelledby="processo-title">
+      <section id="processo" class="lp-process lp-process--guide" aria-labelledby="processo-title">
         <div class="container">
 
-          <div class="lp-process__intro">
-            <header class="lp-process__header" data-mobile-reveal>
+          <div class="lp-process-guide__intro">
+            <header class="lp-process-guide__header" data-mobile-reveal>
               <p class="lp-tag">Como funciona</p>
-              <h2 id="processo-title" class="lp-section-title">Da primeira mensagem ao acompanhamento.</h2>
+              <h2 id="processo-title" class="lp-section-title">Do primeiro contato ao acompanhamento.</h2>
               <p class="lp-process__lead">
-                O processo começa com uma conversa objetiva para entender sua demanda e combinar
-                um cuidado possível para a sua rotina.
+                O processo começa com uma conversa simples para entender sua busca, tirar dúvidas e alinhar o formato do atendimento. Você não precisa chegar com tudo organizado.
               </p>
+              <p class="lp-process__lead">
+                A partir daí, os encontros acontecem com escuta qualificada, sigilo e objetivos revisados ao longo do caminho, sempre respeitando seu ritmo e sua realidade.
+              </p>
+              <blockquote class="lp-process-guide__quote">
+                "Crescimento emocional não acontece sem desconforto, mas não precisa acontecer sem cuidado."
+              </blockquote>
             </header>
 
-            <aside class="lp-process__note" aria-label="Resumo do processo" data-mobile-reveal>
-              <p class="lp-process__note-title">Antes de começar</p>
-              <ul>
-                <li>Você pode chegar com dúvidas, sem precisar ter tudo organizado.</li>
-                <li>Valores, horários e frequência são alinhados com transparência.</li>
-                <li>As sessões acontecem on-line, com sigilo e combinados claros.</li>
-              </ul>
+            <aside class="lp-process-guide__panel" aria-label="Antes de começar" data-mobile-reveal>
+              <p class="lp-process-guide__panel-kicker">Antes de começar</p>
+              <h3>Combinados claros desde o início.</h3>
+              <dl>
+                <div>
+                  <dt>Formato</dt>
+                  <dd>Atendimento on-line</dd>
+                </div>
+                <div>
+                  <dt>Duração</dt>
+                  <dd>Sessões de 50 minutos</dd>
+                </div>
+                <div>
+                  <dt>Retorno</dt>
+                  <dd>Em até 24h úteis</dd>
+                </div>
+              </dl>
             </aside>
           </div>
 
-          <ol class="lp-steps">
-            <li class="lp-step" data-mobile-reveal>
-              <span class="lp-step__num" aria-hidden="true">01</span>
-              <div class="lp-step__body">
-                <p class="lp-step__label">Primeiro contato</p>
+          <ol class="lp-process-roadmap">
+            <li class="lp-process-roadmap__item" data-mobile-reveal>
+              <span class="lp-process-roadmap__num" aria-hidden="true">01</span>
+              <div class="lp-process-roadmap__body">
+                <p class="lp-process-roadmap__label">Primeiro contato</p>
                 <h3>Você envia uma mensagem</h3>
                 <p>Conte, no seu ritmo, o que está buscando neste momento. Uma frase já é suficiente para começarmos.</p>
-                <ul class="lp-step__notes">
+                <ul>
                   <li>WhatsApp ou e-mail</li>
                   <li>Retorno em até 24h úteis</li>
                 </ul>
               </div>
             </li>
-            <li class="lp-step" data-mobile-reveal>
-              <span class="lp-step__num" aria-hidden="true">02</span>
-              <div class="lp-step__body">
-                <p class="lp-step__label">Alinhamento</p>
+            <li class="lp-process-roadmap__item" data-mobile-reveal>
+              <span class="lp-process-roadmap__num" aria-hidden="true">02</span>
+              <div class="lp-process-roadmap__body">
+                <p class="lp-process-roadmap__label">Alinhamento</p>
                 <h3>Combinamos o formato</h3>
                 <p>Conversamos sobre disponibilidade, valores, frequência, plataforma e expectativas para o início.</p>
-                <ul class="lp-step__notes">
+                <ul>
                   <li>Sessões on-line</li>
                   <li>Combinados transparentes</li>
                 </ul>
               </div>
             </li>
-            <li class="lp-step" data-mobile-reveal>
-              <span class="lp-step__num" aria-hidden="true">03</span>
-              <div class="lp-step__body">
-                <p class="lp-step__label">Encontros</p>
+            <li class="lp-process-roadmap__item" data-mobile-reveal>
+              <span class="lp-process-roadmap__num" aria-hidden="true">03</span>
+              <div class="lp-process-roadmap__body">
+                <p class="lp-process-roadmap__label">Encontros</p>
                 <h3>As sessões acontecem</h3>
                 <p>Cada encontro tem 50 minutos e é conduzido com escuta qualificada, sigilo e atenção ao que aparece.</p>
-                <ul class="lp-step__notes">
+                <ul>
                   <li>Objetivos construídos juntos</li>
                   <li>Ritmo respeitoso</li>
                 </ul>
               </div>
             </li>
-            <li class="lp-step" data-mobile-reveal>
-              <span class="lp-step__num" aria-hidden="true">04</span>
-              <div class="lp-step__body">
-                <p class="lp-step__label">Continuidade</p>
+            <li class="lp-process-roadmap__item" data-mobile-reveal>
+              <span class="lp-process-roadmap__num" aria-hidden="true">04</span>
+              <div class="lp-process-roadmap__body">
+                <p class="lp-process-roadmap__label">Continuidade</p>
                 <h3>Revisamos o caminho</h3>
                 <p>Ao longo do processo, revisitamos objetivos para manter o cuidado conectado à sua realidade.</p>
-                <ul class="lp-step__notes">
+                <ul>
                   <li>Acompanhamento ajustável</li>
                   <li>Revisão de prioridades</li>
                 </ul>
@@ -405,10 +487,9 @@
 
           <div class="lp-contact__copy" data-mobile-reveal>
             <p class="lp-tag">Agende sua conversa</p>
-            <h2 id="contato-title" class="lp-section-title">Um primeiro contato simples, cuidadoso e sem pressa.</h2>
+            <h2 id="contato-title" class="lp-section-title">Talvez você tenha passado tempo demais tentando sustentar tudo sozinho(a).</h2>
             <p class="lp-contact__lead">
-              Me envie seu nome, seus horários disponíveis e uma breve ideia do que você procura.
-              Eu retorno com orientações sobre agenda, formato e próximos passos.
+              Se fizer sentido para você, será um prazer acompanhar esse processo de forma ética, cuidadosa e humana.
             </p>
             <div class="lp-contact__actions">
               <a
@@ -417,7 +498,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Chamar no WhatsApp
+                Entrar em contato pelo WhatsApp
               </a>
               <a class="btn btn-secondary lp-contact__action" href="mailto:lucianopimenta.psi@gmail.com">Enviar e-mail</a>
             </div>
@@ -534,8 +615,8 @@
           <ul>
             <li><a href="#inicio">Início</a></li>
             <li><a href="#sobre">Sobre</a></li>
-            <li><a href="#atendimentos">Atendimentos</a></li>
-            <li><a href="#processo">Processo</a></li>
+            <li><a href="#individual">Terapia Individual</a></li>
+            <li><a href="#casal">Terapia de Casal</a></li>
             <li><a href="#contato">Contato</a></li>
           </ul>
         </nav>
