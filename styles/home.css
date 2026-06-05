@@ -727,7 +727,7 @@ body.landing-page {
   font-weight: 900;
   font-style: italic;
   font-size: clamp(4rem, 10vw, 10rem);
-  line-height: 0.88;
+  line-height: 1.0;
   letter-spacing: -0.04em;
   color: var(--lp-dark);
 }
@@ -1119,7 +1119,7 @@ body.landing-page {
 
 .lp-services__lead {
   margin: 0;
-  color: rgba(248, 246, 241, 0.5);
+  color: rgba(248, 246, 241, 0.65);
   font-size: clamp(0.92rem, 1.35vw, 1.02rem);
   line-height: 1.76;
   max-inline-size: 58ch;
@@ -1208,7 +1208,7 @@ body.landing-page {
 .lp-service-card li {
   position: relative;
   padding-left: 1rem;
-  color: rgba(248, 246, 241, 0.42);
+  color: rgba(248, 246, 241, 0.56);
   font-family: "DM Sans", system-ui, sans-serif;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -2681,6 +2681,7 @@ body.landing-page {
   .lp-about__media {
     position: static;
     max-inline-size: 420px;
+    margin-inline: auto;
   }
 
   .lp-about__text {
@@ -2956,6 +2957,37 @@ body.landing-page {
     padding: clamp(1rem, 4vw, 1.25rem);
   }
 
+  /* Títulos longos com line-height apertado — abre espaço para mobile multi-linha */
+  .lp-contact__copy .lp-section-title,
+  .lp-process-guide__header .lp-section-title {
+    line-height: 1.08;
+  }
+
+  /* Hero — ritmo e leitura no mobile */
+  .lp-hero__left {
+    gap: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .lp-hero__left > .lp-pullquote {
+    margin-block: 0;
+  }
+
+  .lp-hero__bar-item {
+    font-size: 0.82rem;
+  }
+
+  /* Sobre — células dos fatos com padding adequado para toque */
+  .lp-about__facts div,
+  .lp-individual__format div {
+    padding: 1rem;
+  }
+
+  /* Atendimentos — número decorativo menor para economizar espaço vertical */
+  .lp-service-card__num {
+    font-size: clamp(2.5rem, 7vw, 3.5rem);
+    margin-bottom: 0.65rem;
+  }
+
   /* Footer */
   .lp-footer__headline-inner {
     flex-direction: column;
@@ -2997,8 +3029,8 @@ body.landing-page {
   }
 
   .lp-pullquote {
-    font-size: 1rem;
-    padding: 1rem 1.1rem;
+    font-size: clamp(1rem, 4.5vw, 1.12rem);
+    padding: 1rem 1.15rem;
   }
 
   .lp-testimonial {
@@ -3012,6 +3044,20 @@ body.landing-page {
   /* Footer */
   .lp-footer__body {
     grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .lp-footer__brand {
+    padding-bottom: 1.5rem;
+  }
+
+  .lp-footer__col {
+    padding-block: 1.5rem;
+    border-top: 1px solid rgba(248, 246, 241, 0.09);
+  }
+
+  .lp-footer__col:last-child {
+    padding-bottom: 0;
   }
 
   .lp-footer__call {
@@ -3100,8 +3146,8 @@ body.landing-page {
 .lp-footer__body {
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr 1fr;
-  gap: clamp(2rem, 4vw, 4rem);
-  padding-block: clamp(3rem, 6vw, 5rem);
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-block: clamp(3rem, 7vw, 6rem);
   border-bottom: 1px solid rgba(248, 246, 241, 0.07);
 }
 
@@ -3134,7 +3180,7 @@ body.landing-page {
   margin: 0;
   font-size: 0.87rem;
   line-height: 1.72;
-  color: rgba(248, 246, 241, 0.44);
+  color: rgba(248, 246, 241, 0.58);
 }
 
 .lp-footer__col-title {
@@ -3152,20 +3198,22 @@ body.landing-page {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.65rem;
+  gap: 0.8rem;
 }
 
 .lp-footer__col li,
 .lp-footer__col a {
   font-size: 0.87rem;
   line-height: 1.5;
-  color: rgba(248, 246, 241, 0.5);
+  color: rgba(248, 246, 241, 0.65);
   text-decoration: none;
   transition: color 0.18s ease;
 }
 
 .lp-footer__col a:hover {
   color: var(--lp-paper);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 /* ── Barra final ── */
@@ -3175,13 +3223,14 @@ body.landing-page {
   align-items: center;
   gap: 1rem;
   padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
+  padding-bottom: max(clamp(1.25rem, 2.5vw, 1.75rem), env(safe-area-inset-bottom, 0px));
   flex-wrap: wrap;
 }
 
 .lp-footer__bottom p {
   margin: 0;
   font-size: 0.76rem;
-  color: rgba(248, 246, 241, 0.28);
+  color: rgba(248, 246, 241, 0.38);
 }
 
 /* ── Responsivo ── */
@@ -3192,6 +3241,10 @@ body.landing-page {
   }
 
   .lp-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .lp-footer__col:last-child {
     grid-column: 1 / -1;
   }
 }
