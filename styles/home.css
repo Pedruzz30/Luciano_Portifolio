@@ -324,6 +324,7 @@ body.landing-page {
   html.js .landing-page .site-nav {
     position: fixed;
     inset-block-start: calc(var(--header-h) + 0.65rem);
+    inset-block-end: auto;
     inset-inline-end: clamp(0.75rem, 4vw, 1.5rem);
     inset-inline-start: auto;
     inline-size: min(88vw, 400px);

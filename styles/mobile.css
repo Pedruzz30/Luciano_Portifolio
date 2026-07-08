@@ -25,8 +25,8 @@ body.has-open-nav {
   height: 100dvh;
 }
 
-/* ─── 3) Nav mobile — drawer lateral (≤ 960px) ─── */
-@media (max-width: 960px) {
+/* ─── 3) Nav mobile — drawer lateral (≤ 1024px) ─── */
+@media (max-width: 1024px) {
   html.js .site-nav {
     position: fixed;
     inset-block-start: var(--header-h);
