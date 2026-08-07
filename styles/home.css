@@ -292,11 +292,11 @@ body.landing-page {
     display: inline-flex !important;
     inline-size: 2.75rem;
     block-size: 2.75rem;
-    border: 1px solid rgba(30, 26, 23, 0.12);
+    border: 1px solid color-mix(in srgb, var(--lp-copper) 30%, transparent 70%);
     border-radius: 8px;
-    background: var(--lp-dark);
+    background: var(--lp-copper);
     color: var(--lp-paper);
-    box-shadow: 0 10px 22px rgba(30, 26, 23, 0.18);
+    box-shadow: 0 10px 22px rgba(139, 94, 60, 0.22);
   }
 
   html.js .landing-page .menu-toggle {
@@ -309,16 +309,16 @@ body.landing-page {
     inset-block-start: calc(var(--header-h) / 2);
     inset-inline-end: max(1rem, 4vw);
     translate: 0 -50%;
-    background: var(--lp-dark) !important;
+    background: var(--lp-copper) !important;
     z-index: 1201;
   }
 
   .landing-page .menu-toggle:hover,
   .landing-page .menu-toggle:focus-visible,
   .landing-page .menu-toggle[aria-expanded="true"] {
-    background: var(--lp-copper);
+    background: var(--lp-dark);
     color: var(--lp-paper);
-    box-shadow: 0 12px 24px rgba(139, 94, 60, 0.24);
+    box-shadow: 0 12px 24px rgba(30, 26, 23, 0.28);
   }
 
   html.js .landing-page .site-nav {
@@ -814,7 +814,7 @@ body.landing-page {
 
 /* ─────────────────── 8) SOBRE ─────────────────── */
 .lp-about {
-  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block: clamp(3.25rem, 5vw, 4.5rem);
   background: var(--lp-paper);
   border-top: 1px solid var(--lp-line);
 }
@@ -891,7 +891,7 @@ body.landing-page {
 /* Seções "bio" seguidas por uma seção de pilares logo abaixo:
    reduz o respiro inferior para não dobrar o espaço entre as duas. */
 .lp-about--split {
-  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(1.1rem, 2.2vw, 1.6rem);
+  padding-block: clamp(3.25rem, 5vw, 4.5rem) clamp(1.75rem, 2.2vw, 2rem);
 }
 
 .lp-about--profile::before {
@@ -1055,22 +1055,22 @@ body.landing-page {
 
 /* Seção curta, isolada, para uma tira de 3 cards logo após uma seção "bio" */
 .lp-about-pillars {
-  padding-block: clamp(1.1rem, 2.2vw, 1.6rem) clamp(2.5rem, 5vw, 4.5rem);
+  padding-block: clamp(1.75rem, 2.2vw, 2rem) clamp(3.25rem, 5vw, 4.5rem);
   background: var(--lp-warm);
 }
 
 .lp-about__principles {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.85rem, 1.7vw, 1.15rem);
+  gap: clamp(1.05rem, 1.7vw, 1.15rem);
 }
 
 .lp-about__principles article {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.7rem;
   align-content: start;
   min-block-size: 100%;
-  padding: clamp(1rem, 2vw, 1.3rem);
+  padding: clamp(1.2rem, 2vw, 1.3rem);
   border: 1px solid var(--lp-line-mid);
   border-radius: 8px;
   background: rgba(253, 252, 248, 0.82);
@@ -1078,10 +1078,18 @@ body.landing-page {
 }
 
 .lp-about__principles span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.15rem;
+  block-size: 2.15rem;
+  margin-bottom: 0.15rem;
+  border: 1px solid color-mix(in srgb, var(--lp-copper) 34%, var(--lp-line-mid) 66%);
+  border-radius: 50%;
   color: var(--lp-copper);
   font-size: 0.72rem;
   font-weight: 900;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   line-height: 1.2;
 }
 
@@ -1104,7 +1112,7 @@ body.landing-page {
 
 /* ─────────────────── 9) ATENDIMENTOS ─────────────────── */
 .lp-services {
-  padding-block: clamp(3.5rem, 8vw, 8rem);
+  padding-block: clamp(4rem, 8vw, 8rem);
   background: var(--lp-dark);
   color: var(--lp-paper);
 }
@@ -1238,7 +1246,7 @@ body.landing-page {
 
 /* ─────────────────── 10) DEPOIMENTOS ─────────────────── */
 .lp-testimonials {
-  padding-block: clamp(3.5rem, 8vw, 8rem);
+  padding-block: clamp(4rem, 8vw, 8rem);
   background: var(--lp-warm);
   border-top: 1px solid var(--lp-line);
 }
@@ -1308,7 +1316,7 @@ body.landing-page {
 
 /* ─────────────────── 11) PROCESSO ─────────────────── */
 .lp-process {
-  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block: clamp(3.25rem, 5vw, 4.5rem);
   background:
     linear-gradient(180deg, var(--lp-cream) 0%, var(--lp-paper) 100%);
   border-top: 1px solid var(--lp-line);
@@ -1345,7 +1353,7 @@ body.landing-page {
 
 .lp-process--guide {
   position: relative;
-  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(1.1rem, 2.2vw, 1.6rem);
+  padding-block: clamp(3.25rem, 5vw, 4.5rem) clamp(1.75rem, 2.2vw, 2rem);
   background:
     linear-gradient(180deg, var(--lp-cream) 0%, var(--lp-warm) 52%, var(--lp-paper) 100%);
   overflow: hidden;
@@ -1353,7 +1361,7 @@ body.landing-page {
 
 /* Seção curta, isolada, para o roteiro numerado logo após a intro do processo */
 .lp-process-roadmap-wrap {
-  padding-block: clamp(1.1rem, 2.2vw, 1.6rem) clamp(2.5rem, 5vw, 4.5rem);
+  padding-block: clamp(1.75rem, 2.2vw, 2rem) clamp(3.25rem, 5vw, 4.5rem);
   background: var(--lp-paper);
 }
 
@@ -1491,7 +1499,7 @@ body.landing-page {
   grid-template-rows: auto 1fr;
   gap: clamp(1rem, 2vw, 1.25rem);
   min-block-size: 100%;
-  padding: clamp(1.15rem, 2.3vw, 1.55rem);
+  padding: clamp(1.35rem, 2.3vw, 1.55rem);
   border-inline-end: 1px solid var(--lp-line);
 }
 
@@ -1565,7 +1573,7 @@ body.landing-page {
   border-top: 1px solid var(--lp-line);
 }
 
-.lp-process-roadmap li {
+.lp-process-roadmap__item ul > li {
   position: relative;
   padding-inline-start: 0.95rem;
   color: var(--lp-ink);
@@ -1574,7 +1582,7 @@ body.landing-page {
   line-height: 1.42;
 }
 
-.lp-process-roadmap li::before {
+.lp-process-roadmap__item ul > li::before {
   content: "";
   position: absolute;
   inset-inline-start: 0;
@@ -1957,15 +1965,15 @@ body.landing-page {
 .lp-focus-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.7rem, 1.4vw, 1rem);
+  gap: clamp(0.9rem, 1.4vw, 1rem);
 }
 
 .lp-focus-card {
   display: grid;
   align-content: start;
-  gap: 0.6rem;
+  gap: 0.7rem;
   min-block-size: 100%;
-  padding: clamp(1rem, 1.8vw, 1.25rem);
+  padding: clamp(1.15rem, 1.8vw, 1.25rem);
   border: 1px solid var(--lp-line-mid);
   border-radius: 8px;
   background: var(--lp-cream);
@@ -2154,7 +2162,7 @@ body.landing-page {
 /* ─────────────────── 12) CONTATO ─────────────────── */
 .lp-contact {
   position: relative;
-  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block: clamp(3.25rem, 5vw, 4.5rem);
   background:
     linear-gradient(135deg, rgba(30, 26, 23, 0.98), rgba(45, 36, 32, 0.96)),
     var(--lp-dark);
@@ -2291,15 +2299,15 @@ body.landing-page {
   align-items: center;
   gap: 0.5rem;
   min-block-size: 2.25rem;
-  padding: 0.48rem 0.7rem;
+  padding: 0.6rem 0.85rem;
   color: rgba(248, 246, 241, 0.68);
   font-family: "DM Sans", system-ui, sans-serif;
   font-size: 0.84rem;
   font-weight: 700;
   line-height: 1.35;
-  border: 1px solid rgba(248, 246, 241, 0.11);
+  border: 1px solid rgba(248, 246, 241, 0.24);
   border-radius: 6px;
-  background: rgba(248, 246, 241, 0.045);
+  background: rgba(248, 246, 241, 0.075);
 }
 
 .lp-contact__signals li::before {
@@ -2313,21 +2321,21 @@ body.landing-page {
 
 .lp-contact__panel {
   display: grid;
-  gap: clamp(1.15rem, 2.4vw, 1.5rem);
-  padding: clamp(1.1rem, 2.6vw, 1.55rem);
-  border: 1px solid rgba(248, 246, 241, 0.12);
+  gap: clamp(1.3rem, 2.4vw, 1.5rem);
+  padding: clamp(1.35rem, 2.6vw, 1.55rem);
+  border: 1px solid rgba(248, 246, 241, 0.2);
   border-radius: 8px;
-  background: rgba(248, 246, 241, 0.075);
+  background: rgba(248, 246, 241, 0.09);
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .lp-contact__panel-header {
   display: grid;
   gap: 0.4rem;
   padding-bottom: clamp(0.9rem, 2vw, 1.15rem);
-  border-bottom: 1px solid rgba(248, 246, 241, 0.1);
+  border-bottom: 1px solid rgba(248, 246, 241, 0.18);
 }
 
 .lp-contact__panel-kicker {
@@ -2852,6 +2860,20 @@ body.landing-page {
   .lp-contact__panel {
     inline-size: min(720px, 100%);
   }
+
+  /* Títulos de seção: os limites em "ch" foram calibrados para o layout de
+     duas colunas do desktop. Em coluna única no mobile eles só forçam quebras
+     de linha desnecessárias e deixam o título alto demais — soltamos aqui. */
+  .lp-about__text .lp-section-title,
+  .lp-process__header .lp-section-title,
+  .lp-process-guide__header .lp-section-title,
+  .lp-individual__header .lp-section-title,
+  .lp-section-header .lp-section-title,
+  .lp-contact__copy .lp-section-title,
+  .lp-casal-hero .lp-contact__copy .lp-section-title,
+  .lp-casal-guide .lp-process-guide__header .lp-section-title {
+    max-inline-size: 24ch;
+  }
 }
 
 /* 768px — phones médios e paisagem */
@@ -2886,7 +2908,7 @@ body.landing-page {
   .lp-hero__actions {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.85rem;
   }
 
   .lp-hero__actions .btn {
@@ -2898,7 +2920,7 @@ body.landing-page {
   /* Processo */
   .lp-steps {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
+    gap: 1.1rem;
   }
 
   .lp-process-roadmap {
@@ -2919,14 +2941,9 @@ body.landing-page {
     border-bottom: 0;
   }
 
-  .lp-about__badges,
   .lp-about__facts {
     display: grid;
     grid-template-columns: 1fr;
-  }
-
-  .lp-about__badges li {
-    inline-size: 100%;
   }
 
   .lp-about__facts div {
@@ -2987,7 +3004,7 @@ body.landing-page {
   .lp-contact__actions {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.85rem;
   }
 
   .lp-contact__actions .btn {
@@ -3002,7 +3019,7 @@ body.landing-page {
   }
 
   .lp-contact__panel {
-    padding: clamp(1rem, 4vw, 1.25rem);
+    padding: clamp(1.35rem, 4vw, 1.55rem);
   }
 
   /* Títulos longos com line-height apertado — abre espaço para mobile multi-linha */
@@ -3027,7 +3044,7 @@ body.landing-page {
   /* Sobre — células dos fatos com padding adequado para toque */
   .lp-about__facts div,
   .lp-individual__format div {
-    padding: 1rem;
+    padding: 1.15rem;
   }
 
   /* Atendimentos — número decorativo menor para economizar espaço vertical */
@@ -3073,7 +3090,7 @@ body.landing-page {
   }
 
   .lp-section-title {
-    font-size: clamp(1.9rem, 10vw, 2.8rem) !important;
+    font-size: clamp(1.7rem, 7.5vw, 2.5rem) !important;
   }
 
   .lp-pullquote {
