@@ -1,0 +1,137 @@
+/* ================================================================
+   Luciano Pimenta Dias — Design tokens
+   Psicologia × editorial × luxo silencioso
+
+   Camada única de decisões de design. Nenhum seletor de layout
+   ou componente vive aqui: só valores.
+   ================================================================ */
+
+:root {
+  /* ---- Tipografia -------------------------------------------- */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* A Fraunces é carregada como fonte variável. Os títulos grandes
+     usam um peso médio: em corpo alto, 700 fecha as contraformas e
+     pesa mais do que a marca pede. O negrito fica para corpos
+     pequenos, onde ele garante leitura. */
+  --weight-display: 500;
+  --weight-heading: 600;
+
+  /* Escala fluida. Cada degrau foi calibrado entre 360px e 1920px
+     para manter a personalidade editorial sem estourar no mobile. */
+  /* O hero tem duas curvas, e nas duas o limite real é a linha mais
+     longa do título, "sobre se adaptar mais.", que não pode quebrar.
+     No mobile ela precisa caber na largura da tela (a partir de
+     340px); no desktop, na coluna de texto ao lado do retrato. */
+  --step-hero: clamp(1.85rem, 0.45rem + 6.5vw, 3.6rem);
+  --step-title: clamp(1.9rem, 1.25rem + 2.7vw, 3.35rem);
+  --step-chapter: clamp(1.9rem, 1.2rem + 2.6vw, 3.1rem);
+  --step-statement: clamp(1.6rem, 1.2rem + 1.7vw, 2.5rem);
+  --step-heading: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --step-quote: clamp(1.25rem, 1.05rem + 0.95vw, 1.75rem);
+  --step-lead: clamp(1.05rem, 0.99rem + 0.28vw, 1.2rem);
+  --step-body: clamp(1rem, 0.97rem + 0.12vw, 1.06rem);
+  --step-small: clamp(0.86rem, 0.84rem + 0.1vw, 0.92rem);
+  --step-kicker: clamp(0.68rem, 0.66rem + 0.09vw, 0.74rem);
+  --step-numeral: clamp(2.4rem, 1.8rem + 2.2vw, 3.6rem);
+
+  --leading-tight: 0.98;
+  --leading-title: 1.06;
+  --leading-snug: 1.2;
+  --leading-body: 1.75;
+
+  --tracking-display: -0.028em;
+  --tracking-hero: -0.035em;
+  --tracking-kicker: 0.2em;
+
+  /* Largura de leitura. 62ch é o ponto onde o texto ainda respira
+     mas não vira uma coluna de jornal. */
+  --measure: 62ch;
+  --measure-tight: 46ch;
+  --measure-title: 18ch;
+
+  /* ---- Cor ---------------------------------------------------- */
+  --paper: #f8f6f1;
+  --cream: #fdfcf8;
+  --warm: #efe5d8;
+  --warm-deep: #e6d7c6;
+  --ink: #1e1a17;
+  --ink-deep: #17130f;
+
+  /* O vinho vem do pavão do logo. É a cor da marca e fica reservado
+     ao que pede decisão: ações principais e a virada do título. */
+  --wine: #752a2a;
+  --wine-deep: #5b1f20;
+  --wine-light: #c98f86;
+  /* Vinho quase noturno: fundo da seção de pilares. */
+  --wine-night: #3a1415;
+
+  /* O cobre é a cor da luz das fotos. Desenha fios, numerais e
+     rótulos — estrutura, nunca ação. */
+  --copper: #8b5e3c;
+  --copper-light: #c08d63;
+  --copper-pale: #e7d5c4;
+
+  /* O cobre de texto é um tom mais fechado que o cobre dos fios.
+     Em #8b5e3c os rótulos de 12px ficam em 4.48:1 sobre o fundo
+     quente (--warm) — logo abaixo do mínimo de 4.5. Este tom passa
+     em todos os fundos claros do site. */
+  --copper-ink: #7d5335;
+
+  --text-strong: var(--ink);
+  --text-body: #4e4640;
+  --text-muted: #6b625b;
+  --text-on-dark: #f3efe8;
+  --text-on-dark-muted: rgba(243, 239, 232, 0.7);
+
+  /* Fios: a estrutura desta marca é feita de linhas. */
+  --rule: rgba(30, 26, 23, 0.12);
+  --rule-soft: rgba(30, 26, 23, 0.07);
+  --rule-strong: rgba(30, 26, 23, 0.26);
+  --rule-on-dark: rgba(243, 239, 232, 0.14);
+  --rule-on-dark-strong: rgba(243, 239, 232, 0.3);
+
+  /* ---- Layout ------------------------------------------------- */
+  --header-h: 5rem;
+  --header-h-compact: 4.25rem;
+  --shell: 84rem;
+  --gutter: clamp(1.25rem, 0.6rem + 2.9vw, 4rem);
+
+  --space-section: clamp(4.75rem, 2.9rem + 6.4vw, 9rem);
+  --space-section-tight: clamp(3.5rem, 2.4rem + 4vw, 6rem);
+  --space-block: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
+
+  /* ---- Forma -------------------------------------------------- */
+  /* Linhas retas para a estrutura, curvas para o que é humano:
+     retratos em arco, superfícies de canto suave e ações em pílula. */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+  --radius-arch: 999px 999px var(--radius-card) var(--radius-card);
+
+  /* ---- Movimento ---------------------------------------------- */
+  /* Um easing só para entradas. Consistência é o que faz o
+     movimento parecer intencional em vez de decorativo. */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-ui: cubic-bezier(0.32, 0.72, 0.24, 1);
+
+  --dur-quick: 200ms;
+  --dur-ui: 420ms;
+  --dur-reveal: 900ms;
+  --dur-image: 1000ms;
+
+  /* ---- Elevação ----------------------------------------------- */
+  /* Sombras quentes (marrom, não cinza) e sempre difusas. */
+  --shadow-portrait: 0 2.5rem 4.5rem -2.25rem rgba(58, 36, 24, 0.42);
+  --shadow-card: 0 1.25rem 2.75rem -1.5rem rgba(58, 36, 24, 0.24);
+  --shadow-header: 0 0.5rem 2rem rgba(30, 26, 23, 0.05);
+}
+
+@media (min-width: 64.0625em) {
+  :root {
+    /* Folga de ~8% sobre a largura medida: a mesma fonte rende um
+       pouco mais larga em alguns navegadores. O 8vh faz o título
+       ceder também em telas baixas, para o hero caber numa tela só. */
+    --step-hero: clamp(2.2rem, min(4.4vw, 8vh), 4.2rem);
+  }
+}

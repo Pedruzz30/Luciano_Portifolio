@@ -1,0 +1,654 @@
+/* ================================================================
+   Luciano Pimenta Dias — Base
+   Reset, documento, primitivas tipográficas, acessibilidade
+   e os ganchos de movimento compartilhados.
+   ================================================================ */
+
+/* 1. Reset ------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 2rem);
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 20rem;
+  min-height: 100vh;
+  /* clip (não hidden) preserva position: sticky nos filhos */
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--text-strong);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+}
+
+body.has-open-nav {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ol,
+ul {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: inherit;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+/* <picture> não pode criar caixa própria: quem carrega o layout
+   (proporção, object-fit, altura da moldura) é sempre o <img>.
+   Sem isto, um height:100% no <img> resolve contra um pai de altura
+   automática e a imagem encolhe dentro da moldura. */
+picture {
+  display: contents;
+}
+
+button,
+input,
+textarea,
+select {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  border: 0;
+  background: none;
+}
+
+:where(ul[class], ol[class]) {
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: var(--wine);
+  color: var(--cream);
+}
+
+/* 2. Acessibilidade ---------------------------------------------- */
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 5000;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--step-small);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 1.5rem));
+  transition: transform var(--dur-quick) var(--ease-ui);
+}
+
+/* :focus, não :focus-visible — o skip link precisa aparecer sempre
+   que receber foco, inclusive quando o foco vem programaticamente. */
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* 3. Casca de layout --------------------------------------------- */
+.shell {
+  width: min(calc(100% - (2 * var(--gutter))), var(--shell));
+  margin-inline: auto;
+}
+
+section[id] {
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+/* 4. Primitivas tipográficas ------------------------------------- */
+
+/* Kicker — o rótulo de seção: só o texto, em versalete de cobre.
+   Aparece em toda seção; é o que dá ritmo de revista ao scroll. */
+.kicker {
+  display: block;
+  margin: 0;
+  color: var(--copper-ink);
+  font-family: var(--font-body);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: var(--tracking-kicker);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.kicker--on-dark {
+  color: var(--copper-light);
+}
+
+/* Títulos de seção */
+.title {
+  max-width: var(--measure-title);
+  font-size: var(--step-title);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-title);
+}
+
+.title--wide {
+  max-width: 22ch;
+}
+
+/* A assinatura tipográfica do site: a parte que carrega o sentido do
+   título muda para itálico leve em vinho — a mesma virada do hero
+   ("É sobre se reconhecer."). Em fundo escuro ela vira cobre. */
+:is(.title, .chapter__title, .closing__title) em {
+  color: var(--wine);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+:is(.principles, .closing, .band--night) :is(.title, .closing__title) em {
+  color: var(--copper-light);
+}
+
+/* Capitular: a primeira letra do texto longo, em vinho. */
+.prose--dropcap > p:first-child::first-letter {
+  float: left;
+  margin: 0.06em 0.12em 0 0;
+  color: var(--wine);
+  font-family: var(--font-display);
+  font-size: 3.5em;
+  font-weight: var(--weight-display);
+  line-height: 0.8;
+}
+
+.title--full {
+  max-width: none;
+}
+
+/* Declaração: um título que é uma frase inteira. Corpo menor que o
+   de .title, para a frase caber em três ou quatro linhas. */
+.title--statement {
+  max-width: 24ch;
+  font-size: var(--step-statement);
+  line-height: 1.14;
+}
+
+/* Corpo de texto longo */
+.prose {
+  display: grid;
+  gap: 1.15em;
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: var(--step-body);
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+}
+
+.lead {
+  max-width: 46ch;
+  color: var(--text-body);
+  font-size: var(--step-lead);
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+/* Citação editorial — Fraunces itálico apoiada num fio vertical de
+   cobre. Sem fundo, sem aspas decorativas: o fio já diz que é voz. */
+.quote {
+  position: relative;
+  max-width: 28ch;
+  padding-inline-start: clamp(1.1rem, 0.8rem + 1vw, 1.6rem);
+  border-inline-start: 1px solid var(--copper);
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: var(--step-quote);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  line-height: 1.34;
+  text-wrap: pretty;
+}
+
+.quote p {
+  margin: 0;
+}
+
+.quote--wide {
+  max-width: 34ch;
+}
+
+.quote--on-dark {
+  border-inline-start-color: var(--copper-light);
+  color: var(--text-on-dark);
+}
+
+/* Lista de termos em linha — usada para "focos" e atributos.
+   Pílulas de contorno fino: leem como etiquetas, não como botões. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--text-body);
+  font-size: var(--step-small);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+.tags li {
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--cream) 70%, transparent);
+}
+
+/* Grade de dados: rótulo em cima, valor embaixo, fio no topo.
+   É a alternativa "não-card" para blocos de informação factual. */
+.data-grid {
+  display: grid;
+  gap: 0;
+  border-block-start: 1px solid var(--rule);
+}
+
+.data-grid > div {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  padding-block: 1rem;
+  border-block-end: 1px solid var(--rule-soft);
+}
+
+.data-grid dt {
+  color: var(--copper-ink);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: var(--tracking-kicker);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.data-grid dd {
+  color: var(--text-strong);
+  font-size: var(--step-small);
+  line-height: 1.6;
+}
+
+/* Variante em linha: três fatos curtos lado a lado, separados por
+   fios verticais, em vez de três faixas de largura total. */
+@media (min-width: 40em) {
+  .data-grid--row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-block-end: 1px solid var(--rule);
+  }
+
+  .data-grid--row > div {
+    padding: 1.1rem 1.25rem;
+    border-block-end: 0;
+    border-inline-start: 1px solid var(--rule);
+  }
+
+  .data-grid--row > div:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+.data-grid--on-dark {
+  border-block-start-color: var(--rule-on-dark);
+}
+
+.data-grid--on-dark > div {
+  border-block-end-color: var(--rule-on-dark);
+}
+
+.data-grid--on-dark dt {
+  color: var(--copper-light);
+}
+
+.data-grid--on-dark dd {
+  color: var(--text-on-dark-muted);
+}
+
+/* 5. Ações -------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.7rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--step-small);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-ui) var(--ease-ui),
+    border-color var(--dur-ui) var(--ease-ui),
+    color var(--dur-ui) var(--ease-ui),
+    box-shadow var(--dur-ui) var(--ease-ui);
+}
+
+/* A seta é o único ornamento dos botões — e ela se move,
+   discretamente, no hover. */
+.btn::after {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-block-start: 1.5px solid currentColor;
+  border-inline-end: 1.5px solid currentColor;
+  content: "";
+  flex: 0 0 auto;
+  transform: rotate(45deg);
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+
+.btn:hover::after,
+.btn:focus-visible::after {
+  transform: translateX(0.25rem) rotate(45deg);
+}
+
+/* A ação principal é a única coisa em vinho cheio na página. */
+.btn--primary {
+  border-color: var(--wine);
+  background: var(--wine);
+  color: var(--cream);
+  box-shadow: 0 0.9rem 1.75rem -1rem color-mix(in srgb, var(--wine) 75%, transparent);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  border-color: var(--wine-deep);
+  background: var(--wine-deep);
+  box-shadow: 0 1.1rem 2rem -0.9rem color-mix(in srgb, var(--wine) 85%, transparent);
+}
+
+.btn--ghost {
+  border-color: var(--rule-strong);
+  color: var(--text-strong);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn--light {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.btn--light:hover,
+.btn--light:focus-visible {
+  border-color: var(--copper-light);
+  background: var(--copper-light);
+  color: var(--ink-deep);
+}
+
+.btn--ghost-light {
+  border-color: var(--rule-on-dark-strong);
+  color: var(--text-on-dark);
+}
+
+.btn--ghost-light:hover,
+.btn--ghost-light:focus-visible {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Link de texto com fio próprio. O sublinhado é text-decoration, e
+   não um pseudo-elemento posicionado: assim ele acompanha cada linha
+   quando o texto quebra, em vez de riscar a última. */
+.link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.6rem;
+  padding-block: 0.35rem;
+  color: var(--wine);
+  font-size: var(--step-small);
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+  text-decoration-color: color-mix(in srgb, currentColor 32%, transparent);
+  transition: text-decoration-color var(--dur-ui) var(--ease-ui);
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.link__arrow {
+  flex: 0 0 auto;
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+
+.link:hover .link__arrow,
+.link:focus-visible .link__arrow {
+  transform: translateX(0.25rem);
+}
+
+/* 6. Ganchos de movimento ---------------------------------------- */
+/* O estado inicial só existe depois que o motion.js confirma que
+   pode animar (html.motion). Sem JS, sem erro: tudo já está visível. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0);
+    transition:
+      opacity var(--dur-reveal) var(--ease-entrance) var(--reveal-delay, 0ms),
+      transform var(--dur-reveal) var(--ease-entrance) var(--reveal-delay, 0ms);
+  }
+
+  /* Texto revelado por máscara de overflow: a linha sobe de dentro
+     do próprio bloco em vez de aparecer. */
+  .motion [data-reveal="line"] {
+    opacity: 1;
+    transform: translate3d(0, 105%, 0);
+    transition: transform var(--dur-reveal) var(--ease-entrance) var(--reveal-delay, 0ms);
+  }
+
+  /* Imagem: cortina vertical + uma correção mínima de escala.
+     1.04 é suficiente para dar vida; mais que isso vira efeito. */
+  .motion [data-reveal="image"] {
+    opacity: 1;
+    clip-path: inset(0 0 100% 0);
+    transform: scale(1.04);
+    transition:
+      clip-path var(--dur-image) var(--ease-entrance) var(--reveal-delay, 0ms),
+      transform var(--dur-image) var(--ease-entrance) var(--reveal-delay, 0ms);
+  }
+
+  .motion [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* O recorte final é negativo de propósito: inset(0) cortaria a
+     sombra da moldura para sempre depois da entrada. */
+  .motion [data-reveal="image"].is-revealed {
+    clip-path: inset(-6rem -6rem -6rem -6rem);
+    transform: scale(1);
+  }
+
+  /* Traço do fio — a assinatura visual da marca. */
+  .motion [data-draw] {
+    stroke-dasharray: var(--draw-length, 1200);
+    stroke-dashoffset: var(--draw-length, 1200);
+    transition: stroke-dashoffset 2.4s var(--ease-entrance);
+  }
+
+  .motion [data-draw].is-drawn {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* A máscara só precisa cortar na vertical, que é por onde a linha
+   entra. Na horizontal ela fica aberta: se uma linha sem quebra sair
+   alguns pixels da coluna (outra fonte, outro navegador), ela avança
+   em vez de perder a última letra. overflow:hidden é o recurso para
+   navegadores sem overflow:clip. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  overflow: visible clip;
+  /* pequeno alívio para descendentes (g, j, ç) não serem cortados */
+  padding-block-end: 0.1em;
+  margin-block-end: -0.1em;
+}
+
+/* 7. Transições de página e preferências ------------------------- */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 340ms;
+  animation-timing-function: var(--ease-ui);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal],
+  [data-draw] {
+    clip-path: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-muted: #443d38;
+    --text-body: #332d29;
+    --rule: rgba(30, 26, 23, 0.3);
+    --rule-soft: rgba(30, 26, 23, 0.2);
+    --rule-on-dark: rgba(243, 239, 232, 0.36);
+    --text-on-dark-muted: rgba(243, 239, 232, 0.86);
+  }
+}
+
+@media (forced-colors: active) {
+  :where(a, button, input, textarea, select, summary):focus-visible {
+    outline: 3px solid Highlight;
+  }
+
+  .btn {
+    border-color: currentColor;
+  }
+}
+
+@media print {
+  .site-header,
+  .skip-link,
+  .site-header__backdrop,
+  [data-draw],
+  .hero__badge {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  [data-reveal] {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+}

@@ -1,0 +1,2967 @@
+/* ================================================================
+   Luciano Pimenta Dias — Sistema editorial
+
+   Ordem: cabeçalho → hero → sobre → princípios → capítulos →
+   processo → conteúdo de página interna → encerramento → rodapé.
+
+   Cada componente traz o seu próprio comportamento responsivo logo
+   abaixo da definição, para que nada seja alterado à distância.
+   ================================================================ */
+
+/* ================================================================
+   1. CABEÇALHO
+   ================================================================ */
+.site-header {
+  position: fixed;
+  z-index: 1200;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: var(--header-h);
+  transition: height var(--dur-ui) var(--ease-ui);
+}
+
+/* O fundo (e o desfoque) vivem num pseudo-elemento, não no próprio
+   cabeçalho. backdrop-filter transforma o elemento em bloco
+   contentor de descendentes position:fixed — e isso prenderia a
+   gaveta mobile e o backdrop dentro da faixa do cabeçalho. */
+.site-header::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-block-end: 1px solid transparent;
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+  content: "";
+  transition:
+    background-color var(--dur-ui) var(--ease-ui),
+    border-color var(--dur-ui) var(--ease-ui),
+    box-shadow var(--dur-ui) var(--ease-ui);
+}
+
+@supports (backdrop-filter: blur(1rem)) {
+  .site-header::before {
+    backdrop-filter: blur(0.9rem) saturate(1.1);
+  }
+}
+
+/* Depois do scroll o cabeçalho encolhe e ganha um fio.
+   É a única mudança de estado: nada de sombra pesada. */
+.site-header.is-scrolled,
+.site-header.is-menu-open {
+  height: var(--header-h-compact);
+}
+
+.site-header.is-scrolled::before,
+.site-header.is-menu-open::before {
+  border-block-end-color: var(--rule);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  box-shadow: var(--shadow-header);
+}
+
+.site-header__inner {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1rem, 3vw, 3rem);
+}
+
+.site-header__brand {
+  display: inline-flex;
+  min-width: max-content;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+.site-header__logo {
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+  transition:
+    width var(--dur-ui) var(--ease-ui),
+    height var(--dur-ui) var(--ease-ui);
+}
+
+.site-header.is-scrolled .site-header__logo {
+  width: 2.35rem;
+  height: 2.35rem;
+}
+
+.site-header__identity {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.site-header__name {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.site-header__role {
+  color: var(--text-muted);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.site-header__nav-intro {
+  display: none;
+}
+
+.site-header__toggle {
+  display: none;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  color: var(--text-strong);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-ui) var(--ease-ui),
+    background-color var(--dur-ui) var(--ease-ui);
+}
+
+.site-header__toggle:hover {
+  border-color: var(--ink);
+}
+
+.site-header__toggle-icon {
+  position: relative;
+  width: 1.1rem;
+  height: 1.5px;
+  background: currentColor;
+  transition: background-color var(--dur-quick) var(--ease-ui);
+}
+
+.site-header__toggle-icon::before,
+.site-header__toggle-icon::after {
+  position: absolute;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  content: "";
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+
+.site-header__toggle-icon::before {
+  transform: translateY(-0.34rem);
+}
+
+.site-header__toggle-icon::after {
+  transform: translateY(0.34rem);
+}
+
+.site-header__toggle[aria-expanded="true"] .site-header__toggle-icon {
+  background: transparent;
+}
+
+.site-header__toggle[aria-expanded="true"] .site-header__toggle-icon::before {
+  transform: rotate(45deg);
+}
+
+.site-header__toggle[aria-expanded="true"] .site-header__toggle-icon::after {
+  transform: rotate(-45deg);
+}
+
+.site-header__backdrop {
+  display: none;
+}
+
+/* --- Navegação desktop --- */
+@media (min-width: 64.0625em) {
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 2.4vw, 2.75rem);
+  }
+
+  .site-header__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.9rem, 1.8vw, 1.85rem);
+  }
+
+  .site-header__link {
+    position: relative;
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    color: var(--text-body);
+    font-size: 0.84rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: color var(--dur-quick) var(--ease-ui);
+  }
+
+  /* O fio cresce da esquerda no hover e permanece na seção ativa —
+     mesma lógica de .link, mesma gramática. */
+  .site-header__link::after {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0.5rem;
+    height: 1px;
+    background: var(--wine);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--dur-ui) var(--ease-ui);
+  }
+
+  .site-header__link:hover,
+  .site-header__link:focus-visible,
+  .site-header__link.active,
+  .site-header__link[aria-current="page"] {
+    color: var(--wine);
+  }
+
+  .site-header__link:hover::after,
+  .site-header__link:focus-visible::after,
+  .site-header__link.active::after,
+  .site-header__link[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .site-header__cta {
+    min-height: 2.75rem;
+    padding: 0.7rem 1.3rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* --- Navegação mobile: gaveta editorial em papel --- */
+@media (max-width: 64em) {
+  .site-header__toggle {
+    display: inline-flex;
+    order: 3;
+  }
+
+  .site-header__nav {
+    position: fixed;
+    z-index: 80;
+    inset-block-start: var(--header-h-compact);
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    display: flex;
+    width: min(90vw, 26rem);
+    flex-direction: column;
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+    padding: clamp(1.75rem, 6vw, 2.75rem) var(--gutter);
+    padding-block-end: max(clamp(1.75rem, 6vw, 2.75rem), env(safe-area-inset-bottom, 1rem));
+    border-inline-start: 1px solid var(--rule);
+    background: var(--cream);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+      transform 460ms var(--ease-entrance),
+      visibility 0s linear 460ms;
+  }
+
+  .site-header__nav.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+      transform 460ms var(--ease-entrance),
+      visibility 0s;
+  }
+
+  .site-header__nav-intro {
+    display: grid;
+    gap: 0.2rem;
+    padding-block-end: 1.25rem;
+    border-block-end: 1px solid var(--rule-soft);
+  }
+
+  .site-header__nav-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: var(--weight-heading);
+    letter-spacing: -0.02em;
+  }
+
+  .site-header__nav-meta {
+    color: var(--copper-ink);
+    font-size: var(--step-kicker);
+    font-weight: 700;
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+  }
+
+  .site-header__links {
+    display: grid;
+    gap: 0;
+  }
+
+  .site-header__links li {
+    border-block-end: 1px solid var(--rule-soft);
+  }
+
+  /* Links grandes em Fraunces com a seta à direita:
+     a gaveta parece um sumário de revista, não um menu de app. */
+  .site-header__link {
+    display: flex;
+    min-height: 3.6rem;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-strong);
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 4.6vw, 1.7rem);
+    font-weight: var(--weight-display);
+    letter-spacing: -0.025em;
+    text-decoration: none;
+    transition: color var(--dur-quick) var(--ease-ui);
+  }
+
+  .site-header__link::after {
+    color: var(--wine);
+    content: "→";
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateX(-0.5rem);
+    transition:
+      opacity var(--dur-ui) var(--ease-ui),
+      transform var(--dur-ui) var(--ease-ui);
+  }
+
+  .site-header__link.active,
+  .site-header__link[aria-current="page"],
+  .site-header__link:hover,
+  .site-header__link:focus-visible {
+    color: var(--wine);
+  }
+
+  .site-header__link.active::after,
+  .site-header__link[aria-current="page"]::after,
+  .site-header__link:hover::after,
+  .site-header__link:focus-visible::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .site-header__actions {
+    margin-block-start: auto;
+    padding-block-start: 0.5rem;
+  }
+
+  .site-header__cta {
+    width: 100%;
+  }
+
+  .site-header__backdrop {
+    position: fixed;
+    z-index: 70;
+    display: block;
+    inset: 0;
+    background: color-mix(in srgb, var(--ink) 45%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 340ms var(--ease-ui);
+  }
+
+  .site-header__backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* O atributo hidden precisa vencer o display:block acima —
+     a folha do autor tem prioridade sobre a regra do navegador. */
+  .site-header__backdrop[hidden] {
+    display: none;
+  }
+}
+
+/* ================================================================
+   2. HERO
+   ================================================================ */
+/* overflow:clip apara a folhagem na borda inferior da seção, para ela
+   não invadir a seção seguinte. clip (e não hidden) porque não cria
+   área de rolagem; hidden fica de recurso para navegadores antigos. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  overflow: clip;
+  padding-block-start: calc(var(--header-h) + clamp(2rem, 5vw, 4.5rem));
+  padding-block-end: clamp(3rem, 6vw, 5rem);
+}
+
+/* Luz de fim de tarde: a mesma da luminária do retrato. Dá
+   profundidade ao papel sem virar ilustração. Ela nasce atrás da
+   imagem do hero: à esquerda na home, à direita na página de casal. */
+.hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(
+    58rem 40rem at var(--glow-at, 16% 34%),
+    color-mix(in srgb, var(--copper-light) 17%, transparent),
+    transparent 68%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.hero--casal::before {
+  --glow-at: 78% 40%;
+}
+
+/* Duas curvas finas atravessam o fundo, por trás de tudo: o fio da
+   marca em escala de página. A escala é não uniforme, então o traço
+   usa non-scaling-stroke para manter 1px em qualquer largura. */
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  /* Só em telas largas: no celular o hero é alto e estreito, e as
+     curvas esticadas virariam riscos atravessando o texto. */
+  display: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none' fill='none' stroke='%23c9ad92' stroke-opacity='.5'%3E%3Cpath vector-effect='non-scaling-stroke' d='M-20 200C230 250 520 470 700 690S880 880 910 920'/%3E%3Cpath vector-effect='non-scaling-stroke' d='M1120 920C1290 890 1500 790 1620 600'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.hero__grid {
+  display: grid;
+  gap: clamp(3.25rem, 8vw, 4.5rem);
+}
+
+.hero__content {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.4rem, 2.2vw, 2rem);
+}
+
+.hero__eyebrow {
+  margin: 0;
+}
+
+.hero__title {
+  max-width: none;
+  margin: 0;
+  font-size: var(--step-hero);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-hero);
+  line-height: 1.08;
+  text-wrap: nowrap;
+}
+
+.hero__title-visual {
+  display: grid;
+}
+
+/* A segunda frase muda de registro: Fraunces itálico, peso leve, em
+   vinho, um ponto maior. É a única inflexão do hero — e é ela que
+   carrega o sentido da frase e a cor da marca. */
+.hero__title-turn {
+  display: block;
+  margin-block-start: 0.06em;
+  color: var(--wine);
+  font-size: 1.07em;
+}
+
+.hero__title-turn .hero__title-line {
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+/* O itálico avança à direita da própria caixa: sem esta folga a
+   máscara de overflow cortaria a ponta do último caractere. */
+.hero__title-turn .line-mask {
+  margin-inline-end: -0.12em;
+  padding-inline-end: 0.12em;
+}
+
+.hero__lead {
+  max-width: 44ch;
+  color: var(--text-body);
+  font-size: var(--step-lead);
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+/* No hero a citação é apoio, não manchete: um degrau abaixo, e o
+   fio passa a vinho para conversar com a virada do título. */
+.hero .quote {
+  max-width: 36ch;
+  border-inline-start: 1.5px solid var(--wine);
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-block-start: 0.5rem;
+}
+
+/* :not() deixa o hover de .btn--ghost (base.css) intacto. */
+.hero .btn--ghost:not(:hover, :focus-visible) {
+  border-color: color-mix(in srgb, var(--copper-light) 75%, transparent);
+  background: color-mix(in srgb, var(--cream) 65%, transparent);
+}
+
+/* --- Retrato: um cartão (foto + legenda) sobre um cenário de formas ---
+   A figura é um contêiner: 1cqw = 1% da largura da foto. Todas as
+   formas, raios e deslocamentos do cenário são medidos nessa unidade,
+   então a composição inteira escala junto, do celular ao desktop.
+   Cada medida em cqw tem antes um valor em rem, para navegadores sem
+   unidades de contêiner. */
+.hero__portrait {
+  position: relative;
+  container-type: inline-size;
+  width: min(80%, 25rem);
+  margin: 0 auto;
+}
+
+/* Ordem das camadas, do fundo para a frente: contorno, disco, painel
+   vinho, bloco bege, foto + legenda, etiqueta. A folhagem passa na
+   frente de tudo, mas fica abaixo da altura da etiqueta. */
+.hero__decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__decor > span {
+  position: absolute;
+}
+
+/* O contorno repete a silhueta da foto, deslocado para cima e para a
+   direita: só o topo e a lateral aparecem. */
+.hero__decor-outline {
+  inset-block-start: -1rem;
+  inset-block-start: -3.7cqw;
+  inset-inline-start: 1rem;
+  inset-inline-start: 4cqw;
+  width: 100%;
+  aspect-ratio: 6 / 7;
+  border: 1px solid color-mix(in srgb, var(--copper-light) 60%, transparent);
+  border-radius: 3rem 7.5rem 0 0;
+  border-radius: 11cqw 27cqw 0 0;
+}
+
+.hero__decor-disc {
+  inset-block-start: -2rem;
+  inset-block-start: -7.9cqw;
+  inset-inline-start: -2rem;
+  inset-inline-start: -7.5cqw;
+  width: 38.5%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--warm-deep);
+  opacity: 0.72;
+}
+
+.hero__decor-panel {
+  inset-block: 2rem 5rem;
+  inset-block: 7.7cqw 19.3cqw;
+  inset-inline-start: -13%;
+  width: 40%;
+  border-radius: 3.5rem 0 0 1rem;
+  border-radius: 13cqw 0 0 3.6cqw;
+  background: linear-gradient(
+    172deg,
+    color-mix(in srgb, var(--wine) 80%, var(--cream)),
+    var(--wine)
+  );
+}
+
+.hero__decor-block {
+  inset-block: 12rem 0;
+  inset-block: 45.3cqw 0;
+  inset-inline-end: -9.2%;
+  width: 30%;
+  border-radius: 0 2rem 2rem 0;
+  border-radius: 0 7cqw 7cqw 0;
+  background: var(--warm);
+}
+
+.hero__frame {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  aspect-ratio: 6 / 7;
+  border-radius: 3rem 7.5rem 0 0;
+  border-radius: 11cqw 27cqw 0 0;
+  background: var(--warm);
+}
+
+.hero__frame img {
+  width: 100%;
+  height: 100%;
+  /* 30% leva o rosto um pouco à direita do eixo: sobra parede e
+     luminária à esquerda, que é onde a etiqueta se apoia, e a
+     folhagem continua aparecendo à direita. */
+  object-fit: cover;
+  object-position: 30% 50%;
+}
+
+/* A legenda é a base do cartão: colada à foto, com a sombra que
+   levanta o conjunto do cenário. */
+.hero__caption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.05rem 0.75rem 1.15rem;
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  background: var(--cream);
+  box-shadow: 0 1.75rem 2.75rem -1.5rem rgba(58, 36, 24, 0.34);
+  white-space: nowrap;
+}
+
+.hero__caption span {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 0.82rem + 0.4vw, 1.08rem);
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.02em;
+}
+
+.hero__caption small {
+  margin-inline-start: clamp(0.7rem, 2vw, 1.25rem);
+  padding-inline-start: clamp(0.7rem, 2vw, 1.25rem);
+  border-inline-start: 1px solid var(--rule-strong);
+  color: var(--text-muted);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+/* Folhagem desfocada em primeiro plano, como planta na beira do
+   enquadramento (PlantIMG). Ela é ancorada no canto inferior esquerdo
+   da SEÇÃO, não no retrato: nenhum ancestral entre ela e .hero é
+   posicionado, então left/bottom se referem ao próprio hero — que
+   vai de borda a borda da janela. Assim ela nasce sempre do canto,
+   qualquer que seja a altura da tela.
+   A largura cresce com a margem lateral e com a janela, para as
+   folhas alcançarem o painel vinho, até um teto — em telas muito
+   largas ela fica só como planta de canto. Some no celular, onde só
+   sujaria a borda. */
+.hero__leaves {
+  --edge: max(var(--gutter), (100vw - var(--shell)) / 2);
+  --leaf-w: clamp(14rem, var(--edge) + 19vw, 40rem);
+
+  position: absolute;
+  z-index: 2;
+  /* 22% da imagem fica abaixo da borda da seção e é aparado por ela:
+     é ali que está o corte reto da base, que nunca aparece. */
+  inset-block-end: calc(var(--leaf-w) * -0.22);
+  inset-inline-start: 0;
+  display: none;
+  width: var(--leaf-w);
+  max-width: none;
+  pointer-events: none;
+}
+
+/* Etiqueta sobreposta ao retrato: o fato mais importante do
+   atendimento, colado em quem atende. Em telas estreitas ela desce
+   para a altura das mãos, para nunca cobrir o rosto. */
+.hero__badge {
+  position: absolute;
+  z-index: 3;
+  inset-block-start: 22rem;
+  inset-block-start: 88cqw;
+  inset-inline-start: -10%;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 1.05rem 0.6rem 0.65rem;
+  border: 1px solid var(--rule-soft);
+  border-radius: 0.9rem;
+  background: var(--cream);
+  box-shadow: var(--shadow-card);
+  line-height: 1.25;
+}
+
+.hero__badge-icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--warm);
+  color: var(--wine);
+  flex: 0 0 auto;
+  place-items: center;
+}
+
+.hero__badge-text {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.hero__badge small {
+  color: var(--copper-ink);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero__badge strong {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.015em;
+}
+
+@media (min-width: 48.0625em) {
+  .hero::after,
+  .hero__leaves {
+    display: block;
+  }
+}
+
+/* --- Ilustração da página de casal: "entre vocês" ---
+   Dois círculos que se cruzam. O vinho é um, o bege é o outro, e a
+   lente clara do meio é o que acontece entre os dois. */
+.couple-art {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  width: min(100%, 34rem);
+  margin: 0 auto;
+}
+
+.couple-art__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.couple-art__echo {
+  fill: none;
+  stroke: var(--copper-light);
+  stroke-opacity: 0.6;
+  stroke-width: 1;
+}
+
+.couple-art__between {
+  fill: var(--wine);
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.couple-art__label {
+  fill: var(--copper-ink);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* O SVG encolhe junto com a tela: em telas estreitas os rótulos
+   precisam de um corpo maior no desenho para chegar a ~12px reais. */
+@media (max-width: 40em) {
+  .couple-art__label {
+    font-size: 19px;
+    letter-spacing: 0.14em;
+  }
+}
+
+.couple-art__leader {
+  fill: none;
+  stroke: var(--copper);
+  stroke-opacity: 0.7;
+  stroke-width: 1;
+}
+
+.couple-art__dot {
+  fill: var(--cream);
+  stroke: var(--copper);
+  stroke-width: 1.5;
+}
+
+.couple-art__caption {
+  justify-self: stretch;
+}
+
+.couple-art__caption .quote {
+  max-width: 30ch;
+  margin-inline: auto;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+}
+
+/* Entrada: os dois círculos chegam afastados — a distância do título —
+   e se aproximam até se cruzarem; o espaço comum aparece por último.
+   O atraso soma o --reveal-delay do passo do hero, herdado da figura. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion .couple-art__a,
+  .motion .couple-art__b {
+    transition: transform 1.7s var(--ease-entrance);
+    transition-delay: calc(var(--reveal-delay, 0ms) + 200ms);
+  }
+
+  .motion .couple-art__lens,
+  .motion .couple-art__labels {
+    transition: opacity 900ms var(--ease-ui);
+    transition-delay: calc(var(--reveal-delay, 0ms) + 1300ms);
+  }
+
+  .motion .couple-art:not(.is-revealed) .couple-art__a {
+    transform: translateX(-70px);
+  }
+
+  .motion .couple-art:not(.is-revealed) .couple-art__b {
+    transform: translateX(70px);
+  }
+
+  .motion .couple-art:not(.is-revealed) :is(.couple-art__lens, .couple-art__labels) {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 64.0625em) {
+  /* Na página de casal o texto abre à esquerda e a ilustração fica à
+     direita: o inverso da home, para as duas páginas não se repetirem. */
+  .hero--casal .hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  }
+
+  .hero--casal .couple-art {
+    margin-inline: auto 0;
+  }
+}
+
+/* --- Ficha do atendimento: quatro fatos numa só superfície ---
+   position + z-index mantêm a ficha à frente da folhagem, e o fundo
+   é opaco para as folhas não aparecerem através dela. */
+.hero__facts {
+  position: relative;
+  z-index: 3;
+  margin-block-start: clamp(2.75rem, 5.5vw, 4.5rem);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--cream) 80%, var(--paper));
+}
+
+.hero__facts-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.hero__fact {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  padding: 1.1rem 1.15rem;
+}
+
+.hero__fact-label {
+  color: var(--copper-ink);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}
+
+/* "on-line" não pode quebrar no hífen quando a coluna aperta. */
+.hero__fact-value span {
+  white-space: nowrap;
+}
+
+.hero__fact-value {
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: clamp(0.98rem, 0.92rem + 0.3vw, 1.1rem);
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.018em;
+  line-height: 1.3;
+}
+
+@media (max-width: 64em) {
+  .hero__fact:nth-child(even) {
+    border-inline-start: 1px solid var(--rule);
+  }
+
+  .hero__fact:nth-child(n + 3) {
+    border-block-start: 1px solid var(--rule);
+  }
+}
+
+@media (min-width: 48em) {
+  .hero__fact {
+    padding: 1.35rem 1.75rem;
+  }
+}
+
+@media (min-width: 64.0625em) {
+  /* Em duas colunas o hero ocupa exatamente uma tela: a altura mínima
+     é a da janela (svh desconta as barras do navegador; vh é o
+     recurso), e o conteúdo fica centrado no espaço abaixo do
+     cabeçalho. O teto de 70rem evita um hero quase vazio em monitores
+     muito altos. Os respiros passam a depender também da altura (vh),
+     para o conjunto caber em telas baixas de notebook. */
+  .hero {
+    /* Medidas do hero que mais de um elemento precisa conhecer.
+       --hero-col: largura da coluna do retrato (a casca menos o vão,
+       na proporção 0.88 : 1 da grade).
+       --hero-fig-cap: largura máxima do retrato imposta pela ALTURA
+       da janela — o que sobra depois do cabeçalho, dos respiros e da
+       legenda, convertido em largura pela proporção 6:7 da foto. O
+       piso de 15rem impede que ele suma em janelas muito achatadas. */
+    --hero-col: calc(
+      (min(100vw - 2 * var(--gutter), var(--shell)) - clamp(2.5rem, 5.5vw, 5.75rem)) * 0.468
+    );
+    --hero-fig-cap: max(15rem, (100vh - 9.5rem - 13vh) * 0.857);
+
+    display: flex;
+    min-height: min(100vh, 70rem);
+    min-height: min(100svh, 70rem);
+    flex-direction: column;
+    justify-content: center;
+    padding-block-start: calc(var(--header-h) + clamp(1.75rem, min(4.5vw, 6vh), 5rem));
+    padding-block-end: clamp(2rem, min(6vw, 7vh), 5rem);
+  }
+
+  /* svh desconta as barras do navegador. Numa propriedade
+     personalizada não dá para empilhar duas declarações como recurso,
+     por isso a troca é feita com @supports. */
+  @supports (height: 100svh) {
+    .hero {
+      --hero-fig-cap: max(15rem, (100svh - 9.5rem - 13vh) * 0.857);
+    }
+  }
+
+  /* A coluna do texto é a mais larga: "sobre se adaptar mais." não
+     quebra, e é ela que define o corpo máximo do título. */
+  .hero__grid {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5.5vw, 5.75rem);
+  }
+
+  .hero__content {
+    gap: clamp(1rem, 3.2vh, 2rem);
+  }
+
+  /* O retrato abre a página à esquerda. No HTML ele continua depois
+     do texto: quem navega por leitor de tela ouve primeiro o título.
+     11% de margem é o que o painel vinho ocupa à esquerda da foto:
+     assim ele encosta exatamente no alinhamento do logo.
+     A terceira medida limita o retrato pela altura da janela: em
+     telas baixas ele encolhe para o hero continuar cabendo inteiro. */
+  .hero__portrait {
+    order: -1;
+    width: min(88%, 34rem, var(--hero-fig-cap));
+    margin-inline: 11% auto;
+  }
+
+  /* A folhagem não pode cobrir o nome na legenda. O segundo limite é
+     a distância da borda da janela até o início do nome — margem da
+     casca + recuo do retrato + folga da legenda (19.5rem é a largura
+     do texto dela) — dividida por 0.58, que é o quanto as folhas
+     avançam, em fração da imagem, na altura da legenda. Quando o
+     retrato encolhe ou a margem aperta, a planta encolhe junto. */
+  .hero__leaves {
+    --leaf-w: clamp(
+      11rem,
+      min(
+        var(--edge) + 19vw,
+        (
+            var(--edge) + var(--hero-col) * 0.11 +
+              (min(var(--hero-col) * 0.88, 34rem, var(--hero-fig-cap)) - 19.5rem) / 2 - 0.5rem
+          ) / 0.58
+      ),
+      40rem
+    );
+  }
+
+  /* Com largura de sobra, a etiqueta sobe para a altura do ombro e
+     sai pela esquerda do cartão, apoiada na parede da foto.
+     O corpo da etiqueta acompanha a largura da foto e tudo dentro
+     dela é medido em em: num retrato menor ela encolhe junto, em vez
+     de avançar sobre o rosto. */
+  .hero__badge {
+    inset-block-start: 12rem;
+    inset-block-start: 41cqw;
+    inset-inline-start: -19%;
+    gap: 0.9em;
+    padding: 0.85em 1.6em 0.85em 0.9em;
+    border-radius: 0.9em;
+    font-size: clamp(0.8rem, 3.2cqw, 1rem);
+  }
+
+  .hero__badge-icon {
+    width: 2.9em;
+    height: 2.9em;
+  }
+
+  .hero__badge-icon svg {
+    width: 1.4em;
+    height: 1.4em;
+  }
+
+  .hero__badge small {
+    font-size: 0.64em;
+  }
+
+  .hero__badge strong {
+    font-size: 1.05em;
+  }
+
+  .hero__caption {
+    padding-block: 1.3rem 1.4rem;
+  }
+
+  .hero__actions .btn {
+    min-height: 3.6rem;
+    padding-inline: 2.1rem;
+    font-size: 0.96rem;
+  }
+
+  .hero__facts-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .hero__fact + .hero__fact {
+    border-inline-start: 1px solid var(--rule);
+  }
+}
+
+/* Janelas largas e baixas (notebooks de 768px de altura com as barras
+   do navegador): o texto é o que sobra para apertar. Menos espaço
+   entre os blocos e botões um pouco mais baixos fazem a coluna caber
+   sem cortar as ações na dobra. */
+@media (min-width: 64.0625em) and (max-height: 44rem) {
+  .hero__content {
+    gap: clamp(0.7rem, 2.2vh, 1.25rem);
+  }
+
+  .hero__actions {
+    margin-block-start: 0.25rem;
+  }
+
+  .hero__actions .btn {
+    min-height: 3.1rem;
+    padding-block: 0.75rem;
+  }
+}
+
+@media (max-width: 48em) {
+  .hero__title {
+    /* No mobile as quebras editoriais são estreitas demais:
+       deixamos a frase respirar naturalmente. */
+    text-wrap: balance;
+  }
+}
+
+/* ================================================================
+   3. SOBRE
+   ================================================================ */
+.about {
+  padding-block: var(--space-section);
+  border-block-start: 1px solid var(--rule-soft);
+}
+
+.about__grid {
+  display: grid;
+  gap: clamp(2.75rem, 5vw, 4.5rem);
+}
+
+/* O retrato do Sobre repete o cartão do hero — foto com o canto
+   superior assimétrico e a legenda como base — espelhado: o canto
+   largo fica à esquerda e o bloco vinho sai pela direita. O bloco é
+   uma sombra sólida deslocada: acompanha a forma do cartão e não
+   precisa de elemento extra. */
+.about__media {
+  --card-shape: 5.5rem 2.5rem var(--radius-card) var(--radius-card);
+
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  margin: 0 1.1rem 0 0;
+  border-radius: var(--card-shape);
+  background: var(--cream);
+  box-shadow:
+    1.1rem 1.1rem 0 0 color-mix(in srgb, var(--wine) 85%, var(--cream)),
+    var(--shadow-portrait);
+}
+
+.about__portrait {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 5 / 6;
+  background: var(--warm);
+}
+
+.about__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 24%;
+}
+
+.about__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 0;
+  padding: 1.05rem 0.9rem 1.15rem;
+  text-align: center;
+}
+
+.about__caption span {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.08rem);
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.02em;
+}
+
+.about__caption small {
+  margin-inline-start: 1rem;
+  padding-inline-start: 1rem;
+  border-inline-start: 1px solid var(--rule-strong);
+  color: var(--text-muted);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.about__content {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.6rem, 2.6vw, 2.4rem);
+}
+
+.about__header {
+  display: grid;
+  gap: 1.15rem;
+}
+
+/* No mobile o retrato de Sobre não estica: fica como uma chapa
+   contida, deixando uma margem viva à direita. É o contraponto ao
+   arco centralizado do hero. */
+@media (max-width: 64em) {
+  .about__media {
+    max-width: min(82%, 22rem);
+  }
+}
+
+/* Em cartões estreitos nome e registro não cabem numa linha: o
+   registro desce inteiro, sem o fio separador sobrando no início. */
+@media (max-width: 40em) {
+  .about__caption {
+    flex-direction: column;
+  }
+
+  .about__caption small {
+    margin-inline-start: 0;
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+@media (min-width: 64.0625em) {
+  .about__grid {
+    grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
+    gap: clamp(3.5rem, 7vw, 7rem);
+  }
+
+  /* O retrato acompanha a leitura: fica presente enquanto o texto
+     avança, e é ele que ancora a seção.
+     align-self:start é obrigatório — sem ele o item de grade estica
+     até a altura da coluna de texto, a legenda desgruda do retrato e
+     o sticky não tem folga para se mover. */
+  .about__media {
+    position: sticky;
+    align-self: start;
+    inset-block-start: calc(var(--header-h-compact) + 2.5rem);
+  }
+}
+
+/* ================================================================
+   3b. FAIXA DE TEMAS
+   Uma linha de palavras em movimento lento, logo depois do hero.
+   É a primeira mudança de cor da página: marca o fim da abertura.
+   A lista aparece duas vezes na trilha; a trilha anda metade da
+   própria largura e recomeça, então o laço é contínuo.
+   ================================================================ */
+.themes {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(1rem, 2vw, 1.5rem);
+  background: var(--wine-deep);
+  color: var(--cream);
+}
+
+/* As bordas se dissolvem no vinho em vez de cortar as palavras. */
+.themes::before,
+.themes::after {
+  position: absolute;
+  z-index: 1;
+  inset-block: 0;
+  width: clamp(2rem, 8vw, 7rem);
+  content: "";
+  pointer-events: none;
+}
+
+.themes::before {
+  inset-inline-start: 0;
+  background: linear-gradient(to right, var(--wine-deep), transparent);
+}
+
+.themes::after {
+  inset-inline-end: 0;
+  background: linear-gradient(to left, var(--wine-deep), transparent);
+}
+
+.themes__track {
+  display: flex;
+  width: max-content;
+  animation: themes-scroll 70s linear infinite;
+}
+
+.themes:hover .themes__track {
+  animation-play-state: paused;
+}
+
+.themes__list {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.themes__list li {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 0.95rem + 1.5vw, 2.25rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+/* Um losango de cobre entre os temas. */
+.themes__list li::after {
+  width: 0.42rem;
+  height: 0.42rem;
+  margin-inline: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--copper-light);
+  content: "";
+  transform: rotate(45deg);
+}
+
+@keyframes themes-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .themes__track {
+    animation: none;
+  }
+}
+
+/* ================================================================
+   4. PRINCÍPIOS — o manifesto
+   A única seção em vinho escuro no meio da página. É uma pausa de
+   cor entre o Sobre e os capítulos, e dá aos três pilares o peso de
+   uma declaração, não de mais uma grade de cartões.
+   ================================================================ */
+.principles {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: var(--space-section);
+  background:
+    radial-gradient(
+      56rem 36rem at 88% -10%,
+      color-mix(in srgb, var(--wine) 80%, transparent),
+      transparent 70%
+    ),
+    var(--wine-night);
+  color: var(--text-on-dark);
+}
+
+/* O pavão do logo, em marca d'água, sai pela direita da seção. */
+.principles__mark {
+  position: absolute;
+  z-index: -1;
+  inset-block-start: 50%;
+  inset-inline-end: clamp(-12rem, -8vw, -4rem);
+  width: clamp(22rem, 42vw, 40rem);
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.05;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.principles__header {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 44rem;
+  margin-block-end: clamp(2.75rem, 5.5vw, 4.5rem);
+}
+
+.principles__header .kicker {
+  color: var(--copper-light);
+}
+
+.principles__header .title {
+  color: var(--text-on-dark);
+}
+
+.principles__list {
+  display: grid;
+  border-block-start: 1px solid var(--rule-on-dark-strong);
+}
+
+.principles__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.75rem 1.1rem;
+  padding-block: clamp(1.6rem, 3vw, 2.25rem);
+  border-block-end: 1px solid var(--rule-on-dark);
+}
+
+.principles__number {
+  color: var(--copper-light);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 1.6rem + 2vw, 3rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.principles__copy {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.principles__copy h3 {
+  color: var(--text-on-dark);
+  font-size: var(--step-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
+.principles__copy p {
+  max-width: 42ch;
+  color: var(--text-on-dark-muted);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+/* Em três colunas o numeral sobe para o topo e cresce: vira a
+   capitular de cada coluna, separada das vizinhas por um fio. */
+@media (min-width: 56em) {
+  .principles__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .principles__item {
+    grid-template-columns: none;
+    align-content: start;
+    gap: clamp(1.25rem, 2.2vw, 2rem);
+    padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 3vw, 2.75rem) 0;
+    border-block-end: 0;
+    border-inline-start: 1px solid var(--rule-on-dark);
+  }
+
+  .principles__item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .principles__number {
+    font-size: clamp(3.5rem, 2rem + 3.6vw, 5.75rem);
+    line-height: 0.8;
+  }
+}
+
+/* ================================================================
+   5. CAPÍTULOS TERAPÊUTICOS
+   ================================================================ */
+.chapter {
+  position: relative;
+  padding-block: var(--space-section);
+}
+
+.chapter--tinted {
+  background: var(--warm);
+}
+
+/* Abertura de capítulo: índice gigante e título ao lado. O numeral
+   é o que transforma "mais uma seção" em "um novo capítulo". */
+.chapter__opener {
+  display: grid;
+  gap: clamp(1.1rem, 2vw, 1.6rem);
+  padding-block-end: clamp(2rem, 4vw, 3.25rem);
+  border-block-end: 1px solid var(--rule);
+}
+
+.chapter__meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+}
+
+/* Capítulos sem índice (as aberturas da página de casal): o título
+   ocupa a linha inteira em vez de cair na coluna estreita do numeral. */
+.chapter__meta > :only-child {
+  grid-column: 1 / -1;
+}
+
+.chapter__index {
+  color: var(--copper);
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 2.5rem + 7vw, 9.5rem);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.06em;
+  line-height: 0.72;
+  opacity: 0.45;
+}
+
+.chapter__title {
+  max-width: 20ch;
+  font-size: var(--step-chapter);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.08;
+}
+
+.chapter__body {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block-start: clamp(2rem, 4vw, 3.25rem);
+}
+
+.chapter__main {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.6rem, 2.8vw, 2.4rem);
+}
+
+/* A citação do capítulo é a voz dele: maior que as demais e sem o
+   fio lateral — o corpo grande já basta para destacá-la. */
+.chapter__main > .quote {
+  max-width: 26ch;
+  padding-inline-start: 0;
+  border-inline-start: 0;
+  font-size: clamp(1.4rem, 1.1rem + 1.3vw, 2.15rem);
+  line-height: 1.26;
+}
+
+.chapter__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Coluna lateral: a nota de margem ganha uma superfície própria.
+   É o lugar onde a pessoa se reconhece na lista — merece destaque. */
+.chapter__aside {
+  display: grid;
+  align-content: start;
+  gap: 1.15rem;
+  padding: clamp(1.5rem, 1rem + 2.2vw, 2.5rem);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--cream);
+  box-shadow: var(--shadow-card);
+}
+
+.chapter--tinted .chapter__aside {
+  background: color-mix(in srgb, var(--cream) 82%, var(--warm));
+}
+
+.chapter__aside :is(h2, h3) {
+  max-width: 22ch;
+  font-size: var(--step-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
+.chapter__aside .data-grid > div:last-child {
+  padding-block-end: 0;
+  border-block-end: 0;
+}
+
+.chapter__aside-link {
+  margin-block-start: 0.1rem;
+}
+
+@media (max-width: 30em) {
+  .chapter__meta {
+    grid-template-columns: none;
+    gap: 0.75rem;
+  }
+
+  .chapter__index {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 64.0625em) {
+  .chapter__body {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  /* O capítulo 02 espelha o 01: o olhar troca de lado e o scroll
+     deixa de ser repetitivo. O título continua alinhado à esquerda —
+     só as colunas trocam. */
+  .chapter--mirrored .chapter__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  }
+
+  .chapter--mirrored .chapter__body > .chapter__main {
+    order: 2;
+  }
+
+  .chapter--mirrored .chapter__body > .chapter__aside {
+    order: 1;
+  }
+
+  .chapter__aside {
+    position: sticky;
+    align-self: start;
+    inset-block-start: calc(var(--header-h-compact) + 2.5rem);
+  }
+}
+
+/* --- Checklist "você se reconhece?" ---
+   Cada sinal é uma caixa de seleção de verdade (teclado e leitor de
+   tela funcionam sem script). O contador é um contador CSS: cada
+   caixa marcada soma 1, e o resultado — que vem depois da lista no
+   documento — mostra o total. Sem :has() o resultado fica sempre
+   visível; com :has() ele só aparece depois da primeira marcação. */
+.checklist {
+  counter-reset: marked;
+}
+
+.checklist__hint {
+  margin-block-start: -0.35rem;
+  color: var(--text-muted);
+  font-size: var(--step-small);
+}
+
+.checklist__list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.checklist__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 0.85rem;
+  background: var(--paper);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-quick) var(--ease-ui),
+    background-color var(--dur-quick) var(--ease-ui);
+}
+
+.checklist__item:hover {
+  border-color: var(--copper-light);
+}
+
+.checklist__item input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.checklist__item input:checked {
+  counter-increment: marked;
+}
+
+.checklist__box {
+  display: grid;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-block-start: 0.1rem;
+  border: 1.5px solid var(--copper);
+  border-radius: 50%;
+  flex: 0 0 auto;
+  place-items: center;
+  transition:
+    background-color var(--dur-quick) var(--ease-ui),
+    border-color var(--dur-quick) var(--ease-ui);
+}
+
+.checklist__box::after {
+  width: 0.5rem;
+  height: 0.27rem;
+  border-block-end: 2px solid var(--cream);
+  border-inline-start: 2px solid var(--cream);
+  content: "";
+  opacity: 0;
+  transform: translateY(-1px) rotate(-45deg);
+  transition: opacity var(--dur-quick) var(--ease-ui);
+}
+
+.checklist__item input:checked + .checklist__box {
+  border-color: var(--wine);
+  background: var(--wine);
+}
+
+.checklist__item input:checked + .checklist__box::after {
+  opacity: 1;
+}
+
+.checklist__item input:focus-visible + .checklist__box {
+  outline: 2px solid var(--wine);
+  outline-offset: 3px;
+}
+
+.checklist__item:has(input:checked) {
+  border-color: color-mix(in srgb, var(--wine) 40%, transparent);
+  background: color-mix(in srgb, var(--wine) 6%, var(--cream));
+}
+
+.checklist__text {
+  color: var(--text-body);
+  font-size: clamp(0.95rem, 0.93rem + 0.1vw, 1.01rem);
+  line-height: 1.45;
+}
+
+.checklist__item input:checked ~ .checklist__text {
+  color: var(--text-strong);
+}
+
+.checklist__result {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+  border-radius: 0.95rem;
+  background: var(--wine-deep);
+  color: var(--text-on-dark);
+  animation: checklist-in 520ms var(--ease-entrance);
+}
+
+/* O atributo hidden (posto pelo checklist.js) precisa vencer o
+   display:grid acima. */
+.checklist__result[hidden] {
+  display: none;
+}
+
+/* :not() mantém o total fora desta regra — sem isso a cor e o corpo
+   do texto comum venceriam os do total por especificidade. */
+.checklist__result p:not(.checklist__score) {
+  color: var(--text-on-dark-muted);
+  font-size: var(--step-small);
+  line-height: 1.6;
+}
+
+.checklist__score {
+  color: var(--text-on-dark);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.checklist__count {
+  color: var(--copper-light);
+}
+
+/* Sem JS o número vem do contador CSS; com JS o checklist.js escreve
+   o número no próprio elemento, e o contador deixa de aparecer. */
+.checklist__count:empty::before {
+  content: counter(marked);
+}
+
+.checklist__result .checklist__note {
+  padding-block-start: 0.6rem;
+  border-block-start: 1px solid var(--rule-on-dark);
+  font-size: 0.8rem;
+}
+
+.checklist__result .link {
+  min-height: 2.25rem;
+  padding-block: 0;
+  color: var(--cream);
+}
+
+@supports selector(:has(*)) {
+  .checklist:not(:has(input:checked)) .checklist__result {
+    display: none;
+  }
+}
+
+@keyframes checklist-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+/* Marcador de anel usado nas garantias do encerramento. */
+.closing__assurances li::before {
+  position: absolute;
+  inset-inline-start: 0;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 1px solid var(--copper);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--copper) 0 2.5px, transparent 3.25px);
+  content: "";
+}
+
+/* ================================================================
+   6. PROCESSO — linha do tempo
+   Quatro nós sobre um trilho. No desktop o trilho é horizontal e
+   cresce da esquerda para a direita quando entra na tela; no mobile
+   ele vira a linha vertical da cronologia.
+   ================================================================ */
+.process {
+  position: relative;
+  padding-block: var(--space-section);
+  background: var(--cream);
+  border-block: 1px solid var(--rule-soft);
+}
+
+.process__header {
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  padding-block-end: clamp(2.75rem, 5.5vw, 4.5rem);
+}
+
+.process__heading {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.process__aside {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.5rem, 2.6vw, 2.25rem);
+}
+
+.process__intro {
+  display: grid;
+  gap: 1.1rem;
+  max-width: var(--measure);
+  color: var(--text-body);
+  text-wrap: pretty;
+}
+
+.process__journey {
+  --node: 3.25rem;
+  --steps-gap: clamp(1rem, 2vw, 1.5rem);
+
+  position: relative;
+}
+
+.process__rail {
+  display: none;
+}
+
+.process__steps {
+  position: relative;
+  display: grid;
+  gap: 0;
+  max-width: 44rem;
+}
+
+.process__step {
+  position: relative;
+  padding-block-end: clamp(1.25rem, 4vw, 1.75rem);
+  padding-inline-start: calc(var(--node) + 1rem);
+}
+
+/* Trilho vertical do mobile: liga o centro de um nó ao próximo. */
+.process__step::before {
+  position: absolute;
+  inset-block: var(--node) 0;
+  inset-inline-start: calc(var(--node) / 2);
+  width: 1px;
+  background: var(--copper);
+  content: "";
+  opacity: 0.4;
+}
+
+.process__step:last-child {
+  padding-block-end: 0;
+}
+
+.process__step:last-child::before {
+  display: none;
+}
+
+.process__number {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  display: grid;
+  width: var(--node);
+  height: var(--node);
+  border: 1px solid var(--copper);
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--wine);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  place-items: center;
+  transition:
+    background-color var(--dur-ui) var(--ease-ui),
+    color var(--dur-ui) var(--ease-ui),
+    border-color var(--dur-ui) var(--ease-ui);
+}
+
+.process__step-body {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  height: 100%;
+  padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  transition:
+    transform var(--dur-ui) var(--ease-ui),
+    box-shadow var(--dur-ui) var(--ease-ui),
+    border-color var(--dur-ui) var(--ease-ui);
+}
+
+/* Passar o mouse num passo acende o nó dele. */
+.process__step:hover .process__number {
+  border-color: var(--wine);
+  background: var(--wine);
+  color: var(--cream);
+}
+
+.process__step:hover .process__step-body {
+  border-color: color-mix(in srgb, var(--copper-light) 70%, transparent);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-0.25rem);
+}
+
+.process__label {
+  color: var(--copper-ink);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}
+
+.process__step-body h3 {
+  font-size: var(--step-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
+/* :not() mantém o rótulo fora desta regra — sem isso a cor e o corpo
+   do parágrafo venceriam os do rótulo por especificidade. */
+.process__step-body > p:not(.process__label) {
+  color: var(--text-body);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.process__notes {
+  display: grid;
+  gap: 0.3rem;
+  margin-block-start: auto;
+  padding-block-start: 0.85rem;
+  border-block-start: 1px solid var(--rule-soft);
+  color: var(--text-muted);
+  font-size: var(--step-small);
+  line-height: 1.5;
+}
+
+
+@media (min-width: 64.0625em) {
+  .process__header {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  /* O trilho vai do centro do primeiro nó ao centro do último. Com
+     quatro colunas de largura w e vão g, o último centro fica a
+     w − node/2 da borda direita. */
+  .process__rail {
+    position: absolute;
+    display: block;
+    inset-block-start: calc(var(--node) / 2);
+    inset-inline: calc(var(--node) / 2)
+      calc((100% - 3 * var(--steps-gap)) / 4 - var(--node) / 2);
+    height: 1px;
+    background: var(--copper);
+    opacity: 0.55;
+  }
+
+  .process__steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--steps-gap);
+    max-width: none;
+  }
+
+  .process__step {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 1.25rem;
+    padding: 0;
+  }
+
+  .process__step::before {
+    display: none;
+  }
+
+  .process__number {
+    position: relative;
+  }
+}
+
+/* O trilho cresce da esquerda quando entra na tela. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion .process__rail[data-reveal] {
+    opacity: 0.55;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1.6s var(--ease-entrance);
+  }
+
+  .motion .process__rail.is-revealed {
+    transform: scaleX(1);
+  }
+}
+
+/* ================================================================
+   6b. FRASE EM DESTAQUE
+   Um respiro tipográfico antes do contato: uma frase só, grande,
+   centrada, sob o pavão do logo.
+   ================================================================ */
+.statement {
+  padding-block: var(--space-section-tight);
+  background: var(--paper);
+  text-align: center;
+}
+
+.statement__inner {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+/* O pavão do logo, sozinho, como abertura da frase. */
+.statement__ornament img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+.statement__quote {
+  max-width: 24ch;
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.1rem + 2.8vw, 3.4rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.statement__quote p {
+  margin: 0;
+}
+
+.statement__quote em {
+  color: var(--wine);
+  font-style: italic;
+}
+
+/* ================================================================
+   7. BLOCOS DE PÁGINA INTERNA
+   Reaproveitados por casal.html para manter uma só linguagem.
+   ================================================================ */
+
+/* --- Faixa genérica: a moldura de qualquer seção de conteúdo --- */
+.band {
+  padding-block: var(--space-section);
+}
+
+.band--cream {
+  background: var(--cream);
+  border-block: 1px solid var(--rule-soft);
+}
+
+.band--tinted {
+  background: var(--warm);
+}
+
+.band--tight {
+  padding-block: var(--space-section-tight);
+}
+
+.band__header {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 46rem;
+  margin-block-end: clamp(2.25rem, 4.5vw, 3.75rem);
+}
+
+.band__lead {
+  max-width: 56ch;
+  margin-block-start: 0.35rem;
+  color: var(--text-body);
+  font-size: var(--step-lead);
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+/* Faixa em duas colunas: o título fica à esquerda, acompanhando a
+   leitura, e o conteúdo ocupa a direita. Evita a meia página vazia
+   ao lado de listas longas (como as dúvidas frequentes). A coluna
+   esquerda (.band__aside) leva título e cartão juntos, e é ela que
+   fica presa no scroll — assim os dois nunca se sobrepõem. */
+.band__aside {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin-block-end: clamp(2.25rem, 4.5vw, 3.75rem);
+}
+
+.band__aside .band__header {
+  margin-block-end: 0;
+}
+
+@media (min-width: 64.0625em) {
+  .band__shell--split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .band__shell--split > :first-child {
+    position: sticky;
+    inset-block-start: calc(var(--header-h-compact) + 2.5rem);
+    margin-block-end: 0;
+  }
+}
+
+/* --- Faixa noturna: o mesmo vinho escuro dos pilares da home.
+   É a pausa de cor da página de casal. --- */
+.band--night {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background:
+    radial-gradient(
+      56rem 36rem at 10% -10%,
+      color-mix(in srgb, var(--wine) 78%, transparent),
+      transparent 70%
+    ),
+    var(--wine-night);
+  color: var(--text-on-dark);
+}
+
+.band--night .kicker {
+  color: var(--copper-light);
+}
+
+.band--night .title {
+  color: var(--text-on-dark);
+}
+
+/* O pavão em marca d'água, saindo pela direita. */
+.band__mark {
+  position: absolute;
+  z-index: -1;
+  inset-block-end: clamp(-10rem, -8vw, -4rem);
+  inset-inline-end: clamp(-12rem, -8vw, -4rem);
+  width: clamp(20rem, 38vw, 36rem);
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* --- Mitos riscados: a palavra do mito em escala grande, com um
+   risco vinho que atravessa a palavra quando o item entra na tela. */
+.myths {
+  display: grid;
+  border-block-start: 1px solid var(--rule-on-dark-strong);
+}
+
+.myths__item {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding-block: clamp(1.75rem, 3vw, 2.5rem);
+  border-block-end: 1px solid var(--rule-on-dark);
+}
+
+.myths__word {
+  margin-block-end: 0.5rem;
+  color: var(--copper-light);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.4rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.myths__word span {
+  position: relative;
+  display: inline-block;
+  opacity: 0.85;
+}
+
+.myths__word span::after {
+  position: absolute;
+  inset-inline: -0.08em;
+  inset-block-start: 55%;
+  height: 0.07em;
+  min-height: 2px;
+  border-radius: 1px;
+  background: var(--wine-light);
+  content: "";
+  transform-origin: left center;
+}
+
+.myths__item h3 {
+  color: var(--text-on-dark);
+  font-size: var(--step-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
+.myths__item p:not(.myths__word) {
+  max-width: 40ch;
+  color: var(--text-on-dark-muted);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+/* O risco é desenhado depois que o cartão aparece. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion .myths__item .myths__word span::after {
+    transform: scaleX(0);
+    transition: transform 900ms var(--ease-entrance);
+    transition-delay: calc(var(--reveal-delay, 0ms) + 450ms);
+  }
+
+  .motion .myths__item.is-revealed .myths__word span::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (min-width: 56em) {
+  .myths {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .myths__item {
+    padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 3vw, 2.75rem) 0;
+    border-block-end: 0;
+    border-inline-start: 1px solid var(--rule-on-dark);
+  }
+
+  .myths__item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/* --- Cartão "pergunte direto", ao lado das dúvidas frequentes --- */
+.ask-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 26rem;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.ask-card__photo {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--copper-light);
+  flex: 0 0 auto;
+  object-fit: cover;
+  object-position: 47% 22%;
+}
+
+.ask-card__body {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.ask-card__title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.ask-card__text {
+  color: var(--text-body);
+  font-size: var(--step-small);
+  line-height: 1.55;
+}
+
+.ask-card .link {
+  min-height: 2.25rem;
+  padding-block: 0;
+}
+
+/* --- Bloco dividido: mídia + texto --- */
+.split {
+  padding-block: var(--space-section);
+}
+
+.split--tinted {
+  background: var(--warm);
+}
+
+.split__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/* Mesmo cartão do hero (canto largo à direita) com o bloco vinho
+   saindo pela esquerda, como no hero. */
+.split__media {
+  width: calc(100% - 1.1rem);
+  max-width: 22rem;
+  margin: 0 0 0 1.1rem;
+  overflow: hidden;
+  aspect-ratio: 5 / 6;
+  border-radius: 2.5rem 5.5rem var(--radius-card) var(--radius-card);
+  background: var(--warm-deep);
+  box-shadow:
+    -1.1rem 1.1rem 0 0 color-mix(in srgb, var(--wine) 85%, var(--cream)),
+    var(--shadow-portrait);
+}
+
+.split__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 26%;
+}
+
+.split__content {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.5rem, 2.6vw, 2.25rem);
+}
+
+@media (min-width: 64.0625em) {
+  .split__grid {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    align-items: center;
+    gap: clamp(3.5rem, 7vw, 7rem);
+  }
+
+  .split__media {
+    max-width: 27rem;
+  }
+}
+
+/* --- Grade de focos: uma só superfície dividida por fios, como
+   uma tabela de sumário. Seis temas, um bloco. --- */
+.focus-grid {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--cream);
+}
+
+.focus-grid__item {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.4rem);
+  transition: background-color var(--dur-ui) var(--ease-ui);
+}
+
+.focus-grid__item:hover {
+  background: color-mix(in srgb, var(--warm) 38%, var(--cream));
+}
+
+/* Ícone de traço fino num disco quente: o mesmo traço dos fios. */
+.focus-grid__icon {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  margin-block-end: 0.65rem;
+  border-radius: 50%;
+  background: var(--warm);
+  color: var(--wine);
+  place-items: center;
+  transition:
+    background-color var(--dur-ui) var(--ease-ui),
+    color var(--dur-ui) var(--ease-ui);
+}
+
+.focus-grid__icon svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+}
+
+.focus-grid__item:hover .focus-grid__icon {
+  background: var(--wine);
+  color: var(--cream);
+}
+
+.focus-grid__label {
+  color: var(--copper-ink);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}
+
+.focus-grid__item h3 {
+  max-width: 24ch;
+  font-size: clamp(1.15rem, 1.02rem + 0.6vw, 1.4rem);
+  letter-spacing: -0.025em;
+  line-height: 1.22;
+}
+
+.focus-grid__item p:not(.focus-grid__label) {
+  max-width: 44ch;
+  color: var(--text-body);
+  font-size: clamp(0.94rem, 0.92rem + 0.1vw, 1rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+/* Os fios internos dependem do número de colunas, então cada faixa
+   de largura declara os seus — sem regras para desfazer depois. */
+@media (max-width: 39.99em) {
+  .focus-grid__item + .focus-grid__item {
+    border-block-start: 1px solid var(--rule);
+  }
+}
+
+@media (min-width: 40em) and (max-width: 64em) {
+  .focus-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .focus-grid__item:nth-child(even) {
+    border-inline-start: 1px solid var(--rule);
+  }
+
+  .focus-grid__item:nth-child(n + 3) {
+    border-block-start: 1px solid var(--rule);
+  }
+}
+
+@media (min-width: 64.0625em) {
+  .focus-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .focus-grid__item:not(:nth-child(3n + 1)) {
+    border-inline-start: 1px solid var(--rule);
+  }
+
+  .focus-grid__item:nth-child(n + 4) {
+    border-block-start: 1px solid var(--rule);
+  }
+}
+
+/* --- Perguntas frequentes --- */
+.faq {
+  display: grid;
+  gap: 0;
+  border-block-start: 1px solid var(--rule);
+}
+
+.faq details {
+  border-block-end: 1px solid var(--rule);
+}
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--text-strong);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 0.98rem + 0.5vw, 1.3rem);
+  font-weight: var(--weight-display);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  list-style: none;
+  transition: color var(--dur-quick) var(--ease-ui);
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary:hover,
+.faq details[open] summary {
+  color: var(--wine);
+}
+
+/* Cruz que vira traço, dentro de um anel. Os dois traços são
+   gradientes do mesmo pseudo-elemento: nada posicionado fora dele,
+   sem ícone externo, sem biblioteca. */
+.faq summary::after {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  background:
+    linear-gradient(currentColor, currentColor) center / 0.75rem 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 0.75rem no-repeat;
+  content: "";
+  flex: 0 0 auto;
+  transition:
+    background-size var(--dur-ui) var(--ease-ui),
+    border-color var(--dur-ui) var(--ease-ui),
+    transform var(--dur-ui) var(--ease-ui);
+}
+
+.faq summary:hover::after,
+.faq details[open] summary::after {
+  border-color: currentColor;
+}
+
+.faq details[open] summary::after {
+  background-size:
+    0.75rem 1.5px,
+    1.5px 0;
+  transform: rotate(180deg);
+}
+
+.faq details p {
+  max-width: 62ch;
+  padding-block-end: clamp(1.25rem, 2vw, 1.75rem);
+  padding-inline-end: 3.5rem;
+  color: var(--text-body);
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+}
+
+/* ================================================================
+   8. ENCERRAMENTO
+   O site termina em tinta escura e quente: um único movimento
+   que atravessa o CTA final e o rodapé.
+   ================================================================ */
+.closing {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: var(--space-section);
+  background: var(--ink-deep);
+  color: var(--text-on-dark);
+}
+
+/* A mesma luz do hero, agora à noite: vinho de um lado, cobre do
+   outro. O escuro deixa de ser chapado e ganha temperatura. */
+.closing::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(
+      52rem 34rem at 4% -8%,
+      color-mix(in srgb, var(--wine) 62%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      44rem 30rem at 104% 108%,
+      color-mix(in srgb, var(--copper) 30%, transparent),
+      transparent 70%
+    );
+  content: "";
+  pointer-events: none;
+}
+
+.closing__grid {
+  display: grid;
+  gap: clamp(2.75rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.closing__content {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.5rem, 2.6vw, 2.25rem);
+}
+
+.closing__title {
+  max-width: 17ch;
+  font-size: var(--step-title);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.06;
+}
+
+.closing__lead {
+  max-width: 46ch;
+  color: var(--text-on-dark-muted);
+  font-size: var(--step-lead);
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+.closing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-start: 0.35rem;
+}
+
+.closing__assurances {
+  display: grid;
+  gap: 0.7rem;
+  margin-block-start: 0.5rem;
+}
+
+.closing__assurances li {
+  position: relative;
+  padding-inline-start: 1.85rem;
+  color: var(--text-on-dark-muted);
+  font-size: var(--step-small);
+  line-height: 1.5;
+}
+
+.closing__assurances li::before {
+  inset-block-start: 0.18em;
+  border-color: var(--copper-light);
+  background: radial-gradient(circle, var(--copper-light) 0 2.5px, transparent 3.25px);
+}
+
+/* Canais diretos: uma superfície de vidro escuro sobre a luz. */
+.closing__details {
+  display: grid;
+  align-content: start;
+  gap: 1.35rem;
+  padding: clamp(1.5rem, 1rem + 2.2vw, 2.5rem);
+  border: 1px solid var(--rule-on-dark);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--text-on-dark) 5%, transparent);
+}
+
+/* Quem responde: o rosto de quem vai ler a mensagem, no topo do
+   cartão de contato. Um ponto cobre pulsa devagar ao lado do status. */
+.closing__person {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  padding-block-end: 1.35rem;
+  border-block-end: 1px solid var(--rule-on-dark);
+}
+
+.closing__person img {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--ink-deep), 0 0 0 3px var(--copper-light);
+  flex: 0 0 auto;
+  object-fit: cover;
+  object-position: 47% 22%;
+}
+
+.closing__person-text {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.closing__person strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.015em;
+}
+
+.closing__person small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-on-dark-muted);
+  font-size: var(--step-small);
+}
+
+.closing__person small::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--copper-light);
+  content: "";
+  animation: closing-pulse 2.4s var(--ease-ui) infinite;
+}
+
+@keyframes closing-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--copper-light) 55%, transparent);
+  }
+
+  60% {
+    box-shadow: 0 0 0 0.45rem transparent;
+  }
+}
+
+.closing__details h3 {
+  max-width: 20ch;
+  font-size: var(--step-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
+/* A lista de canais já termina num fio: a grade de dados que vem
+   logo abaixo não precisa abrir com outro. */
+.closing__details .data-grid {
+  margin-block-start: -1.35rem;
+  border-block-start: 0;
+}
+
+.closing__details .data-grid > div:last-child {
+  padding-block-end: 0;
+  border-block-end: 0;
+}
+
+.closing__channels {
+  display: grid;
+  gap: 0;
+  border-block-start: 1px solid var(--rule-on-dark);
+  font-style: normal;
+}
+
+/* Canal de contato: uma linha inteira clicável, com a seta como
+   único afeto. */
+.closing__channel {
+  position: relative;
+  display: grid;
+  gap: 0.2rem;
+  padding-block: 1.15rem;
+  padding-inline-end: 2.5rem;
+  border-block-end: 1px solid var(--rule-on-dark);
+  text-decoration: none;
+}
+
+.closing__channel::after {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 0.35rem;
+  color: var(--copper-light);
+  content: "→";
+  font-size: 1.05rem;
+  line-height: 1;
+  transform: translateY(-50%);
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+
+.closing__channel span {
+  color: var(--copper-light);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}
+
+.closing__channel strong {
+  color: var(--text-on-dark);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.94rem + 0.45vw, 1.25rem);
+  font-weight: var(--weight-display);
+  letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
+  transition: color var(--dur-quick) var(--ease-ui);
+}
+
+.closing__channel:hover::after,
+.closing__channel:focus-visible::after {
+  transform: translate(0.3rem, -50%);
+}
+
+.closing__channel:hover strong,
+.closing__channel:focus-visible strong {
+  color: var(--copper-light);
+}
+
+@media (min-width: 64.0625em) {
+  .closing__grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 6.5rem);
+  }
+}
+
+/* ================================================================
+   9. RODAPÉ
+   ================================================================ */
+.site-footer {
+  padding-block: clamp(3rem, 5vw, 4.5rem) 0;
+  border-block-start: 1px solid var(--rule-on-dark);
+  background: var(--ink-deep);
+  color: var(--text-on-dark);
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: clamp(2.25rem, 4vw, 4rem);
+  padding-block-end: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.site-footer__brand {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+}
+
+.site-footer__logo-link {
+  width: fit-content;
+  margin-block-end: 0.85rem;
+}
+
+/* O pavão em vinho some sobre a tinta escura. O filtro o converte
+   numa silhueta clara, sem precisar de um segundo arquivo. */
+.site-footer__logo-link img {
+  width: 3rem;
+  height: 3rem;
+  filter: brightness(0) invert(0.93) sepia(0.12);
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.site-footer__name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: var(--weight-display);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.site-footer__crp {
+  color: var(--copper-light);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.site-footer__tagline {
+  max-width: 32ch;
+  margin-block-start: 0.7rem;
+  color: var(--text-on-dark-muted);
+  font-size: var(--step-small);
+  line-height: 1.7;
+}
+
+.site-footer__heading {
+  margin-block-end: 1rem;
+  color: var(--copper-light);
+  font-size: var(--step-kicker);
+  font-weight: 700;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}
+
+/* Em Contato o rótulo é um item da própria grade e já recebe o gap:
+   a margem compensa, para as duas colunas começarem na mesma linha. */
+.site-footer__contact .site-footer__heading {
+  margin-block-end: 0.3rem;
+}
+
+/* A lista do rodapé não tem classe própria, então o reset de listas
+   não a alcança: sem isto ela mostra marcadores e recuo do navegador.
+   align-content:start impede as linhas de esticarem para igualar a
+   coluna vizinha. */
+.site-footer__navigation ul,
+.site-footer__contact {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  list-style: none;
+}
+
+/* Os links do rodapé precisam de área de clique própria: só a altura
+   da linha (18px) fica abaixo do mínimo de alvo. */
+.site-footer__navigation a,
+.site-footer__contact a,
+.site-footer__contact p:not(.site-footer__heading) {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 1.75rem;
+  align-items: center;
+  color: var(--text-on-dark-muted);
+  font-size: var(--step-small);
+  line-height: 1.55;
+  text-decoration: none;
+  transition: color var(--dur-quick) var(--ease-ui);
+  overflow-wrap: anywhere;
+}
+
+/* Em telas de toque o alvo cresce para o mínimo confortável e o
+   espaçamento entre itens diminui para compensar. */
+@media (pointer: coarse) {
+  .site-footer__navigation ul,
+  .site-footer__contact {
+    gap: 0.15rem;
+  }
+
+  .site-footer__navigation a,
+  .site-footer__contact a {
+    min-height: 2.75rem;
+  }
+}
+
+.site-footer__navigation a:hover,
+.site-footer__navigation a:focus-visible,
+.site-footer__contact a:hover,
+.site-footer__contact a:focus-visible {
+  color: var(--text-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-block: 1.4rem;
+  border-block-start: 1px solid var(--rule-on-dark);
+  color: rgba(243, 239, 232, 0.55);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+/* O nome em escala de cartaz fecha a página. É um texto SVG com
+   textLength: o navegador estica ou comprime o desenho para o nome
+   ocupar exatamente a largura da casca, qualquer que seja a largura
+   real da fonte que ele carregou. Nenhum cálculo depende da fonte.
+   O corpo (166 unidades) é o que já ocupa ~1000 unidades na
+   Fraunces de exibição, então a correção do textLength é mínima.
+   O degradê do preenchimento faz as letras sumirem para baixo, como
+   se afundassem no rodapé.
+   margin-block, não margin: a margem lateral automática vem de
+   .shell e é ela que centraliza o nome. */
+.site-footer__wordmark {
+  height: auto;
+  margin-block: 0 clamp(0.4rem, 1vw, 0.9rem);
+  padding-block-start: clamp(1rem, 3vw, 2.5rem);
+  overflow: visible;
+  user-select: none;
+}
+
+.site-footer__wordmark text {
+  fill: url(#wordmark-fade);
+  font-family: var(--font-display);
+  font-size: 166px;
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 144;
+  font-weight: var(--weight-display);
+  letter-spacing: -0.04em;
+}
+
+@media (min-width: 48em) {
+  .site-footer__inner {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+}
+
+/* ================================================================
+   10. AJUSTES GERAIS DE MOBILE
+   Ritmo e alvos de toque — não é empilhamento, é art direction.
+   ================================================================ */
+@media (max-width: 48em) {
+  .chapter__opener {
+    gap: 1rem;
+  }
+
+  .chapter__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  /* Numerais e capitulares encolhem para não roubar a dobra */
+  .chapter__index {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+  }
+
+  .closing__channel {
+    padding-block: 1.3rem;
+  }
+
+  .faq details p {
+    padding-inline-end: 0;
+  }
+
+  .site-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 30em) {
+  .btn {
+    width: 100%;
+  }
+
+  .hero__actions .btn,
+  .chapter__actions .btn,
+  .closing__actions .btn {
+    flex: 1 1 100%;
+  }
+}

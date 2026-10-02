@@ -1,8 +1,6 @@
 (() => {
   if (window.Menu?.__initialized) return;
 
-  document.documentElement.classList.add('js');
-
   const state = {
     header: null,
     toggle: null,
@@ -11,11 +9,12 @@
     backdrop: null,
     focusableSelectors:
       'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), [tabindex="0"]',
-    mq: window.matchMedia('(min-width: 1025px)'),
+    mq: window.matchMedia('(min-width: 64.0625em)'),
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)'),
     focusables: [],
     sectionLinks: [],
     sectionScrollRaf: 0,
+    headerScrollRaf: 0,
     transitioning: false
   };
 
@@ -39,12 +38,14 @@
     state.header = document.querySelector('.site-header');
     if (!state.header) return;
 
-    state.toggle = state.header.querySelector('.menu-toggle');
-    state.nav = state.header.querySelector('.site-nav');
-    state.backdrop = state.header.querySelector('.nav-backdrop') || createBackdrop(state.header);
+    state.toggle = state.header.querySelector('.site-header__toggle');
+    state.nav = state.header.querySelector('.site-header__nav');
+    state.backdrop =
+      state.header.querySelector('.site-header__backdrop') || createBackdrop(state.header);
     state.toggleLabel = state.toggle?.querySelector('.visually-hidden') || null;
 
     refreshActiveNav();
+    initHeaderScroll();
 
     if (!state.toggle || !state.nav) return;
 
@@ -100,10 +101,36 @@
 
   function createBackdrop(header) {
     const div = document.createElement('div');
-    div.className = 'nav-backdrop';
+    div.className = 'site-header__backdrop';
+    div.setAttribute('aria-hidden', 'true');
     div.hidden = true;
     header.appendChild(div);
     return div;
+  }
+
+  /* O cabeçalho encolhe e ganha um fio assim que a página sai do topo.
+     Uma histerese pequena evita que ele pisque quando o usuário para
+     exatamente no limiar. */
+  function initHeaderScroll() {
+    const ENTER = 24;
+    const EXIT = 8;
+
+    const apply = () => {
+      state.headerScrollRaf = 0;
+      if (!state.header) return;
+      const y = window.scrollY;
+      const scrolled = state.header.classList.contains('is-scrolled');
+      if (!scrolled && y > ENTER) state.header.classList.add('is-scrolled');
+      else if (scrolled && y < EXIT) state.header.classList.remove('is-scrolled');
+    };
+
+    const request = () => {
+      if (state.headerScrollRaf) return;
+      state.headerScrollRaf = requestAnimationFrame(apply);
+    };
+
+    window.addEventListener('scroll', request, { passive: true });
+    apply();
   }
 
   function isOpen() {
@@ -431,13 +458,20 @@
     const currentPath = normalizePath(currentUrl.href);
     const currentHash = currentUrl.hash;
 
-    links.forEach((link) => {
-      const linkUrl = new URL(link.href, location.href);
-      const linkPath = normalizePath(linkUrl.href);
-      const samePath = linkPath === currentPath;
-      const isCurrent = linkUrl.hash
-        ? samePath && linkUrl.hash === currentHash
-        : samePath && !currentUrl.hash;
+    const parsed = links.map((link) => {
+      const url = new URL(link.href, location.href);
+      return { link, hash: url.hash, samePath: normalizePath(url.href) === currentPath };
+    });
+
+    /* Um link sem âncora (casal.html) continua sendo a página atual
+       quando a URL tem uma âncora interna (casal.html#como-funciona) —
+       a menos que algum link do menu aponte exatamente para ela. */
+    const hashMatched = parsed.some((item) => item.hash && item.samePath && item.hash === currentHash);
+
+    parsed.forEach(({ link, hash, samePath }) => {
+      const isCurrent = hash
+        ? samePath && hash === currentHash
+        : samePath && (!currentHash || !hashMatched);
 
       link.classList.toggle('active', isCurrent);
       if (isCurrent) link.setAttribute('aria-current', 'page');
